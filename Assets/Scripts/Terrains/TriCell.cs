@@ -2,5 +2,5 @@
 using System.Collections;
 
 public class TriCell : MonoBehaviour {
-    public int x, z;
+    public TriCoordinates coordinates;
 }

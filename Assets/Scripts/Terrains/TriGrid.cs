@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TriGrid : MonoBehaviour {
@@ -8,7 +8,10 @@ public class TriGrid : MonoBehaviour {
     public TriCell cellPrefab;
     TriMesh triMesh;
     TriCell[] cells;
+    public Text cellLabelPrefab;
+    Canvas gridCanvas;
     void Awake() {
+        gridCanvas = GetComponentInChildren<Canvas>();
         cells = new TriCell[height * width];
         triMesh = GetComponentInChildren<TriMesh>();
         for (int z = 0, i = 0; z < height; z++) {
@@ -24,13 +27,19 @@ public class TriGrid : MonoBehaviour {
         Vector3 position;
         position.x = x * TriMetrics.innerRadius;
         position.y = 0f;
-        position.z = z* TriMetrics.outerRadius*1.5f-(0.5f*TriMetrics.outerRadius*((x+z)%2));
+        position.z = z * TriMetrics.outerRadius * 1.5f - (0.5f * TriMetrics.outerRadius * ((x + z) % 2));
         TriCell cell = cells[i] = Instantiate<TriCell>(cellPrefab);
-        cell.x = x;
-        cell.z = z;
+        
+        cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
-        
+
+        Text label = Instantiate<Text>(cellLabelPrefab);
+        label.rectTransform.SetParent(gridCanvas.transform, false);
+        label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
+        label.text = x.ToString() + "\n" + z.ToString();
+
+
     }
     void Update() {
         if (Input.GetMouseButton(0)) {
@@ -48,6 +57,7 @@ public class TriGrid : MonoBehaviour {
 
     void TouchCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
-        Debug.Log("touched at " + position);
+        TriCoordinates coordinates = TriCoordinates.FromPosition(position);
+        Debug.Log("touched at " + coordinates.ToString());
     }
 }
