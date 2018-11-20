@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 143506542}
   - component: {fileID: 143506541}
   m_Layer: 0
-  m_Name: HexGrid
+  m_Name: TriGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,12 +137,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 143506540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5566b7b0e417c1b43af96ff623820161, type: 3}
+  m_Script: {fileID: 11500000, guid: f34f21c3d3f73ea4192b2dc9bea2b10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 6
   height: 6
-  cellPrefab: {fileID: 114260844115292854, guid: 3ea93bb8d2b72f34da8a64ad0e09a8d5,
+  cellPrefab: {fileID: 114331808736065278, guid: 28a4e9144e86c10489bc46c2502a9459,
     type: 2}
 --- !u!4 &143506542
 Transform:
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 994438774}
   - component: {fileID: 994438773}
   m_Layer: 0
-  m_Name: Hex Mesh
+  m_Name: Tri Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 994438771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d2ad8b2f05cf5f489fa70276f81c43f, type: 3}
+  m_Script: {fileID: 11500000, guid: 216f5247258847942a8df9b17f1df5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &994438774
