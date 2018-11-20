@@ -33,12 +33,21 @@ public class TriGrid : MonoBehaviour {
         position.y = 0f;
         position.z = z * TriMetrics.outerRadius * 1.5f - (0.5f * TriMetrics.outerRadius * ((x + z) % 2));
         TriCell cell = cells[i] = Instantiate<TriCell>(cellPrefab);
-        
+        if ((x + z) % 2 == 0) {
+            cell.inverted = true;
+        }
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
 
         cell.color = defaultColor;
+
+        if (x > 0) {
+            cell.SetNeighbor(TriDirection.LEFT, cells[i - 1]);
+        }
+        if (z > 0&&!cell.inverted) {
+            cell.SetNeighbor(TriDirection.VERT, cells[i - width]);
+        }
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);

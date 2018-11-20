@@ -22,10 +22,7 @@ public class TriMesh : MonoBehaviour {
         triangles.Clear();
         colors.Clear();
         for (int i = 0; i < cells.Length; i++) {
-            if ((cells[i].coordinates.X+cells[i].coordinates.Z) % 2 == 0)
-                Triangulate(cells[i], true);
-            else
-                Triangulate(cells[i], false);
+                Triangulate(cells[i]);
         }
         triMesh.vertices = vertices.ToArray();
         triMesh.triangles = triangles.ToArray();
@@ -33,10 +30,10 @@ public class TriMesh : MonoBehaviour {
         triMesh.colors = colors.ToArray();
         meshCollider.sharedMesh = triMesh;
     }
-    void Triangulate(TriCell cell, bool inversed) {
+    void Triangulate(TriCell cell) {
         Vector3 center = cell.transform.localPosition;
         for(int i = 0; i < 3; i++) {
-            if (!inversed)
+            if (!cell.inverted)
                 AddTriangle(
                     center,
                     center + TriMetrics.corners[i],
