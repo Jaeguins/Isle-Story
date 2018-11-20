@@ -10,6 +10,10 @@ public class TriGrid : MonoBehaviour {
     TriCell[] cells;
     public Text cellLabelPrefab;
     Canvas gridCanvas;
+
+    public Color defaultColor = Color.white;
+    public Color touchedColor = Color.magenta;
+
     void Awake() {
         gridCanvas = GetComponentInChildren<Canvas>();
         cells = new TriCell[height * width];
@@ -33,6 +37,8 @@ public class TriGrid : MonoBehaviour {
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
+
+        cell.color = defaultColor;
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
@@ -58,6 +64,9 @@ public class TriGrid : MonoBehaviour {
     void TouchCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
-        Debug.Log("touched at " + coordinates.ToString());
+        int index = coordinates.X + coordinates.Z*width;
+        TriCell cell = cells[index];
+        cell.color = touchedColor;
+        triMesh.Triangulate(cells);
     }
 }
