@@ -26,8 +26,8 @@ public class TriMesh : MonoBehaviour {
         }
         triMesh.vertices = vertices.ToArray();
         triMesh.triangles = triangles.ToArray();
-        triMesh.RecalculateNormals();
         triMesh.colors = colors.ToArray();
+        triMesh.RecalculateNormals();
         meshCollider.sharedMesh = triMesh;
     }
     void Triangulate(TriCell cell) {
@@ -41,8 +41,8 @@ public class TriMesh : MonoBehaviour {
                 );
             else AddTriangle(
                     center,
-                    center + TriMetrics.inverseCorners[i],
-                    center + TriMetrics.inverseCorners[i + 1]
+                    center - TriMetrics.corners[i],
+                    center - TriMetrics.corners[i + 1]
                 );
             AddTriangleColor(cell.color);
         }

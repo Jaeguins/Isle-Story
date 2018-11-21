@@ -51,3 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672fe695321dcea4bab5b2cee790a459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 0
+    z: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  inverted: 0
+  neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
