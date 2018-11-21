@@ -6,9 +6,6 @@ public class TriCell : MonoBehaviour {
     public Color color;
     public bool inverted=false;
     public int elevation;
-    private void Start() {
-        color = Random.ColorHSV();
-    }
     [SerializeField]
     TriCell[] neighbors;
     public TriCell GetNeighbor(TriDirection direction) {

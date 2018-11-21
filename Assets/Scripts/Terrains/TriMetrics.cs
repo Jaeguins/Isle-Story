@@ -6,8 +6,9 @@ public class TriMetrics {
     public const float innerRadius = 10f;
 
     public const float solidFactor = 0.3f;
-
     public const float blendFactor = 1f - solidFactor;
+
+    public const float elevationStep = 5f;
 
     static Vector3[] corners = {
         new Vector3(0f,0f,outerRadius),

@@ -62,26 +62,12 @@ public class TriGrid : MonoBehaviour {
 
 
     }
-    void Update() {
-        if (Input.GetMouseButton(0)) {
-            HandleInput();
-        }
-    }
-
-    void HandleInput() {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) {
-            TouchCell(hit.point);
-        }
-    }
-
-    void TouchCell(Vector3 position) {
+    public void ColorCell(Vector3 position,Color color) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z*width;
         TriCell cell = cells[index];
-        cell.color = touchedColor;
+        cell.color = color;
         triMesh.Triangulate(cells);
     }
 }
