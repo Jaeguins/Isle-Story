@@ -20,7 +20,15 @@ And it makes me skip filling between blendered tiles(because it doesn't have any
 
 So today's work:
 
-![triangular tiles](/Diary/Image/20181121_0.PNG)
+![blendered tiles](/Diary/Image/20181121_0.PNG)
 
 Colors were put for visibility.
+
+I realized that I must not skip bridging-filling between blendered tiles, so turned back to that.
+
+And reform Tiles' coordinate calculation, value of enums, etc..
+
+Finally I got this:
+
+![wired tiles](/Diary/Image/20181121_1.PNG)
 ***
