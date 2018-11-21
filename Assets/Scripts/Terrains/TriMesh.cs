@@ -31,7 +31,7 @@ public class TriMesh : MonoBehaviour {
         meshCollider.sharedMesh = triMesh;
     }
     void Triangulate(TriCell cell) {
-        for (TriDirection d = TriDirection.VERT; d <= TriDirection.LEFT; d++) {
+        for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
             Triangulate(d, cell);
         }
     }
@@ -60,15 +60,13 @@ public class TriMesh : MonoBehaviour {
 
         AddQuad(v1, v2, v3, v4);
 
-        TriCell prevNeighbor = cell.GetNeighbor(direction.Previous(cell.inverted)) ?? cell;
         TriCell neighbor = cell.GetNeighbor(direction) ?? cell;
-        TriCell nextNeighbor = cell.GetNeighbor(direction.Next(cell.inverted)) ?? cell;
 
         AddQuadColor(
             cell.color,
             cell.color,
-            (cell.color + prevNeighbor.color + neighbor.color) / 3f,
-            (cell.color + neighbor.color + nextNeighbor.color) / 3f
+            (cell.color + neighbor.color) / 2f,
+            (cell.color + neighbor.color) / 2f
             );
     }
     void AddTriangleColor(Color c1) {

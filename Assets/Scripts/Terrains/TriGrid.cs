@@ -43,7 +43,13 @@ public class TriGrid : MonoBehaviour {
         cell.color = defaultColor;
 
         if (x > 0) {
-            cell.SetNeighbor(TriDirection.LEFT, cells[i - 1]);
+            if (cell.inverted) {
+                cell.SetNeighbor(TriDirection.RIGHT, cells[i - 1]);
+            }
+            else {
+                cell.SetNeighbor(TriDirection.LEFT, cells[i - 1]);
+            }
+            
         }
         if (z > 0&&!cell.inverted) {
             cell.SetNeighbor(TriDirection.VERT, cells[i - width]);

@@ -1,7 +1,7 @@
 # Development Diary
 ***
 ## 2018/11/20
-project started.
+Project started.
 
 I'm inspired when I find tutorial with Hex map.(https://catlikecoding.com/unity/tutorials/hex-map/)
 
@@ -9,5 +9,18 @@ But in my case, I want to make my own so I'll try with triangular tiles.
 
 And today's work:
 
-![2018/11/20](/Diary/Image/20181120_0.PNG "Optional title")
+![triangular tiles](/Diary/Image/20181120_0.PNG)
+***
+## 2018/11/21
+Blending colors with near tiles finished.
+
+I'm nearly get tired of change hexagon-tile in tutorial found yesterday to triangular one, but finally I did it.
+
+And it makes me skip filling between blendered tiles(because it doesn't have any gap!).
+
+So today's work:
+
+![triangular tiles](/Diary/Image/20181121_0.PNG)
+
+Colors were put for visibility.
 ***
