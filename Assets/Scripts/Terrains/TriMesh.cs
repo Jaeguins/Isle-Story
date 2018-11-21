@@ -31,27 +31,35 @@ public class TriMesh : MonoBehaviour {
         meshCollider.sharedMesh = triMesh;
     }
     void Triangulate(TriCell cell) {
+        for (TriDirection d = TriDirection.VERT; d <= TriDirection.LEFT; d++) {
+            Triangulate(d, cell);
+        }
+    }
+    void Triangulate(TriDirection direction,TriCell cell) { 
         Vector3 center = cell.transform.localPosition;
         for(int i = 0; i < 3; i++) {
             if (!cell.inverted)
                 AddTriangle(
                     center,
-                    center + TriMetrics.corners[i],
-                    center + TriMetrics.corners[i+1]
+                    center + TriMetrics.GetFirstCorner(direction,cell.inverted),
+                    center + TriMetrics.GetSecondCorner(direction, cell.inverted)
                 );
             else AddTriangle(
                     center,
-                    center - TriMetrics.corners[i],
-                    center - TriMetrics.corners[i + 1]
+                    center - TriMetrics.GetFirstCorner(direction, cell.inverted),
+                    center - TriMetrics.GetSecondCorner(direction, cell.inverted)
                 );
-            AddTriangleColor(cell.color);
+            TriCell neighbor = cell.GetNeighbor(direction) ?? cell;
+            Color edgeColor = (cell.color + neighbor.color) * 0.5f;
+            AddTriangleColor(cell.color, edgeColor, edgeColor);
+            //AddTriangleColor(Color.red,Color.green, Color.blue);
         }
     }
 
-    void AddTriangleColor(Color color) {
-        colors.Add(color);
-        colors.Add(color);
-        colors.Add(color);
+    void AddTriangleColor(Color c1, Color c2, Color c3) {
+        colors.Add(c1);
+        colors.Add(c2);
+        colors.Add(c3);
     }
 
     void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
