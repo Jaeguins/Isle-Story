@@ -40,6 +40,9 @@ public class TriGrid : MonoBehaviour {
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
 
+        Text label = Instantiate<Text>(cellLabelPrefab);
+        cell.uiRect = label.rectTransform;
+
         cell.color = defaultColor;
 
         if (x > 0) {
@@ -55,19 +58,28 @@ public class TriGrid : MonoBehaviour {
             cell.SetNeighbor(TriDirection.VERT, cells[i - width]);
         }
 
-        Text label = Instantiate<Text>(cellLabelPrefab);
+        
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = x.ToString() + "\n" + z.ToString();
 
 
     }
-    public void ColorCell(Vector3 position,Color color) {
+    public TriCell GetCell(Vector3 position) {
+        position = transform.InverseTransformPoint(position);
+        TriCoordinates coordinates = TriCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width;
+        return cells[index];
+    }
+        public void ColorCell(Vector3 position,Color color) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z*width;
         TriCell cell = cells[index];
         cell.color = color;
+        triMesh.Triangulate(cells);
+    }
+    public void Refresh() {
         triMesh.Triangulate(cells);
     }
 }

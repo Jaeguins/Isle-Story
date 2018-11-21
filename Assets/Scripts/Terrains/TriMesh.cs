@@ -62,16 +62,21 @@ public class TriMesh : MonoBehaviour {
         if (neighbor == null) return;
         Vector3 bridge = TriMetrics.GetBridge(direction);
         Vector3 v3 = v1 + inverter * bridge, v4 = v2 + inverter * bridge;
+        v3.y = v4.y = neighbor.Elevation * TriMetrics.elevationStep;
 
         AddQuad(v1, v2, v3, v4);
         AddQuadColor(cell.color, neighbor.color);
-
+        /*
         TriCell nextNeighbor = cell.GetNeighbor(direction.Next())??cell;
         TriCell prevNeighbor = cell.GetNeighbor(direction.Previous())??cell;
-        AddTriangle(v2, v4, center + inverter * TriMetrics.GetSecondCorner(direction));
+        Vector3 v5 = center + inverter * TriMetrics.GetSecondCorner(direction);
+        v5.y = nextNeighbor.Elevation * TriMetrics.elevationStep;
+        AddTriangle(v2, v4, v5);
         AddTriangleColor(cell.color, neighbor.color, neighbor.color);
-        AddTriangle(v3, v1, center + inverter * TriMetrics.GetFirstCorner(direction));
-        AddTriangleColor(neighbor.color, cell.color, neighbor.color);
+        v5 = center + inverter * TriMetrics.GetFirstCorner(direction);
+        v5.y = prevNeighbor.Elevation * TriMetrics.elevationStep;
+        AddTriangle(v3, v1, v5);
+        AddTriangleColor(neighbor.color, cell.color, neighbor.color);*/
     }
     void AddTriangleColor(Color c1) {
         colors.Add(c1);
