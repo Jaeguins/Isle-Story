@@ -39,36 +39,39 @@ public class TriMesh : MonoBehaviour {
         int inverter = 0;
         if (cell.inverted) inverter = -1;
         else inverter = 1;
+
         Vector3 center = cell.transform.localPosition, v1, v2;
         v1 = center + inverter * TriMetrics.GetFirstSolidCorner(direction);
         v2 = center + inverter * TriMetrics.GetSecondSolidCorner(direction);
+
         AddTriangle(center, v1, v2);
         AddTriangleColor(cell.color);
+        if (cell.inverted) {
+            if (direction != TriDirection.LEFT)
+                TriangulateConnection(direction, cell, v1, v2, inverter);
+        }
+        else {
+            if (direction == TriDirection.LEFT)
+                TriangulateConnection(direction, cell, v1, v2, inverter);
+        }
+
+    }
+    void TriangulateConnection(TriDirection direction, TriCell cell, Vector3 v1, Vector3 v2, int inverter) {
+        Vector3 center = cell.transform.localPosition;
+        TriCell neighbor = cell.GetNeighbor(direction);
+        if (neighbor == null) return;
         Vector3 bridge = TriMetrics.GetBridge(direction);
-        Vector3 v3 = v1, v4 = v2;
-        v3 += inverter * bridge;
-        v4 += inverter * bridge;
+        Vector3 v3 = v1 + inverter * bridge, v4 = v2 + inverter * bridge;
 
         AddQuad(v1, v2, v3, v4);
+        AddQuadColor(cell.color, neighbor.color);
 
-        TriCell neighbor = cell.GetNeighbor(direction) ?? cell;
-        TriCell prevNeighbor = cell.GetNeighbor(direction.Previous()) ?? cell;
-        TriCell nextNeighbor = cell.GetNeighbor(direction.Next()) ?? cell;
-        Color bridgeColor = (cell.color + neighbor.color) * 0.5f;
-
-        AddQuadColor(cell.color, bridgeColor);
-        AddTriangle(v1, center + inverter * TriMetrics.GetFirstCorner(direction), v3);
-        AddTriangleColor(
-            cell.color,
-            (cell.color + prevNeighbor.color + neighbor.color) / 3f,
-            bridgeColor
-        );
+        TriCell nextNeighbor = cell.GetNeighbor(direction.Next())??cell;
+        TriCell prevNeighbor = cell.GetNeighbor(direction.Previous())??cell;
         AddTriangle(v2, v4, center + inverter * TriMetrics.GetSecondCorner(direction));
-        AddTriangleColor(
-            cell.color,
-            bridgeColor,
-            (cell.color + neighbor.color + nextNeighbor.color) / 3f
-        );
+        AddTriangleColor(cell.color, neighbor.color, neighbor.color);
+        AddTriangle(v3, v1, center + inverter * TriMetrics.GetFirstCorner(direction));
+        AddTriangleColor(neighbor.color, cell.color, neighbor.color);
     }
     void AddTriangleColor(Color c1) {
         colors.Add(c1);

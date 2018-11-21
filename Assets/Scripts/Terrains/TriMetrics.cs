@@ -32,6 +32,6 @@ public class TriMetrics {
         return GetSecondCorner(direction) * solidFactor;
     }
     public static Vector3 GetBridge(TriDirection direction) {
-        return (GetFirstCorner(direction) + GetSecondCorner(direction)) *0.5f * blendFactor;
+        return (GetFirstCorner(direction) + GetSecondCorner(direction))*blendFactor;
     }
 }
