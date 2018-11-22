@@ -20,9 +20,7 @@ public class TriCell : MonoBehaviour {
             elevation = value;
             Vector3 position = transform.localPosition;
             position.y = value * TriMetrics.elevationStep;
-            position.y +=
-                (TriMetrics.SampleNoise(position).y * 2f - 1f) * 
-                TriMetrics.elevationPerturbStrength;
+            //position.y +=(TriMetrics.SampleNoise(position).y * 2f - 1f) * TriMetrics.elevationPerturbStrength;
             transform.localPosition = position;
 
             Vector3 uiPosition = uiRect.localPosition;
