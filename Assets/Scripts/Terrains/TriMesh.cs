@@ -45,7 +45,7 @@ public class TriMesh : MonoBehaviour {
         v1 = center + inverter * TriMetrics.GetFirstSolidCorner(direction);
         v2 = center + inverter * TriMetrics.GetSecondSolidCorner(direction);
         EdgeVertices e = new EdgeVertices(v1, v2);
-        TriangulateEdgeFan(center, e, cell.color);
+        TriangulateEdgeFan(center, e, cell.Color);
         if (cell.inverted) {
             if (direction != TriDirection.LEFT)
                 TriangulateConnection(direction, cell, e, inverter);
@@ -66,7 +66,7 @@ public class TriMesh : MonoBehaviour {
             e1.v1+bridge,
             e1.v4+bridge
             );
-        TriangulateEdgeStrip(e1, cell.color, e2, neighbor.color);
+        TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color);
 
     }
     void AddTriangleColor(Color c1) {

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4853176958000626}
   - component: {fileID: 114331808736065278}
   m_Layer: 0
-  m_Name: TriCell
+  m_Name: Tri Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
     z: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   inverted: 0
+  uiRect: {fileID: 0}
   neighbors:
   - {fileID: 0}
   - {fileID: 0}

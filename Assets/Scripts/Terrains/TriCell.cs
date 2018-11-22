@@ -3,10 +3,22 @@ using System.Collections;
 
 public class TriCell : MonoBehaviour {
     public TriCoordinates coordinates;
-    public Color color;
     public bool inverted=false;
     public RectTransform uiRect;
-
+    public TriGridChunk chunk;
+    public Color Color {
+        get {
+            return color;
+        }
+        set {
+            if (color == value) {
+                return;
+            }
+            color = value;
+            Refresh();
+        }
+    }
+    Color color;
     public Vector3 Position {
         get {
             return transform.localPosition;
@@ -17,18 +29,19 @@ public class TriCell : MonoBehaviour {
             return elevation;
         }
         set {
+            if (elevation == value) return;
             elevation = value;
             Vector3 position = transform.localPosition;
             position.y = value * TriMetrics.elevationStep;
-            //position.y +=(TriMetrics.SampleNoise(position).y * 2f - 1f) * TriMetrics.elevationPerturbStrength;
             transform.localPosition = position;
 
             Vector3 uiPosition = uiRect.localPosition;
             uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
+            Refresh();
         }
     }
-    int elevation;
+    int elevation=int.MinValue;
     [SerializeField]
     TriCell[] neighbors;
     public TriCell GetNeighbor(TriDirection direction) {
@@ -37,5 +50,9 @@ public class TriCell : MonoBehaviour {
     public void SetNeighbor(TriDirection direction, TriCell cell) {
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction] = this;
+    }
+    void Refresh() {
+        if(chunk)
+        chunk.Refresh();
     }
 }

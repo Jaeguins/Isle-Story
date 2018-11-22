@@ -3,13 +3,15 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TriGrid : MonoBehaviour {
-    public int width = 6;
-    public int height = 6;
+    public int cellCountX = 6;
+    public int cellCountZ = 6;
     public TriCell cellPrefab;
-    TriMesh triMesh;
     TriCell[] cells;
+    TriGridChunk[] chunks;
     public Text cellLabelPrefab;
-    Canvas gridCanvas;
+    public TriGridChunk chunkPrefab;
+
+    public int chunkCountX = 4, chunkCountZ = 3;
 
     public Color defaultColor = Color.white;
     public Color touchedColor = Color.magenta;
@@ -25,20 +27,33 @@ public class TriGrid : MonoBehaviour {
 
         TriMetrics.noiseSource = noiseSource;
 
-        gridCanvas = GetComponentInChildren<Canvas>();
-        cells = new TriCell[height * width];
-        triMesh = GetComponentInChildren<TriMesh>();
-        for (int z = 0, i = 0; z < height; z++) {
-            for (int x = 0; x < width; x++) {
+        cellCountX = chunkCountX * TriMetrics.chunkSizeX;
+        cellCountZ = chunkCountZ * TriMetrics.chunkSizeZ;
+        CreateChunks();
+        CreateCells();
+    }
+
+    void CreateChunks() {
+        chunks = new TriGridChunk[chunkCountX * chunkCountZ];
+
+        for (int z = 0, i = 0; z < chunkCountZ; z++) {
+            for (int x = 0; x < chunkCountX; x++) {
+                TriGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
+                chunk.transform.SetParent(transform);
+            }
+        }
+    }
+
+    void CreateCells() {
+        cells = new TriCell[cellCountZ * cellCountX];
+
+        for (int z = 0, i = 0; z < cellCountZ; z++) {
+            for (int x = 0; x < cellCountX; x++) {
                 CreateCell(x, z, i++);
             }
         }
     }
 
-
-    void Start() {
-        triMesh.Triangulate(cells);
-    }
     void CreateCell(int x, int z, int i) {
         Vector3 position;
         position.x = x * TriMetrics.innerRadius;
@@ -49,49 +64,45 @@ public class TriGrid : MonoBehaviour {
             cell.inverted = true;
         }
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
-        cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
 
+        if (x > 0)
+            if (cell.inverted) cell.SetNeighbor(TriDirection.RIGHT, cells[i - 1]);
+            else cell.SetNeighbor(TriDirection.LEFT, cells[i - 1]);
+        if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
+
+        cell.Elevation = 0;
         Text label = Instantiate<Text>(cellLabelPrefab);
         cell.uiRect = label.rectTransform;
-
-        cell.color = defaultColor;
-
-        if (x > 0) {
-            if (cell.inverted) {
-                cell.SetNeighbor(TriDirection.RIGHT, cells[i - 1]);
-            }
-            else {
-                cell.SetNeighbor(TriDirection.LEFT, cells[i - 1]);
-            }
-            
-        }
-        if (z > 0&&!cell.inverted) {
-            cell.SetNeighbor(TriDirection.VERT, cells[i - width]);
-        }
-
-        
-        label.rectTransform.SetParent(gridCanvas.transform, false);
+        cell.Color = defaultColor;
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = x.ToString() + "\n" + z.ToString();
 
-        cell.Elevation = 0;
+        AddCellToChunk(x, z, cell);
     }
+    void AddCellToChunk(int x, int z, TriCell cell) {
+        int chunkX = x / TriMetrics.chunkSizeX;
+        int chunkZ = z / TriMetrics.chunkSizeZ;
+        TriGridChunk chunk = chunks[chunkX + chunkZ * chunkCountX];
+
+        int localX = x - chunkX * TriMetrics.chunkSizeX;
+        int localZ = z - chunkZ * TriMetrics.chunkSizeZ;
+        chunk.AddCell(localX + localZ * TriMetrics.chunkSizeX, cell);
+    }
+
+
     public TriCell GetCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * width;
+        int index = coordinates.X + coordinates.Z * cellCountX;
         return cells[index];
     }
-        public void ColorCell(Vector3 position,Color color) {
+    public void ColorCell(Vector3 position, Color color) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z*width;
+        int index = coordinates.X + coordinates.Z * cellCountX;
         TriCell cell = cells[index];
-        cell.color = color;
-        triMesh.Triangulate(cells);
-    }
-    public void Refresh() {
-        triMesh.Triangulate(cells);
+        cell.Color = color;
+        //triMesh.Triangulate(cells);
     }
 }

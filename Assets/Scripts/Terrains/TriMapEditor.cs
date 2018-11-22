@@ -32,8 +32,7 @@ public class TriMapEditor : MonoBehaviour {
         activeColor = colors[index];
     }
     void EditCell(TriCell cell) {
-        cell.color = activeColor;
+        cell.Color = activeColor;
         cell.Elevation = activeElevation;
-        triGrid.Refresh();
     }
 }

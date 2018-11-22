@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 143506542}
   - component: {fileID: 143506541}
   m_Layer: 0
-  m_Name: TriGrid
+  m_Name: Tri Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,12 +140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f21c3d3f73ea4192b2dc9bea2b10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 6
+  cellCountX: 6
+  cellCountZ: 6
   cellPrefab: {fileID: 114331808736065278, guid: 28a4e9144e86c10489bc46c2502a9459,
     type: 2}
   cellLabelPrefab: {fileID: 114524784260746254, guid: b970d7c3bd73e7b45ba9eb25e950f41a,
     type: 2}
+  chunkPrefab: {fileID: 114883109902830390, guid: b0b4c425700a88443b16cc890b261749,
+    type: 2}
+  chunkCountX: 4
+  chunkCountZ: 3
   defaultColor: {r: 0.14481258, g: 0, b: 1, a: 1}
   touchedColor: {r: 1, g: 0, b: 1, a: 1}
   noiseSource: {fileID: 2800000, guid: 126078bd8e4d25d48a5267cc811a2ace, type: 3}
