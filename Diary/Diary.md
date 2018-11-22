@@ -47,5 +47,5 @@ It makes tiles more naturally.
 
 today's temporal work:
 
-![ tiles](/Diary/Image/20181122_0.PNG)
+![ tiles](/Diary/Image/20181122_0.png)
 ***
