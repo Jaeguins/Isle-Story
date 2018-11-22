@@ -6,6 +6,12 @@ public class TriCell : MonoBehaviour {
     public Color color;
     public bool inverted=false;
     public RectTransform uiRect;
+
+    public Vector3 Position {
+        get {
+            return transform.localPosition;
+        }
+    }
     public int Elevation {
         get {
             return elevation;
@@ -14,10 +20,13 @@ public class TriCell : MonoBehaviour {
             elevation = value;
             Vector3 position = transform.localPosition;
             position.y = value * TriMetrics.elevationStep;
+            position.y +=
+                (TriMetrics.SampleNoise(position).y * 2f - 1f) * 
+                TriMetrics.elevationPerturbStrength;
             transform.localPosition = position;
 
             Vector3 uiPosition = uiRect.localPosition;
-            uiPosition.z = elevation * -TriMetrics.elevationStep;
+            uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
         }
     }

@@ -14,7 +14,17 @@ public class TriGrid : MonoBehaviour {
     public Color defaultColor = Color.white;
     public Color touchedColor = Color.magenta;
 
+    public Texture2D noiseSource;
+
+
+    private void OnEnable() {
+        TriMetrics.noiseSource = noiseSource;
+    }
+
     void Awake() {
+
+        TriMetrics.noiseSource = noiseSource;
+
         gridCanvas = GetComponentInChildren<Canvas>();
         cells = new TriCell[height * width];
         triMesh = GetComponentInChildren<TriMesh>();
@@ -24,6 +34,8 @@ public class TriGrid : MonoBehaviour {
             }
         }
     }
+
+
     void Start() {
         triMesh.Triangulate(cells);
     }
@@ -63,7 +75,7 @@ public class TriGrid : MonoBehaviour {
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = x.ToString() + "\n" + z.ToString();
 
-
+        cell.Elevation = 0;
     }
     public TriCell GetCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
