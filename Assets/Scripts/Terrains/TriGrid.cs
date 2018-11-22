@@ -14,7 +14,6 @@ public class TriGrid : MonoBehaviour {
     public int chunkCountX = 4, chunkCountZ = 3;
 
     public Color defaultColor = Color.white;
-    public Color touchedColor = Color.magenta;
 
     public Texture2D noiseSource;
 
@@ -97,12 +96,16 @@ public class TriGrid : MonoBehaviour {
         int index = coordinates.X + coordinates.Z * cellCountX;
         return cells[index];
     }
+    public TriCell GetCell(int x,int z) {
+        TriCoordinates coordinates = new TriCoordinates(x, z);
+        int index = coordinates.X + coordinates.Z * cellCountX;
+        return cells[index];
+    }
     public void ColorCell(Vector3 position, Color color) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * cellCountX;
         TriCell cell = cells[index];
         cell.Color = color;
-        //triMesh.Triangulate(cells);
     }
 }

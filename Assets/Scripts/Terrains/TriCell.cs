@@ -52,7 +52,15 @@ public class TriCell : MonoBehaviour {
         cell.neighbors[(int)direction] = this;
     }
     void Refresh() {
-        if(chunk)
-        chunk.Refresh();
+        if (chunk) {
+            chunk.Refresh();
+            for (int i = 0; i < neighbors.Length; i++) {
+                TriCell neighbor = neighbors[i];
+                if (neighbor != null && neighbor.chunk != chunk) {
+                    neighbor.chunk.Refresh();
+                }
+            }
+        }
+        
     }
 }

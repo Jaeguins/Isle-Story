@@ -20,7 +20,7 @@ And it makes me skip filling between blendered tiles(because it doesn't have any
 
 So today's work:
 
-![blendered tiles](/Diary/Image/20181121_0.PNG)
+![Blendered tiles](/Diary/Image/20181121_0.PNG)
 
 Colors were put for visibility.
 
@@ -30,7 +30,7 @@ And reform Tiles' coordinate calculation, value of enums, etc..
 
 Finally I got this:
 
-![wired tiles](/Diary/Image/20181121_1.PNG)
+![Wired tiles](/Diary/Image/20181121_1.PNG)
 ***
 ## 2018/11/22
 Throwed away blending but get elevation.
@@ -47,5 +47,15 @@ It makes tiles more naturally.
 
 today's temporal work:
 
-![ tiles](/Diary/Image/20181122_0.png)
+![Triangular tiles](/Diary/Image/20181122_0.png)
+
+Additional Work!
+
+I updated UI for testing and generate example randomly hexagonal tiles.
+
+But still editable with Triangular too.
+
+![Hexa-triangular tiles](/Diary/Image/20181122_1.PNG)
+
+
 ***

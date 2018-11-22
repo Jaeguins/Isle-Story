@@ -26,6 +26,10 @@ public class TriGridChunk : MonoBehaviour {
         cell.uiRect.SetParent(gridCanvas.transform, false);
     }
     public void Refresh() {
+        enabled = true;
+    }
+    private void LateUpdate() {
         triMesh.Triangulate(cells);
+        enabled = false;
     }
 }

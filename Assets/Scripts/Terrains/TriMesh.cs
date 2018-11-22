@@ -4,17 +4,14 @@ using System.Collections.Generic;
 public class TriMesh : MonoBehaviour {
     Mesh triMesh;
     MeshCollider meshCollider;
-    List<Vector3> vertices;
-    List<int> triangles;
-    List<Color> colors;
+    static List<Vector3> vertices = new List<Vector3>();
+    static List<Color> colors = new List<Color>();
+    static List<int> triangles = new List<int>();
 
     void Awake() {
         GetComponent<MeshFilter>().mesh = triMesh = new Mesh();
         meshCollider = gameObject.AddComponent<MeshCollider>();
         triMesh.name = "Tri Mesh";
-        vertices = new List<Vector3>();
-        triangles = new List<int>();
-        colors = new List<Color>();
     }
     public void Triangulate(TriCell[] cells) {
         triMesh.Clear();
