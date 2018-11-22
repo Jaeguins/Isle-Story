@@ -4,7 +4,6 @@ using System.Collections;
 
 public class TriGridChunk : MonoBehaviour {
     TriCell[] cells;
-
     public TriMesh terrain;
     Canvas gridCanvas;
     public void setLabels(bool val) {
@@ -13,12 +12,11 @@ public class TriGridChunk : MonoBehaviour {
     void Awake() {
         gridCanvas = GetComponentInChildren<Canvas>();
         cells = new TriCell[TriMetrics.chunkSizeX * TriMetrics.chunkSizeZ];
+        ShowUI(false);
     }
-
-    void Start() {
-        terrain.Triangulate(cells);
+    public void ShowUI(bool visible) {
+        gridCanvas.gameObject.SetActive(visible);
     }
-
     public void AddCell(int index, TriCell cell) {
         cells[index] = cell;
         cell.chunk = this;
@@ -29,10 +27,13 @@ public class TriGridChunk : MonoBehaviour {
         enabled = true;
     }
     private void LateUpdate() {
-        Triangulate();
-        enabled = false;
+        if (enabled) {
+            Triangulate();
+            enabled = false;
+        }
     }
     public void Triangulate() {
+        terrain.Clear();
         for (int i = 0; i < cells.Length; i++) {
             Triangulate(cells[i]);
         }

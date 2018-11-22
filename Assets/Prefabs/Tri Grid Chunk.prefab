@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 23403003129332990}
   - component: {fileID: 114366114487440188}
   m_Layer: 0
-  m_Name: Tri Mesh
+  m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216f5247258847942a8df9b17f1df5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useCollider: 0
 --- !u!114 &114883109902830390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7ae953dc9df8d4aba9b3fc4e217165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrain: {fileID: 114366114487440188}
 --- !u!223 &223517701920100398
 Canvas:
   m_ObjectHideFlags: 1

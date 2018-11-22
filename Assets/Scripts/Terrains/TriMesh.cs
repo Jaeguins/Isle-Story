@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class TriMesh : MonoBehaviour {
     Mesh triMesh;
+    public bool useCollider;
     MeshCollider meshCollider;
-    static List<Vector3> vertices = new List<Vector3>();
-    static List<Color> colors = new List<Color>();
-    static List<int> triangles = new List<int>();
+    [NonSerialized] List<Vector3> vertices;
+    [NonSerialized] List<Color> colors;
+    [NonSerialized] List<int> triangles;
 
     void Awake() {
         GetComponent<MeshFilter>().mesh = triMesh = new Mesh();
@@ -16,15 +18,18 @@ public class TriMesh : MonoBehaviour {
 
     public void Clear() {
         triMesh.Clear();
-        vertices.Clear();
-        colors.Clear();
-        triangles.Clear();
+        vertices = ListPool<Vector3>.Get();
+        colors = ListPool<Color>.Get();
+        triangles = ListPool<int>.Get();
     }
 
     public void Apply() {
         triMesh.SetVertices(vertices);
+        ListPool<Vector3>.Add(vertices);
         triMesh.SetColors(colors);
+        ListPool<Color>.Add(colors);
         triMesh.SetTriangles(triangles, 0);
+        ListPool<int>.Add(triangles);
         triMesh.RecalculateNormals();
         meshCollider.sharedMesh = triMesh;
     }

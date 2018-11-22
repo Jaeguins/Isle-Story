@@ -39,7 +39,6 @@ public class TriGrid : MonoBehaviour {
 
     void CreateChunks() {
         chunks = new TriGridChunk[chunkCountX * chunkCountZ];
-
         for (int z = 0, i = 0; z < chunkCountZ; z++) {
             for (int x = 0; x < chunkCountX; x++) {
                 TriGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
@@ -50,11 +49,11 @@ public class TriGrid : MonoBehaviour {
 
     void CreateCells() {
         cells = new TriCell[cellCountZ * cellCountX];
-
         for (int z = 0, i = 0; z < cellCountZ; z++) {
             for (int x = 0; x < cellCountX; x++) {
                 CreateCell(x, z, i++);
             }
+            
         }
     }
 
