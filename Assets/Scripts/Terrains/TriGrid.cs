@@ -17,6 +17,11 @@ public class TriGrid : MonoBehaviour {
 
     public Texture2D noiseSource;
 
+    public void setLabels(bool val) {
+        for(int i = 0; i < chunks.Length; i++) {
+            chunks[i].setLabels(val);
+        }
+    }
 
     private void OnEnable() {
         TriMetrics.noiseSource = noiseSource;

@@ -5,8 +5,16 @@ using UnityEngine.EventSystems;
 public class TriMapEditor : MonoBehaviour {
     public Color[] colors;
     public TriGrid triGrid;
+    bool applyColor;
     private Color activeColor;
+    bool applyElevation = true;
+    bool isDrag;
+    TriDirection dragDirection;
+    TriCell previousCell;
 
+    enum OptionalToggle {
+        Ignore, Yes, No
+    }
     int activeElevation;
 
     public void SetElevation(float elevation) {
@@ -14,8 +22,8 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     private void Awake() {
-        SelectColor(0);
-    }    // Update is called once per frame
+        //InitColor();
+    }
     void Update() {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) {
             HandleInput(0);
@@ -23,26 +31,80 @@ public class TriMapEditor : MonoBehaviour {
         else if (Input.GetMouseButton(1) && !EventSystem.current.IsPointerOverGameObject()) {
             HandleInput(1);
         }
+        else {
+            previousCell = null;
+        }
     }
     void HandleInput(int type) {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit)) {
             if (type == 0) {
-                EditCell(triGrid.GetCell(hit.point));
+                TriCell currentCell = triGrid.GetCell(hit.point);
+                if (previousCell && previousCell != currentCell) {
+                    ValidateDrag(currentCell);
+                }
+                else {
+                    isDrag = false;
+                }
+                EditCell(currentCell);
+                previousCell = currentCell;
             }
             else {
                 EditHex(triGrid.GetCell(hit.point));
             }
 
         }
+        else {
+            previousCell = null;
+        }
     }
+
+    void ValidateDrag(TriCell currentCell) {
+        for (
+            dragDirection = TriDirection.VERT;
+            dragDirection <= TriDirection.RIGHT;
+            dragDirection++
+        ) {
+            if (previousCell.GetNeighbor(dragDirection) == currentCell) {
+                isDrag = true;
+                return;
+            }
+        }
+        isDrag = false;
+    }
+
+    OptionalToggle riverMode;
+    public void SetRiverMode(int mode) {
+        riverMode = (OptionalToggle)mode;
+    }
+
+    public void SetApplyElevation(bool toggle) {
+        applyElevation = toggle; 
+    }
+
     public void SelectColor(int index) {
-        activeColor = colors[index];
+        applyColor = index >= 0;
+        if (applyColor) {
+            activeColor = colors[index];
+        }
     }
     void EditCell(TriCell cell) {
-        cell.Color = activeColor;
-        cell.Elevation = activeElevation;
+        if (applyColor) {
+            cell.Color = activeColor;
+        }
+        if (applyElevation) {
+            cell.Elevation = activeElevation;
+        }
+        if (riverMode == OptionalToggle.No) {
+            cell.RemoveRiver(dragDirection);
+        }
+        else if (isDrag && riverMode == OptionalToggle.Yes) {
+            TriCell otherCell = cell.GetNeighbor(dragDirection);
+            if (otherCell) {
+                otherCell.SetRiver(dragDirection);
+            }
+        }
     }
     void EditHex(TriCell cell) {
         TriCell k = cell;
@@ -68,7 +130,6 @@ public class TriMapEditor : MonoBehaviour {
             }
         }
     }
-    private void Start() {
-        InitColor();
-    }
+
+    
 }
