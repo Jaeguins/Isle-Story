@@ -57,5 +57,16 @@ But still editable with Triangular too.
 
 ![Hexa-triangular tiles](/Diary/Image/20181122_1.PNG)
 
+***
+## 2018/11/23
+Decide to go my own load.
+
+In river generating, hexagonal tile and triangular tile have lots of differents.
+
+That makes me to have train about more mathmetical thinking about 3d coordinates and polygons.
+
+I worked all night(in this case, from yesterday), and finished river generating polygons.
+
+![river!](/Diary/Image/20181123_0.PNG)
 
 ***
