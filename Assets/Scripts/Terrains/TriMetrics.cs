@@ -4,7 +4,7 @@ public class TriMetrics {
     public const float root = 1.732050807568877f;
     public const float outerRadius = 2f * root * innerRadius / 3f;
     public const float innerRadius = 10f;
-
+    public const float waterElevationOffset = -0.5f;
     public const float streamBedElevationOffset = -3f;
 
     public const float solidFactor = 1f;

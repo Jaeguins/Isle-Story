@@ -56,6 +56,35 @@ public class TriCell : MonoBehaviour {
         }
     }
 
+    public float RiverSurfaceY {
+        get {
+            return
+                (elevation + TriMetrics.streamBedElevationOffset) *
+                TriMetrics.elevationStep;
+        }
+    }
+
+    public int WaterLevel {
+        get {
+            return waterLevel;
+        }
+        set {
+            if (waterLevel == value) {
+                return;
+            }
+            waterLevel = value;
+            Refresh();
+        }
+    }
+
+    int waterLevel = 1;
+
+    public bool IsUnderwater {
+        get {
+            return waterLevel > elevation;
+        }
+    }
+
     public bool HasRiverBeginOrEnd {
         get {
             int count = 0;
@@ -91,6 +120,8 @@ public class TriCell : MonoBehaviour {
             neighbor.RefreshSelfOnly();
         }
     }
+
+   
 
     [SerializeField]
     TriCell[] neighbors;

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TriGridChunk : MonoBehaviour {
     TriCell[] cells;
-    public TriMesh terrain;
+    public TriMesh terrain, rivers;
     Canvas gridCanvas;
     public void setLabels(bool val) {
         gridCanvas.enabled = val;
@@ -34,9 +34,11 @@ public class TriGridChunk : MonoBehaviour {
     }
     public void Triangulate() {
         terrain.Clear();
+        rivers.Clear();
         for (int i = 0; i < cells.Length; i++) {
             Triangulate(cells[i]);
         }
+        rivers.Apply();
         terrain.Apply();
     }
     void Triangulate(TriCell cell) {
@@ -54,6 +56,9 @@ public class TriGridChunk : MonoBehaviour {
         v1 = center + inverter * TriMetrics.GetFirstSolidCorner(direction);
         v2 = center + inverter * TriMetrics.GetSecondSolidCorner(direction);
         EdgeVertices e = new EdgeVertices(v1, v2);
+        if (cell.IsUnderwater) {
+            TriangulateWater(center, e);
+        }
         if (cell.HasRiverThroughEdge(direction)) {
             TriangulateWithRiver(cell, direction, center, e, cell.Color);
         }
@@ -69,7 +74,25 @@ public class TriGridChunk : MonoBehaviour {
                 TriangulateConnection(direction, cell, e, inverter);
         }
 
+
     }
+
+
+
+    void TriangulateRiverQuad(
+        Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4,
+        float y, bool reversed
+    ) {
+        v1.y = v2.y = v3.y = v4.y = y;
+        rivers.AddQuad(v1, v2, v3, v4);
+        if (reversed) {
+            rivers.AddQuadColor(Color.blue, Color.blue);//AddQuadUV(1f, 0f, 1f, 0f);
+        }
+        else {
+            rivers.AddQuadColor(Color.blue, Color.blue);//AddQuadUV(0f, 1f, 0f, 1f);
+        }
+    }
+
     void TriangulateConnection(TriDirection direction, TriCell cell, EdgeVertices e1, int inverter) {
         Vector3 center = cell.transform.localPosition;
         TriCell neighbor = cell.GetNeighbor(direction);
@@ -80,11 +103,29 @@ public class TriGridChunk : MonoBehaviour {
             e1.v1 + bridge,
             e1.v5 + bridge
             );
-        TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color,cell.HasRiverThroughEdge(direction));
+        TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color, cell.HasRiverThroughEdge(direction));
 
     }
-    void TriangulateWithRiver(TriCell cell, TriDirection direction, Vector3 center, EdgeVertices edge, Color color) {
 
+
+    void TriangulateWater(Vector3 center, EdgeVertices edge) {
+
+        Vector3 nextCorner, prevCorner, offset = new Vector3(0, TriMetrics.waterElevationOffset - TriMetrics.streamBedElevationOffset, 0);
+        nextCorner = (center + edge.v1) / 2f;
+        prevCorner = (center + edge.v5) / 2f;
+        rivers.AddTriangle(nextCorner + offset, edge.v1 + offset, edge.v2 + offset);
+        rivers.AddTriangleColor(Color.blue);
+        rivers.AddTriangle(prevCorner + offset, edge.v4 + offset, edge.v5 + offset);
+        rivers.AddTriangleColor(Color.blue);
+        rivers.AddTriangle(center + offset, edge.v2 + offset, edge.v4 + offset);
+        rivers.AddTriangleColor(Color.blue);
+        rivers.AddTriangle(center + offset, edge.v4 + offset, prevCorner + offset);
+        rivers.AddTriangleColor(Color.blue);
+        rivers.AddTriangle(center + offset, nextCorner + offset, edge.v2 + offset);
+        rivers.AddTriangleColor(Color.blue);
+    }
+    void TriangulateWithRiver(TriCell cell, TriDirection direction, Vector3 center, EdgeVertices edge, Color color) {
+        Vector3 riverOffset = new Vector3(0, TriMetrics.streamBedElevationOffset - TriMetrics.waterElevationOffset, 0);
         Vector3 nextCorner, prevCorner;
         nextCorner = (center + edge.v1) / 2f;
         prevCorner = (center + edge.v5) / 2f;
@@ -106,9 +147,29 @@ public class TriGridChunk : MonoBehaviour {
         terrain.AddTriangleColor(color);
         terrain.AddTriangle(underCenter, underEdge.v2, underEdge.v4);
         terrain.AddTriangleColor(color);
+        if (!cell.IsUnderwater) {
+            rivers.AddTriangle(underCenter - riverOffset, underEdge.v2 - riverOffset, underEdge.v4 - riverOffset);
+            if (cell.Elevation > cell.GetNeighbor(direction).Elevation) {
+                rivers.AddTriangleColor(Color.blue);//AddTriangleUV(1f, 0f, 1f, 0f);
+            }
+            else {
+                rivers.AddTriangleColor(Color.blue);//AddTriangleUVReverse(0f, 1f, 0f, 1f);
+            }
+        }
+
         if (cell.HasRiverThroughEdge(direction.Next())) {
             terrain.AddTriangle(underEdge.v4, underPrevCorner, underCenter);
             terrain.AddTriangleColor(color);
+            if (!cell.IsUnderwater) {
+                rivers.AddTriangle(underEdge.v4 - riverOffset, underPrevCorner - riverOffset, underCenter - riverOffset);
+                if (cell.Elevation > cell.GetNeighbor(direction).Elevation) {
+                    rivers.AddTriangleColor(Color.blue);//AddTriangleUV(1f, 0f, 1f, 0f);
+                }
+                else {
+                    rivers.AddTriangleColor(Color.blue);//AddTriangleUVReverse(0f, 1f, 0f, 1f);
+                }
+            }
+
             terrain.AddQuad(underPrevCorner, prevCorner, underEdge.v4, edge.v4);
             terrain.AddQuadColor(color, color);
         }
@@ -121,6 +182,15 @@ public class TriGridChunk : MonoBehaviour {
         if (cell.HasRiverThroughEdge(direction.Previous())) {
             terrain.AddTriangle(underEdge.v2, underCenter, underNextCorner);
             terrain.AddTriangleColor(color);
+            if (!cell.IsUnderwater) {
+                rivers.AddTriangle(underEdge.v2 - riverOffset, underCenter - riverOffset, underNextCorner - riverOffset);
+                if (cell.Elevation > cell.GetNeighbor(direction).Elevation) {
+                    rivers.AddTriangleColor(Color.blue); //AddTriangleUV(1f, 0f, 1f, 0f);
+                }
+                else {
+                    rivers.AddTriangleColor(Color.blue); //AddTriangleUVReverse(0f, 1f, 0f, 1f);
+                }
+            }
             terrain.AddQuad(underEdge.v2, edge.v2, underNextCorner, nextCorner);
             terrain.AddQuadColor(color, color);
         }
@@ -146,18 +216,24 @@ public class TriGridChunk : MonoBehaviour {
         terrain.AddTriangle(center, nextCorner, edge.v2);
         terrain.AddTriangleColor(color);
     }
-    void TriangulateEdgeStrip(EdgeVertices e1, Color c1, EdgeVertices e2, Color c2,bool isRiverInDir) {
-        
+    void TriangulateEdgeStrip(EdgeVertices e1, Color c1, EdgeVertices e2, Color c2, bool isRiverInDir) {
+
         terrain.AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
         terrain.AddQuadColor(c1, c2);
-        //terrain.AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
-        //terrain.AddQuadColor(c1, c2);
         if (isRiverInDir) {
-            Vector3 t = new Vector3(0, TriMetrics.streamBedElevationOffset, 0);
-            terrain.AddQuad(e1.v2 + t, e1.v4 + t, e2.v2 + t, e2.v4 + t);
+            Vector3 t = new Vector3(0, TriMetrics.waterElevationOffset, 0);
+            rivers.AddQuad(e1.v2 + t, e1.v4 + t, e2.v2 + t, e2.v4 + t);
+            if (e1.v2.y > e2.v2.y) {
+                rivers.AddQuadColor(Color.blue, Color.blue); //AddQuadUV(1f, 0f, 1f, 0f);
+            }
+            else {
+                rivers.AddQuadColor(Color.blue, Color.blue); //AddQuadUV(0f, 1f, 0f, 1f);
+            }
         }
-        else terrain.AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
-        terrain.AddQuadColor(c1, c2);
+        else {
+            terrain.AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
+            terrain.AddQuadColor(c1, c2);
+        }
         terrain.AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
         terrain.AddQuadColor(c1, c2);
     }

@@ -10,5 +10,11 @@ public struct EdgeVertices {
         v4 = Vector3.Lerp(corner1, corner2, 2/3f);
         v5 = corner2;
     }
-    
+    public void changeElev(float elev) {
+        v1.y = elev;
+        v2.y = elev;
+        v3.y = elev;
+        v4.y = elev;
+        v5.y = elev;
+    }
 }
