@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using System.IO;
 public class TriGrid : MonoBehaviour {
-    public int cellCountX = 6;
-    public int cellCountZ = 6;
+    public int cellCountX = 20;
+    public int cellCountZ = 15;
     public TriCell cellPrefab;
     TriCell[] cells;
     TriGridChunk[] chunks;
     public Text cellLabelPrefab;
     public TriGridChunk chunkPrefab;
-
-    public int chunkCountX = 4, chunkCountZ = 3;
-
-    public Color defaultColor = Color.white;
+    int chunkCountX, chunkCountZ;
+    public Color[] colors;
 
     public Texture2D noiseSource;
 
@@ -25,16 +23,34 @@ public class TriGrid : MonoBehaviour {
 
     private void OnEnable() {
         TriMetrics.noiseSource = noiseSource;
+        TriMetrics.colors = colors;
     }
 
     void Awake() {
-
+        TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
-
-        cellCountX = chunkCountX * TriMetrics.chunkSizeX;
-        cellCountZ = chunkCountZ * TriMetrics.chunkSizeZ;
+        CreateMap(cellCountX,cellCountZ);
+    }
+    public bool CreateMap(int x,int z) {
+        if (chunks != null) {
+            for (int i = 0; i < chunks.Length; i++) {
+                Destroy(chunks[i].gameObject);
+            }
+        }
+        if (
+            x <= 0 || x % TriMetrics.chunkSizeX != 0 ||
+            z <= 0 || z % TriMetrics.chunkSizeZ != 0
+        ) {
+            Debug.LogError("Unsupported map size.");
+            return false;
+        }
+        cellCountX = x;
+        cellCountZ = z;
+        chunkCountX = cellCountX / TriMetrics.chunkSizeX;
+        chunkCountZ = cellCountZ /  TriMetrics.chunkSizeZ;
         CreateChunks();
         CreateCells();
+        return true;
     }
 
     void CreateChunks() {
@@ -77,7 +93,6 @@ public class TriGrid : MonoBehaviour {
         cell.Elevation = 0;
         Text label = Instantiate<Text>(cellLabelPrefab);
         cell.uiRect = label.rectTransform;
-        cell.Color = defaultColor;
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = x.ToString() + "\n" + z.ToString();
 
@@ -105,11 +120,24 @@ public class TriGrid : MonoBehaviour {
         int index = coordinates.X + coordinates.Z * cellCountX;
         return cells[index];
     }
-    public void ColorCell(Vector3 position, Color color) {
-        position = transform.InverseTransformPoint(position);
-        TriCoordinates coordinates = TriCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * cellCountX;
-        TriCell cell = cells[index];
-        cell.Color = color;
+
+    public void Save(BinaryWriter writer) {
+        writer.Write(cellCountX);
+        writer.Write(cellCountZ);
+        for (int i = 0; i < cells.Length; i++) {
+            cells[i].Save(writer);
+        }
+    }
+
+    public void Load(BinaryReader reader) {
+        if(!CreateMap(reader.ReadInt32(), reader.ReadInt32())) {
+            return;
+        }
+        for (int i = 0; i < cells.Length; i++) {
+            cells[i].Load(reader);
+        }
+        for (int i = 0; i < chunks.Length; i++) {
+            chunks[i].Refresh();
+        }
     }
 }

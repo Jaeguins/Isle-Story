@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class TriMetrics {
+    public static Color[] colors;
     public const float root = 1.732050807568877f;
     public const float outerRadius = 2f * root * innerRadius / 3f;
     public const float innerRadius = 10f;

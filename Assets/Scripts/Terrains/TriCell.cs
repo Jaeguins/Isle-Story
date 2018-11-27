@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class TriCell : MonoBehaviour {
     public TriCoordinates coordinates;
@@ -15,17 +16,21 @@ public class TriCell : MonoBehaviour {
     }
     public Color Color {
         get {
-            return color;
-        }
-        set {
-            if (color == value) {
-                return;
-            }
-            color = value;
-            Refresh();
+            return TriMetrics.colors[terrainTypeIndex];
         }
     }
-    Color color;
+    public int TerrainTypeIndex {
+        get {
+            return terrainTypeIndex;
+        }
+        set {
+            if (terrainTypeIndex != value) {
+                terrainTypeIndex = value;
+                Refresh();
+            }
+        }
+    }
+    int terrainTypeIndex;
     public Vector3 Position {
         get {
             return transform.localPosition;
@@ -38,16 +43,19 @@ public class TriCell : MonoBehaviour {
         set {
             if (elevation == value) return;
             elevation = value;
-            Vector3 position = transform.localPosition;
-            position.y = value * TriMetrics.elevationStep;
-            transform.localPosition = position;
-
-            Vector3 uiPosition = uiRect.localPosition;
-            uiPosition.z = -position.y;
-            uiRect.localPosition = uiPosition;
+            RefreshPosition();
             Refresh();
         }
     }
+    void RefreshPosition() { 
+    Vector3 position = transform.localPosition;
+    position.y = elevation* TriMetrics.elevationStep;
+    transform.localPosition = position;
+
+            Vector3 uiPosition = uiRect.localPosition;
+    uiPosition.z = -position.y;
+            uiRect.localPosition = uiPosition;
+        }
     int elevation = int.MinValue;
     public bool[] isRiver;
     public bool HasRiver {
@@ -146,5 +154,24 @@ public class TriCell : MonoBehaviour {
             }
         }
 
+    }
+
+    public void Save(BinaryWriter writer) {
+        writer.Write(terrainTypeIndex);
+        writer.Write(elevation);
+        writer.Write(waterLevel);
+        writer.Write(isRiver[0]);
+        writer.Write(isRiver[1]);
+        writer.Write(isRiver[2]);
+    }
+
+    public void Load(BinaryReader reader) {
+        terrainTypeIndex = reader.ReadInt32();
+        elevation = reader.ReadInt32();
+        waterLevel = reader.ReadInt32();
+        isRiver[0] = reader.ReadBoolean();
+        isRiver[1] = reader.ReadBoolean();
+        isRiver[2] = reader.ReadBoolean();
+        RefreshPosition();
     }
 }

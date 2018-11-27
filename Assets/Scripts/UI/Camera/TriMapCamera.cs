@@ -3,16 +3,21 @@ using System.Collections;
 
 public class TriMapCamera : MonoBehaviour {
     public TriGrid grid;
-
+    public static TriMapCamera cam;
     Transform swivel, stick;
     float zoom = 1f;
     float rotationAngle;
-
+    public static bool Locked {
+        set {
+            instance.enabled = !value;
+        }
+    }
     public float rotationSpeed;
     public float stickMinZoom, stickMaxZoom;
     public float swivelMinZoom, swivelMaxZoom;
     public float moveSpeedMinZoom, moveSpeedMaxZoom;
     void Awake() {
+        cam = this;
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
     }
@@ -53,11 +58,11 @@ public class TriMapCamera : MonoBehaviour {
 
     Vector3 ClampPosition(Vector3 position) {
         float xMax = 
-            (grid.chunkCountX * TriMetrics.chunkSizeX-0.5f) *
+            (grid.cellCountX-0.5f) *
             (2f * TriMetrics.innerRadius);
         position.x = Mathf.Clamp(position.x, 0f, xMax);
         float zMax =
-                    (grid.chunkCountZ * TriMetrics.chunkSizeZ-1) *
+                    (grid.cellCountZ -1) *
                     (1.5f * TriMetrics.outerRadius);
         position.z = Mathf.Clamp(position.z, 0f, zMax);
         return position;
@@ -71,5 +76,7 @@ public class TriMapCamera : MonoBehaviour {
         float angle = Mathf.Lerp(swivelMinZoom, swivelMaxZoom, zoom);
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
     }
-    
+    public static void ValidatePosition() {
+        cam.AdjustPosition(0f, 0f);
+    }
 }

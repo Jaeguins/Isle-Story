@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
+using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
-    public Color[] colors;
     public TriGrid triGrid;
-    bool applyColor;
-    private Color activeColor;
     bool applyElevation = true;
     bool isDrag;
     TriDirection dragDirection;
     TriCell previousCell;
-
+    int activeTerrainTypeIndex;
     enum OptionalToggle {
         Ignore, Yes, No
     }
@@ -78,20 +75,15 @@ public class TriMapEditor : MonoBehaviour {
     public void SetRiverMode(int mode) {
         riverMode = (OptionalToggle)mode;
     }
-
+    public void SetTerrainTypeIndex(int index) {
+        activeTerrainTypeIndex = index;
+    }
     public void SetApplyElevation(bool toggle) {
         applyElevation = toggle; 
     }
-
-    public void SelectColor(int index) {
-        applyColor = index >= 0;
-        if (applyColor) {
-            activeColor = colors[index];
-        }
-    }
     void EditCell(TriCell cell) {
-        if (applyColor) {
-            cell.Color = activeColor;
+        if (activeTerrainTypeIndex >= 0) {
+            cell.TerrainTypeIndex = activeTerrainTypeIndex;
         }
         if (applyElevation) {
             cell.Elevation = activeElevation;
@@ -120,16 +112,34 @@ public class TriMapEditor : MonoBehaviour {
                 d = d.Previous();
         }
     }
-
-    void InitColor() {
-        for (int i = 2; i < triGrid.cellCountX; i += 3) {
-            for (int j = 1; j < triGrid.cellCountZ; j += 2) {
-                activeColor = Random.ColorHSV();
-                activeElevation = (int)(Random.value * 6f);
-                EditHex(triGrid.GetCell(i, j));
+    public void Save() {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using (
+            BinaryWriter writer =
+                new BinaryWriter(File.Open(path, FileMode.Create))
+        ) {
+            writer.Write(0);
+            triGrid.Save(writer);
+        }
+    }
+    public void Load() {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using (
+            BinaryReader reader =
+                new BinaryReader(File.OpenRead(path))
+        ) {
+            int header = reader.ReadInt32();
+            if (header == 0) {
+                triGrid.Load(reader);
+                TriMapCamera.ValidatePosition();
+            }
+            else {
+                Debug.LogWarning("Unknown map format " + header);
             }
         }
     }
-
-    
+    public void NewMap() {
+        triGrid.CreateMap(20, 20);
+        TriMapCamera.ValidatePosition();
+    }
 }
