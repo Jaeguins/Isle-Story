@@ -179,10 +179,10 @@ MonoBehaviour:
     type: 2}
   colors:
   - {r: 1, g: 0.7400188, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0.3764706, b: 0, a: 0}
+  - {r: 0, g: 0.72156864, b: 0.12013221, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 0.24644002, g: 0.735849, b: 0.24644002, a: 0}
-  - {r: 1, g: 0.45338064, b: 0.3726415, a: 0}
+  useTerrainTypes: 1
   noiseSource: {fileID: 2800000, guid: 126078bd8e4d25d48a5267cc811a2ace, type: 3}
 --- !u!4 &143506542
 Transform:

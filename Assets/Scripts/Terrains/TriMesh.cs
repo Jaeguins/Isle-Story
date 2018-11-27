@@ -4,7 +4,7 @@ using System;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class TriMesh : MonoBehaviour {
     Mesh triMesh;
-    public bool useCollider,useColors,useUVCoordinates;
+    public bool useCollider, useColors, useUVCoordinates;
     MeshCollider meshCollider;
     [NonSerialized] List<Vector3> vertices;
     [NonSerialized] List<Color> colors;
@@ -118,8 +118,6 @@ public class TriMesh : MonoBehaviour {
         colors.Add(c3);
         colors.Add(c4);
     }
-    
-   
-   
+
 
 }

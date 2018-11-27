@@ -4,11 +4,11 @@ using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
-    bool applyElevation = true;
+    bool applyElevation = false;
     bool isDrag;
     TriDirection dragDirection;
     TriCell previousCell;
-    int activeTerrainTypeIndex;
+    int activeTerrainTypeIndex=-1;
     enum OptionalToggle {
         Ignore, Yes, No
     }
@@ -18,9 +18,7 @@ public class TriMapEditor : MonoBehaviour {
         activeElevation = (int)elevation;
     }
 
-    private void Awake() {
-        //InitColor();
-    }
+    private void Awake() {}
     void Update() {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) {
             HandleInput(0);
@@ -71,7 +69,7 @@ public class TriMapEditor : MonoBehaviour {
         isDrag = false;
     }
 
-    OptionalToggle riverMode;
+    OptionalToggle riverMode=OptionalToggle.Yes;
     public void SetRiverMode(int mode) {
         riverMode = (OptionalToggle)mode;
     }

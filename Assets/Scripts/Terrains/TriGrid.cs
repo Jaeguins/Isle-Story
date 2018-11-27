@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.IO;
 public class TriGrid : MonoBehaviour {
     public int cellCountX = 20;
@@ -12,7 +11,8 @@ public class TriGrid : MonoBehaviour {
     public TriGridChunk chunkPrefab;
     int chunkCountX, chunkCountZ;
     public Color[] colors;
-
+    public bool useTerrainTypes;
+    
     public Texture2D noiseSource;
 
     public void setLabels(bool val) {
@@ -50,7 +50,17 @@ public class TriGrid : MonoBehaviour {
         chunkCountZ = cellCountZ /  TriMetrics.chunkSizeZ;
         CreateChunks();
         CreateCells();
+        InitMaps();
         return true;
+    }
+
+    void InitMaps() {
+        for(int i = 0; i < cellCountX; i++) {
+            for(int j = 0; j < cellCountZ; j++) {
+                cells[i*cellCountX+j].Elevation = (int)(UnityEngine.Random.value * 2)+3;
+                cells[i*cellCountX+j].TerrainTypeIndex= (int)(UnityEngine.Random.value * 4);
+            }
+        }
     }
 
     void CreateChunks() {

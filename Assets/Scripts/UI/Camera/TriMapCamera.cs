@@ -9,7 +9,7 @@ public class TriMapCamera : MonoBehaviour {
     float rotationAngle;
     public static bool Locked {
         set {
-            instance.enabled = !value;
+            cam.enabled = !value;
         }
     }
     public float rotationSpeed;

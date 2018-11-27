@@ -256,8 +256,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCollider: 1
-  useColors: 1
+  useColors: 0
   useUVCoordinates: 0
+  useTerrainTypes: 1
 --- !u!114 &114366114487440188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,6 +273,7 @@ MonoBehaviour:
   useCollider: 0
   useColors: 1
   useUVCoordinates: 0
+  useTerrainTypes: 0
 --- !u!114 &114883109902830390
 MonoBehaviour:
   m_ObjectHideFlags: 1
