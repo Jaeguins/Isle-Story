@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triGrid: {fileID: 143506541}
+  x: 400
+  z: 200
   mapGenerator: {fileID: 757198999}
 --- !u!114 &146867030
 MonoBehaviour:
@@ -1021,6 +1023,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 143506541}
   jitterProbability: 0.6
+  chunkSizeMin: 30
+  chunkSizeMax: 100
+  landPercentage: 50
 --- !u!4 &757199000
 Transform:
   m_ObjectHideFlags: 0
