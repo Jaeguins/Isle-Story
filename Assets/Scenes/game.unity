@@ -180,7 +180,8 @@ MonoBehaviour:
   colors:
   - {r: 0.8207547, g: 0.8027106, b: 0.49167854, a: 0}
   - {r: 0.6792453, g: 0.3868863, b: 0.14417945, a: 0}
-  - {r: 0.15566038, g: 0.6226415, b: 0.20051292, a: 0}
+  - {r: 0.23495908, g: 0.9056604, b: 0.29695672, a: 0}
+  - {r: 0.16874333, g: 0.4528302, b: 0.1973837, a: 0}
   - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
   useTerrainTypes: 1
   mapGenerator: {fileID: 0}
@@ -232,8 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triGrid: {fileID: 143506541}
-  x: 400
-  z: 200
+  x: 80
+  z: 40
   mapGenerator: {fileID: 757198999}
 --- !u!114 &146867030
 MonoBehaviour:
