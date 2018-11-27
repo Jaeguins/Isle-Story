@@ -79,3 +79,18 @@ today's work:
 
 ![blue means water](/Diary/Image/20181126_0.PNG)
 ***
+## 2018/11/27
+Isleland Generating added.
+
+....Only in Tirangular.
+
+I need to calculate this with hexagonal one.
+
+But it's beautiful for seing to me.
+
+And I gave up texture. Instead, I added Y-axis perturb for dynamic visibility.
+
+today's work:
+
+![river not included in generating](/Diary/Image/20181127_0.PNG)
+***
