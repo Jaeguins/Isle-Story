@@ -178,10 +178,10 @@ MonoBehaviour:
   chunkPrefab: {fileID: 114883109902830390, guid: b0b4c425700a88443b16cc890b261749,
     type: 2}
   colors:
-  - {r: 1, g: 0.7400188, b: 0, a: 0}
-  - {r: 1, g: 0.3764706, b: 0, a: 0}
-  - {r: 0, g: 0.72156864, b: 0.12013221, a: 0}
-  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 0.8207547, g: 0.8027106, b: 0.49167854, a: 0}
+  - {r: 0.6792453, g: 0.3868863, b: 0.14417945, a: 0}
+  - {r: 0.15566038, g: 0.6226415, b: 0.20051292, a: 0}
+  - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
   useTerrainTypes: 1
   noiseSource: {fileID: 2800000, guid: 126078bd8e4d25d48a5267cc811a2ace, type: 3}
 --- !u!4 &143506542
@@ -1374,7 +1374,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7353425f19fd33f4abddbfc3b659c126, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

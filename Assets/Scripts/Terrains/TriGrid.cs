@@ -57,7 +57,7 @@ public class TriGrid : MonoBehaviour {
     void InitMaps() {
         for(int i = 0; i < cellCountX; i++) {
             for(int j = 0; j < cellCountZ; j++) {
-                cells[i*cellCountX+j].Elevation = (int)(UnityEngine.Random.value * 2)+3;
+                cells[i*cellCountX+j].Elevation = (int)(UnityEngine.Random.value * 5);
                 cells[i*cellCountX+j].TerrainTypeIndex= (int)(UnityEngine.Random.value * 4);
             }
         }

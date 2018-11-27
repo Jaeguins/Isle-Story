@@ -80,12 +80,12 @@ public class TriCell : MonoBehaviour {
             if (waterLevel == value) {
                 return;
             }
-            waterLevel = value;
+            waterLevel = value ;
             Refresh();
         }
     }
 
-    int waterLevel = 1;
+    int waterLevel=1;
 
     public bool IsUnderwater {
         get {

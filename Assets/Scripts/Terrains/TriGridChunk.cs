@@ -100,7 +100,7 @@ public class TriGridChunk : MonoBehaviour {
             e1.v1 + bridge,
             e1.v5 + bridge
             );
-        TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color, cell.HasRiverThroughEdge(direction));
+        TriangulateEdgeStrip(terrain, e1, cell.Color, e2, neighbor.Color, cell.HasRiverThroughEdge(direction));
 
     }
 
@@ -206,9 +206,9 @@ public class TriGridChunk : MonoBehaviour {
 
     }
 
-    void TriangulateEdgeStrip(EdgeVertices e1, Color c1, EdgeVertices e2, Color c2, bool isRiverInDir) {
-        terrain.AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
-        terrain.AddQuadColor(c1, c2);
+    void TriangulateEdgeStrip(TriMesh mesh, EdgeVertices e1, Color c1, EdgeVertices e2, Color c2, bool isRiverInDir) {
+        mesh.AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
+        mesh.AddQuadColor(c1, c2);
 
 
         if (isRiverInDir) {
@@ -218,12 +218,12 @@ public class TriGridChunk : MonoBehaviour {
 
         }
         else {
-            terrain.AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
-            terrain.AddQuadColor(c1, c2);
+            mesh.AddQuad(e1.v2, e1.v4, e2.v2, e2.v4);
+            mesh.AddQuadColor(c1, c2);
 
         }
-        terrain.AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
-        terrain.AddQuadColor(c1, c2);
+        mesh.AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
+        mesh.AddQuadColor(c1, c2);
 
     }
 }
