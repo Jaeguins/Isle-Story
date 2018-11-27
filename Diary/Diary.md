@@ -70,3 +70,12 @@ I worked all night(in this case, from yesterday), and finished river generating 
 ![river!](/Diary/Image/20181123_0.PNG)
 
 ***
+## 2018/11/26
+After full rest in saturday/sunday,
+
+I made water(now in color blue, elevation 0).
+
+today's work:
+
+![blue means water](/Diary/Image/20181126_0.PNG)
+***
