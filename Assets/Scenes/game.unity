@@ -183,7 +183,9 @@ MonoBehaviour:
   - {r: 0.15566038, g: 0.6226415, b: 0.20051292, a: 0}
   - {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
   useTerrainTypes: 1
+  mapGenerator: {fileID: 0}
   noiseSource: {fileID: 2800000, guid: 126078bd8e4d25d48a5267cc811a2ace, type: 3}
+  searchPhase: 0
 --- !u!4 &143506542
 Transform:
   m_ObjectHideFlags: 0
@@ -230,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triGrid: {fileID: 143506541}
+  mapGenerator: {fileID: 757198999}
 --- !u!114 &146867030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,6 +992,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 685775441}
   m_CullTransparentMesh: 0
+--- !u!1 &757198998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757199000}
+  - component: {fileID: 757198999}
+  m_Layer: 0
+  m_Name: Tri Map Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &757198999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 757198998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e13d1e19ea59b4193a79b8d55b3f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 143506541}
+  jitterProbability: 0.6
+--- !u!4 &757199000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 757198998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.186155, y: 20.912277, z: 153.38664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &757346705
 GameObject:
   m_ObjectHideFlags: 0

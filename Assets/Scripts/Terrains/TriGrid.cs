@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Collections.Generic;
+
 public class TriGrid : MonoBehaviour {
     public int cellCountX = 20;
     public int cellCountZ = 15;
@@ -12,8 +14,12 @@ public class TriGrid : MonoBehaviour {
     int chunkCountX, chunkCountZ;
     public Color[] colors;
     public bool useTerrainTypes;
-    
+    public TriMapGenerator mapGenerator;
     public Texture2D noiseSource;
+
+    Queue<TriCell> searchFrontier;
+
+    public int searchPhase;
 
     public void setLabels(bool val) {
         for(int i = 0; i < chunks.Length; i++) {
@@ -50,17 +56,14 @@ public class TriGrid : MonoBehaviour {
         chunkCountZ = cellCountZ /  TriMetrics.chunkSizeZ;
         CreateChunks();
         CreateCells();
-        InitMaps();
         return true;
     }
+    public TriCell GetCell(int xOffset, int zOffset) {
+        return cells[xOffset + zOffset * cellCountX];
+    }
 
-    void InitMaps() {
-        for(int i = 0; i < cellCountX; i++) {
-            for(int j = 0; j < cellCountZ; j++) {
-                cells[i*cellCountX+j].Elevation = (int)(UnityEngine.Random.value * 5);
-                cells[i*cellCountX+j].TerrainTypeIndex= (int)(UnityEngine.Random.value * 4);
-            }
-        }
+    public TriCell GetCell(int cellIndex) {
+        return cells[cellIndex];
     }
 
     void CreateChunks() {
@@ -122,11 +125,6 @@ public class TriGrid : MonoBehaviour {
     public TriCell GetCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
         TriCoordinates coordinates = TriCoordinates.FromPosition(position);
-        int index = coordinates.X + coordinates.Z * cellCountX;
-        return cells[index];
-    }
-    public TriCell GetCell(int x,int z) {
-        TriCoordinates coordinates = new TriCoordinates(x, z);
         int index = coordinates.X + coordinates.Z * cellCountX;
         return cells[index];
     }

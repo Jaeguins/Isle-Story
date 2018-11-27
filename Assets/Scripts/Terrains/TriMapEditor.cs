@@ -4,6 +4,7 @@ using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
+    public TriMapGenerator mapGenerator;
     bool applyElevation = false;
     bool isDrag;
     TriDirection dragDirection;
@@ -137,7 +138,8 @@ public class TriMapEditor : MonoBehaviour {
         }
     }
     public void NewMap() {
-        triGrid.CreateMap(20, 20);
+        triGrid.CreateMap(40, 20);
+        mapGenerator.GenerateMap(40, 20);
         TriMapCamera.ValidatePosition();
     }
 }
