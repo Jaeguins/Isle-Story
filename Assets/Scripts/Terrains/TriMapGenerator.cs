@@ -6,6 +6,13 @@ public class TriMapGenerator : MonoBehaviour {
     public TriGrid grid;
     Queue<TriCell> searchFrontier;
     HashSet<TriCoordinates> checker;
+    List<ClimateData> climate = new List<ClimateData>();
+    [Range(0f, 1f)]
+    public float evaporationFactor = 0.5f;
+    [Range(0f, 1f)]
+    public float precipitationFactor = 0.25f;
+    [Range(0f, 1f)]
+    public float runoffFactor = 0.25f;
     [Range(0f, 1f)]
     public float jitterProbability = 0.25f;
     [Range(20, 200)]
@@ -20,7 +27,42 @@ public class TriMapGenerator : MonoBehaviour {
     public int mapBorderZ = 5;
 
     int xMin, xMax, zMin, zMax;
+    void EvolveClimate(int cellIndex) {
+        TriCell cell = grid.GetCell(cellIndex);
+        ClimateData cellClimate = climate[cellIndex];
 
+        if (cell.IsUnderwater) {
+            cellClimate.moisture = 1f;
+            cellClimate.clouds += evaporationFactor;
+        }
+        else {
+            float evaporation = cellClimate.moisture * evaporationFactor;
+            cellClimate.moisture -= evaporation;
+            cellClimate.clouds += evaporation;
+        }
+        float precipitation = cellClimate.clouds * precipitationFactor;
+        cellClimate.clouds -= precipitation;
+        cellClimate.moisture += precipitation;
+        float cloudDispersal = cellClimate.clouds * (1f / 6f);
+        float runoff = cellClimate.moisture * runoffFactor * (1f / 6f);
+        for (int i = 0; i < 4; i++) {
+            TriCell neighbor = grid.GetCell(TriMetrics.TriToHex(cell.coordinates) + new Vector2Int(TriMetrics.hexDir[i, 0], TriMetrics.hexDir[i, 1]));
+            if (!neighbor) {
+                continue;
+            }
+            ClimateData neighborClimate = climate[neighbor.Index];
+            neighborClimate.clouds += cloudDispersal;
+            int elevationDelta = neighbor.Elevation - cell.Elevation;
+            if (elevationDelta < 0) {
+                cellClimate.moisture -= runoff;
+                neighborClimate.moisture += runoff;
+            }
+            climate[neighbor.Index] = neighborClimate;
+        }
+        cellClimate.clouds = 0f;
+
+        climate[cellIndex] = cellClimate;
+    }
     int searchFrontierPhase;
     public void GenerateMap(int x, int z) {
         cellCount = x * z;
@@ -34,7 +76,23 @@ public class TriMapGenerator : MonoBehaviour {
         zMin = mapBorderZ;
         zMax = z - mapBorderZ;
         CreateLand();
+        CreateClimate();
         SetTerrainType();
+    }
+
+    void CreateClimate() {
+        climate.Clear();
+        ClimateData initialData = new ClimateData();
+        for (int i = 0; i < cellCount; i++) {
+            climate.Add(initialData);
+        }
+        for (int cycle = 0; cycle < 40; cycle++) {
+            for (int i = 0; i < cellCount; i++) {
+                TriCoordinates t = grid.GetCell(i).coordinates;
+                if (t == TriMetrics.TriToHex(t))
+                    EvolveClimate(i);
+            }
+        }
     }
 
     void CreateLand() {
@@ -119,9 +177,45 @@ public class TriMapGenerator : MonoBehaviour {
     }
     void SetTerrainType() {
         for (int i = 0; i < cellCount; i++) {
-            TriCell cell = grid.GetCell(i);
-            cell.TerrainTypeIndex = (int)Mathf.Pow(cell.Elevation, 0.5f);
+            TriCell cell = grid.GetCell(i), hexCell = grid.GetCell(TriMetrics.TriToHex(cell.coordinates));
+            if (cell.coordinates == hexCell.coordinates) {
+                float moisture = climate[hexCell.Index].moisture;
+                TriDirection d = TriDirection.VERT;
+                for (int j = 0; j < 6; j++) {
+                    if (!cell) break;
+                    if (!cell.IsUnderwater) {
+                        if (cell.Elevation > 10) {
+                            cell.TerrainTypeIndex = 4;
+                        }
+                        else if (moisture < 0.02f) {
+                            cell.TerrainTypeIndex = 3;
+                        }
+                        else if (moisture < 0.12f) {
+                            cell.TerrainTypeIndex = 2;
+                        }
+                        else if (moisture < 0.28f) {
+                            cell.TerrainTypeIndex = 1;
+                        }
+                        else if (moisture < 0.85f) {
+                            cell.TerrainTypeIndex = 0;
+                        }
+                        else {
+                            cell.TerrainTypeIndex = 0;
+                        }
+                    }
+                    else {
+                        cell.TerrainTypeIndex = 1;
+                    }
+                    cell = cell.GetNeighbor(d);
+                    if (hexCell.inverted)
+                        d = d.Next();
+                    else
+                        d = d.Previous();
+                }
+            }
         }
+
+
     }
     TriCell GetRandomCell() {
         TriCoordinates t = TriMetrics.TriToHex(new TriCoordinates(Random.Range(xMin, xMax), Random.Range(zMin, zMax)));

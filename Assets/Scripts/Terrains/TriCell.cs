@@ -7,6 +7,7 @@ public class TriCell : MonoBehaviour {
     public bool inverted = false;
     public RectTransform uiRect;
     public TriGridChunk chunk;
+    public int Index { get; set; }
     public float StreamBedY {
         get {
             return

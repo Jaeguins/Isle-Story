@@ -1026,7 +1026,7 @@ MonoBehaviour:
   jitterProbability: 0.5
   chunkSizeMin: 100
   chunkSizeMax: 150
-  landPercentage: 33
+  landPercentage: 25
   mapBorderX: 5
   mapBorderZ: 5
 --- !u!4 &757199000

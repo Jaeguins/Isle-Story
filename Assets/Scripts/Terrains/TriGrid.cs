@@ -62,7 +62,9 @@ public class TriGrid : MonoBehaviour {
         if (xOffset < 0 || xOffset >= cellCountX || zOffset < 0 || zOffset >= cellCountZ) return null;
         return cells[xOffset + zOffset * cellCountX];
     }
-
+    public TriCell GetCell(TriCoordinates coord) {
+        return GetCell(coord.X, coord.Z);
+    }
     public TriCell GetCell(int cellIndex) {
         return cells[cellIndex];
     }
@@ -97,6 +99,7 @@ public class TriGrid : MonoBehaviour {
             cell.inverted = true;
         }
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
+        cell.Index = i;
         cell.transform.localPosition = position;
 
         if (x > 0)

@@ -33,4 +33,16 @@ public struct TriCoordinates {
         int iX = Mathf.FloorToInt((position.x+0.5f*TriMetrics.innerRadius) / (TriMetrics.innerRadius));
         return new TriCoordinates(iX,iZ);
     }
+    public static TriCoordinates operator+ (TriCoordinates origin,Vector2Int adder) {
+        origin.x += adder.x;
+        origin.z += adder.y;
+        return origin;
+    }
+    public static bool operator==(TriCoordinates A,TriCoordinates B) {
+        if (A.X == B.X && A.Z == B.Z) return true;
+        else return false;
+    }
+    public static bool operator !=(TriCoordinates A, TriCoordinates B) {
+        return !(A == B);
+    }
 }
