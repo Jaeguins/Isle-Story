@@ -9,7 +9,6 @@ public class TriMesh : MonoBehaviour {
     [NonSerialized] List<Vector3> vertices;
     [NonSerialized] List<Color> colors;
     [NonSerialized] List<int> triangles;
-    [NonSerialized] List<Vector2> uvs;
     void Awake() {
         GetComponent<MeshFilter>().mesh = triMesh = new Mesh();
         meshCollider = gameObject.AddComponent<MeshCollider>();
@@ -22,9 +21,6 @@ public class TriMesh : MonoBehaviour {
         if (useColors) {
             colors = ListPool<Color>.Get();
         }
-        if (useUVCoordinates) {
-            uvs = ListPool<Vector2>.Get();
-        }
         triangles = ListPool<int>.Get();
     }
 
@@ -35,42 +31,10 @@ public class TriMesh : MonoBehaviour {
             triMesh.SetColors(colors);
             ListPool<Color>.Add(colors);
         }
-        if (useUVCoordinates) {
-            triMesh.SetUVs(0, uvs);
-            ListPool<Vector2>.Add(uvs);
-        }
         triMesh.SetTriangles(triangles, 0);
         ListPool<int>.Add(triangles);
         triMesh.RecalculateNormals();
         meshCollider.sharedMesh = triMesh;
-    }
-
-    public void AddTriangleUV(Vector2 uv1, Vector2 uv2, Vector3 uv3) {
-        uvs.Add(uv1);
-        uvs.Add(uv2);
-        uvs.Add(uv3);
-    }
-    public void AddQuadUV(Vector2 uv1, Vector2 uv2, Vector3 uv3, Vector3 uv4) {
-        uvs.Add(uv1);
-        uvs.Add(uv2);
-        uvs.Add(uv3);
-        uvs.Add(uv4);
-    }
-    public void AddTriangleUV(float uMin, float uMax, float vMin, float vMax) {
-        uvs.Add(new Vector2(uMax, vMax));
-        uvs.Add(new Vector2(uMax, vMin));
-        uvs.Add(new Vector2(uMax, vMin));
-    }
-    public void AddTriangleUVReverse(float uMin, float uMax, float vMin, float vMax) {
-        uvs.Add(new Vector2(uMin, vMin));
-        uvs.Add(new Vector2(uMin, vMax));
-        uvs.Add(new Vector2(uMin, vMax));
-    }
-    public void AddQuadUV(float uMin, float uMax, float vMin, float vMax) {
-        uvs.Add(new Vector2(uMin, vMin));
-        uvs.Add(new Vector2(uMax, vMin));
-        uvs.Add(new Vector2(uMin, vMax));
-        uvs.Add(new Vector2(uMax, vMax));
     }
 
     public void AddTriangleColor(Color c1) {

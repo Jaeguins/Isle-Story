@@ -107,13 +107,15 @@ public class TriGridChunk : MonoBehaviour {
     void TriangulateWater(Vector3 center, EdgeVertices edge) {
 
         Vector3 nextCorner, prevCorner, offset = new Vector3(0, TriMetrics.waterElevationOffset - TriMetrics.streamBedElevationOffset, 0);
+        center += offset;
+        edge += offset;
         nextCorner = (center + edge.v1) / 2f;
         prevCorner = (center + edge.v5) / 2f;
-        rivers.AddTriangle(nextCorner + offset, edge.v1 + offset, edge.v2 + offset);
-        rivers.AddTriangle(prevCorner + offset, edge.v4 + offset, edge.v5 + offset);
-        rivers.AddTriangle(center + offset, edge.v2 + offset, edge.v4 + offset);
-        rivers.AddTriangle(center + offset, edge.v4 + offset, prevCorner + offset);
-        rivers.AddTriangle(center + offset, nextCorner + offset, edge.v2 + offset);
+        rivers.AddTriangle(nextCorner, edge.v1, edge.v2);
+        rivers.AddTriangle(prevCorner, edge.v4, edge.v5);
+        rivers.AddTriangle(center, edge.v2, edge.v4);
+        rivers.AddTriangle(center, edge.v4, prevCorner);
+        rivers.AddTriangle(center, nextCorner, edge.v2);
 
         rivers.AddTriangleColor(Color.blue);
         rivers.AddTriangleColor(Color.blue);

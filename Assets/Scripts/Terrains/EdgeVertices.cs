@@ -10,4 +10,12 @@ public struct EdgeVertices {
         v4 = Vector3.Lerp(corner1, corner2, 2/3f);
         v5 = corner2;
     }
+    public static EdgeVertices operator+(EdgeVertices origin ,Vector3 vector) {
+        origin.v1 += vector;
+        origin.v2 += vector;
+        origin.v3 += vector;
+        origin.v4 += vector;
+        origin.v5 += vector;
+        return origin;
+    }
 }
