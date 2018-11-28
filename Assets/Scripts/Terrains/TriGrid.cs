@@ -59,6 +59,7 @@ public class TriGrid : MonoBehaviour {
         return true;
     }
     public TriCell GetCell(int xOffset, int zOffset) {
+        if (xOffset < 0 || xOffset >= cellCountX || zOffset < 0 || zOffset >= cellCountZ) return null;
         return cells[xOffset + zOffset * cellCountX];
     }
 

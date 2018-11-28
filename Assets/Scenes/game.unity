@@ -1023,9 +1023,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 143506541}
-  jitterProbability: 0.6
-  chunkSizeMin: 30
-  chunkSizeMax: 100
+  jitterProbability: 0.5
+  chunkSizeMin: 50
+  chunkSizeMax: 150
   landPercentage: 50
 --- !u!4 &757199000
 Transform:
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 143506541}
   rotationSpeed: 180
-  stickMinZoom: -250
+  stickMinZoom: -500
   stickMaxZoom: -40
   swivelMinZoom: 90
   swivelMaxZoom: 45

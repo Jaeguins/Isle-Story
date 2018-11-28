@@ -14,6 +14,13 @@ public class TriMapGenerator : MonoBehaviour {
     public int chunkSizeMax = 100;
     [Range(5, 95)]
     public int landPercentage = 50;
+    [Range(0, 10)]
+    public int mapBorderX = 5;
+    [Range(0, 10)]
+    public int mapBorderZ = 5;
+
+    int xMin, xMax, zMin, zMax;
+
     int searchFrontierPhase;
     public void GenerateMap(int x, int z) {
         cellCount = x * z;
@@ -22,6 +29,10 @@ public class TriMapGenerator : MonoBehaviour {
             searchFrontier = new Queue<TriCell>();
             checker = new HashSet<TriCoordinates>();
         }
+        xMin = mapBorderX;
+        xMax = x - mapBorderX;
+        zMin = mapBorderZ;
+        zMax = z - mapBorderZ;
         CreateLand();
         SetTerrainType();
     }
@@ -29,7 +40,13 @@ public class TriMapGenerator : MonoBehaviour {
     void CreateLand() {
         int landBudget = Mathf.RoundToInt(cellCount * landPercentage * 0.01f);
         bool initiated = false;
+        int overflowCatcher = 0;
         while (landBudget > 0) {
+            overflowCatcher++;
+            if (overflowCatcher > 10000) {
+                Debug.LogError("drawcall overflowed");
+                return;
+            }
             landBudget = RaiseTerrain(
                 Random.Range(chunkSizeMin, chunkSizeMax + 1), landBudget, initiated
             );
@@ -39,27 +56,52 @@ public class TriMapGenerator : MonoBehaviour {
 
     int RaiseTerrain(int chunkSize, int budget, bool initiated) {
         searchFrontierPhase += 1;
-        TriCell firstCell = grid.GetCell(grid.cellCountX*grid.cellCountZ/2+grid.cellCountX/2);
-        if (initiated) { 
+        TriCoordinates center= grid.GetCell(grid.cellCountX/2,grid.cellCountZ/2).coordinates;
+        center = TriMetrics.TriToHex(center);
+        TriCell firstCell = grid.GetCell(center.X, center.Z);
+        if (initiated) {
             do {
                 firstCell = GetRandomCell();
-            } while (firstCell.Elevation < 1); }
+            } while (firstCell.Elevation < 1);
+        }
+        else {
+            Debug.Log(center);
+        }
         searchFrontier.Enqueue(firstCell);
-        TriCoordinates center = firstCell.coordinates;
+        center = firstCell.coordinates;
         checker.Add(center);
         int size = 0;
+        int overflowCatcher = 0;
         while (size < chunkSize && searchFrontier.Count > 0) {
-            TriCell current = searchFrontier.Dequeue();
-            if(current.Elevation<16)
-            current.Elevation += 1;
-            if (current.Elevation == 1 && --budget == 0) {
+            overflowCatcher++;
+            if (overflowCatcher > 10000) {
+                Debug.LogError("queue overflowed");
                 break;
             }
-            size += 1;
-
-            for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
-                TriCell neighbor = current.GetNeighbor(d);
-                if (neighbor && !checker.Contains(neighbor.coordinates) && (d == TriDirection.RIGHT || Random.value < jitterProbability ? true : false)) {
+            TriCell current = searchFrontier.Dequeue();
+            if (current.Elevation < 16) {
+                TriDirection d = TriDirection.VERT;
+                TriCell k = current;
+                if (k.Elevation < 16)
+                    for (int i = 0; i < 6; i++) {
+                        if (!k) break;
+                        k.Elevation += 1;
+                        k = k.GetNeighbor(d);
+                        if (current.inverted)
+                            d = d.Next();
+                        else
+                            d = d.Previous();
+                    }
+            }
+            budget -= 6;
+            if (current.Elevation == 1 && budget == 0) {
+                break;
+            }
+            size += 6;
+            TriCoordinates coord = current.coordinates;
+            for (int i = 0; i < 4; i++) {
+                TriCell neighbor = grid.GetCell(coord.X + TriMetrics.hexDir[i, 0], coord.Z + TriMetrics.hexDir[i, 1]);
+                if (neighbor &&checkbounds(neighbor.coordinates)&& !checker.Contains(neighbor.coordinates) && (i == 3 || Random.value < jitterProbability ? true : false)) {
                     searchFrontier.Enqueue(neighbor);
                     checker.Add(neighbor.coordinates);
                 }
@@ -69,13 +111,19 @@ public class TriMapGenerator : MonoBehaviour {
         checker.Clear();
         return budget;
     }
+    bool checkbounds(TriCoordinates coord) {
+        if (coord.X > xMin && coord.X < xMax && coord.Z > zMin && coord.Z < zMax) return true;
+            return false;
+    }
     void SetTerrainType() {
         for (int i = 0; i < cellCount; i++) {
             TriCell cell = grid.GetCell(i);
-            cell.TerrainTypeIndex = (int)Mathf.Pow(cell.Elevation,0.5f);
+            cell.TerrainTypeIndex = (int)Mathf.Pow(cell.Elevation, 0.5f);
         }
     }
     TriCell GetRandomCell() {
-        return grid.GetCell(Random.Range(0, cellCount));
+        TriCoordinates t = TriMetrics.TriToHex(grid.GetCell(Random.Range(xMin, xMax), Random.Range(zMin, zMax)).coordinates);
+        return grid.GetCell(t.X,t.Z);
     }
+    
 }
