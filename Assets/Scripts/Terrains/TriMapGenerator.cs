@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 
 public class TriMapGenerator : MonoBehaviour {
-    int cellCount;
+    int cellCount, landCells;
     public TriGrid grid;
     Queue<TriCell> searchFrontier;
     HashSet<TriCoordinates> checker;
-    List<ClimateData> climate = new List<ClimateData>();
+    List<TriDirection> flowDirections = new List<TriDirection>();
+    public List<ClimateData> climate = new List<ClimateData>();
     [Range(0f, 1f)]
     public float evaporationFactor = 0.5f;
     [Range(0f, 1f)]
@@ -25,43 +26,71 @@ public class TriMapGenerator : MonoBehaviour {
     public int mapBorderX = 5;
     [Range(0, 10)]
     public int mapBorderZ = 5;
-
+    [Range(0, 100)]
+    public int elevationMaximum = 15;
+    [Range(0, 20)]
+    public int riverPercentage = 10;
     int xMin, xMax, zMin, zMax;
+
+    void SetClimateData(int cellIndex,float moisture,float clouds) {
+        TriDirection d = TriDirection.VERT;
+        TriCell current, k;
+        ClimateData t;
+        current = k = grid.GetCell(cellIndex);
+        for (int i = 0; i < 6; i++) {
+            if (!k) break;
+
+            t= new ClimateData();
+            t.moisture = moisture;
+            t.clouds = clouds;
+            climate[k.Index] = t;
+
+            k = k.GetNeighbor(d);
+            if (current.inverted)
+                d = d.Next();
+            else
+                d = d.Previous();
+        }
+    }
+
     void EvolveClimate(int cellIndex) {
         TriCell cell = grid.GetCell(cellIndex);
         ClimateData cellClimate = climate[cellIndex];
-
+        float tMoisture = cellClimate.moisture, tClouds = cellClimate.clouds;
         if (cell.IsUnderwater) {
-            cellClimate.moisture = 1f;
-            cellClimate.clouds += evaporationFactor;
+            tMoisture = 1f;
+            tClouds += evaporationFactor;
         }
         else {
-            float evaporation = cellClimate.moisture * evaporationFactor;
-            cellClimate.moisture -= evaporation;
-            cellClimate.clouds += evaporation;
+            float evaporation = tMoisture * evaporationFactor;
+            tMoisture -= evaporation;
+            tClouds += evaporation;
         }
-        float precipitation = cellClimate.clouds * precipitationFactor;
-        cellClimate.clouds -= precipitation;
-        cellClimate.moisture += precipitation;
-        float cloudDispersal = cellClimate.clouds * (1f / 6f);
-        float runoff = cellClimate.moisture * runoffFactor * (1f / 6f);
+        float precipitation = tClouds * precipitationFactor;
+        tClouds -= precipitation;
+        tMoisture += precipitation;
+        //SetClimateData(cellIndex, tMoisture, tClouds);
+        float cloudDispersal = tClouds * (1f / 6f);
+        float runoff = tMoisture * runoffFactor * (1f / 6f);
         for (int i = 0; i < 4; i++) {
             TriCell neighbor = grid.GetCell(TriMetrics.TriToHex(cell.coordinates) + new Vector2Int(TriMetrics.hexDir[i, 0], TriMetrics.hexDir[i, 1]));
             if (!neighbor) {
                 continue;
             }
             ClimateData neighborClimate = climate[neighbor.Index];
-            neighborClimate.clouds += cloudDispersal;
+            float tNMoisture = neighborClimate.moisture, tNClouds = neighborClimate.clouds;
+            tNClouds += cloudDispersal;
             int elevationDelta = neighbor.Elevation - cell.Elevation;
             if (elevationDelta < 0) {
-                cellClimate.moisture -= runoff;
-                neighborClimate.moisture += runoff;
+                tMoisture -= runoff;
+                tNMoisture += runoff;
             }
-            climate[neighbor.Index] = neighborClimate;
+            SetClimateData(neighbor.Index, tNMoisture, tNClouds);
+            //climate[neighbor.Index] = neighborClimate;
         }
-        cellClimate.clouds = 0f;
-
-        climate[cellIndex] = cellClimate;
+        tClouds = 0f;
+        SetClimateData(cellIndex, tMoisture, tClouds);
+        //climate[cellIndex] = cellClimate;
     }
     int searchFrontierPhase;
     public void GenerateMap(int x, int z) {
@@ -77,7 +106,96 @@ public class TriMapGenerator : MonoBehaviour {
         zMax = z - mapBorderZ;
         CreateLand();
         CreateClimate();
+        CreateRivers();
         SetTerrainType();
+    }
+    void CreateRivers() {
+        List<TriCell> riverOrigins = ListPool<TriCell>.Get();
+        for (int i = 0; i < cellCount; i++) {
+            TriCell cell = grid.GetCell(i);
+            if (cell.IsUnderwater) {
+                continue;
+            }
+            ClimateData data = climate[i];
+            
+            float weight =
+                (float)(cell.Elevation) /
+                (float)(elevationMaximum);
+            //grid.labels[i].text = weight.ToString("F");
+            if (weight > 0.75f) {
+                riverOrigins.Add(cell);
+                riverOrigins.Add(cell);
+            }
+            if (weight > 0.5f) {
+                riverOrigins.Add(cell);
+            }
+            if (weight > 0.25f) {
+                riverOrigins.Add(cell);
+            }
+        }
+        int riverBudget = Mathf.RoundToInt(landCells * riverPercentage * 0.01f);
+        int overflowChecker = 0;
+        Debug.Log(riverOrigins.Count);
+        while (riverBudget > 0 && riverOrigins.Count > 0) {
+            if (overflowChecker++ > 1000) {
+                Debug.Log("checking river stack overflowed");
+                break;
+            }
+                
+            int index = Random.Range(0, riverOrigins.Count);
+            int lastIndex = riverOrigins.Count - 1;
+            TriCell origin = riverOrigins[index];
+            riverOrigins[index] = riverOrigins[lastIndex];
+            riverOrigins.RemoveAt(lastIndex);
+            if (!origin.HasRiver) {
+                riverBudget -= CreateRiver(origin);
+            }
+        }
+
+        if (riverBudget > 0) {
+            Debug.LogWarning("Failed to use up river budget.");
+        }
+        ListPool<TriCell>.Add(riverOrigins);
+    }
+
+    int CreateRiver(TriCell origin) {
+        int length = 0;
+        TriCell cell = origin;
+        TriDirection direction = TriDirection.VERT;
+        while (!cell.IsUnderwater) {
+            flowDirections.Clear();
+            for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
+                TriCell neighbor = cell.GetNeighbor(d);
+                if (!neighbor || neighbor.HasRiver) {
+                    continue;
+                }
+                int delta = neighbor.Elevation - cell.Elevation;
+                if (delta > 0) {
+                    continue;
+                }
+                if (delta < 0) {
+                    flowDirections.Add(d);
+                    flowDirections.Add(d);
+                    flowDirections.Add(d);
+                }
+                if (
+                    length == 1 ||
+                    (d != direction.Next2() && d != direction.Previous2())
+                ) {
+                    flowDirections.Add(d);
+                }
+                flowDirections.Add(d);
+            }
+            if (flowDirections.Count == 0) {
+                return length > 1 ? length : 0;
+            }
+            direction= flowDirections[Random.Range(0, flowDirections.Count)];
+            cell.SetRiver(direction);
+            cell.GetNeighbor(direction).SetRiver(direction);
+            length += 1;
+            cell = cell.GetNeighbor(direction);
+        }
+        return length;
     }
 
     void CreateClimate() {
@@ -97,19 +215,15 @@ public class TriMapGenerator : MonoBehaviour {
 
     void CreateLand() {
         int landBudget = Mathf.RoundToInt(cellCount * landPercentage * 0.01f);
+        landCells = landBudget;
         bool initiated = false;
-        int overflowCatcher = 0;
         while (landBudget > 0) {
-            overflowCatcher++;
-            if (overflowCatcher > 10000) {
-                Debug.LogError("drawcall overflowed");
-                return;
-            }
             landBudget = RaiseTerrain(
                 Random.Range(chunkSizeMin, chunkSizeMax + 1), landBudget, initiated
             );
             initiated = true;
         }
+
     }
 
     int RaiseTerrain(int chunkSize, int budget, bool initiated) {
@@ -122,25 +236,16 @@ public class TriMapGenerator : MonoBehaviour {
                 firstCell = GetRandomCell();
             } while (firstCell.Elevation < 1);
         }
-        else {
-            Debug.Log(center);
-        }
         searchFrontier.Enqueue(firstCell);
         center = firstCell.coordinates;
         checker.Add(center);
         int size = 0;
-        int overflowCatcher = 0;
         while (size < chunkSize && searchFrontier.Count > 0) {
-            overflowCatcher++;
-            if (overflowCatcher > 10000) {
-                Debug.LogError("queue overflowed");
-                break;
-            }
             TriCell current = searchFrontier.Dequeue();
-            if (current.Elevation < 16) {
+            if (current.Elevation < elevationMaximum) {
                 TriDirection d = TriDirection.VERT;
                 TriCell k = current;
-                if (k.Elevation < 16) {
+                if (k.Elevation < elevationMaximum) {
                     if (k.Elevation == 0) budget -= 6;
                     for (int i = 0; i < 6; i++) {
                         if (!k) break;
@@ -193,7 +298,7 @@ public class TriMapGenerator : MonoBehaviour {
                         else if (moisture < 0.12f) {
                             cell.TerrainTypeIndex = 2;
                         }
-                        else if (moisture < 0.28f) {
+                        else if (moisture < 0.20f) {
                             cell.TerrainTypeIndex = 1;
                         }
                         else if (moisture < 0.85f) {

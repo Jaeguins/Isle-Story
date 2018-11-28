@@ -15,6 +15,14 @@ public class TriCell : MonoBehaviour {
                 TriMetrics.elevationStep;
         }
     }
+
+    public int NumOfRiver() {
+        int i = 0;
+        for (int j = 0; j < 3; j++)
+            i += isRiver[j] ? 1 : 0;
+        return i;
+    }
+
     public Color Color {
         get {
             return TriMetrics.colors[terrainTypeIndex];
@@ -59,6 +67,9 @@ public class TriCell : MonoBehaviour {
         }
     int elevation = int.MinValue;
     public bool[] isRiver;
+    public bool IsRiver(TriDirection d) {
+        return isRiver[(int)d];
+    }
     public bool HasRiver {
         get {
             return isRiver[0]||isRiver[1]||isRiver[2];

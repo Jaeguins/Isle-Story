@@ -16,7 +16,7 @@ public class TriGrid : MonoBehaviour {
     public bool useTerrainTypes;
     public TriMapGenerator mapGenerator;
     public Texture2D noiseSource;
-
+    public List<Text> labels;
     Queue<TriCell> searchFrontier;
 
     public int searchPhase;
@@ -108,10 +108,9 @@ public class TriGrid : MonoBehaviour {
         if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
 
         cell.Elevation = 0;
-        Text label = Instantiate<Text>(cellLabelPrefab);
-        cell.uiRect = label.rectTransform;
-        label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = x.ToString() + "\n" + z.ToString();
+        labels.Add(Instantiate<Text>(cellLabelPrefab));
+        cell.uiRect = labels[i].rectTransform;
+        labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
 
         AddCellToChunk(x, z, cell);
     }
@@ -150,6 +149,7 @@ public class TriGrid : MonoBehaviour {
         }
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();
+            
         }
     }
 }

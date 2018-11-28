@@ -94,3 +94,12 @@ today's work:
 
 ![river not included in generating](/Diary/Image/20181127_0.PNG)
 ***
+## 2018/11/28
+Now I can calculate hexagonal tile!
+
+And rivers too!
+
+Now I can out from terrain-stuffs..
+
+![river included in generating](/Diary/Image/20181128_0.PNG)
+***

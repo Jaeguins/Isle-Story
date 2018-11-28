@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-struct ClimateData {
-    public float clouds,moisture;
-
+public struct ClimateData {
+    public float clouds,moisture;   
 }
