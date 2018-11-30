@@ -108,7 +108,7 @@ public class TriGrid : MonoBehaviour {
         if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
 
         cell.Elevation = 0;
-        labels.Add(Instantiate<Text>(cellLabelPrefab));
+        labels.Add(Instantiate<Text>(cellLabelPrefab,cell.transform));
         cell.uiRect = labels[i].rectTransform;
         labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
 
