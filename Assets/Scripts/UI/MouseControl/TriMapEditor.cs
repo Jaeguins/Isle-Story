@@ -44,7 +44,7 @@ public class TriMapEditor : MonoBehaviour {
                 else {
                     isDrag = false;
                 }
-                EditCell(currentCell);
+                //EditCell(currentCell);
                 previousCell = currentCell;
             }
             else {

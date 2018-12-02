@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: bc0d696fe351135439461a257ed82b3e
+guid: 0ab0bea3d6b892644af82a5ce3a1e3f3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Armature
-    100004: back
+    100000: Armature
+    100002: back
+    100004: //RootNode
     100006: Cube
     100008: head
     100010: left_arm
@@ -25,9 +25,9 @@ ModelImporter:
     100038: right_thigh
     100040: root
     100042: waist
-    400000: //RootNode
-    400002: Armature
-    400004: back
+    400000: Armature
+    400002: back
+    400004: //RootNode
     400006: Cube
     400008: head
     400010: left_arm
@@ -51,12 +51,11 @@ ModelImporter:
     2100002: pants__Untitled_001
     2100004: skin__Untitled_001
     2100006: shoes__Untitled_001
-    2300000: //RootNode
-    3300000: //RootNode
     4300000: Cube
     7400000: Default Take
-    7400002: idle
-    7400004: walk
+    7400002: ArmatureAction_001
+    7400004: idle
+    7400006: walk
     9500000: //RootNode
     13700000: Cube
   externalObjects: {}
