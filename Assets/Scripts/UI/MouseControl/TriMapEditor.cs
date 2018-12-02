@@ -6,11 +6,10 @@ public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
     public int x, z;
     public TriMapGenerator mapGenerator;
-    public Entities entityPrefab;
     bool applyElevation = false;
     bool isDrag;
     TriDirection dragDirection;
-    TriCell previousCell,searchFromCell, searchToCell;
+    TriCell previousCell;
     int activeTerrainTypeIndex = -1;
     enum OptionalToggle {
         Ignore, Yes, No
@@ -21,7 +20,9 @@ public class TriMapEditor : MonoBehaviour {
         activeElevation = (int)elevation;
     }
 
-    private void Awake() { }
+    private void Awake() {
+        SetEditMode(false);
+    }
     void Update() {
         if (!EventSystem.current.IsPointerOverGameObject()) {
             if (Input.GetMouseButton(0)) {
@@ -41,35 +42,28 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     TriCell GetCellUnderCursor() {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) {
-            return triGrid.GetCell(hit.point);
-        }
-        return null;
+        return
+            triGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
     }
-    
+
     void HandleInput() {
         TriCell currentCell = GetCellUnderCursor();
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            searchFromCell = currentCell;
-            if (searchToCell) {
-                triGrid.FindPath(searchFromCell, searchToCell);
-            }
-        }
-        else if (currentCell) {
+        if (currentCell) {
             if (previousCell && previousCell != currentCell) {
                 ValidateDrag(currentCell);
             }
             else {
                 isDrag = false;
             }
-            //EditCell(currentCell);
+            EditCell(currentCell);
             previousCell = currentCell;
         }
         else {
             previousCell = null;
         }
+    }
+    public void SetEditMode(bool toggle) {
+        enabled = toggle;
     }
 
     void ValidateDrag(TriCell currentCell) {
@@ -133,20 +127,20 @@ public class TriMapEditor : MonoBehaviour {
             BinaryWriter writer =
                 new BinaryWriter(File.Open(path, FileMode.Create))
         ) {
-            writer.Write(0);
+            writer.Write(2);
             triGrid.Save(writer);
         }
     }
     public void Load() {
-        StopAllCoroutines();
+
         string path = Path.Combine(Application.persistentDataPath, "test.map");
         using (
             BinaryReader reader =
                 new BinaryReader(File.OpenRead(path))
         ) {
             int header = reader.ReadInt32();
-            if (header == 0) {
-                triGrid.Load(reader);
+            if (header <= 2) {
+                triGrid.Load(reader, header);
                 TriMapCamera.ValidatePosition();
             }
             else {
@@ -163,17 +157,14 @@ public class TriMapEditor : MonoBehaviour {
     void CreateUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
-            Debug.Log(cell.coordinates);
-            Entities unit = Instantiate(entityPrefab);
-            unit.transform.SetParent(triGrid.transform, false);
-            unit.Location = cell;
-            unit.Orientation = Random.Range(0f, 360f);
+            triGrid.AddUnit(
+                Instantiate(Entities.unitPrefab), cell, Random.Range(0f, 360f));
         }
     }
     void DestroyUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Entity) {
-            cell.Entity.Die();
+            triGrid.RemoveUnit(cell.Entity);
         }
     }
 

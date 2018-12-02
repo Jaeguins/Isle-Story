@@ -7,6 +7,7 @@ public class TriGrid : MonoBehaviour {
     public int cellCountX = 20;
     public int cellCountZ = 15;
     public TriCell cellPrefab;
+    public Entities unitPrefab;
     List<Entities> units = new List<Entities>();
     TriCell[] cells;
     TriGridChunk[] chunks;
@@ -21,12 +22,26 @@ public class TriGrid : MonoBehaviour {
     public static TriGrid Instance;
     int searchFrontierPhase;
     TriCellPriorityQueue searchFrontier;
-
+    public void RemoveUnit(Entities unit) {
+        units.Remove(unit);
+        unit.Die();
+    }
     public int searchPhase;
-
+    public void AddUnit(Entities unit, TriCell location, float orientation) {
+        units.Add(unit);
+        unit.transform.SetParent(transform, false);
+        unit.Location = location;
+        unit.Orientation = orientation;
+    }
     public void setLabels(bool val) {
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].setLabels(val);
+        }
+    }
+
+    public void ShowUI(bool value) {
+        for(int i = 0; i < chunks.Length; i++) {
+            chunks[i].ShowUI(value);
         }
     }
 
@@ -40,17 +55,25 @@ public class TriGrid : MonoBehaviour {
     private void OnEnable() {
         TriMetrics.noiseSource = noiseSource;
         TriMetrics.colors = colors;
+        Entities.unitPrefab = unitPrefab;
     }
 
     void Awake() {
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
+        Entities.unitPrefab = unitPrefab;
         CreateMap(cellCountX, cellCountZ);
         Instance = this;
     }
 
     TriCell currentPathFrom, currentPathTo;
     bool currentPathExists;
+
+    public bool HasPath {
+        get {
+            return currentPathExists;
+        }
+    }
 
     public void FindPath(TriCell fromCell,TriCell toCell) {
         ClearPath();
@@ -59,13 +82,27 @@ public class TriGrid : MonoBehaviour {
         currentPathExists = Search(fromCell, toCell);
     }
 
-    void ClearPath() {
+    public List<TriCell> GetPath() {
+        if (!currentPathExists) {
+            return null;
+        }
+        List<TriCell> path = ListPool<TriCell>.Get();
+        for (TriCell c = currentPathTo; c != currentPathFrom; c = c.PathFrom) {
+            path.Add(c);
+        }
+        path.Add(currentPathFrom);
+        path.Reverse();
+        return path;
+    }
+
+    public void ClearPath() {
         if (currentPathExists) {
             TriCell current = currentPathTo;
             while (current != currentPathFrom) {
                 current = current.PathFrom;
             }
             currentPathExists = false;
+            searchFrontier.Clear();
         }
         currentPathFrom = currentPathTo = null;
     }
@@ -100,6 +137,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.Distance != int.MaxValue||
                     neighbor.IsUnderwater||
                     neighbor.HasRiver||
+                    neighbor.Entity||
                     Mathf.Abs(neighbor.Elevation-fromCell.Elevation)>1)
                     continue;
                 int distance = current.Distance;
@@ -126,6 +164,7 @@ public class TriGrid : MonoBehaviour {
 
     public bool CreateMap(int x, int z) {
         ClearPath();
+        ClearUnits();
         if (chunks != null) {
             for (int i = 0; i < chunks.Length; i++) {
                 Destroy(chunks[i].gameObject);
@@ -226,10 +265,23 @@ public class TriGrid : MonoBehaviour {
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Save(writer);
         }
+        writer.Write(units.Count);
+        for (int i = 0; i < units.Count; i++) {
+            units[i].Save(writer);
+        }
     }
 
-    public void Load(BinaryReader reader) {
+    public TriCell GetCell(Ray ray) {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)) {
+            return GetCell(hit.point);
+        }
+        return null;
+    }
+
+    public void Load(BinaryReader reader,int header) {
         ClearPath();
+        ClearUnits();
         if (!CreateMap(reader.ReadInt32(), reader.ReadInt32())) {
             return;
         }
@@ -238,7 +290,12 @@ public class TriGrid : MonoBehaviour {
         }
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();
-
+        }
+        if (header >= 2) {
+            int unitCount = reader.ReadInt32();
+            for (int i = 0; i < unitCount; i++) {
+                Entities.Load(reader);
+            }
         }
     }
 }

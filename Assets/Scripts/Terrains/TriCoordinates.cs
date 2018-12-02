@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 [System.Serializable]
 public struct TriCoordinates {
     [SerializeField]
@@ -22,7 +23,16 @@ public struct TriCoordinates {
         return x<other.x?other.x-x:x-other.x+
                z<other.z?other.z-z:z-other.z;
     }
-
+    public void Save(BinaryWriter writer) {
+        writer.Write(x);
+        writer.Write(z);
+    }
+    public static TriCoordinates Load(BinaryReader reader) {
+        TriCoordinates c;
+        c.x = reader.ReadInt32();
+        c.z = reader.ReadInt32();
+        return c;
+    }
     public static TriCoordinates FromOffsetCoordinates(int x, int z) {
         return new TriCoordinates(x, z);
     }
