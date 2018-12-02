@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Citizen : MonoBehaviour {
+    public Vector2Int coord;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void Awake() {
+        coord = PathFinder.getCellCoordByOffset(transform.position.x, transform.position.z);
+    }
+    void LateUpdate () {
 		
 	}
 }

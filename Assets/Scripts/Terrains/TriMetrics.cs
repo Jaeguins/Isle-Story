@@ -68,7 +68,9 @@ public class TriMetrics {
             (corners[(int)direction] + corners[(int)direction + 1]) *
             (0.5f * solidFactor);
     }
-
+    public static int getCellIndexFromUnitCell(Vector2Int coord) {
+        return 0;
+    }
     public static TriCoordinates TriToHex(TriCoordinates coord) {
         return new TriCoordinates(coord.X - coord.X % 3, coord.Z - coord.Z % 2);
     }

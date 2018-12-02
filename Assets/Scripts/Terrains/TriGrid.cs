@@ -17,6 +17,7 @@ public class TriGrid : MonoBehaviour {
     public TriMapGenerator mapGenerator;
     public Texture2D noiseSource;
     public List<Text> labels;
+    public static TriGrid Instance;
     Queue<TriCell> searchFrontier;
 
     public int searchPhase;
@@ -36,6 +37,7 @@ public class TriGrid : MonoBehaviour {
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
         CreateMap(cellCountX,cellCountZ);
+        Instance = this;
     }
     public bool CreateMap(int x,int z) {
         if (chunks != null) {

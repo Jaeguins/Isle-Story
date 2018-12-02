@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PathFinder{
     static float cellHeight = TriMetrics.outerRadius / 2f;
-    static float cellWidth = TriMetrics.innerRadius * 2 / 3;
+    static float cellWidth = TriMetrics.innerRadius;
     static Vector2Int[] directions = { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) };
     TriGrid grid;
     public static Vector2Int getCellCoordByOffset(float x,float z) {
