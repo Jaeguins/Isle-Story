@@ -18,6 +18,11 @@ public struct TriCoordinates {
         this.x = x;
         this.z = z;
     }
+    public int DistanceTo(TriCoordinates other) {
+        return x<other.x?other.x-x:x-other.x+
+               z<other.z?other.z-z:z-other.z;
+    }
+
     public static TriCoordinates FromOffsetCoordinates(int x, int z) {
         return new TriCoordinates(x, z);
     }
@@ -33,9 +38,19 @@ public struct TriCoordinates {
         int iX = Mathf.FloorToInt((position.x+0.5f*TriMetrics.innerRadius) / (TriMetrics.innerRadius));
         return new TriCoordinates(iX,iZ);
     }
-    public static TriCoordinates operator+ (TriCoordinates origin,Vector2Int adder) {
+    public static TriCoordinates operator +(TriCoordinates origin, Vector2Int adder) {
         origin.x += adder.x;
         origin.z += adder.y;
+        return origin;
+    }
+    public static TriCoordinates operator+ (TriCoordinates origin,TriCoordinates adder) {
+        origin.x += adder.x;
+        origin.z += adder.z;
+        return origin;
+    }
+    public static TriCoordinates operator -(TriCoordinates origin, TriCoordinates adder) {
+        origin.x -= adder.x;
+        origin.z -= adder.z;
         return origin;
     }
     public static bool operator==(TriCoordinates A,TriCoordinates B) {

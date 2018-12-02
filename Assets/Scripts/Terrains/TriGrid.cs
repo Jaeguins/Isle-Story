@@ -7,6 +7,7 @@ public class TriGrid : MonoBehaviour {
     public int cellCountX = 20;
     public int cellCountZ = 15;
     public TriCell cellPrefab;
+    List<Entities> units = new List<Entities>();
     TriCell[] cells;
     TriGridChunk[] chunks;
     public Text cellLabelPrefab;
@@ -18,14 +19,22 @@ public class TriGrid : MonoBehaviour {
     public Texture2D noiseSource;
     public List<Text> labels;
     public static TriGrid Instance;
-    Queue<TriCell> searchFrontier;
+    int searchFrontierPhase;
+    TriCellPriorityQueue searchFrontier;
 
     public int searchPhase;
 
     public void setLabels(bool val) {
-        for(int i = 0; i < chunks.Length; i++) {
+        for (int i = 0; i < chunks.Length; i++) {
             chunks[i].setLabels(val);
         }
+    }
+
+    void ClearUnits() {
+        for (int i = 0; i < units.Count; i++) {
+            units[i].Die();
+        }
+        units.Clear();
     }
 
     private void OnEnable() {
@@ -36,10 +45,87 @@ public class TriGrid : MonoBehaviour {
     void Awake() {
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
-        CreateMap(cellCountX,cellCountZ);
+        CreateMap(cellCountX, cellCountZ);
         Instance = this;
     }
-    public bool CreateMap(int x,int z) {
+
+    TriCell currentPathFrom, currentPathTo;
+    bool currentPathExists;
+
+    public void FindPath(TriCell fromCell,TriCell toCell) {
+        ClearPath();
+        currentPathFrom = fromCell;
+        currentPathTo = toCell;
+        currentPathExists = Search(fromCell, toCell);
+    }
+
+    void ClearPath() {
+        if (currentPathExists) {
+            TriCell current = currentPathTo;
+            while (current != currentPathFrom) {
+                current = current.PathFrom;
+            }
+            currentPathExists = false;
+        }
+        currentPathFrom = currentPathTo = null;
+    }
+
+    bool Search(TriCell fromCell,TriCell toCell) {
+        searchFrontierPhase += 2;
+        if (searchFrontier == null) {
+            searchFrontier = new TriCellPriorityQueue();
+        }
+        else {
+            searchFrontier.Clear();
+        }
+
+        for (int i = 0; i < cells.Length; i++) {
+            cells[i].Distance = int.MaxValue;
+        }
+        fromCell.SearchPhase = searchFrontierPhase;
+        fromCell.Distance = 0;
+        searchFrontier.Enqueue(fromCell);
+        while (searchFrontier.Count > 0) {
+            TriCell current = searchFrontier.Dequeue();
+            current.SearchPhase += 1;
+            if (current == toCell) {
+                return true;
+            }
+            int currentTurn = current.Distance;
+
+            for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
+                TriCell neighbor = current.GetNeighbor(d);
+                if (neighbor == null ||
+                    neighbor.SearchPhase > searchFrontierPhase||
+                    neighbor.Distance != int.MaxValue||
+                    neighbor.IsUnderwater||
+                    neighbor.HasRiver||
+                    Mathf.Abs(neighbor.Elevation-fromCell.Elevation)>1)
+                    continue;
+                int distance = current.Distance;
+                if (current.IsRoad) distance+= 1;
+                else distance+= 10;
+                if (neighbor.SearchPhase < searchFrontierPhase) {
+                    neighbor.SearchPhase = searchFrontierPhase;
+                    neighbor.Distance = distance;
+                    neighbor.PathFrom = current;
+                    neighbor.SearchHeuristic =
+                        neighbor.coordinates.DistanceTo(toCell.coordinates);
+                    searchFrontier.Enqueue(neighbor);
+                }
+                else if (distance < neighbor.Distance) {
+                    int oldPriority = neighbor.SearchPriority;
+                    neighbor.Distance = distance;
+                    neighbor.PathFrom = current;
+                    searchFrontier.Change(neighbor, oldPriority);
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool CreateMap(int x, int z) {
+        ClearPath();
         if (chunks != null) {
             for (int i = 0; i < chunks.Length; i++) {
                 Destroy(chunks[i].gameObject);
@@ -55,7 +141,7 @@ public class TriGrid : MonoBehaviour {
         cellCountX = x;
         cellCountZ = z;
         chunkCountX = cellCountX / TriMetrics.chunkSizeX;
-        chunkCountZ = cellCountZ /  TriMetrics.chunkSizeZ;
+        chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
         CreateChunks();
         CreateCells();
         return true;
@@ -87,7 +173,7 @@ public class TriGrid : MonoBehaviour {
             for (int x = 0; x < cellCountX; x++) {
                 CreateCell(x, z, i++);
             }
-            
+
         }
     }
 
@@ -110,7 +196,7 @@ public class TriGrid : MonoBehaviour {
         if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
 
         cell.Elevation = 0;
-        labels.Add(Instantiate<Text>(cellLabelPrefab,cell.transform));
+        labels.Add(Instantiate<Text>(cellLabelPrefab, cell.transform));
         cell.uiRect = labels[i].rectTransform;
         labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
 
@@ -143,7 +229,8 @@ public class TriGrid : MonoBehaviour {
     }
 
     public void Load(BinaryReader reader) {
-        if(!CreateMap(reader.ReadInt32(), reader.ReadInt32())) {
+        ClearPath();
+        if (!CreateMap(reader.ReadInt32(), reader.ReadInt32())) {
             return;
         }
         for (int i = 0; i < cells.Length; i++) {
@@ -151,7 +238,7 @@ public class TriGrid : MonoBehaviour {
         }
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();
-            
+
         }
     }
 }

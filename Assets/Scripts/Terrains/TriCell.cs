@@ -4,15 +4,44 @@ using System.IO;
 
 public class TriCell : MonoBehaviour {
     public TriCoordinates coordinates;
+    public bool IsRoad {
+        get {
+            return isRoad;
+        }
+        set {
+            isRoad = value;
+        }
+    }
+    bool isRoad=false;
+    public TriCell PathFrom { get; set; }
     public bool inverted = false;
     public RectTransform uiRect;
     public TriGridChunk chunk;
     public int Index { get; set; }
+    public TriCell NextWithSamePriority { get; set; }
     public float StreamBedY {
         get {
             return
                 (elevation + TriMetrics.streamBedElevationOffset) *
                 TriMetrics.elevationStep;
+        }
+    }
+    public Entities Entity { get; set; }
+    public int SearchHeuristic { get; set; }
+    public int SearchPhase { get; set; }
+    int distance;
+    public int Distance {
+        get {
+            return distance;
+        }
+        set {
+            distance = value;
+        }
+    }
+
+    public int SearchPriority {
+        get {
+            return distance + SearchHeuristic*10;
         }
     }
 
@@ -154,10 +183,16 @@ public class TriCell : MonoBehaviour {
     }
     void RefreshSelfOnly() {
         chunk.Refresh();
+        if (Entity) {
+            Entity.ValidateLocation();
+        }
     }
     void Refresh() {
         if (chunk) {
             chunk.Refresh();
+            if (Entity) {
+                Entity.ValidateLocation();
+            }
             for (int i = 0; i < neighbors.Length; i++) {
                 TriCell neighbor = neighbors[i];
                 if (neighbor != null && neighbor.chunk != chunk) {
