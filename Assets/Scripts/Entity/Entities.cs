@@ -7,6 +7,11 @@ public class Entities : MonoBehaviour {
     public Animator animator;
     List<TriCell> pathToTravel;
     const float travelSpeed = 4f;
+
+    public Entities GetPrefab() {
+        return unitPrefab;
+    }
+
     public TriCell Location {
         get {
             return location;
