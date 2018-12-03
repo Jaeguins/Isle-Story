@@ -4,19 +4,19 @@
 
 ### 2018 November
 
-* ![20th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181120)
+* [20th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181120)
 
-* ![21st](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181121)
+* [21st](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181121)
 
-* ![22nd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181122)
+* [22nd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181122)
 
-* ![23rd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181123)
+* [23rd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181123)
 
-* ![26th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181126)
+* [26th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181126)
 
-* ![27th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181127)
+* [27th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181127)
 
-* ![28th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181128)
+* [28th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181128)
 
 ### 2018 December
 
