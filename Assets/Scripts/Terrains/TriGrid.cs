@@ -75,7 +75,14 @@ public class TriGrid : MonoBehaviour {
         }
     }
 
+    public void ClearLabel() {
+        for(int i = 0; i < labels.Count; i++) {
+            labels[i].text = "";
+        }
+    }
+
     public void FindPath(TriCell fromCell,TriCell toCell) {
+        ClearLabel();
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
@@ -138,7 +145,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.IsUnderwater||
                     neighbor.HasRiver||
                     neighbor.Entity||
-                    Mathf.Abs(neighbor.Elevation-fromCell.Elevation)>1)
+                    Mathf.Abs(neighbor.Elevation-current.Elevation)>1)
                     continue;
                 int distance = current.Distance;
                 if (current.IsRoad) distance+= 1;
@@ -150,6 +157,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.SearchHeuristic =
                         neighbor.coordinates.DistanceTo(toCell.coordinates);
                     searchFrontier.Enqueue(neighbor);
+                    
                 }
                 else if (distance < neighbor.Distance) {
                     int oldPriority = neighbor.SearchPriority;
@@ -157,6 +165,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.PathFrom = current;
                     searchFrontier.Change(neighbor, oldPriority);
                 }
+                labels[neighbor.Index].text = "" + neighbor.Distance;
             }
         }
         return false;
@@ -236,6 +245,7 @@ public class TriGrid : MonoBehaviour {
 
         cell.Elevation = 0;
         labels.Add(Instantiate<Text>(cellLabelPrefab, cell.transform));
+        
         cell.uiRect = labels[i].rectTransform;
         labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
 
