@@ -96,6 +96,9 @@ public class Entities : MonoBehaviour {
             c=(b+pathToTravel[i].Position)*0.5f;
             for (; t < 1f; t += Time.deltaTime*travelSpeed) {
                 transform.localPosition = Bezier.GetPoint(a, b, c, t);
+                Vector3 d = Bezier.GetDerivative(a, b, c, t);
+                //d.y = 0f;
+                transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
             t -= 1f;
@@ -105,6 +108,9 @@ public class Entities : MonoBehaviour {
         c = b;
         for (; t < 1f; t += Time.deltaTime * travelSpeed) {
             transform.localPosition = Bezier.GetPoint(a, b, c, t);
+            Vector3 d = Bezier.GetDerivative(a, b, c, t);
+            //d.y = 0f;
+            transform.localRotation = Quaternion.LookRotation(d);
             yield return null;
         }
         animator.SetBool("walking", false);

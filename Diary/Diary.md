@@ -103,3 +103,20 @@ Now I can out from terrain-stuffs..
 
 ![river included in generating](/Diary/Image/20181128_0.PNG)
 ***
+## 2018/12/03
+First note in december.
+
+Now I can pathfinding and moving units.
+
+And finished get all what I want in tutorial(again, https://catlikecoding.com/unity/tutorials/hex-map/).
+
+But because of following tutorial, I need to clean up the whole project.
+
+(unnecessary methods, class extending relations, etc...)
+
+So, perhaps I'll remains notes less often than before.
+
+What I finished in today:
+
+![while moving in routes](/Diary/Image/20181203_0.PNG)
+***
