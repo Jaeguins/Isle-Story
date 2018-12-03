@@ -5,33 +5,28 @@ using System.Collections;
 public class TriGridChunk : MonoBehaviour {
     TriCell[] cells;
     public TriMesh terrain, rivers;
-    Canvas gridCanvas;
-    public void setLabels(bool val) {
-        gridCanvas.enabled = val;
-    }
+
     void Awake() {
-        gridCanvas = GetComponentInChildren<Canvas>();
         cells = new TriCell[TriMetrics.chunkSizeX * TriMetrics.chunkSizeZ];
-        ShowUI(false);
     }
-    public void ShowUI(bool visible) {
-        gridCanvas.gameObject.SetActive(visible);
-    }
+
     public void AddCell(int index, TriCell cell) {
         cells[index] = cell;
         cell.chunk = this;
         cell.transform.SetParent(transform, false);
-        cell.uiRect.SetParent(gridCanvas.transform, false);
     }
+
     public void Refresh() {
         enabled = true;
     }
+
     private void LateUpdate() {
         if (enabled) {
             Triangulate();
             enabled = false;
         }
     }
+
     public void Triangulate() {
         terrain.Clear();
         rivers.Clear();

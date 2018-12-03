@@ -3,9 +3,6 @@
 }
 public static class TriDirectionExtensions {
 
-    public static TriDirection Opposite(this TriDirection direction) {
-        return  direction;
-    }
     public static TriDirection Next(this TriDirection direction) {
         return direction == TriDirection.RIGHT ? TriDirection.VERT : (direction + 1);
     }

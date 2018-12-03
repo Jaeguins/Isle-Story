@@ -9,6 +9,7 @@ public class TriMesh : MonoBehaviour {
     [NonSerialized] List<Vector3> vertices;
     [NonSerialized] List<Color> colors;
     [NonSerialized] List<int> triangles;
+
     void Awake() {
         GetComponent<MeshFilter>().mesh = triMesh = new Mesh();
         meshCollider = gameObject.AddComponent<MeshCollider>();
@@ -42,11 +43,7 @@ public class TriMesh : MonoBehaviour {
         colors.Add(c1);
         colors.Add(c1);
     }
-    public void AddTriangleColor(Color c1, Color c2, Color c3) {
-        colors.Add(c1);
-        colors.Add(c2);
-        colors.Add(c3);
-    }
+
     public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
         int vertexIndex = vertices.Count;
         vertices.Add(TriMetrics.Perturb(v1));
@@ -70,17 +67,12 @@ public class TriMesh : MonoBehaviour {
         triangles.Add(vertexIndex + 2);
         triangles.Add(vertexIndex + 3);
     }
+
     public void AddQuadColor(Color c1, Color c2) {
         colors.Add(c1);
         colors.Add(c1);
         colors.Add(c2);
         colors.Add(c2);
-    }
-    public void AddQuadColor(Color c1, Color c2, Color c3, Color c4) {
-        colors.Add(c1);
-        colors.Add(c2);
-        colors.Add(c3);
-        colors.Add(c4);
     }
 
 

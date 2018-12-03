@@ -16,11 +16,13 @@ public class TriMapCamera : MonoBehaviour {
     public float stickMinZoom, stickMaxZoom;
     public float swivelMinZoom, swivelMaxZoom;
     public float moveSpeedMinZoom, moveSpeedMaxZoom;
+
     void Awake() {
         cam = this;
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
     }
+
     void Update() {
         float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
         if (zoomDelta != 0f) AdjustZoom(zoomDelta);
@@ -44,7 +46,6 @@ public class TriMapCamera : MonoBehaviour {
         else if (rotationAngle >= 360f) rotationAngle -= 360f;
         transform.localRotation = Quaternion.Euler(0f, rotationAngle, 0f);
     }
-
 
     void AdjustPosition(float xDelta,float zDelta) {
         Vector3 direction = transform.localRotation*new Vector3(xDelta, 0f, zDelta).normalized;
@@ -76,6 +77,7 @@ public class TriMapCamera : MonoBehaviour {
         float angle = Mathf.Lerp(swivelMinZoom, swivelMaxZoom, zoom);
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
     }
+
     public static void ValidatePosition() {
         cam.AdjustPosition(0f, 0f);
     }

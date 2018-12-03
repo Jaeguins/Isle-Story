@@ -53,16 +53,7 @@ public struct TriCoordinates {
         origin.z += adder.y;
         return origin;
     }
-    public static TriCoordinates operator+ (TriCoordinates origin,TriCoordinates adder) {
-        origin.x += adder.x;
-        origin.z += adder.z;
-        return origin;
-    }
-    public static TriCoordinates operator -(TriCoordinates origin, TriCoordinates adder) {
-        origin.x -= adder.x;
-        origin.z -= adder.z;
-        return origin;
-    }
+
     public static bool operator==(TriCoordinates A,TriCoordinates B) {
         if (A.X == B.X && A.Z == B.Z) return true;
         else return false;

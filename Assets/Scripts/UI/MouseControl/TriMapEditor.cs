@@ -23,6 +23,7 @@ public class TriMapEditor : MonoBehaviour {
     private void Awake() {
         SetEditMode(false);
     }
+
     void Update() {
         if (!EventSystem.current.IsPointerOverGameObject()) {
             if (Input.GetMouseButton(0)) {
@@ -62,6 +63,7 @@ public class TriMapEditor : MonoBehaviour {
             previousCell = null;
         }
     }
+
     public void SetEditMode(bool toggle) {
         enabled = toggle;
     }
@@ -81,15 +83,19 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     OptionalToggle riverMode = OptionalToggle.Yes;
+
     public void SetRiverMode(int mode) {
         riverMode = (OptionalToggle)mode;
     }
+
     public void SetTerrainTypeIndex(int index) {
         activeTerrainTypeIndex = index;
     }
+
     public void SetApplyElevation(bool toggle) {
         applyElevation = toggle;
     }
+
     void EditCell(TriCell cell) {
         if (activeTerrainTypeIndex >= 0) {
             cell.TerrainTypeIndex = activeTerrainTypeIndex;
@@ -107,6 +113,7 @@ public class TriMapEditor : MonoBehaviour {
             }
         }
     }
+
     void EditHex(TriCell cell) {
         TriCell k = cell;
         bool inverted = cell.inverted;
@@ -121,6 +128,7 @@ public class TriMapEditor : MonoBehaviour {
                 d = d.Previous();
         }
     }
+
     public void Save() {
         string path = Path.Combine(Application.persistentDataPath, "test.map");
         using (
@@ -131,6 +139,7 @@ public class TriMapEditor : MonoBehaviour {
             triGrid.Save(writer);
         }
     }
+
     public void Load() {
 
         string path = Path.Combine(Application.persistentDataPath, "test.map");
@@ -148,6 +157,7 @@ public class TriMapEditor : MonoBehaviour {
             }
         }
     }
+
     public void NewMap() {
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
@@ -161,6 +171,7 @@ public class TriMapEditor : MonoBehaviour {
                 Instantiate(Entities.unitPrefab), cell, Random.Range(0f, 360f));
         }
     }
+
     void DestroyUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Entity) {

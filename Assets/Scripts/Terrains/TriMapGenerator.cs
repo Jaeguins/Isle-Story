@@ -31,6 +31,7 @@ public class TriMapGenerator : MonoBehaviour {
     [Range(0, 20)]
     public int riverPercentage = 10;
     int xMin, xMax, zMin, zMax;
+    int searchFrontierPhase;
 
     void SetClimateData(int cellIndex,float moisture,float clouds) {
         TriDirection d = TriDirection.VERT;
@@ -92,7 +93,7 @@ public class TriMapGenerator : MonoBehaviour {
         SetClimateData(cellIndex, tMoisture, tClouds);
         //climate[cellIndex] = cellClimate;
     }
-    int searchFrontierPhase;
+    
     public void GenerateMap(int x, int z) {
         cellCount = x * z;
         grid.CreateMap(x, z);
@@ -109,6 +110,7 @@ public class TriMapGenerator : MonoBehaviour {
         CreateRivers();
         SetTerrainType();
     }
+
     void CreateRivers() {
         List<TriCell> riverOrigins = ListPool<TriCell>.Get();
         for (int i = 0; i < cellCount; i++) {
@@ -276,10 +278,12 @@ public class TriMapGenerator : MonoBehaviour {
         checker.Clear();
         return budget;
     }
-    bool checkbounds(TriCoordinates coord) {
+
+    private bool checkbounds(TriCoordinates coord) {
         if (coord.X > xMin && coord.X < xMax && coord.Z > zMin && coord.Z < zMax) return true;
         return false;
     }
+
     void SetTerrainType() {
         for (int i = 0; i < cellCount; i++) {
             TriCell cell = grid.GetCell(i), hexCell = grid.GetCell(TriMetrics.TriToHex(cell.coordinates));
@@ -322,6 +326,7 @@ public class TriMapGenerator : MonoBehaviour {
 
 
     }
+
     TriCell GetRandomCell() {
         TriCoordinates t = TriMetrics.TriToHex(new TriCoordinates(Random.Range(xMin, xMax), Random.Range(zMin, zMax)));
         return grid.GetCell(t.X, t.Z);

@@ -7,7 +7,6 @@ public class GameUI : MonoBehaviour {
     public TriGrid grid;
     public void SetEditMode(bool toggle) {
         enabled = !toggle;
-        grid.ShowUI(!toggle);
         grid.ClearPath();
     }
     bool UpdateCurrentCell() {

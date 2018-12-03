@@ -19,13 +19,6 @@ public class TriCell : MonoBehaviour {
     public TriGridChunk chunk;
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
-    public float StreamBedY {
-        get {
-            return
-                (elevation + TriMetrics.streamBedElevationOffset) *
-                TriMetrics.elevationStep;
-        }
-    }
     public Entities Entity { get; set; }
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
@@ -45,18 +38,12 @@ public class TriCell : MonoBehaviour {
         }
     }
 
-    public int NumOfRiver() {
-        int i = 0;
-        for (int j = 0; j < 3; j++)
-            i += isRiver[j] ? 1 : 0;
-        return i;
-    }
-
     public Color Color {
         get {
             return TriMetrics.colors[terrainTypeIndex];
         }
     }
+
     public int TerrainTypeIndex {
         get {
             return terrainTypeIndex;
@@ -68,12 +55,15 @@ public class TriCell : MonoBehaviour {
             }
         }
     }
+
     int terrainTypeIndex;
+
     public Vector3 Position {
         get {
             return transform.localPosition;
         }
     }
+
     public int Elevation {
         get {
             return elevation;
@@ -85,6 +75,7 @@ public class TriCell : MonoBehaviour {
             Refresh();
         }
     }
+
     void RefreshPosition() { 
     Vector3 position = transform.localPosition;
     position.y = elevation* TriMetrics.elevationStep;
@@ -94,22 +85,14 @@ public class TriCell : MonoBehaviour {
     uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
         }
+
     int elevation = int.MinValue;
-    public bool[] isRiver;
-    public bool IsRiver(TriDirection d) {
-        return isRiver[(int)d];
-    }
+
+    bool[] isRiver = { false, false, false };
+
     public bool HasRiver {
         get {
             return isRiver[0]||isRiver[1]||isRiver[2];
-        }
-    }
-
-    public float RiverSurfaceY {
-        get {
-            return
-                (elevation + TriMetrics.streamBedElevationOffset) *
-                TriMetrics.elevationStep;
         }
     }
 
@@ -131,16 +114,6 @@ public class TriCell : MonoBehaviour {
     public bool IsUnderwater {
         get {
             return waterLevel > elevation;
-        }
-    }
-
-    public bool HasRiverBeginOrEnd {
-        get {
-            int count = 0;
-            for(int i = 0; i < isRiver.Length; i++) {
-                if (isRiver[i]) count += 1;
-            }
-            return count==1;
         }
     }
 
@@ -170,23 +143,24 @@ public class TriCell : MonoBehaviour {
         }
     }
 
-   
-
     [SerializeField]
     TriCell[] neighbors;
     public TriCell GetNeighbor(TriDirection direction) {
         return neighbors[(int)direction];
     }
+
     public void SetNeighbor(TriDirection direction, TriCell cell) {
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction] = this;
     }
+
     void RefreshSelfOnly() {
         chunk.Refresh();
         if (Entity) {
             Entity.ValidateLocation();
         }
     }
+
     void Refresh() {
         if (chunk) {
             chunk.Refresh();

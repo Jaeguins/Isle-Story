@@ -22,27 +22,20 @@ public class TriGrid : MonoBehaviour {
     public static TriGrid Instance;
     int searchFrontierPhase;
     TriCellPriorityQueue searchFrontier;
+    TriCell currentPathFrom, currentPathTo;
+    bool currentPathExists;
+    public int searchPhase;
+
     public void RemoveUnit(Entities unit) {
         units.Remove(unit);
         unit.Die();
     }
-    public int searchPhase;
+
     public void AddUnit(Entities unit, TriCell location, float orientation) {
         units.Add(unit);
         unit.transform.SetParent(transform, false);
         unit.Location = location;
         unit.Orientation = orientation;
-    }
-    public void setLabels(bool val) {
-        for (int i = 0; i < chunks.Length; i++) {
-            chunks[i].setLabels(val);
-        }
-    }
-
-    public void ShowUI(bool value) {
-        for(int i = 0; i < chunks.Length; i++) {
-            chunks[i].ShowUI(value);
-        }
     }
 
     void ClearUnits() {
@@ -65,9 +58,6 @@ public class TriGrid : MonoBehaviour {
         CreateMap(cellCountX, cellCountZ);
         Instance = this;
     }
-
-    TriCell currentPathFrom, currentPathTo;
-    bool currentPathExists;
 
     public bool HasPath {
         get {
@@ -150,6 +140,7 @@ public class TriGrid : MonoBehaviour {
                 int distance = current.Distance;
                 if (current.IsRoad) distance+= 1;
                 else distance+= 10;
+                distance += current.Elevation != neighbor.Elevation ? 1 : 0;
                 if (neighbor.SearchPhase < searchFrontierPhase) {
                     neighbor.SearchPhase = searchFrontierPhase;
                     neighbor.Distance = distance;
@@ -194,13 +185,16 @@ public class TriGrid : MonoBehaviour {
         CreateCells();
         return true;
     }
+
     public TriCell GetCell(int xOffset, int zOffset) {
         if (xOffset < 0 || xOffset >= cellCountX || zOffset < 0 || zOffset >= cellCountZ) return null;
         return cells[xOffset + zOffset * cellCountX];
     }
+
     public TriCell GetCell(TriCoordinates coord) {
         return GetCell(coord.X, coord.Z);
     }
+
     public TriCell GetCell(int cellIndex) {
         return cells[cellIndex];
     }
@@ -251,6 +245,7 @@ public class TriGrid : MonoBehaviour {
 
         AddCellToChunk(x, z, cell);
     }
+
     void AddCellToChunk(int x, int z, TriCell cell) {
         int chunkX = x / TriMetrics.chunkSizeX;
         int chunkZ = z / TriMetrics.chunkSizeZ;
@@ -260,7 +255,6 @@ public class TriGrid : MonoBehaviour {
         int localZ = z - chunkZ * TriMetrics.chunkSizeZ;
         chunk.AddCell(localX + localZ * TriMetrics.chunkSizeX, cell);
     }
-
 
     public TriCell GetCell(Vector3 position) {
         position = transform.InverseTransformPoint(position);
