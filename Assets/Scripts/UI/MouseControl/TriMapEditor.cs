@@ -168,7 +168,7 @@ public class TriMapEditor : MonoBehaviour {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
             triGrid.AddUnit(
-                Instantiate(Entity.unitPrefab), cell, Random.Range(0f, 360f));
+                Instantiate((Unit)Entity.unitPrefab), cell, Random.Range(0f, 360f));
         }
     }
 

@@ -31,7 +31,7 @@ public class TriGrid : MonoBehaviour {
         unit.Die();
     }
 
-    public void AddUnit(Entity unit, TriCell location, float orientation) {
+    public void AddUnit(Unit unit, TriCell location, float orientation) {
         units.Add(unit);
         unit.transform.SetParent(transform, false);
         unit.Location = location;
@@ -270,10 +270,6 @@ public class TriGrid : MonoBehaviour {
         writer.Write(cellCountZ);
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Save(writer);
-        }
-        writer.Write(units.Count);
-        for (int i = 0; i < units.Count; i++) {
-            units[i].Save(writer);
         }
     }
 

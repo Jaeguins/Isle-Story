@@ -1,13 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using System.IO;
+public enum UnitType {
+    PERSON
+}
 public class Unit : Entity {
+    public UnitType type;
     public Coroutine nowRoutine;
     public Animator animator;
     List<TriCell> pathToTravel;
     const float travelSpeed = 1f;
     public bool acting = false;
     public Queue<Command> commandQueue;
+    float orientation;
+    public float Orientation {
+        get {
+            return orientation;
+        }
+        set {
+            orientation = value;
+            transform.localRotation = Quaternion.Euler(0f, value, 0f);
+        }
+    }
+
     public static bool IsValidDestination(TriCell cell) {
         return !cell.IsUnderwater && !cell.Entity;
     }
@@ -104,5 +119,9 @@ public class Unit : Entity {
         acting = false;
     }
 
-
+    public new void Save(BinaryWriter writer,int index) {
+        base.Save(writer,index);
+        writer.Write((int)type);
+        writer.Write(orientation);
+    }
 }

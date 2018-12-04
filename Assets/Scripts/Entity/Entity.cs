@@ -1,11 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-
+using System;
+[Serializable]
 public class Entity : MonoBehaviour {
+    public int ID {
+        get {
+            return id;
+        }
+        set {
+            id = value;
+        }
+    }
+    int id;
     public static Entity unitPrefab;
     public TriCell location;
-    float orientation;
+    
     public Entity GetPrefab() {
         return unitPrefab;
     }
@@ -24,28 +34,20 @@ public class Entity : MonoBehaviour {
         }
     }
 
-    public void Save(BinaryWriter writer) {
+    public void Save(BinaryWriter writer, int index) {
+        writer.Write(index);
         location.coordinates.Save(writer);
-        writer.Write(orientation);
     }
 
-    public static void Load(BinaryReader reader) {
+    public static void Load(BinaryReader reader,int id) {
         TriCoordinates coordinates = TriCoordinates.Load(reader);
         float orientation = reader.ReadSingle();
         TriGrid grid = TriGrid.Instance;
         grid.AddUnit(
-            Instantiate(unitPrefab), grid.GetCell(coordinates), orientation
+            Instantiate((Unit)unitPrefab), grid.GetCell(coordinates), orientation
             );
     }
-    public float Orientation {
-        get {
-            return orientation;
-        }
-        set {
-            orientation = value;
-            transform.localRotation = Quaternion.Euler(0f, value, 0f);
-        }
-    }
+ 
     
     public void ValidateLocation() {
         transform.localPosition = location.Position;
