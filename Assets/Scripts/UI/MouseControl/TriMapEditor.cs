@@ -141,7 +141,7 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     public void Load() {
-
+        
         string path = Path.Combine(Application.persistentDataPath, "test.map");
         using (
             BinaryReader reader =
@@ -168,7 +168,7 @@ public class TriMapEditor : MonoBehaviour {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
             triGrid.AddUnit(
-                Instantiate(Entities.unitPrefab), cell, Random.Range(0f, 360f));
+                Instantiate(Entity.unitPrefab), cell, Random.Range(0f, 360f));
         }
     }
 

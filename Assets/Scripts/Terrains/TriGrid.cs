@@ -7,8 +7,8 @@ public class TriGrid : MonoBehaviour {
     public int cellCountX = 20;
     public int cellCountZ = 15;
     public TriCell cellPrefab;
-    public Entities unitPrefab;
-    List<Entities> units = new List<Entities>();
+    public Entity unitPrefab;
+    List<Entity> units = new List<Entity>();
     TriCell[] cells;
     TriGridChunk[] chunks;
     public Text cellLabelPrefab;
@@ -26,12 +26,12 @@ public class TriGrid : MonoBehaviour {
     bool currentPathExists;
     public int searchPhase;
 
-    public void RemoveUnit(Entities unit) {
+    public void RemoveUnit(Entity unit) {
         units.Remove(unit);
         unit.Die();
     }
 
-    public void AddUnit(Entities unit, TriCell location, float orientation) {
+    public void AddUnit(Entity unit, TriCell location, float orientation) {
         units.Add(unit);
         unit.transform.SetParent(transform, false);
         unit.Location = location;
@@ -48,13 +48,13 @@ public class TriGrid : MonoBehaviour {
     private void OnEnable() {
         TriMetrics.noiseSource = noiseSource;
         TriMetrics.colors = colors;
-        Entities.unitPrefab = unitPrefab;
+        Entity.unitPrefab = unitPrefab;
     }
 
     void Awake() {
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
-        Entities.unitPrefab = unitPrefab;
+        Entity.unitPrefab = unitPrefab;
         CreateMap(cellCountX, cellCountZ);
         Instance = this;
     }
@@ -167,6 +167,7 @@ public class TriGrid : MonoBehaviour {
         ClearUnits();
         if (chunks != null) {
             for (int i = 0; i < chunks.Length; i++) {
+                chunks[i].Disable();
                 Destroy(chunks[i].gameObject);
             }
         }
@@ -182,6 +183,7 @@ public class TriGrid : MonoBehaviour {
         chunkCountX = cellCountX / TriMetrics.chunkSizeX;
         chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
         CreateChunks();
+        labels.Clear();
         CreateCells();
         return true;
     }
@@ -242,7 +244,7 @@ public class TriGrid : MonoBehaviour {
         
         cell.uiRect = labels[i].rectTransform;
         labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-
+        cell.gameObject.name = "TriCell " + x + ":" + z;
         AddCellToChunk(x, z, cell);
     }
 
@@ -298,7 +300,7 @@ public class TriGrid : MonoBehaviour {
         if (header >= 2) {
             int unitCount = reader.ReadInt32();
             for (int i = 0; i < unitCount; i++) {
-                Entities.Load(reader);
+                Entity.Load(reader);
             }
         }
     }

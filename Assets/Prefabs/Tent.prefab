@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4907161355162062}
   - component: {fileID: 95098233771474132}
-  - component: {fileID: 114267660093950064}
+  - component: {fileID: 114409359914884806}
   m_Layer: 0
   m_Name: Tent
   m_TagString: Untagged
@@ -206,7 +206,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114267660093950064
+--- !u!114 &114409359914884806
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999863108784864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a10ea043a6fb544b216e8e9eece1c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 49e329d5e81aaaa4c8e7b35f41d2b44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  location: {fileID: 0}

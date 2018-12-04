@@ -690,9 +690,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1712454848018652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb94159c5cd8ce0409856810ade28f07, type: 3}
+  m_Script: {fileID: 11500000, guid: 527c1dc2fbf284546ad919253a8260fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  location: {fileID: 0}
   animator: {fileID: 95262515807499006}
 --- !u!137 &137670628232420186
 SkinnedMeshRenderer:

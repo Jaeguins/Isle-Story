@@ -5,7 +5,10 @@ using System.Collections;
 public class TriGridChunk : MonoBehaviour {
     TriCell[] cells;
     public TriMesh terrain, rivers;
-
+    public void Disable() {
+        terrain.enabled = false;
+        rivers.enabled = false;
+    }
     void Awake() {
         cells = new TriCell[TriMetrics.chunkSizeX * TriMetrics.chunkSizeZ];
     }
@@ -31,7 +34,7 @@ public class TriGridChunk : MonoBehaviour {
         terrain.Clear();
         rivers.Clear();
         for (int i = 0; i < cells.Length; i++) {
-            Triangulate(cells[i]);
+            if(cells[i])Triangulate(cells[i]);
         }
         rivers.Apply();
         terrain.Apply();

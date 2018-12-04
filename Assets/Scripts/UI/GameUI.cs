@@ -3,7 +3,8 @@ using UnityEngine.EventSystems;
 
 public class GameUI : MonoBehaviour {
     TriCell currentCell;
-    Entities selectedUnit;
+    Unit selectedUnit;
+
     public TriGrid grid;
     public void SetEditMode(bool toggle) {
         enabled = !toggle;
@@ -22,7 +23,7 @@ public class GameUI : MonoBehaviour {
         grid.ClearPath();
         UpdateCurrentCell();
         if (currentCell) {
-            selectedUnit = currentCell.Entity;
+            selectedUnit = (Unit)currentCell.Entity;
         }
     }
     void Update() {
@@ -32,29 +33,15 @@ public class GameUI : MonoBehaviour {
             }
             else if (selectedUnit) {
                 if (Input.GetMouseButtonDown(1)) {
-                    DoMove();
-                }
-                else {
-                    DoPathfinding();
+                    UpdateCurrentCell();
+                    if (Input.GetKey(KeyCode.Z)) {
+                        selectedUnit.CancelAllAct();
+                    }
+                    selectedUnit.AddCommand(new Command(CommandType.MOVE, currentCell));
                 }
             }
         }
     }
+
     
-    void DoPathfinding() {
-        if (UpdateCurrentCell()) {
-            if (currentCell && selectedUnit.IsValidDestination(currentCell)) {
-                grid.FindPath(selectedUnit.Location, currentCell);
-            }
-            else {
-                grid.ClearPath();
-            }
-        }
-    }
-    public void DoMove() {
-        if (grid.HasPath) {
-            selectedUnit.Travel(grid.GetPath());
-            grid.ClearPath();
-        }
-    }
 }

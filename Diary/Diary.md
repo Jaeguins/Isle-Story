@@ -20,7 +20,7 @@
 
 ### 2018 December
 
-* ![03rd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181203)
+* [03rd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181203)
 
 ***
 ## 2018/11/20
