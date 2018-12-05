@@ -10,6 +10,16 @@ public class Isleland : MonoBehaviour {
     public TriGrid grid;
     Dictionary<int, Building> buildings;
     Dictionary<int, Unit> units;
+    public int UnitCount {
+        get {
+            return units.Count;
+        }
+    }
+    public int BuildingCount {
+        get {
+            return buildings.Count;
+        }
+    }
     void Awake() {
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/" + isleName);
         if (di.Exists == false) {
@@ -27,17 +37,31 @@ public class Isleland : MonoBehaviour {
             writer.Write(0);
             writer.Write(buildings.Count);
             k = 0;
-            foreach (Building b in buildings.Values) {
-                b.Save(writer, k++);
+            foreach (KeyValuePair<int, Building> b in buildings) {
+                writer.Write(k++);
+                switch (b.Value.type) {
+                    case BuildingType.INN:
+                        switch (((Inn)b.Value).subType) {
+                            case InnType.TENT:
+                                ((Tent)b.Value).Save(writer);
+                                break;
+                        }
+                        break;
+                }
             }
-
         }
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "unit.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(units.Count);
             k = 0;
-            foreach (Unit b in units.Values) {
-                b.Save(writer, k++);
+            foreach (KeyValuePair<int,Unit>b in units) {
+                writer.Write(k++);
+                switch (b.Value.type) {
+                    case UnitType.PERSON:
+                        ((Person)b.Value).Save(writer);
+                        break;
+                }
+
             }
         }
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "map.dat"), FileMode.Create))) {
@@ -67,10 +91,12 @@ public class Isleland : MonoBehaviour {
                     int id = reader.ReadInt32();
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Building loaded = Building.Load(reader);
-                    loaded.ID = id;
-                    loaded.location = grid.GetCell(coord);
-                    loaded.transform.parent = transform;
-                    AddBuilding(loaded);
+                    if (loaded) {
+                        loaded.ID = id;
+                        loaded.location = grid.GetCell(coord);
+                        loaded.transform.parent = transform;
+                        AddBuilding(loaded);
+                    }
                 }
             }
             else {
@@ -85,10 +111,12 @@ public class Isleland : MonoBehaviour {
                     int id = reader.ReadInt32();
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Unit loaded = Unit.Load(reader);
-                    loaded.ID = id;
-                    loaded.location = grid.GetCell(coord);
-                    loaded.transform.parent = transform;
-                    AddUnit(loaded);
+                    if (loaded) {
+                        loaded.ID = id;
+                        loaded.Location = grid.GetCell(coord);
+                        loaded.transform.parent = transform;
+                        AddUnit(loaded);
+                    }
                 }
             }
             else {
@@ -97,9 +125,9 @@ public class Isleland : MonoBehaviour {
         }
     }
     public void ClearIsle() {
-        foreach (Building b in buildings.Values) Destroy(b);
+        foreach (KeyValuePair<int,Building>b in buildings) Destroy(b.Value.gameObject);
         buildings.Clear();
-        foreach (Unit b in units.Values) Destroy(b);
+        foreach (KeyValuePair<int, Unit> b in units) Destroy(b.Value.gameObject);
         units.Clear();
     }
     public void AddUnit(Unit unit) {

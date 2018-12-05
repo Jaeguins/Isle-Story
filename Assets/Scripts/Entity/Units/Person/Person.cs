@@ -13,15 +13,19 @@ public class Person : Unit {
         CancelAllAct();
         AddCommand(new Command(CommandType.MOVE, home));
     }
-    public void Save(BinaryWriter writer) {
+    public new void Save(BinaryWriter writer) {
+        base.Save(writer);
         if (home)
             home.location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
     }
     public static new Person Load(BinaryReader reader) {
         Person ret= Instantiate((Person)Isleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
-        Inn home = (Inn)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Building;
-        ret.migrate(home);
+        TriCell homeLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
+        if (homeLoc) {
+            Inn home = (Inn)(homeLoc.Building);
+            ret.migrate(home);
+        }
         return ret;
     }
 

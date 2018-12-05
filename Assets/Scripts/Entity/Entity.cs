@@ -34,8 +34,7 @@ public class Entity : MonoBehaviour {
         }
     }
 
-    public void Save(BinaryWriter writer, int index) {
-        writer.Write(index);
+    public void Save(BinaryWriter writer) {
         location.coordinates.Save(writer);
     }
     

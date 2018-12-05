@@ -13,8 +13,8 @@ public class Building : Entity {
     
     TriDirection EntranceDirection;
 
-    public new void Save(BinaryWriter writer,int index) {
-        base.Save(writer,index);
+    public new void Save(BinaryWriter writer) {
+        base.Save(writer);
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
         EntranceCell.coordinates.Save(writer);

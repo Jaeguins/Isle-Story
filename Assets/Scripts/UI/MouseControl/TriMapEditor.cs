@@ -148,7 +148,8 @@ public class TriMapEditor : MonoBehaviour {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
             Unit ret=Instantiate(isleland.unitPrefabs[0]);
-            ret.location = cell;
+            ret.ID = isleland.UnitCount;
+            ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
             isleland.AddUnit(ret);
         }
