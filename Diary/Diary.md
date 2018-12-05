@@ -22,6 +22,8 @@
 
 * [03rd](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181203)
 
+* [05th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181205)
+
 ***
 ## 2018/11/20
 Project started.
@@ -142,4 +144,29 @@ So, perhaps I'll remains notes less often than before.
 What I finished in today:
 
 ![while moving in routes](/Diary/Image/20181203_0.PNG)
+***
+## 2018/12/05
+Finally I established what is 'building','unit', and 'natural object'.
+
+and changed save structure as
+
+application
+
+	isleland name
+
+		buildings.dat
+
+		maps.dat
+
+		naturals.dat
+
+		units.dat
+
+for further modifing.
+
+For now, I can save terrains, units, naturals, and even units' action status!(Yes, Action in queue is also supported and saved!)
+
+And successed in planting trees in whole isleland.
+
+![Do I need more dense mesh?](/Diary/Image/20181205_0.PNG)
 ***

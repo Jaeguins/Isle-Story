@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -356,6 +356,16 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
         type: 2}
+      propertyPath: innPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
+      propertyPath: unitPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
       propertyPath: naturalPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -412,6 +422,18 @@ Prefab:
       propertyPath: naturalPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 114573818711795104, guid: f6f6fa96dc8938544a49859a827bb472,
+        type: 2}
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
+      propertyPath: innPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 114409359914884806, guid: 7158ee9277c12c14189d836b977c3797,
+        type: 2}
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
+      propertyPath: unitPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 114625707104384720, guid: 71665083466effb4c92eed3ee3db1b13,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25eeebf474ec1bb418d74ba2a92f0d96, type: 2}
@@ -880,7 +902,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 156213898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c8026c59e41fe49a7a4c53db331fcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4153a731f1da28149a9c0a8a09e88ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   innPrefabs:
@@ -1364,7 +1386,7 @@ MonoBehaviour:
   rotationSpeed: 180
   stickMinZoom: -500
   stickMaxZoom: -40
-  swivelMinZoom: 90
+  swivelMinZoom: 80
   swivelMaxZoom: 45
   moveSpeedMinZoom: 400
   moveSpeedMaxZoom: 100
