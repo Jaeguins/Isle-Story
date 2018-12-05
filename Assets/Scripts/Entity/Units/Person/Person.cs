@@ -16,7 +16,7 @@ public class Person : Unit {
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
         if (home)
-            home.location.coordinates.Save(writer);
+            home.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
     }
     public static new Person Load(BinaryReader reader) {

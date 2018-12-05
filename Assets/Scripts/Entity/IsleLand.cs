@@ -93,7 +93,7 @@ public class Isleland : MonoBehaviour {
                     Building loaded = Building.Load(reader);
                     if (loaded) {
                         loaded.ID = id;
-                        loaded.location = grid.GetCell(coord);
+                        loaded.Location = grid.GetCell(coord);
                         loaded.transform.parent = transform;
                         AddBuilding(loaded);
                     }

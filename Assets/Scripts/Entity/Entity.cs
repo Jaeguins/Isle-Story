@@ -14,7 +14,7 @@ public class Entity : MonoBehaviour {
     }
     int id;
     public static Entity unitPrefab;
-    public TriCell location;
+    TriCell location;
     
     public Entity GetPrefab() {
         return unitPrefab;
@@ -25,9 +25,6 @@ public class Entity : MonoBehaviour {
             return location;
         }
         set {
-            if (location) {
-                location.Entity = null;
-            }
             location = value;
             value.Entity = this;
             transform.localPosition = value.Position;

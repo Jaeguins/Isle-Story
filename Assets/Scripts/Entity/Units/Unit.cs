@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using System;
 public enum UnitType {
     PERSON
 }
@@ -11,7 +12,8 @@ public class Unit : Entity {
     List<TriCell> pathToTravel;
     const float travelSpeed = 1f;
     public bool acting = false;
-    public Queue<Command> commandQueue;
+    public Command nowWork;
+    public Queue<Command> commandQueue = new Queue<Command>();
     float orientation;
     public float Orientation {
         get {
@@ -29,8 +31,7 @@ public class Unit : Entity {
     public void AddCommand(Command c) {
         commandQueue.Enqueue(c);
     }
-    private void Awake() {
-        commandQueue = new Queue<Command>();
+    private void Start() {
         StartCoroutine(Act());
     }
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
@@ -41,7 +42,6 @@ public class Unit : Entity {
             if (inst.HasPath) {
                 pathToTravel = inst.GetPath();
                 CancelNowAct();
-                //StopCoroutine(TravelPath());
                 nowRoutine= StartCoroutine(TravelPath());
                 yield return nowRoutine;
                 inst.ClearPath();
@@ -56,11 +56,11 @@ public class Unit : Entity {
     IEnumerator<WaitUntil> Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
-                Command tC = commandQueue.Dequeue();
-                switch (tC.type) {
+                nowWork = commandQueue.Dequeue();
+                switch (nowWork.type) {
                     case CommandType.MOVE:
                         
-                        StartCoroutine(FindPathAndMove(tC.targetLocation));
+                        StartCoroutine(FindPathAndMove(nowWork.targetLocation));
                         Debug.Log(commandQueue.Count);
                         break;
                 }
@@ -123,21 +123,41 @@ public class Unit : Entity {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write(orientation);
+        writer.Write(acting);
+        if (acting) {
+            writer.Write(commandQueue.Count + 1);
+            nowWork.Save(writer);
+            foreach (Command c in commandQueue) c.Save(writer);
+        }
     }
     public static Unit Load(BinaryReader reader) {
         UnitType type = (UnitType)reader.ReadInt32();
         float orientation = reader.ReadSingle();
+        bool acting = reader.ReadBoolean();
+        List<Command> tCommand = ListPool<Command>.Get();
+        if (acting) {
+            int count = reader.ReadInt32();
+            for (int i=0;i<count;i++)
+            tCommand.Add(Command.Load(reader));
+        }
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:
                 ret = Person.Load(reader);
                 break;
-
         }
         if (ret) {
             ret.orientation = orientation;
             ret.type = type;
+            if (acting)
+                foreach (Command i in tCommand) {
+                    ret.AddCommand(i);
+                    Debug.Log(ret.commandQueue.Count);
+                }
+                    
         }
+        tCommand.Clear();
+        ListPool<Command>.Add(tCommand);
         return ret;
     }
 }
