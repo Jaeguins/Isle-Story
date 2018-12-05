@@ -354,6 +354,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
+      propertyPath: buildingPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4677321080492186, guid: 25eeebf474ec1bb418d74ba2a92f0d96, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -391,6 +396,12 @@ Prefab:
       propertyPath: grid
       value: 
       objectReference: {fileID: 143506541}
+    - target: {fileID: 114559639597938612, guid: 25eeebf474ec1bb418d74ba2a92f0d96,
+        type: 2}
+      propertyPath: buildingPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 114573818711795104, guid: f6f6fa96dc8938544a49859a827bb472,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25eeebf474ec1bb418d74ba2a92f0d96, type: 2}
   m_IsPrefabAsset: 0
@@ -865,6 +876,9 @@ MonoBehaviour:
   - {fileID: 114409359914884806, guid: 7158ee9277c12c14189d836b977c3797, type: 2}
   unitPrefabs:
   - {fileID: 114625707104384720, guid: 71665083466effb4c92eed3ee3db1b13, type: 2}
+  buildingPrefabs:
+  - {fileID: 0}
+  - {fileID: 114573818711795104, guid: f6f6fa96dc8938544a49859a827bb472, type: 2}
   grid: {fileID: 143506541}
 --- !u!1 &685775441
 GameObject:

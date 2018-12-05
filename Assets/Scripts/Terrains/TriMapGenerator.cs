@@ -290,6 +290,7 @@ public class TriMapGenerator : MonoBehaviour {
             if (cell.coordinates == hexCell.coordinates) {
                 float moisture = climate[hexCell.Index].moisture;
                 TriDirection d = TriDirection.VERT;
+                Isleland isle = Isleland.Instance;
                 for (int j = 0; j < 6; j++) {
                     if (!cell) break;
                     if (!cell.IsUnderwater) {
@@ -298,9 +299,21 @@ public class TriMapGenerator : MonoBehaviour {
                         }
                         else if (moisture < 0.02f) {
                             cell.TerrainTypeIndex = 3;
+                            if (Random.value < 0.5f&&!cell.HasRiver) {
+                                Tree t=(Tree)Instantiate(isle.naturalPrefabs[(int)NaturalType.TREE],isle.transform);
+                                t.Location = cell;
+                                t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
+                                isle.AddNatural(t);
+                            }
                         }
                         else if (moisture < 0.12f) {
                             cell.TerrainTypeIndex = 2;
+                            if (Random.value < 0.2f&&!cell.HasRiver) {
+                                Tree t = (Tree)Instantiate(isle.naturalPrefabs[(int)NaturalType.TREE], isle.transform);
+                                t.Location = cell;
+                                t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
+                                isle.AddNatural(t);
+                            }
                         }
                         else if (moisture < 0.20f) {
                             cell.TerrainTypeIndex = 1;

@@ -58,7 +58,7 @@ public class Unit : Entity {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
                 switch (nowWork.type) {
-                    case CommandType.MOVE:
+                    case CommandType.MOVE:  
                         StartCoroutine(FindPathAndMove(nowWork.targetLocation));
                         break;
                 }

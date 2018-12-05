@@ -6,7 +6,6 @@ public enum InnType {
 }
 public class Inn : Building {
     List<Person> livers;
-    public new BuildingType type = BuildingType.INN;
     public InnType subType;
     protected int capacity;
     void setLiver(Person person) {

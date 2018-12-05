@@ -7,11 +7,19 @@ public enum BuildingType {
     INN
 }
 public class Building : Entity {
-    [NonSerialized]
     public BuildingType type;
     TriCell EntranceCell;
-    
-    TriDirection EntranceDirection;
+    TriDirection entranceDirection;
+    public TriDirection EntranceDirection {
+        get {
+            return entranceDirection;
+        }
+        set {
+            entranceDirection = value;
+            Vector3 rot = new Vector3(0, (int)entranceDirection * 120*(Location.inverted?-1:1), 0);
+            transform.localRotation = Quaternion.Euler(rot);
+        }
+    }
 
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
