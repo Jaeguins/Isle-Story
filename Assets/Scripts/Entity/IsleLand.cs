@@ -36,6 +36,7 @@ public class Isleland : MonoBehaviour {
         Instance = this;
         buildings = new Dictionary<int, Building>();
         units = new Dictionary<int, Unit>();
+        naturals = new Dictionary<int, Natural>();
     }
     public void Save() {
         int k = 0;
@@ -117,6 +118,7 @@ public class Isleland : MonoBehaviour {
                         loaded.Location = grid.GetCell(coord);
                         loaded.transform.parent = transform;
                         AddNatural(loaded);
+                        loaded.validateRotation();
                     }
                 }
             }

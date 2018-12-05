@@ -19,13 +19,16 @@ public class Natural : Entity {
             transform.localRotation = Quaternion.Euler(rot);
         }
     }
-
+    public void validateRotation() {
+        Vector3 rot = new Vector3(0, (int)entranceDirection * 120 * (Location.inverted ? -1 : 1), 0);
+        transform.localRotation = Quaternion.Euler(rot);
+    }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
     }
-    public static new Natural Load(BinaryReader reader) {
+    public static Natural Load(BinaryReader reader) {
         NaturalType type = (NaturalType)reader.ReadInt32();
         TriDirection entDir=(TriDirection)reader.ReadInt32();
         Natural ret=null;
@@ -34,7 +37,7 @@ public class Natural : Entity {
                 ret = Tree.Load(reader);
                 break;
         }
-        ret.EntranceDirection = entDir;
+        ret.entranceDirection = entDir;
         ret.type = type;
         return ret;
     }
