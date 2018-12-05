@@ -38,16 +38,6 @@ public class Entity : MonoBehaviour {
         writer.Write(index);
         location.coordinates.Save(writer);
     }
-
-    public static void Load(BinaryReader reader,int id) {
-        TriCoordinates coordinates = TriCoordinates.Load(reader);
-        float orientation = reader.ReadSingle();
-        TriGrid grid = TriGrid.Instance;
-        grid.AddUnit(
-            Instantiate((Unit)unitPrefab), grid.GetCell(coordinates), orientation
-            );
-    }
- 
     
     public void ValidateLocation() {
         transform.localPosition = location.Position;

@@ -293,11 +293,5 @@ public class TriGrid : MonoBehaviour {
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();
         }
-        if (header >= 2) {
-            int unitCount = reader.ReadInt32();
-            for (int i = 0; i < unitCount; i++) {
-                Entity.Load(reader);
-            }
-        }
     }
 }

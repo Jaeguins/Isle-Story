@@ -28,10 +28,9 @@ public class Building : Entity {
             case BuildingType.INN:
                 ret = Inn.Load(reader);
                 break;
-                
         }
         ret.EntranceDirection = entDir;
-        ret.EntranceCell = IsleLand.Instance.grid.GetCell(coord);
+        ret.EntranceCell = Isleland.Instance.grid.GetCell(coord);
         ret.type = type;
         return ret;
     }

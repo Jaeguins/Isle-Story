@@ -124,4 +124,19 @@ public class Unit : Entity {
         writer.Write((int)type);
         writer.Write(orientation);
     }
+    public static Unit Load(BinaryReader reader) {
+        TriCoordinates coord = TriCoordinates.Load(reader);
+        UnitType type = (UnitType)reader.ReadInt32();
+        float orientation = reader.ReadSingle();
+        Unit ret = null;
+        switch (type) {
+            case UnitType.PERSON:
+                ret = Person.Load(reader);
+                break;
+
+        }
+        ret.orientation = orientation;
+        ret.type = type;
+        return ret;
+    }
 }

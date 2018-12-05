@@ -4,6 +4,7 @@ using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
+    public Isleland isleland;
     public int x, z;
     public TriMapGenerator mapGenerator;
     bool applyElevation = false;
@@ -130,32 +131,11 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     public void Save() {
-        string path = Path.Combine(Application.persistentDataPath, "test.map");
-        using (
-            BinaryWriter writer =
-                new BinaryWriter(File.Open(path, FileMode.Create))
-        ) {
-            writer.Write(2);
-            triGrid.Save(writer);
-        }
+        isleland.Save();
     }
 
     public void Load() {
-        
-        string path = Path.Combine(Application.persistentDataPath, "test.map");
-        using (
-            BinaryReader reader =
-                new BinaryReader(File.OpenRead(path))
-        ) {
-            int header = reader.ReadInt32();
-            if (header <= 2) {
-                triGrid.Load(reader, header);
-                TriMapCamera.ValidatePosition();
-            }
-            else {
-                Debug.LogWarning("Unknown map format " + header);
-            }
-        }
+        isleland.Load();
     }
 
     public void NewMap() {
@@ -167,15 +147,17 @@ public class TriMapEditor : MonoBehaviour {
     void CreateUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
-            triGrid.AddUnit(
-                Instantiate((Unit)Entity.unitPrefab), cell, Random.Range(0f, 360f));
+            Unit ret=Instantiate(isleland.unitPrefabs[0]);
+            ret.location = cell;
+            ret.Orientation = Random.Range(0f, 360f);
+            isleland.AddUnit(ret);
         }
     }
 
     void DestroyUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Entity) {
-            triGrid.RemoveUnit(cell.Entity);
+            isleland.RemoveUnit(cell.Entity.ID);
         }
     }
 

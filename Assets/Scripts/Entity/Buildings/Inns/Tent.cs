@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 public class Tent : Inn {
-    public new InnType subType = InnType.TENT;
     private void Awake() {
-        this.capacity = 4;
+        capacity = 4;
+        subType = InnType.TENT;
     }
     public new void Save(BinaryWriter writer,int index) {
         base.Save(writer, index);
     }
     public static new Tent Load(BinaryReader reader) {
-        return Instantiate((Tent)IsleLand.Instance.innPrefabs[(int)InnType.TENT]);
+        return Instantiate((Tent)Isleland.Instance.innPrefabs[(int)InnType.TENT]);
     }
 }
