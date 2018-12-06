@@ -22,10 +22,10 @@ public class TriMapGenerator : MonoBehaviour {
     public int chunkSizeMax = 100;
     [Range(5, 95)]
     public int landPercentage = 50;
-    [Range(0, 10)]
-    public int mapBorderX = 5;
-    [Range(0, 10)]
-    public int mapBorderZ = 5;
+    [Range(0, 40)]
+    public int mapBorderX = 30;
+    [Range(0, 40)]
+    public int mapBorderZ = 30;
     [Range(0, 100)]
     public int elevationMaximum = 15;
     [Range(0, 20)]

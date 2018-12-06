@@ -4,6 +4,9 @@ using System.Collections;
 public class TriMapCamera : MonoBehaviour {
     public TriGrid grid;
     public static TriMapCamera cam;
+    public int border = 30;
+    float clampXMin, clampZMin;
+    float clampXMax, clampZMax;
     Transform swivel, stick;
     float zoom = 1f;
     float rotationAngle;
@@ -21,6 +24,7 @@ public class TriMapCamera : MonoBehaviour {
         cam = this;
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
+        
     }
 
     void Update() {
@@ -37,7 +41,11 @@ public class TriMapCamera : MonoBehaviour {
         if (xDelta != 0f || zDelta != 0f) {
             AdjustPosition(xDelta, zDelta);
         }
-       
+        Vector3 t=transform.localPosition;
+        t.y = grid.GetCell(TriCoordinates.FromPosition(t)).Elevation*TriMetrics.elevationStep;
+        transform.localPosition = t;
+        
+
     }
 
     void AdjustRotation(float delta) {
@@ -58,14 +66,18 @@ public class TriMapCamera : MonoBehaviour {
     }
 
     Vector3 ClampPosition(Vector3 position) {
+        clampXMin = grid.GetCell(new TriCoordinates(border, border)).Position.x;
+        clampZMin = grid.GetCell(new TriCoordinates(border/2, border/2)).Position.z;
+        clampXMax = grid.GetCell(new TriCoordinates(grid.cellCountX - border, grid.cellCountZ - border)).Position.x;
+        clampZMax = grid.GetCell(new TriCoordinates(grid.cellCountX - border/2, grid.cellCountZ - border/2)).Position.z;
         float xMax = 
             (grid.cellCountX-0.5f) *
             (2f * TriMetrics.innerRadius);
-        position.x = Mathf.Clamp(position.x, 0f, xMax);
+        position.x = Mathf.Clamp(position.x,clampXMin, clampXMax);
         float zMax =
                     (grid.cellCountZ -1) *
                     (1.5f * TriMetrics.outerRadius);
-        position.z = Mathf.Clamp(position.z, 0f, zMax);
+        position.z = Mathf.Clamp(position.z,clampZMin, clampZMax);
         return position;
     }
 

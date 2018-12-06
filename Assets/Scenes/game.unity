@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f21c3d3f73ea4192b2dc9bea2b10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellCountX: 10
-  cellCountZ: 10
+  cellCountX: 25
+  cellCountZ: 25
   cellPrefab: {fileID: 114331808736065278, guid: 28a4e9144e86c10489bc46c2502a9459,
     type: 2}
   unitPrefab: {fileID: 114625707104384720, guid: 71665083466effb4c92eed3ee3db1b13,
@@ -1069,9 +1069,9 @@ MonoBehaviour:
   jitterProbability: 0.5
   chunkSizeMin: 100
   chunkSizeMax: 150
-  landPercentage: 25
-  mapBorderX: 5
-  mapBorderZ: 5
+  landPercentage: 12
+  mapBorderX: 28
+  mapBorderZ: 15
   elevationMaximum: 15
   riverPercentage: 10
 --- !u!4 &757199000
@@ -1383,10 +1383,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 143506541}
+  border: 28
   rotationSpeed: 180
-  stickMinZoom: -500
+  stickMinZoom: -150
   stickMaxZoom: -40
-  swivelMinZoom: 80
+  swivelMinZoom: 70
   swivelMaxZoom: 45
   moveSpeedMinZoom: 400
   moveSpeedMaxZoom: 100

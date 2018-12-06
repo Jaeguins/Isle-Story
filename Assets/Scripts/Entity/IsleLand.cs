@@ -172,6 +172,8 @@ public class Isleland : MonoBehaviour {
         buildings.Clear();
         foreach (KeyValuePair<int, Unit> b in units) Destroy(b.Value.gameObject);
         units.Clear();
+        foreach (KeyValuePair<int, Natural> b in naturals) Destroy(b.Value.gameObject);
+        naturals.Clear();
     }
     public void AddUnit(Unit unit) {
         units.Add(unit.ID, unit);

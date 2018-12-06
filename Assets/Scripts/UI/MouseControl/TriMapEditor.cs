@@ -139,6 +139,7 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     public void NewMap() {
+        isleland.ClearIsle();
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
         TriMapCamera.ValidatePosition();

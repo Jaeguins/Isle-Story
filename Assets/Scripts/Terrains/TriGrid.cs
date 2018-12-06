@@ -77,6 +77,7 @@ public class TriGrid : MonoBehaviour {
         currentPathFrom = fromCell;
         currentPathTo = toCell;
         currentPathExists = Search(fromCell, toCell);
+        Debug.Log(currentPathExists);
     }
 
     public List<TriCell> GetPath() {
@@ -134,7 +135,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.Distance != int.MaxValue||
                     neighbor.IsUnderwater||
                     neighbor.HasRiver||
-                    neighbor.Entity||
+                    //neighbor.Entity||
                     Mathf.Abs(neighbor.Elevation-current.Elevation)>1)
                     continue;
                 int distance = current.Distance;
