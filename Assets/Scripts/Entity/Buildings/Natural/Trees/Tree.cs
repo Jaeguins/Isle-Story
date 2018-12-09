@@ -7,7 +7,7 @@ public class Tree : Natural{
     }
 
     public new static Tree Load(BinaryReader reader) {
-        Tree ret = Instantiate((Tree)Isleland.Instance.naturalPrefabs[(int)NaturalType.TREE]);
+        Tree ret = Instantiate((Tree)TriIsleland.Instance.naturalPrefabs[(int)NaturalType.TREE]);
         return ret;
     }
 }

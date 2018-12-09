@@ -30,7 +30,7 @@ public class Inn : Building {
         Inn ret = null;
         switch (subType) {
             case InnType.TENT:
-                Tent.Load(reader);
+                ret=Tent.Load(reader);
                 break;
         }
         ret.subType = subType;

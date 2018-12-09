@@ -4,7 +4,7 @@ using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
-    public Isleland isleland;
+    public TriIsleland isleland;
     public int x, z;
     public TriMapGenerator mapGenerator;
     bool applyElevation = false;
@@ -160,6 +160,7 @@ public class TriMapEditor : MonoBehaviour {
             ret.Location = cell;
             cell.Building = ret;
             ret.EntranceDirection = (TriDirection)Random.Range(0f, 3f);
+            
             isleland.AddBuilding(ret);
         }
     }

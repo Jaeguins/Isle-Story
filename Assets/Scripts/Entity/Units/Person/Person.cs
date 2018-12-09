@@ -21,7 +21,7 @@ public class Person : Unit {
         else new TriCoordinates(-1, -1).Save(writer);
     }
     public static new Person Load(BinaryReader reader) {
-        Person ret= Instantiate((Person)Isleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
+        Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell homeLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (homeLoc) {
             Inn home = (Inn)(homeLoc.Building);

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-public class Isleland : MonoBehaviour {
+public class TriIsleland : MonoBehaviour {
     public List<Inn> innPrefabs;
     public List<Unit> unitPrefabs;
     public List<Natural> naturalPrefabs;
-    public static Isleland Instance;
+    public static TriIsleland Instance;
     string isleName = "test";
     int version = 0;
     public TriGrid grid;

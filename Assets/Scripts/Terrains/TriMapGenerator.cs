@@ -290,7 +290,7 @@ public class TriMapGenerator : MonoBehaviour {
             if (cell.coordinates == hexCell.coordinates) {
                 float moisture = climate[hexCell.Index].moisture;
                 TriDirection d = TriDirection.VERT;
-                Isleland isle = Isleland.Instance;
+                TriIsleland isle = TriIsleland.Instance;
                 for (int j = 0; j < 6; j++) {
                     if (!cell) break;
                     if (!cell.IsUnderwater) {
