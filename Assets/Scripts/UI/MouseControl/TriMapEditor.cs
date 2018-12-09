@@ -39,6 +39,14 @@ public class TriMapEditor : MonoBehaviour {
                     CreateUnit();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.T)) {
+                if (Input.GetKey(KeyCode.LeftShift)) {
+                    DestroyUnit();
+                }
+                else {
+                    CreateTent();
+                }
+            }
         }
         previousCell = null;
     }
@@ -144,7 +152,17 @@ public class TriMapEditor : MonoBehaviour {
         mapGenerator.GenerateMap(x, z);
         TriMapCamera.ValidatePosition();
     }
-
+    void CreateTent() {
+        TriCell cell = GetCellUnderCursor();
+        if (cell && !cell.Entity) {
+            Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
+            ret.ID = isleland.UnitCount;
+            ret.Location = cell;
+            cell.Building = ret;
+            ret.EntranceDirection = (TriDirection)Random.Range(0f, 3f);
+            isleland.AddBuilding(ret);
+        }
+    }
     void CreateUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
@@ -160,6 +178,12 @@ public class TriMapEditor : MonoBehaviour {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Entity) {
             isleland.RemoveUnit(cell.Entity.ID);
+        }
+    }
+    void DestroyBuilding() {
+        TriCell cell = GetCellUnderCursor();
+        if (cell && cell.Building) {
+            isleland.RemoveBuilding(cell.Building.ID);
         }
     }
 

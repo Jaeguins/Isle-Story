@@ -7,6 +7,7 @@ public class Person : Unit {
         type = UnitType.PERSON;
     }
     public void migrate (Inn target){
+        target.addPerson(this);
         home = target;
     }
     public void GoHome() {
