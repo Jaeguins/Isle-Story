@@ -180,4 +180,12 @@ And Today, I made UI for individual building. (only UI,not working at now).
 Thanks to Screen To Gif tool, now I'll leave more Dynamic pictures.
 
 ![Reaction of building UI](/Diary/Image/20181210_0.gif)
+
+Plus one more!
+
+I felt too bored at studing univ lecture for final exam, so I advanced little more camera/UI things.
+
+Now I can fade in/out any time and make menu for individual building settings(but only object, not script).
+
+![Building Option and fading](/Diary/Image/20181210_1.gif)
 ***
