@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 public class Tent : Inn {
-    private void Awake() {
+    private void Start() {
         capacity = 4;
+        UIName = "tent";
     }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);

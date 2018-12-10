@@ -137,6 +137,7 @@ public class TriIsleland : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
+                        loaded.Location.Building = loaded;
                         loaded.transform.parent = transform;
                         AddBuilding(loaded);
                     }

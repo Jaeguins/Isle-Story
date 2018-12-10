@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 public class Tree : Natural{
+    public void Start() {
+        UIName = "tree";
+    }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
     }

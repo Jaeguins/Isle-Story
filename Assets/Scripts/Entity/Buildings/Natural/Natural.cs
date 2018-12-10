@@ -9,6 +9,7 @@ public enum NaturalType {
 public class Natural : Entity {
     public NaturalType type;
     TriDirection entranceDirection;
+    
     public TriDirection EntranceDirection {
         get {
             return entranceDirection;

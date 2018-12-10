@@ -2,9 +2,11 @@
 using System.Collections;
 using System.IO;
 public class Person : Unit {
+    
     Inn home;
-    public void Awake() {
+    public void Start() {
         type = UnitType.PERSON;
+        UIName = "person";
     }
     public void migrate (Inn target){
         target.addPerson(this);
