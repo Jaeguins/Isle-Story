@@ -24,6 +24,8 @@
 
 * [05th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181205)
 
+* [10th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181210)
+
 ***
 ## 2018/11/20
 Project started.
@@ -169,4 +171,13 @@ For now, I can save terrains, units, naturals, and even units' action status!(Ye
 And successed in planting trees in whole isleland.
 
 ![Do I need more dense mesh?](/Diary/Image/20181205_0.PNG)
+***
+## 2018/12/10
+Until today, I did minor fixing/tweaking, and hold camera into world.
+
+And Today, I made UI for individual building. (only UI,not working at now).
+
+Thanks to Screen To Gif tool, now I'll leave more Dynamic pictures.
+
+![Reaction of building UI](/Diary/Image/20181210_0.gif)
 ***
