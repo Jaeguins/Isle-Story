@@ -105,6 +105,7 @@ public class Selector : MonoBehaviour {
     }
     public IEnumerator ToBuildingCamera() {
         yield return StartCoroutine(Fader.FadeOut());
+        terrainSelectionViewer.gameObject.SetActive(false);
         inTopView = false;
         buildingUI.enabled = false;
         cam.enabled=false;
@@ -113,6 +114,7 @@ public class Selector : MonoBehaviour {
     }
     public IEnumerator ToMainCamera() {
         yield return StartCoroutine(Fader.FadeOut());
+        terrainSelectionViewer.gameObject.SetActive(true);
         buildingCam.enabled = false;
         cam.enabled = true;
         yield return StartCoroutine(Fader.FadeIn());

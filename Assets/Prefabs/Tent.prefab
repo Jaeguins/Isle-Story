@@ -118,8 +118,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100002, guid: 2980947deed42a84b813b91a6e85064c, type: 3}
-  - {fileID: 2100002, guid: 2980947deed42a84b813b91a6e85064c, type: 3}
+  - {fileID: 2100000, guid: daa481d6421cccd40a6f97d3fba87c2c, type: 2}
+  - {fileID: 2100000, guid: daa481d6421cccd40a6f97d3fba87c2c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,7 +154,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2980947deed42a84b813b91a6e85064c, type: 3}
+  - {fileID: 2100000, guid: d35dd191384484a4295ed0e2c7b65853, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -217,5 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e329d5e81aaaa4c8e7b35f41d2b44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIName: 
   type: 0
+  entranceDirection: 0
   subType: 0

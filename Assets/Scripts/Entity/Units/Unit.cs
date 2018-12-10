@@ -62,9 +62,7 @@ public class Unit : Entity {
                         StartCoroutine(FindPathAndMove(nowWork.targetLocation));
                         break;
                 }
-                
             }
-
             yield return new WaitUntil(()=>!acting);
         }
     }
