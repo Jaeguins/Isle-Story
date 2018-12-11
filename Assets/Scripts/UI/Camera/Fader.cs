@@ -13,24 +13,27 @@ public class Fader : MonoBehaviour {
     }
     public IEnumerator FadeOutInternal() {
         color.a = 0;
-        while (color.a < 1f) {
+        while (color.a <= 1f) {
             color.a += speed;
             fader.color = color;
             yield return new WaitForEndOfFrame();
         }
     }
     public IEnumerator FadeInInternal() {
+        
         color.a = 1;
-        while (color.a >0f) {
+        while (color.a >=0f) {
             color.a -= speed;
             fader.color = color;
             yield return new WaitForEndOfFrame();
         }
     }
     public static IEnumerator FadeOut() {
+        Instance.StopAllCoroutines();
         yield return Instance.StartCoroutine(Instance.FadeOutInternal());
     }
     public static IEnumerator FadeIn() {
+        Instance.StopAllCoroutines();
         yield return Instance.StartCoroutine(Instance.FadeInInternal());
     }
 }

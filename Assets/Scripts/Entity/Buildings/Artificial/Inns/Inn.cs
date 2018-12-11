@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.UI;
+
 public enum InnType {
     TENT
 }
@@ -36,5 +38,11 @@ public class Inn : Building {
         ret.subType = subType;
         ret.capacity = capacity;
         return ret;
+    }
+    public override void BindOptions(List<Button> buttons,Selector selector) {
+        base.BindOptions(buttons,selector);
+        buttons[5].gameObject.SetActive(true);
+        buttons[5].GetComponentInChildren<Text>().text = "inn option";
+
     }
 }

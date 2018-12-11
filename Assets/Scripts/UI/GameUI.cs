@@ -29,7 +29,6 @@ public class GameUI : MonoBehaviour {
     void Update() {
         if (!EventSystem.current.IsPointerOverGameObject()) {
             if (Input.GetMouseButtonDown(0)) {
-                //DoSelection();
             }
             else if (selectedUnit) {
                 if (Input.GetMouseButtonDown(1)) {

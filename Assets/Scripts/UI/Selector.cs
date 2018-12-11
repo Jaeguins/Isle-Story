@@ -17,6 +17,7 @@ public class Selector : MonoBehaviour {
     public GameObject buildingCamAxis;
     public bool showTerrain = true;
     public bool clicked = false;
+    public List<Button> buildingOptions;
     bool inTopView = true;
     public float buildingCamRotSpeed=1f;
     Vector3 buildingCamAxisRot=Vector3.zero;
@@ -39,6 +40,7 @@ public class Selector : MonoBehaviour {
                     if (nowBuilding) {
                         buildingUI.enabled = true;
                         buildingNameTag.text = nowBuilding.UIName;
+                        nowBuilding.BindOptions(buildingOptions, this);
                     }
                     else {
                         buildingUI.enabled = false;
@@ -91,17 +93,17 @@ public class Selector : MonoBehaviour {
         }
         terrainSelectionViewer.Apply();
     }
-    public void BuildingOption() {
-        StartCoroutine(ToBuildingCamera());
+    public void ToBuildingOption() {
         buildingCamAxis.transform.localPosition = nowCell.Position;
         buildingCamAxisRot = Vector3.zero;
-        BuildingOptionPanel.SetActive(true);
+        StopAllCoroutines();
+        StartCoroutine(ToBuildingCamera());
+        
     }
     public void ExitBuildingOption() {
-        BuildingOptionPanel.SetActive(false);
+        StopAllCoroutines();
         StartCoroutine(ToMainCamera());
-        buildingUI.enabled = true;
-        inTopView = true;
+        
     }
     public IEnumerator ToBuildingCamera() {
         yield return StartCoroutine(Fader.FadeOut());
@@ -110,13 +112,18 @@ public class Selector : MonoBehaviour {
         buildingUI.enabled = false;
         cam.enabled=false;
         buildingCam.enabled = true;
+        BuildingOptionPanel.SetActive(true);
         yield return StartCoroutine(Fader.FadeIn());
     }
     public IEnumerator ToMainCamera() {
         yield return StartCoroutine(Fader.FadeOut());
         terrainSelectionViewer.gameObject.SetActive(true);
+        inTopView = true;
+        buildingUI.enabled = true;
         buildingCam.enabled = false;
         cam.enabled = true;
+        BuildingOptionPanel.SetActive(false);
         yield return StartCoroutine(Fader.FadeIn());
     }
+    
 }

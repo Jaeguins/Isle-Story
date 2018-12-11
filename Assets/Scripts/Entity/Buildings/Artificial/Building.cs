@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.UI;
 public enum BuildingType {
     INN
 }
@@ -42,5 +43,11 @@ public class Building : Entity {
         ret.EntranceDirection = entDir;
         ret.type = type;
         return ret;
+    }
+    public virtual void BindOptions(List<Button> buttons,Selector selector) {
+        Button buildingOption = buttons[4];
+        buttons[4].gameObject.SetActive(true);
+        buildingOption.GetComponentInChildren<Text>().text = "Building\nOptions";
+        buildingOption.onClick.AddListener(selector.ToBuildingOption);
     }
 }
