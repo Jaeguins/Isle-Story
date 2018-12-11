@@ -53,4 +53,7 @@ public class Building : Entity {
         buildingOption.GetComponentInChildren<Text>().text = "Building\nOptions";
         buildingOption.onClick.AddListener(selector.ToBuildingOption);
     }
+    public static bool IsBuildable(TriDirection dir,TriCoordinates coord) {
+        return false;
+    }
 }

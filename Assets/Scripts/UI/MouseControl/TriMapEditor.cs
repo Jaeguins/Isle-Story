@@ -5,6 +5,7 @@ using System.IO;
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
     public TriIsleland isleland;
+    public TriDirection buildDirection;
     public int x, z;
     public TriMapGenerator mapGenerator;
     bool applyElevation = false;
@@ -44,7 +45,7 @@ public class TriMapEditor : MonoBehaviour {
                     DestroyUnit();
                 }
                 else {
-                    CreateTent();
+                    CreateTent(buildDirection);
                 }
             }
             if (Input.GetKeyDown(KeyCode.K)) {
@@ -52,8 +53,11 @@ public class TriMapEditor : MonoBehaviour {
                     DestroyUnit();
                 }
                 else {
-                    CreateHall();
+                    CreateHall(buildDirection);
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.R)) {
+                buildDirection = (buildDirection == TriDirection.RIGHT) ? TriDirection.VERT : buildDirection += 1;
             }
         }
         previousCell = null;
@@ -160,28 +164,37 @@ public class TriMapEditor : MonoBehaviour {
         mapGenerator.GenerateMap(x, z);
         TriMapCamera.ValidatePosition();
     }
-    void CreateHall() {
+    void CreateHall(TriDirection dir) {
         TriCell cell = GetCellUnderCursor();
-        if (cell && !cell.Entity) {
+        if (cell && Camp.IsBuildable(dir,cell.coordinates)) {
             Camp ret = (Camp)Instantiate(isleland.hallPrefabs[0]);
             ret.ID = isleland.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
-            ret.EntranceDirection = (TriDirection)Random.Range(0f, 3f);
+            ret.EntranceDirection = dir;
 
             isleland.AddBuilding(ret);
+            Debug.Log("camp built");
+        }
+        else {
+            Debug.Log("building failed");
         }
     }
-    void CreateTent() {
+    void CreateTent(TriDirection dir) {
         TriCell cell = GetCellUnderCursor();
-        if (cell && !cell.Entity) {
+        if (cell && Tent.IsBuildable(dir, cell.coordinates)) {
+
             Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
             ret.ID = isleland.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
-            ret.EntranceDirection = (TriDirection)Random.Range(0f, 3f);
+            ret.EntranceDirection = dir;
             
             isleland.AddBuilding(ret);
+            Debug.Log("tent built");
+        }
+        else {
+            Debug.Log("building failed");
         }
     }
     void CreateUnit() {
