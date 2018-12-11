@@ -18,10 +18,14 @@ public class Selector : MonoBehaviour {
     public bool showTerrain = true;
     public bool clicked = false;
     public List<Button> buildingOptions;
+    public TriDirection dir=TriDirection.VERT;
     bool inTopView = true;
     public float buildingCamRotSpeed=1f;
     Vector3 buildingCamAxisRot=Vector3.zero;
     void LateUpdate() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            dir = (dir == TriDirection.RIGHT) ? TriDirection.VERT : dir + 1;
+        }
         if (inTopView) {
             TriCell tCell = GetRay();
             if (!clicked) {
@@ -30,7 +34,7 @@ public class Selector : MonoBehaviour {
                 nowCell = tCell;
                 if (nowCell) {
                     if (showTerrain)
-                        RecalculateTerrain();
+                        StartCalculateTerrain(dir, nowCell);
                     if (!showTerrain) {
                         terrainSelectionViewer.Clear();
                         terrainSelectionViewer.Apply();
@@ -67,15 +71,20 @@ public class Selector : MonoBehaviour {
             return grid.GetCell(cam.ScreenPointToRay(Input.mousePosition));
         else return null;
     }
-    public void RecalculateTerrain() {
+    public void StartCalculateTerrain(TriDirection dir,TriCell cell) {
         terrainSelectionViewer.Clear();
+        RecalculateTerrain(cell);
+        terrainSelectionViewer.Apply();
+    }
+    public void RecalculateTerrain(TriCell cell) {
+        
         Vector3 nextCorner, prevCorner;
         EdgeVertices edge;
         for (TriDirection direction = TriDirection.VERT; direction <= TriDirection.RIGHT; direction++) {
-            Vector3 center = nowCell.Position, v1, v2;
+            Vector3 center = cell.Position, v1, v2;
             buildingUI.transform.localPosition = center + new Vector3(0, 20, 0);
-            v1 = center + (nowCell.inverted ? -1 : 1) * TriMetrics.GetFirstSolidCorner(direction);
-            v2 = center + (nowCell.inverted ? -1 : 1) * TriMetrics.GetSecondSolidCorner(direction);
+            v1 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetFirstSolidCorner(direction);
+            v2 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetSecondSolidCorner(direction);
             edge = new EdgeVertices(v1, v2);
             nextCorner = (center + edge.v1) / 2f;
             prevCorner = (center + edge.v5) / 2f;
@@ -91,7 +100,6 @@ public class Selector : MonoBehaviour {
             terrainSelectionViewer.AddTriangleColor(Color.blue);
             terrainSelectionViewer.AddTriangleColor(Color.blue);
         }
-        terrainSelectionViewer.Apply();
     }
     public void ToBuildingOption() {
         buildingCamAxis.transform.localPosition = nowCell.Position;
@@ -103,7 +111,6 @@ public class Selector : MonoBehaviour {
     public void ExitBuildingOption() {
         StopAllCoroutines();
         StartCoroutine(ToMainCamera());
-        
     }
     public IEnumerator ToBuildingCamera() {
         yield return StartCoroutine(Fader.FadeOut());
