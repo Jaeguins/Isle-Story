@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 public class TriIsleland : MonoBehaviour {
     public List<Inn> innPrefabs;
+    public List<Hall> hallPrefabs;
     public List<Unit> unitPrefabs;
     public List<Natural> naturalPrefabs;
     public static TriIsleland Instance;

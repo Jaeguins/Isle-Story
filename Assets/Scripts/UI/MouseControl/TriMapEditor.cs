@@ -47,6 +47,14 @@ public class TriMapEditor : MonoBehaviour {
                     CreateTent();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.K)) {
+                if (Input.GetKey(KeyCode.LeftShift)) {
+                    DestroyUnit();
+                }
+                else {
+                    CreateHall();
+                }
+            }
         }
         previousCell = null;
     }
@@ -151,6 +159,18 @@ public class TriMapEditor : MonoBehaviour {
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
         TriMapCamera.ValidatePosition();
+    }
+    void CreateHall() {
+        TriCell cell = GetCellUnderCursor();
+        if (cell && !cell.Entity) {
+            Camp ret = (Camp)Instantiate(isleland.hallPrefabs[0]);
+            ret.ID = isleland.UnitCount;
+            ret.Location = cell;
+            cell.Building = ret;
+            ret.EntranceDirection = (TriDirection)Random.Range(0f, 3f);
+
+            isleland.AddBuilding(ret);
+        }
     }
     void CreateTent() {
         TriCell cell = GetCellUnderCursor();

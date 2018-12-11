@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN
+    INN,HALL
 }
 public class Building : Entity {
     public BuildingType type;
@@ -36,6 +36,9 @@ public class Building : Entity {
         switch (type) {
             case BuildingType.INN:
                 ret = Inn.Load(reader);
+                break;
+            case BuildingType.HALL:
+                ret = Hall.Load(reader);
                 break;
         }
         
