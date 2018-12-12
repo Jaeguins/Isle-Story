@@ -33,6 +33,10 @@ public class TriCell : MonoBehaviour {
         }
     }
 
+    public bool IsBuildable() {
+        return (!Building && !IsUnderwater && !Entity && !HasRiver);
+    }
+
     public int SearchPriority {
         get {
             return distance + SearchHeuristic*10;

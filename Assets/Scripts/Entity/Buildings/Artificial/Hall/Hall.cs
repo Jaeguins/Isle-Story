@@ -28,13 +28,13 @@ public class Hall : Building {
     public void removePerson(Person p) {
         livers.Remove(p);
     }
-    public static Hall Load(BinaryReader reader) {
+    public new static Hall Load(BinaryReader reader) {
         HallType subType = (HallType)reader.ReadInt32();
         int capacity = reader.ReadInt32();
         Hall ret = null;
         switch (subType) {
             case HallType.CAMP:
-                ret = Hall.Load(reader);
+                ret = Camp.Load(reader);
                 break;
         }
         ret.subType = subType;

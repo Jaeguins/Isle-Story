@@ -57,7 +57,7 @@ public class Selector : MonoBehaviour {
             }
             else {
                 Panel.SetActive(true);
-                if (tCell.coordinates.DistanceTo(nowCell.coordinates) > 3) {
+                if (tCell&&nowCell&&tCell.coordinates.DistanceTo(nowCell.coordinates) > 3) {
                     clicked = false;
                 }
             }
@@ -73,7 +73,15 @@ public class Selector : MonoBehaviour {
     }
     public void StartCalculateTerrain(TriDirection dir,TriCell cell) {
         terrainSelectionViewer.Clear();
-        RecalculateTerrain(cell);
+        TriCell k = cell;
+        int elev = cell.Elevation;
+        TriDirection tDir = dir.Previous();
+        for(int i = 0; i < 6; i++) {
+            if (!k) break;
+            RecalculateTerrain(k);
+            k = k.GetNeighbor(tDir);
+            tDir = tDir.Next();
+        }
         terrainSelectionViewer.Apply();
     }
     public void RecalculateTerrain(TriCell cell) {

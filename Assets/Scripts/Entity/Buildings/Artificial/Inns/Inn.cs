@@ -26,7 +26,7 @@ public class Inn : Building {
     public void removePerson(Person p) {
         livers.Remove(p);
     }
-    public static Inn Load(BinaryReader reader) {
+    public new static Inn Load(BinaryReader reader) {
         InnType subType = (InnType)reader.ReadInt32();
         int capacity = reader.ReadInt32();
         Inn ret = null;

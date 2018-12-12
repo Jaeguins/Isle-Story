@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 public class TriIsleland : MonoBehaviour {
     public List<Inn> innPrefabs;
@@ -10,6 +11,7 @@ public class TriIsleland : MonoBehaviour {
     string isleName = "test";
     int version = 0;
     public TriGrid grid;
+
     Dictionary<int, Building> buildings;
     Dictionary<int, Unit> units;
     Dictionary<int, Natural> naturals;
@@ -39,7 +41,7 @@ public class TriIsleland : MonoBehaviour {
         units = new Dictionary<int, Unit>();
         naturals = new Dictionary<int, Natural>();
     }
-    public void Save() {
+    public void Save() {//TODO Saving function
         int k = 0;
         string path = Path.Combine(Application.persistentDataPath, isleName);
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "natural.dat"), FileMode.Create))) {
@@ -70,6 +72,13 @@ public class TriIsleland : MonoBehaviour {
                                 break;
                         }
                         break;
+                    case BuildingType.HALL:
+                        switch (((Hall)b.Value).subType) {
+                            case HallType.CAMP:
+                                ((Camp)b.Value).Save(writer);
+                                break;
+                        }
+                        break;
                 }
             }
         }
@@ -77,7 +86,7 @@ public class TriIsleland : MonoBehaviour {
             writer.Write(0);
             writer.Write(units.Count);
             k = 0;
-            foreach (KeyValuePair<int,Unit>b in units) {
+            foreach (KeyValuePair<int, Unit> b in units) {
                 writer.Write(k++);
                 switch (b.Value.type) {
                     case UnitType.PERSON:
@@ -93,7 +102,7 @@ public class TriIsleland : MonoBehaviour {
         }
     }
 
-    public void Load() {
+    public void Load() {//TODO Load function
         string path = Path.Combine(Application.persistentDataPath, isleName);
         ClearIsle();
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "map.dat")))) {
@@ -170,7 +179,7 @@ public class TriIsleland : MonoBehaviour {
         }
     }
     public void ClearIsle() {
-        foreach (KeyValuePair<int,Building>b in buildings) Destroy(b.Value.gameObject);
+        foreach (KeyValuePair<int, Building> b in buildings) Destroy(b.Value.gameObject);
         buildings.Clear();
         foreach (KeyValuePair<int, Unit> b in units) Destroy(b.Value.gameObject);
         units.Clear();

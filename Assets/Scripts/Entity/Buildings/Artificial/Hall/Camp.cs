@@ -16,17 +16,13 @@ public class Camp : Hall {
         TriCell cell= TriGrid.Instance.GetCell(coord);
         int elevation = cell.Elevation;
         TriCell k = cell;
-        bool inverted = cell.inverted;
-        TriDirection d = TriDirection.VERT;
+        int elev = cell.Elevation;
+        TriDirection tDir = dir.Previous();
         for (int i = 0; i < 6; i++) {
-            if (!k) return false;
-            if (k.Elevation != elevation) return false;
-            if (k.Building) return false;
-            k = k.GetNeighbor(d);
-            if (inverted)
-                d = d.Next();
-            else
-                d = d.Previous();
+            if (!k||!k.IsBuildable()) return false;
+            if (elev != k.Elevation) return false;
+            k = k.GetNeighbor(tDir);
+            tDir = tDir.Next();
         }
         return true;
     }
