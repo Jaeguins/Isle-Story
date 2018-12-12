@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class GameUI : MonoBehaviour {
     TriCell currentCell;
     Unit selectedUnit;
-
+    public BuildingMenu buildingMenu;
     public TriGrid grid;
     public void SetEditMode(bool toggle) {
         enabled = !toggle;

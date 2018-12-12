@@ -5,6 +5,8 @@ public class Tent : Inn {
     private void Start() {
         capacity = 4;
         UIName = "tent";
+        camAnchorOffset = Vector3.zero;
+        camOffset = new Vector3(5, 5, -20);
     }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);

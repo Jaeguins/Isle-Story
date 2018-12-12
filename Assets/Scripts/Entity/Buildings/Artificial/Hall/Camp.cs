@@ -5,6 +5,8 @@ public class Camp : Hall {
     private void Start() {
         capacity = 4;
         UIName = "camp";
+        camAnchorOffset = new Vector3(TriMetrics.innerRadius, 5, TriMetrics.outerRadius);
+        camOffset = new Vector3(10, 10, -40);
     }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);

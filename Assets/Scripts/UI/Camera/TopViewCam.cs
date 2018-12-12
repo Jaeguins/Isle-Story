@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriMapCamera : MonoBehaviour {
+public class TopViewCam : CameraController{
     public TriGrid grid;
-    public static TriMapCamera cam;
     public int border = 30;
     float clampXMin, clampZMin;
     float clampXMax, clampZMax;
     Transform swivel, stick;
     float zoom = 1f;
     float rotationAngle;
-    public static bool Locked {
+    public bool Locked {
         set {
-            cam.enabled = !value;
+            enabled = !value;
         }
     }
     public float rotationSpeed;
@@ -21,7 +20,6 @@ public class TriMapCamera : MonoBehaviour {
     public float moveSpeedMinZoom, moveSpeedMaxZoom;
 
     void Awake() {
-        cam = this;
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
         
@@ -90,7 +88,7 @@ public class TriMapCamera : MonoBehaviour {
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
     }
 
-    public static void ValidatePosition() {
-        cam.AdjustPosition(0f, 0f);
+    public void ValidatePosition() {
+        AdjustPosition(0f, 0f);
     }
 }

@@ -7,17 +7,14 @@ public class Selector : MonoBehaviour {
     public TriCell nowCell;
     public TriGrid grid;
     public Building nowBuilding;
-    public Canvas buildingUI;
-    public Text buildingNameTag;
+    public BuildingMenu buildingMenu;
     public TriMesh terrainSelectionViewer;
-    public Camera cam;
     public GameObject Panel;
-    public GameObject BuildingOptionPanel;
-    public Camera buildingCam;
+    public WorldSpaceCanvas BuildingOptionPanel;
+    public CameraManager camManager;
     public GameObject buildingCamAxis;
     public bool showTerrain = true;
     public bool clicked = false;
-    public List<Button> buildingOptions;
     public TriDirection dir=TriDirection.VERT;
     bool inTopView = true;
     public float buildingCamRotSpeed=1f;
@@ -42,15 +39,14 @@ public class Selector : MonoBehaviour {
 
                     nowBuilding = nowCell.Building;
                     if (nowBuilding) {
-                        buildingUI.enabled = true;
-                        buildingNameTag.text = nowBuilding.UIName;
-                        nowBuilding.BindOptions(buildingOptions, this);
+                        buildingMenu.enabled = true;
+                        buildingMenu.Bind(nowBuilding);
                     }
                     else {
-                        buildingUI.enabled = false;
+                        buildingMenu.enabled = false;
                     }
                 }
-                buildingUI.transform.rotation = cam.transform.rotation;
+                buildingMenu.transform.rotation = camManager.GetNowActive().transform.rotation;
                 if (Input.GetMouseButton(0) && nowCell) {
                     clicked = true;
                 }
@@ -67,8 +63,8 @@ public class Selector : MonoBehaviour {
         }
     }
     TriCell GetRay() {
-        if (cam)
-            return grid.GetCell(cam.ScreenPointToRay(Input.mousePosition));
+        if (camManager.GetNowActive())
+            return grid.GetCell(camManager.GetNowActive().cam.ScreenPointToRay(Input.mousePosition));
         else return null;
     }
     public void StartCalculateTerrain(TriDirection dir,TriCell cell) {
@@ -90,7 +86,7 @@ public class Selector : MonoBehaviour {
         EdgeVertices edge;
         for (TriDirection direction = TriDirection.VERT; direction <= TriDirection.RIGHT; direction++) {
             Vector3 center = cell.Position, v1, v2;
-            buildingUI.transform.localPosition = center + new Vector3(0, 20, 0);
+            buildingMenu.transform.localPosition = center + new Vector3(0, 20, 0);
             v1 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetFirstSolidCorner(direction);
             v2 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetSecondSolidCorner(direction);
             edge = new EdgeVertices(v1, v2);
@@ -109,36 +105,4 @@ public class Selector : MonoBehaviour {
             terrainSelectionViewer.AddTriangleColor(Color.blue);
         }
     }
-    public void ToBuildingOption() {
-        buildingCamAxis.transform.localPosition = nowCell.Position;
-        buildingCamAxisRot = Vector3.zero;
-        StopAllCoroutines();
-        StartCoroutine(ToBuildingCamera());
-        
-    }
-    public void ExitBuildingOption() {
-        StopAllCoroutines();
-        StartCoroutine(ToMainCamera());
-    }
-    public IEnumerator ToBuildingCamera() {
-        yield return StartCoroutine(Fader.FadeOut());
-        terrainSelectionViewer.gameObject.SetActive(false);
-        inTopView = false;
-        buildingUI.enabled = false;
-        cam.enabled=false;
-        buildingCam.enabled = true;
-        BuildingOptionPanel.SetActive(true);
-        yield return StartCoroutine(Fader.FadeIn());
-    }
-    public IEnumerator ToMainCamera() {
-        yield return StartCoroutine(Fader.FadeOut());
-        terrainSelectionViewer.gameObject.SetActive(true);
-        inTopView = true;
-        buildingUI.enabled = true;
-        buildingCam.enabled = false;
-        cam.enabled = true;
-        BuildingOptionPanel.SetActive(false);
-        yield return StartCoroutine(Fader.FadeIn());
-    }
-    
 }

@@ -5,6 +5,7 @@ using System.IO;
 public class TriMapEditor : MonoBehaviour {
     public TriGrid triGrid;
     public TriIsleland isleland;
+    public EntityManager entities;
     public TriDirection buildDirection;
     public int x, z;
     public TriMapGenerator mapGenerator;
@@ -159,21 +160,21 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     public void NewMap() {
-        isleland.ClearIsle();
+        entities.ClearEntities();
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
-        TriMapCamera.ValidatePosition();
+        isleland.topCam.ValidatePosition();
     }
     void CreateHall(TriDirection dir) {
         TriCell cell = GetCellUnderCursor();
         if (cell && Camp.IsBuildable(dir,cell.coordinates)) {
             Camp ret = (Camp)Instantiate(isleland.hallPrefabs[0]);
-            ret.ID = isleland.UnitCount;
+            ret.ID = entities.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
             ret.EntranceDirection = dir;
 
-            isleland.AddBuilding(ret);
+            entities.AddBuilding(ret);
             Debug.Log("camp built");
         }
         else {
@@ -185,12 +186,12 @@ public class TriMapEditor : MonoBehaviour {
         if (cell && Tent.IsBuildable(dir, cell.coordinates)) {
 
             Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
-            ret.ID = isleland.UnitCount;
+            ret.ID = entities.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
             ret.EntranceDirection = dir;
-            
-            isleland.AddBuilding(ret);
+
+            entities.AddBuilding(ret);
             Debug.Log("tent built");
         }
         else {
@@ -201,23 +202,23 @@ public class TriMapEditor : MonoBehaviour {
         TriCell cell = GetCellUnderCursor();
         if (cell && !cell.Entity) {
             Unit ret=Instantiate(isleland.unitPrefabs[0]);
-            ret.ID = isleland.UnitCount;
+            ret.ID = entities.UnitCount;
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
-            isleland.AddUnit(ret);
+            entities.AddUnit(ret);
         }
     }
 
     void DestroyUnit() {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Entity) {
-            isleland.RemoveUnit(cell.Entity.ID);
+            entities.RemoveUnit(cell.Entity.ID);
         }
     }
     void DestroyBuilding() {
         TriCell cell = GetCellUnderCursor();
         if (cell && cell.Building) {
-            isleland.RemoveBuilding(cell.Building.ID);
+            entities.RemoveBuilding(cell.Building.ID);
         }
     }
 

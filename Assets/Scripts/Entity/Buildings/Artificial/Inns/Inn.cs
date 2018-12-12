@@ -39,10 +39,8 @@ public class Inn : Building {
         ret.capacity = capacity;
         return ret;
     }
-    public override void BindOptions(List<Button> buttons,Selector selector) {
-        base.BindOptions(buttons,selector);
-        buttons[5].gameObject.SetActive(true);
-        buttons[5].GetComponentInChildren<Text>().text = "inn option";
+    public override void BindOptions(BuildingMenu menu) {
+        menu.BindButton(5, "livers", null);
 
     }
 }

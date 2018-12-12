@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class TriMapGenerator : MonoBehaviour {
     int cellCount, landCells;
     public TriGrid grid;
+    public EntityManager entities;
     Queue<TriCell> searchFrontier;
     HashSet<TriCoordinates> checker;
     List<TriDirection> flowDirections = new List<TriDirection>();
@@ -303,7 +304,7 @@ public class TriMapGenerator : MonoBehaviour {
                                 Tree t=(Tree)Instantiate(isle.naturalPrefabs[(int)NaturalType.TREE],isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
-                                isle.AddNatural(t);
+                                entities.AddNatural(t);
                             }
                         }
                         else if (moisture < 0.12f) {
@@ -312,7 +313,7 @@ public class TriMapGenerator : MonoBehaviour {
                                 Tree t = (Tree)Instantiate(isle.naturalPrefabs[(int)NaturalType.TREE], isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
-                                isle.AddNatural(t);
+                                entities.AddNatural(t);
                             }
                         }
                         else if (moisture < 0.20f) {

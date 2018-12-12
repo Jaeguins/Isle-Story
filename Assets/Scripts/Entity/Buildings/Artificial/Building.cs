@@ -9,7 +9,7 @@ public enum BuildingType {
 }
 public class Building : Entity {
     public BuildingType type;
-    
+    public Vector3 camAnchorOffset,camOffset;
     public TriDirection entranceDirection;
     public TriDirection EntranceDirection {
         get {
@@ -47,11 +47,8 @@ public class Building : Entity {
         ret.type = type;
         return ret;
     }
-    public virtual void BindOptions(List<Button> buttons,Selector selector) {
-        Button buildingOption = buttons[4];
-        buttons[4].gameObject.SetActive(true);
-        buildingOption.GetComponentInChildren<Text>().text = "Building\nOptions";
-        buildingOption.onClick.AddListener(selector.ToBuildingOption);
+    public virtual void BindOptions(BuildingMenu menu) {
+        menu.BindButton(4,"Building\nOption", menu.ToBuildingOption);
     }
     public static bool IsBuildable(TriDirection dir,TriCoordinates coord) {
         return false;
