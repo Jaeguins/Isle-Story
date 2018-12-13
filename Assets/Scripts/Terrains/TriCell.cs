@@ -20,7 +20,6 @@ public class TriCell : MonoBehaviour {
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
     public Entity Entity { get; set; }
-    public Building Building { get; set; }
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
     int distance;
@@ -34,7 +33,7 @@ public class TriCell : MonoBehaviour {
     }
 
     public bool IsBuildable() {
-        return (!Building && !IsUnderwater && !Entity && !HasRiver);
+        return (!Entity && !IsUnderwater && !Entity && !HasRiver);
     }
 
     public int SearchPriority {

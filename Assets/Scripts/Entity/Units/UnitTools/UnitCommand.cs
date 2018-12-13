@@ -59,7 +59,7 @@ public struct Command {
         int flag = reader.ReadInt32();
         Command t = new Command(type);
         if (flag % 2 == 1) {
-            t.target = grid.GetCell(TriCoordinates.Load(reader)).Building;
+            t.target = grid.GetCell(TriCoordinates.Load(reader)).Entity;
         }
         else if (flag >= 2) {
             t.targetLocation = grid.GetCell(TriCoordinates.Load(reader));

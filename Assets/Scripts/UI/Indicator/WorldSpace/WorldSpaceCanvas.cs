@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class WorldSpaceCanvas : MonoBehaviour {
-    public CameraManager camManager;
+    public CameraManager cameraManager;
     public Canvas canvas;
 
     public new bool enabled {
@@ -15,11 +15,11 @@ public class WorldSpaceCanvas : MonoBehaviour {
             active= value;
         }
     }
-    bool active=true;
+    public bool active=true;
     // Update is called once per frame
-    void LateUpdate() {
+    void Update() {
         if (active) {
-            transform.rotation = camManager.GetNowActive().transform.rotation;
+            transform.rotation = cameraManager.GetNowActive().transform.rotation;
         }
     }
     

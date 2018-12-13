@@ -2,10 +2,15 @@
 using UnityEngine.EventSystems;
 
 public class GameUI : MonoBehaviour {
+    public static GameUI Instance;
     TriCell currentCell;
     Unit selectedUnit;
-    public BuildingMenu buildingMenu;
+    public EntityMenu buildingMenu;
+    public PersonList personList;
     public TriGrid grid;
+    private void Start() {
+        Instance = this;
+    }
     public void SetEditMode(bool toggle) {
         enabled = !toggle;
         grid.ClearPath();
@@ -26,6 +31,7 @@ public class GameUI : MonoBehaviour {
             selectedUnit = (Unit)currentCell.Entity;
         }
     }
+    /*
     void Update() {
         if (!EventSystem.current.IsPointerOverGameObject()) {
             if (Input.GetMouseButtonDown(0)) {
@@ -41,6 +47,6 @@ public class GameUI : MonoBehaviour {
             }
         }
     }
-
+    */
     
 }

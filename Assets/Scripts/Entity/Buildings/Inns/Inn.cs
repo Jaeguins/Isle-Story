@@ -4,11 +4,11 @@ using System.IO;
 using UnityEngine.UI;
 
 public enum InnType {
-    TENT
+    TENT,CAMP
 }
 public class Inn : Building {
     public List<Person> livers;
-    public PersonList liverList;
+
     public InnType subType;
     protected int capacity;
     void setLiver(Person person) {
@@ -35,15 +35,20 @@ public class Inn : Building {
             case InnType.TENT:
                 ret=Tent.Load(reader);
                 break;
+            case InnType.CAMP:
+                ret = Camp.Load(reader);
+                break;
         }
         ret.subType = subType;
         ret.capacity = capacity;
         return ret;
     }
-    public override void BindOptions(BuildingMenu menu) {
+    public override void BindOptions(EntityMenu menu) {
+        base.BindOptions(menu);
         menu.BindButton(5, "livers", ShowLivers);
     }
     public void ShowLivers() {
+        if (livers.Count == 0) return;
         liverList.SetActive(true);
         foreach(Person p in livers) {
             liverList.AddPerson(p);

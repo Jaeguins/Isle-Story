@@ -39,7 +39,7 @@ public class TriMapEditor : MonoBehaviour {
                     DestroyUnit();
                 }
                 else {
-                    CreateUnit();
+                    CreateUnit(GetCellUnderCursor());
                 }
             }
             if (Input.GetKeyDown(KeyCode.T)) {
@@ -47,7 +47,7 @@ public class TriMapEditor : MonoBehaviour {
                     DestroyUnit();
                 }
                 else {
-                    CreateTent(buildDirection);
+                    CreateTent(buildDirection,GetCellUnderCursor());
                 }
             }
             if (Input.GetKeyDown(KeyCode.K)) {
@@ -55,7 +55,7 @@ public class TriMapEditor : MonoBehaviour {
                     DestroyUnit();
                 }
                 else {
-                    CreateHall(buildDirection);
+                    CreateHall(buildDirection, GetCellUnderCursor());
                 }
             }
             if (Input.GetKeyDown(KeyCode.R)) {
@@ -166,30 +166,33 @@ public class TriMapEditor : MonoBehaviour {
         mapGenerator.GenerateMap(x, z);
         isleland.topCam.ValidatePosition();
     }
-    void CreateHall(TriDirection dir) {
-        TriCell cell = GetCellUnderCursor();
+    void CreateHall(TriDirection dir,TriCell cell) {
         if (cell && Camp.IsBuildable(dir,cell.coordinates, SizeType.HEX)) {
-            Camp ret = (Camp)Instantiate(isleland.hallPrefabs[0]);
+            Camp ret = (Camp)Instantiate(isleland.innPrefabs[1]);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
-            cell.Building = ret;
+            cell.Entity = ret;
             ret.EntranceDirection = dir;
             ret.liverList = personList;
             entities.AddBuilding(ret);
             Debug.Log("camp built");
+            for(int i = 0; i < 4; i++) {
+                Unit t = CreateUnit(cell);
+                ret.addPerson((Person)t);
+                ((Person)t).home = ret;
+            }
         }
         else {
             Debug.Log("building failed");
         }
     }
-    void CreateTent(TriDirection dir) {
-        TriCell cell = GetCellUnderCursor();
+    void CreateTent(TriDirection dir,TriCell cell) {
         if (cell && Tent.IsBuildable(dir, cell.coordinates,SizeType.SINGLE)) {
 
             Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
-            cell.Building = ret;
+            cell.Entity= ret;
             ret.EntranceDirection = dir;
             ret.liverList = personList;
             entities.AddBuilding(ret);
@@ -199,15 +202,17 @@ public class TriMapEditor : MonoBehaviour {
             Debug.Log("building failed");
         }
     }
-    void CreateUnit() {
-        TriCell cell = GetCellUnderCursor();
-        if (cell && !cell.Entity) {
+    Unit CreateUnit(TriCell cell) {
+        if (cell) {
             Unit ret=Instantiate(isleland.unitPrefabs[0]);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
             entities.AddUnit(ret);
+            if (cell.Entity) ret.AddCommand(new Command(CommandType.GETIN, cell.Entity));
+            return ret;
         }
+        return null;
     }
 
     void DestroyUnit() {
@@ -218,8 +223,8 @@ public class TriMapEditor : MonoBehaviour {
     }
     void DestroyBuilding() {
         TriCell cell = GetCellUnderCursor();
-        if (cell && cell.Building) {
-            entities.RemoveBuilding(cell.Building.ID);
+        if (cell && cell.Entity) {
+            entities.RemoveBuilding(cell.Entity.ID);
         }
     }
 

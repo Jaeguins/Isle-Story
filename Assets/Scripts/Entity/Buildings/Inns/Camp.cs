@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-public class Camp : Hall {
+public class Camp : Inn {
     private void Start() {
         capacity = 4;
         UIName = "camp";
@@ -13,6 +13,6 @@ public class Camp : Hall {
         base.Save(writer);
     }
     public static new Camp Load(BinaryReader reader) {
-        return Instantiate((Camp)TriIsleland.Instance.hallPrefabs[(int)HallType.CAMP]);
+        return Instantiate((Camp)TriIsleland.Instance.innPrefabs[(int)InnType.CAMP]);
     }
 }

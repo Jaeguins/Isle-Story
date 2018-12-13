@@ -30,7 +30,7 @@ public class Person : Unit {
         Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell homeLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (homeLoc) {
-            Inn home = (Inn)(homeLoc.Building);
+            Inn home = (Inn)(homeLoc.Entity);
             ret.migrate(home);
         }
         return ret;

@@ -13,8 +13,21 @@ public enum SizeType {
 public class Building : Entity {
     public SizeType sizeType;
     public BuildingType type;
-    public Vector3 camAnchorOffset,camOffset;
+    public PersonList liverList;
+
     public TriDirection entranceDirection;
+
+    public new TriCell Location {
+        get {
+            return location;
+        }
+        set {
+            location = value;
+            value.Entity = this;
+            transform.localPosition = value.Position;
+        }
+    }
+
     public TriDirection EntranceDirection {
         get {
             return entranceDirection;
@@ -41,9 +54,6 @@ public class Building : Entity {
             case BuildingType.INN:
                 ret = Inn.Load(reader);
                 break;
-            case BuildingType.HALL:
-                ret = Hall.Load(reader);
-                break;
         }
         
         ret.Location= TriIsleland.Instance.grid.GetCell(coord);
@@ -51,13 +61,13 @@ public class Building : Entity {
         ret.type = type;
         return ret;
     }
-    public virtual void BindOptions(BuildingMenu menu) {
-        menu.BindButton(4,"Building\nOption", menu.ToBuildingOption);
+    public override void BindOptions(EntityMenu menu) {
+        menu.BindButton(4, "Preference", menu.ToBuildingOption);
     }
     public static bool IsBuildable(TriDirection dir,TriCoordinates coord,SizeType sizeType) {
         switch (sizeType) {
             case SizeType.SINGLE:
-                if (TriGrid.Instance.GetCell(coord).Building) return false;
+                if (TriGrid.Instance.GetCell(coord).Entity) return false;
                 else return true;
             case SizeType.HEX:
                 TriCell cell = TriGrid.Instance.GetCell(coord);

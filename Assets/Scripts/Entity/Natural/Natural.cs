@@ -9,7 +9,19 @@ public enum NaturalType {
 public class Natural : Entity {
     public NaturalType type;
     TriDirection entranceDirection;
-    
+
+    public new TriCell Location {
+        get {
+            return location;
+        }
+        set {
+            location = value;
+            value.Entity = this;
+            transform.localPosition = value.Position;
+        }
+    }
+
+
     public TriDirection EntranceDirection {
         get {
             return entranceDirection;

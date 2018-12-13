@@ -66,13 +66,6 @@ public class EntityManager : MonoBehaviour {
                                 break;
                         }
                         break;
-                    case BuildingType.HALL:
-                        switch (((Hall)b.Value).subType) {
-                            case HallType.CAMP:
-                                ((Camp)b.Value).Save(writer);
-                                break;
-                        }
-                        break;
                 }
             }
         }
@@ -135,7 +128,7 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
-                        loaded.Location.Building = loaded;
+                        loaded.Location.Entity = loaded;
                         loaded.transform.parent = BuildingGroup;
                         AddBuilding(loaded);
                     }
@@ -156,8 +149,8 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
-                        if (grid.GetCell(coord).Building) {
-                            loaded.GetIn(grid.GetCell(coord).Building);
+                        if (grid.GetCell(coord).Entity) {
+                            loaded.GetIn((Building)grid.GetCell(coord).Entity);
                         }
                         loaded.transform.parent = UnitGroup;
                         AddUnit(loaded);
@@ -191,6 +184,7 @@ public class EntityManager : MonoBehaviour {
         unit.ID = buildings.Count;
         buildings.Add(unit.ID, unit);
         unit.transform.SetParent(BuildingGroup, false);
+        unit.liverList = GameUI.Instance.personList;
     }
 
     public void AddNatural(Natural unit) {

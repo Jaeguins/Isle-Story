@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class BuildingMenu : WorldSpaceCanvas{
-    public Building nowBuilding;
+public class EntityMenu : WorldSpaceCanvas{
+    public Entity nowEntity;
     public Text tooltip;
     public List<Button> buttons;
     public new bool enabled {
@@ -18,10 +18,13 @@ public class BuildingMenu : WorldSpaceCanvas{
     private void Start() {
         canvas = GetComponent<Canvas>();
     }
-    public void Bind(Building building) {
-        nowBuilding = building;
-        tooltip.text = nowBuilding.UIName;
-        nowBuilding.BindOptions(this);
+    public void Bind(Entity entity) {
+        nowEntity = entity;
+        tooltip.text = nowEntity.UIName;
+        Vector3 t=nowEntity.Location.transform.localPosition;
+        t.y += 20;
+        transform.localPosition = t;
+        nowEntity.BindOptions(this);
     }
     public void Clear() {
         for(int i = 0; i < buttons.Count; i++) {
@@ -35,8 +38,13 @@ public class BuildingMenu : WorldSpaceCanvas{
         buttons[index].onClick.AddListener(action);
     }
     public void ToBuildingOption() {
-        camManager.SwitchCamera(CamType.BUILDINGVIEW);
-        ((IndivViewCam)camManager.GetNowActive()).setAnchor(nowBuilding);
-        ((IndivViewCam)camManager.GetNowActive()).SetOffset(nowBuilding);
+        cameraManager.SwitchCamera(CamType.BUILDINGVIEW);
+        ((IndivViewCam)cameraManager.GetNowActive()).setAnchor(nowEntity);
+        ((IndivViewCam)cameraManager.GetNowActive()).SetOffset(nowEntity);
+    }
+    private void Update() {
+        if (enabled)
+            transform.rotation = cameraManager.GetNowActive().cam.transform.rotation;
+        
     }
 }

@@ -176,8 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7224a373cbbda448893c69b77f19be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selector: {fileID: 0}
   name: {fileID: 114786056532908128}
   gender: {fileID: 114914309018826226}
+  button: {fileID: 114190237674441322}
+  target: {fileID: 0}
 --- !u!114 &114914309018826226
 MonoBehaviour:
   m_ObjectHideFlags: 1

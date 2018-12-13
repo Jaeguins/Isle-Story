@@ -4,16 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PersonList : MonoBehaviour {
-    public List<Person> people;
-    public List<PersonIndicator> buttons;
-    Queue<PersonIndicator> buttonPool;
+    public List<Person> people = new List<Person>();
+    public List<PersonIndicator> buttons=new List<PersonIndicator>();
+    Queue<PersonIndicator> buttonPool=new Queue<PersonIndicator>();
     public Transform contentList;
     public GameObject listPrefab;
-    private void Start() {
-        people = ListPool<Person>.Get();
-        buttons = ListPool<PersonIndicator>.Get();
-        buttonPool = new Queue<PersonIndicator>();
-    }
+    public Selector selector;
     public void ClearList() {
         for(int i=0; i < people.Count; i++) {
             RemoveButton(0);
@@ -30,7 +26,7 @@ public class PersonList : MonoBehaviour {
 
     void AddButton(int index) {
         PersonIndicator ind =
-            buttonPool.Count != 0 ?
+            buttonPool.Count > 0 ?
             buttonPool.Dequeue()
             : Instantiate(listPrefab, contentList).GetComponent<PersonIndicator>();
         buttons.Add(ind);
@@ -41,7 +37,9 @@ public class PersonList : MonoBehaviour {
         tp.localPosition = tV;
         buttons[index].name.text = people[index].UIName;
         buttons[index].gender.text = people[index].gender ? "male" : "female";
-
+        buttons[index].selector = selector;
+        buttons[index].target = people[index];
+        buttons[index].button.onClick.AddListener(buttons[index].SelectUnit);
     }
     public void AddPerson(Person person) {
         int t = people.Count;
