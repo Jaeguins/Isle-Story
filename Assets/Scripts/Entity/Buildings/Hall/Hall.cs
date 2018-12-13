@@ -9,7 +9,8 @@ public enum HallType {
     CAMP
 }
 public class Hall : Building {
-    List<Person> livers;
+    public List<Person> livers;
+    public PersonList liverList;
     public HallType subType;
     protected int capacity;
     void setLiver(Person person) {
@@ -42,7 +43,12 @@ public class Hall : Building {
         return ret;
     }
     public override void BindOptions(BuildingMenu menu) {
-        base.BindOptions(menu);
-        menu.BindButton(5, "livers", null);
+        menu.BindButton(5, "livers", ShowLivers);
+    }
+    public void ShowLivers() {
+        liverList.SetActive(true);
+        foreach (Person p in livers) {
+            liverList.AddPerson(p);
+        }
     }
 }

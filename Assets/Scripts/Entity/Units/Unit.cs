@@ -6,6 +6,8 @@ public enum UnitType {
     PERSON
 }
 public class Unit : Entity {
+    public SkinnedMeshRenderer mesh;
+    public Building buildingPos;
     public UnitType type;
     public Coroutine nowRoutine;
     public Animator animator;
@@ -24,15 +26,31 @@ public class Unit : Entity {
             transform.localRotation = Quaternion.Euler(0f, value, 0f);
         }
     }
-
+    public void SetVisible(bool val) {
+        mesh.enabled = val;
+    }
     public static bool IsValidDestination(TriCell cell) {
         return !cell.IsUnderwater && !cell.Entity;
     }
     public void AddCommand(Command c) {
-        commandQueue.Enqueue(c);
+        switch (c.type) {
+            case CommandType.MOVE:
+                commandQueue.Enqueue(new Command(CommandType.GETOUT));
+                commandQueue.Enqueue(c);
+                break;
+            case CommandType.BUILD:
+                AddCommand(new Command(CommandType.MOVE, c.targetLocation));
+                commandQueue.Enqueue(c);
+                break;
+            default:
+                commandQueue.Enqueue(c);
+                break;
+        }
+        
     }
     private void Start() {
         StartCoroutine(Act());
+        
     }
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
         TriGrid inst = TriGrid.Instance;
@@ -53,13 +71,64 @@ public class Unit : Entity {
         yield return null;
     }
 
+    public void GetIn() {
+        Building target = (Building)nowWork.target;
+        target.insider.Add(this);
+        Location = target.Location;
+        SetVisible(false);
+    }
+    public void GetIn(Building target) {
+        target.insider.Add(this);
+        Location = target.Location;
+        SetVisible(false);
+    }
+    public void GetOut() {
+        if (!buildingPos) return;
+        buildingPos.insider.Remove(this);
+        Location = buildingPos.Location.GetNeighbor(buildingPos.entranceDirection);
+        buildingPos = null;
+        SetVisible(true);
+    }
+    public void Move() {
+        StartCoroutine(FindPathAndMove(nowWork.targetLocation));
+    }
+    public void Build() {
+        Debug.Log("unexpected Order");
+    }
+    public void ChangeJob() {
+        Debug.Log("unexpected Order");
+    }
+    public void ChangeWork() {
+        Debug.Log("unexpected Order");
+    }
+    public void Migrate() {
+        Debug.Log("unexpected Order");
+    }
     IEnumerator<WaitUntil> Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
                 switch (nowWork.type) {
-                    case CommandType.MOVE:  
-                        StartCoroutine(FindPathAndMove(nowWork.targetLocation));
+                    case CommandType.MOVE:
+                        Move();
+                        break;
+                    case CommandType.GETIN:
+                        GetIn();
+                        break;
+                    case CommandType.GETOUT:
+                        GetOut();
+                        break;
+                    case CommandType.BUILD:
+                        Build();
+                        break;
+                    case CommandType.CHANGEJOB:
+                        ChangeJob();
+                        break;
+                    case CommandType.CHANGEWORK:
+                        ChangeWork();
+                        break;
+                    case CommandType.MIGRATE:
+                        Migrate();
                         break;
                 }
             }
@@ -104,17 +173,19 @@ public class Unit : Entity {
         animator.SetBool("walking", false);
         acting = false;
     }
+
     public void CancelAllAct() {
         commandQueue.Clear();
         CancelNowAct();
     }
+
     public void CancelNowAct() {
         if (nowRoutine != null) {
             StopCoroutine(nowRoutine);
         }
         acting = false;
     }
-
+    
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);

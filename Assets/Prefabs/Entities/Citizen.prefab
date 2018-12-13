@@ -693,8 +693,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527c1dc2fbf284546ad919253a8260fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {fileID: 0}
+  UIName: 
+  mesh: {fileID: 137670628232420186}
+  buildingPos: {fileID: 0}
+  type: 0
   animator: {fileID: 95262515807499006}
+  acting: 0
+  gender: 0
+  home: {fileID: 0}
 --- !u!137 &137670628232420186
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class TriIsleland : MonoBehaviour {
     public List<Hall> hallPrefabs;
     public List<Unit> unitPrefabs;
     public List<Natural> naturalPrefabs;
+    public Construction constructionPrefab;
     public EntityManager entities;
     public static TriIsleland Instance;
     string isleName = "test";
@@ -43,7 +44,7 @@ public class TriIsleland : MonoBehaviour {
                 Debug.LogWarning("Unknown map format " + header);
             }
         }
-        
+        entities.Load(path);
     }
     
 }

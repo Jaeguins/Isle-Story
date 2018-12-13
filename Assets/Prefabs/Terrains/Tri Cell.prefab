@@ -57,7 +57,6 @@ MonoBehaviour:
   inverted: 0
   uiRect: {fileID: 224498864122617564, guid: b970d7c3bd73e7b45ba9eb25e950f41a, type: 2}
   chunk: {fileID: 0}
-  isRiver: 000000
   neighbors:
   - {fileID: 0}
   - {fileID: 0}

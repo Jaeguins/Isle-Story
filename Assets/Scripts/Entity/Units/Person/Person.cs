@@ -2,11 +2,14 @@
 using System.Collections;
 using System.IO;
 public class Person : Unit {
-    
-    Inn home;
+    public bool gender;
+    public Inn home;
+    public Building company;
+    public Entity work;
     public void Start() {
         type = UnitType.PERSON;
         UIName = "person";
+
     }
     public void migrate (Inn target){
         target.addPerson(this);
@@ -22,6 +25,7 @@ public class Person : Unit {
             home.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
     }
+    
     public static new Person Load(BinaryReader reader) {
         Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell homeLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
@@ -30,5 +34,21 @@ public class Person : Unit {
             ret.migrate(home);
         }
         return ret;
+    }
+    public new void Build(){
+        Construction t = Instantiate(TriIsleland.Instance.constructionPrefab);
+        t.Location = nowWork.targetLocation;
+        t.target = (Building)nowWork.target;
+        TriIsleland.Instance.entities.AddBuilding(t);
+        AddCommand(new Command(CommandType.CHANGEWORK, t));
+    }
+    public new void ChangeJob() {
+        company = (Building)nowWork.target;
+    }
+    public new void ChangeWork() {
+        work = nowWork.target;
+    }
+    public new void Migrate() {
+        home = (Inn)nowWork.target;
     }
 }

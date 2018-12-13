@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
+    public PersonList personList;
     public TriGrid triGrid;
     public TriIsleland isleland;
     public EntityManager entities;
@@ -167,13 +168,13 @@ public class TriMapEditor : MonoBehaviour {
     }
     void CreateHall(TriDirection dir) {
         TriCell cell = GetCellUnderCursor();
-        if (cell && Camp.IsBuildable(dir,cell.coordinates)) {
+        if (cell && Camp.IsBuildable(dir,cell.coordinates, SizeType.HEX)) {
             Camp ret = (Camp)Instantiate(isleland.hallPrefabs[0]);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
             ret.EntranceDirection = dir;
-
+            ret.liverList = personList;
             entities.AddBuilding(ret);
             Debug.Log("camp built");
         }
@@ -183,14 +184,14 @@ public class TriMapEditor : MonoBehaviour {
     }
     void CreateTent(TriDirection dir) {
         TriCell cell = GetCellUnderCursor();
-        if (cell && Tent.IsBuildable(dir, cell.coordinates)) {
+        if (cell && Tent.IsBuildable(dir, cell.coordinates,SizeType.SINGLE)) {
 
             Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
             cell.Building = ret;
             ret.EntranceDirection = dir;
-
+            ret.liverList = personList;
             entities.AddBuilding(ret);
             Debug.Log("tent built");
         }

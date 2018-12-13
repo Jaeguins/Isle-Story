@@ -7,7 +7,11 @@ using UnityEngine.UI;
 public enum BuildingType {
     INN,HALL
 }
+public enum SizeType {
+    SINGLE,HEX
+}
 public class Building : Entity {
+    public SizeType sizeType;
     public BuildingType type;
     public Vector3 camAnchorOffset,camOffset;
     public TriDirection entranceDirection;
@@ -50,7 +54,26 @@ public class Building : Entity {
     public virtual void BindOptions(BuildingMenu menu) {
         menu.BindButton(4,"Building\nOption", menu.ToBuildingOption);
     }
-    public static bool IsBuildable(TriDirection dir,TriCoordinates coord) {
-        return false;
+    public static bool IsBuildable(TriDirection dir,TriCoordinates coord,SizeType sizeType) {
+        switch (sizeType) {
+            case SizeType.SINGLE:
+                if (TriGrid.Instance.GetCell(coord).Building) return false;
+                else return true;
+            case SizeType.HEX:
+                TriCell cell = TriGrid.Instance.GetCell(coord);
+                int elevation = cell.Elevation;
+                TriCell k = cell;
+                int elev = cell.Elevation;
+                TriDirection tDir = dir.Previous();
+                for (int i = 0; i < 6; i++) {
+                    if (!k || !k.IsBuildable()) return false;
+                    if (elev != k.Elevation) return false;
+                    k = k.GetNeighbor(tDir);
+                    tDir = tDir.Next();
+                }
+                return true;
+            default:
+                return false;
+        }
     }
 }

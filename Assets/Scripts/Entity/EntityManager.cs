@@ -114,7 +114,7 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
-                        loaded.transform.parent = transform;
+                        loaded.transform.parent = NaturalGroup;
                         AddNatural(loaded);
                         loaded.validateRotation();
                     }
@@ -136,7 +136,7 @@ public class EntityManager : MonoBehaviour {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
                         loaded.Location.Building = loaded;
-                        loaded.transform.parent = transform;
+                        loaded.transform.parent = BuildingGroup;
                         AddBuilding(loaded);
                     }
                 }
@@ -156,7 +156,10 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = id;
                         loaded.Location = grid.GetCell(coord);
-                        loaded.transform.parent = transform;
+                        if (grid.GetCell(coord).Building) {
+                            loaded.GetIn(grid.GetCell(coord).Building);
+                        }
+                        loaded.transform.parent = UnitGroup;
                         AddUnit(loaded);
                     }
                 }
@@ -169,7 +172,7 @@ public class EntityManager : MonoBehaviour {
 
     public void AddUnit(Unit unit) {
         units.Add(unit.ID, unit);
-        unit.transform.SetParent(transform, false);
+        unit.transform.SetParent(UnitGroup, false);
     }
 
     public void RemoveUnit(int id) {
@@ -187,13 +190,13 @@ public class EntityManager : MonoBehaviour {
     public void AddBuilding(Building unit) {
         unit.ID = buildings.Count;
         buildings.Add(unit.ID, unit);
-        unit.transform.SetParent(transform, false);
+        unit.transform.SetParent(BuildingGroup, false);
     }
 
     public void AddNatural(Natural unit) {
         unit.ID = naturals.Count;
         naturals.Add(unit.ID, unit);
-        unit.transform.SetParent(transform, false);
+        unit.transform.SetParent(NaturalGroup, false);
     }
 
 }

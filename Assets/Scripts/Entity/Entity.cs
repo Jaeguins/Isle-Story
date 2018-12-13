@@ -4,6 +4,7 @@ using System.IO;
 using System;
 [Serializable]
 public class Entity : MonoBehaviour {
+    public List<Unit> insider;
     public string UIName;
     public int ID {
         get {

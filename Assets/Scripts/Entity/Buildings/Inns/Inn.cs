@@ -7,7 +7,8 @@ public enum InnType {
     TENT
 }
 public class Inn : Building {
-    List<Person> livers;
+    public List<Person> livers;
+    public PersonList liverList;
     public InnType subType;
     protected int capacity;
     void setLiver(Person person) {
@@ -40,7 +41,12 @@ public class Inn : Building {
         return ret;
     }
     public override void BindOptions(BuildingMenu menu) {
-        menu.BindButton(5, "livers", null);
-
+        menu.BindButton(5, "livers", ShowLivers);
+    }
+    public void ShowLivers() {
+        liverList.SetActive(true);
+        foreach(Person p in livers) {
+            liverList.AddPerson(p);
+        }
     }
 }
