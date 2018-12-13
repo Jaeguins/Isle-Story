@@ -33,7 +33,7 @@ public class PersonList : MonoBehaviour {
         ind.gameObject.SetActive(true);
         RectTransform tp = (RectTransform)buttons[index].gameObject.transform;
         Vector3 tV = tp.localPosition;
-        tV.y = -30 * index - 15;
+        tV.y = -30 * index + 75;
         tp.localPosition = tV;
         buttons[index].name.text = people[index].UIName;
         buttons[index].gender.text = people[index].gender ? "male" : "female";

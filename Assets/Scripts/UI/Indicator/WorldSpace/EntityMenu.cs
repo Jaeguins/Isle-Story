@@ -46,7 +46,7 @@ public class EntityMenu : WorldSpaceCanvas{
     }
     public IEnumerator OutBuildingOption() {
         yield return StartCoroutine(cameraManager.SwitchCamera(CamType.TOPVIEW));
-        enabled = true;
+        enabled = false;
         ((IndivViewCam)cameraManager.cameras[1]).enabled = false;
     }
     public IEnumerator BuildingOption() {
