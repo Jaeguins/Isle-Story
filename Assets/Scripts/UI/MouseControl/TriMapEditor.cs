@@ -24,47 +24,6 @@ public class TriMapEditor : MonoBehaviour {
         activeElevation = (int)elevation;
     }
 
-    private void Awake() {
-        SetEditMode(false);
-    }
-
-    void Update() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
-            if (Input.GetMouseButton(0)) {
-                HandleInput();
-                return;
-            }
-            if (Input.GetKeyDown(KeyCode.U)) {
-                if (Input.GetKey(KeyCode.LeftShift)) {
-                    DestroyUnit();
-                }
-                else {
-                    CreateUnit(GetCellUnderCursor());
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.T)) {
-                if (Input.GetKey(KeyCode.LeftShift)) {
-                    DestroyUnit();
-                }
-                else {
-                    CreateTent(buildDirection,GetCellUnderCursor());
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.K)) {
-                if (Input.GetKey(KeyCode.LeftShift)) {
-                    DestroyUnit();
-                }
-                else {
-                    CreateHall(buildDirection, GetCellUnderCursor());
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.R)) {
-                buildDirection = (buildDirection == TriDirection.RIGHT) ? TriDirection.VERT : buildDirection += 1;
-            }
-        }
-        previousCell = null;
-    }
-
     TriCell GetCellUnderCursor() {
         return
             triGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -166,50 +125,40 @@ public class TriMapEditor : MonoBehaviour {
         mapGenerator.GenerateMap(x, z);
         isleland.topCam.ValidatePosition();
     }
-    void CreateHall(TriDirection dir,TriCell cell) {
-        if (cell && Camp.IsBuildable(dir,cell.coordinates, SizeType.HEX)) {
-            Camp ret = (Camp)Instantiate(isleland.innPrefabs[1]);
-            ret.ID = entities.UnitCount;
+    public Building CreateBuilding(TriDirection dir,TriCell cell,Building prefab) {
+        if(cell&& Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {
+            Building ret = Instantiate(prefab);
+            ret.ID = entities.BuildingCount;
             ret.Location = cell;
             cell.Entity = ret;
             ret.EntranceDirection = dir;
             ret.liverList = personList;
             entities.AddBuilding(ret);
             Debug.Log("camp built");
-            for(int i = 0; i < 4; i++) {
-                Unit t = CreateUnit(cell);
+            return ret;
+        }
+        else {
+            Debug.Log("building failed");
+            return null;
+        }
+    }
+    public void CreateHall(TriDirection dir,TriCell cell) {
+        Inn ret = (Inn)CreateBuilding(dir, cell, isleland.innPrefabs[1]);
+        if(ret)
+            for (int i = 0; i < 4; i++) {
+                Unit t = CreateUnit(cell, isleland.unitPrefabs[0]);
                 ret.addPerson((Person)t);
                 ((Person)t).home = ret;
             }
-        }
-        else {
-            Debug.Log("building failed");
-        }
     }
-    void CreateTent(TriDirection dir,TriCell cell) {
-        if (cell && Tent.IsBuildable(dir, cell.coordinates,SizeType.SINGLE)) {
-
-            Tent ret = (Tent)Instantiate(isleland.innPrefabs[0]);
-            ret.ID = entities.UnitCount;
-            ret.Location = cell;
-            cell.Entity= ret;
-            ret.EntranceDirection = dir;
-            ret.liverList = personList;
-            entities.AddBuilding(ret);
-            Debug.Log("tent built");
-        }
-        else {
-            Debug.Log("building failed");
-        }
-    }
-    Unit CreateUnit(TriCell cell) {
+    public Unit CreateUnit(TriCell cell,Unit prefab) {
         if (cell) {
-            Unit ret=Instantiate(isleland.unitPrefabs[0]);
+            Unit ret=Instantiate(prefab);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
             entities.AddUnit(ret);
-            if (cell.Entity) ret.AddCommand(new Command(CommandType.GETIN, cell.Entity));
+            if (cell.Entity) ret.AddCommand(new Command(CommandType.GETIN, TriDirection.VERT,cell.Entity));
             return ret;
         }
         return null;

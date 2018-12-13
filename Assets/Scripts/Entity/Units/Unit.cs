@@ -48,9 +48,11 @@ public class Unit : Entity {
         }
         
     }
-    private void Start() {
+    private void OnEnable() {
         StartCoroutine(Act());
-        
+    }
+    private void OnDisable() {
+        StopAllCoroutines();
     }
 
     public override void BindOptions(EntityMenu menu) {
@@ -78,41 +80,47 @@ public class Unit : Entity {
 
     public void GetIn() {
         Building target = (Building)nowWork.target;
+        buildingPos = target;
         target.insider.Add(this);
         Location = target.Location;
         SetVisible(false);
     }
     public void GetIn(Building target) {
+        buildingPos = target;
         target.insider.Add(this);
         Location = target.Location;
         SetVisible(false);
     }
     public void GetOut() {
         if (!buildingPos) return;
+        acting = true;
         buildingPos.insider.Remove(this);
         Location = buildingPos.Location.GetNeighbor(buildingPos.entranceDirection);
         buildingPos = null;
         SetVisible(true);
+        acting = false;
     }
     public void Move() {
         StartCoroutine(FindPathAndMove(nowWork.targetLocation));
     }
-    public void Build() {
+    public virtual void Build() {
         Debug.Log("unexpected Order");
     }
-    public void ChangeJob() {
+    public virtual void ChangeJob() {
         Debug.Log("unexpected Order");
     }
-    public void ChangeWork() {
+    public virtual void ChangeWork() {
         Debug.Log("unexpected Order");
     }
-    public void Migrate() {
+    public virtual void Migrate() {
         Debug.Log("unexpected Order");
     }
     IEnumerator<WaitUntil> Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
+                Debug.Log(nowWork);
+                
                 switch (nowWork.type) {
                     case CommandType.MOVE:
                         Move();
@@ -142,8 +150,8 @@ public class Unit : Entity {
     }
 
     public IEnumerator<WaitForEndOfFrame> TravelPath() {
-        animator.SetBool("walking", true);
         acting = true;
+        animator.SetBool("walking", true);
         Vector3 a, b, c = transform.localPosition;
         float t = Time.deltaTime * travelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++) {

@@ -5,10 +5,12 @@ public class GameUI : MonoBehaviour {
     public static GameUI Instance;
     TriCell currentCell;
     Unit selectedUnit;
+    public TriMapEditor mapEditor;
     public GameObject buildingPanel;
     public EntityMenu buildingMenu;
     public PersonList personList;
     public TriGrid grid;
+    public BuildingMenu buildMenu;
     private void Start() {
         Instance = this;
     }
@@ -44,22 +46,4 @@ public class GameUI : MonoBehaviour {
             selectedUnit = (Unit)currentCell.Entity;
         }
     }
-    /*
-    void Update() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
-            if (Input.GetMouseButtonDown(0)) {
-            }
-            else if (selectedUnit) {
-                if (Input.GetMouseButtonDown(1)) {
-                    UpdateCurrentCell();
-                    if (Input.GetKey(KeyCode.Z)) {
-                        selectedUnit.CancelAllAct();
-                    }
-                    selectedUnit.AddCommand(new Command(CommandType.MOVE, currentCell));
-                }
-            }
-        }
-    }
-    */
-    
 }

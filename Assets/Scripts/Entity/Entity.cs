@@ -4,6 +4,7 @@ using System.IO;
 using System;
 [Serializable]
 public class Entity : MonoBehaviour {
+    public SizeType sizeType;
     public List<Unit> insider;
     public string UIName;
     public int ID {
@@ -46,5 +47,27 @@ public class Entity : MonoBehaviour {
     public void Die() {
         location.Entity = null;
         Destroy(gameObject);
+    }
+    public static bool IsBuildable(TriDirection dir, TriCoordinates coord, SizeType sizeType) {
+        switch (sizeType) {
+            case SizeType.SINGLE:
+                if (TriGrid.Instance.GetCell(coord).Entity) return false;
+                else return true;
+            case SizeType.HEX:
+                TriCell cell = TriGrid.Instance.GetCell(coord);
+                int elevation = cell.Elevation;
+                TriCell k = cell;
+                int elev = cell.Elevation;
+                TriDirection tDir = dir.Previous();
+                for (int i = 0; i < 6; i++) {
+                    if (!k || !k.IsBuildable()) return false;
+                    if (elev != k.Elevation) return false;
+                    k = k.GetNeighbor(tDir);
+                    tDir = tDir.Next();
+                }
+                return true;
+            default:
+                return false;
+        }
     }
 }

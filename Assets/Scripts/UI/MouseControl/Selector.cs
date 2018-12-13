@@ -10,6 +10,7 @@ public class Selector : MonoBehaviour {
     public static Selector Instance;
     public CameraManager camManager;
     public Entity selected;
+    public Entity target;
     public TriCell nowCell;
     TriCell tCell;
     public EntityMenu entityMenu;
@@ -30,7 +31,7 @@ public class Selector : MonoBehaviour {
     private void LateUpdate() {
         tCell = GetRay();
         if (tCell) {
-            if (!selectCheck&&tCell != nowCell) {
+            if (selectedType==SelectedType.UNIT||!selectCheck&&tCell != nowCell) {
                 nowCell = tCell;
             }
         }
@@ -39,30 +40,43 @@ public class Selector : MonoBehaviour {
                 Deselect();
             }
         }
-
+        if (Input.GetMouseButtonDown(1)) {
+            GameUI.Instance.mapEditor.CreateHall(dir, nowCell);
+        }
         if (ordering) {
+            entityMenu.enabled = false;
             switch (commandType) {
                 case CommandType.BUILD:
                     terrainView = true;
                     break;
             }
+            if (Input.GetMouseButtonDown(0)&&selectedType==SelectedType.UNIT) {
+                switch (commandType) {
+                    case CommandType.BUILD:
+                        ((Unit)selected).AddCommand(new Command(commandType, dir, target));
+                        Debug.Log(selected.ID);
+                        ordering = false;
+                        terrainView = false;
+                        terrainCleared = true;
+                        Deselect();
+                        break;
+                }
+                
+            }
 
         }
         else {
-            if (nowCell&&nowCell.Entity && Input.GetMouseButton(0)&&selectedType==SelectedType.NONE) {
+            if (camManager.camStatus==CamType.TOPVIEW&&nowCell&&nowCell.Entity && Input.GetMouseButton(0)&&selectedType==SelectedType.NONE) {
                 selected = nowCell.Entity;
                 selectedType = SelectedType.BUILDING;
                 selectCheck = true;
                 entityMenu.enabled = true;
                 entityMenu.Bind(selected);
             }
-            else {
-            }
         }
 
         if (terrainView) {
             StartCalculateTerrain();
-            terrainCleared = true;
         }
         else if (terrainCleared) {
             terrainSelectionViewer.Clear();

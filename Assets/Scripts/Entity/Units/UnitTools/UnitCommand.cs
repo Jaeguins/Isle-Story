@@ -5,11 +5,14 @@ public enum CommandType {
 
 public struct Command {
     public CommandType type;
+    public TriDirection dir;
     public Entity target;
     public TriCell targetLocation;
     public int flag;
 
-
+    public override string ToString() {
+        return type.ToString() + '\n'+dir+'\n';
+    }
 
 
 
@@ -20,24 +23,28 @@ public struct Command {
 
 
     public Command(CommandType type) {
+        dir = TriDirection.VERT;
         this.type = type;
         target = null;
         targetLocation = null;
         flag = 0;
     }
-    public Command(CommandType type,Entity target) {
+    public Command(CommandType type,TriDirection dir,Entity target) {
+        this.dir = dir;
         this.type = type;
         this.target = target;
         this.targetLocation = target.Location;
         flag = 1;
     }
     public Command(CommandType type, TriCell targetL) {
+        dir = TriDirection.VERT;
         this.type = type;
         this.target = null;
         this.targetLocation = targetL;
         flag = 2;
     }
-    public Command(CommandType type, Entity target,TriCell targetL) {
+    public Command(CommandType type, TriDirection dir,Entity target,TriCell targetL) {
+        this.dir = dir;
         this.type = type;
         this.target = null;
         this.targetLocation = targetL;

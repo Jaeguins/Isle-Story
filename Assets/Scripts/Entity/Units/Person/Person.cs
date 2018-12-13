@@ -11,13 +11,13 @@ public class Person : Unit {
         UIName = "person";
 
     }
-    public void migrate (Inn target){
-        target.addPerson(this);
-        home = target;
+    public override void Migrate (){
+        ((Inn)nowWork.target).addPerson(this);
+        home = (Inn)nowWork.target;
     }
     public void GoHome() {
         CancelAllAct();
-        AddCommand(new Command(CommandType.MOVE, home));
+        AddCommand(new Command(CommandType.MOVE, TriDirection.VERT,home));
     }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
@@ -30,25 +30,24 @@ public class Person : Unit {
         Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell homeLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (homeLoc) {
-            Inn home = (Inn)(homeLoc.Entity);
-            ret.migrate(home);
+            ret.AddCommand(new Command(CommandType.MIGRATE,TriDirection.VERT, (Inn)homeLoc.Entity));
         }
         return ret;
     }
-    public new void Build(){
-        Construction t = Instantiate(TriIsleland.Instance.constructionPrefab);
+    public override void Build(){
+        Building t = GameUI.Instance.mapEditor.CreateBuilding(nowWork.dir,nowWork.targetLocation,(Building)nowWork.target);
         t.Location = nowWork.targetLocation;
-        t.target = (Building)nowWork.target;
         TriIsleland.Instance.entities.AddBuilding(t);
-        AddCommand(new Command(CommandType.CHANGEWORK, t));
+        AddCommand(new Command(CommandType.CHANGEWORK, TriDirection.VERT,t));
     }
-    public new void ChangeJob() {
+    public override void ChangeJob() {
         company = (Building)nowWork.target;
     }
-    public new void ChangeWork() {
+    public override void ChangeWork() {
         work = nowWork.target;
     }
-    public new void Migrate() {
-        home = (Inn)nowWork.target;
+    public override void BindOptions(EntityMenu menu) {
+        base.BindOptions(menu);
+        menu.BindButton(5, "build", menu.switchBuildMenu);
     }
 }
