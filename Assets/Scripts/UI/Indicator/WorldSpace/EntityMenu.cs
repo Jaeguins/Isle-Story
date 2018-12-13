@@ -41,11 +41,19 @@ public class EntityMenu : WorldSpaceCanvas{
     public void ToBuildingOption() {
         StartCoroutine(BuildingOption());
     }
+    public void outBuildingOption() {
+        StartCoroutine(OutBuildingOption());
+    }
+    public IEnumerator OutBuildingOption() {
+        yield return StartCoroutine(cameraManager.SwitchCamera(CamType.TOPVIEW));
+        enabled = true;
+        ((IndivViewCam)cameraManager.cameras[1]).enabled = false;
+    }
     public IEnumerator BuildingOption() {
         yield return StartCoroutine(cameraManager.SwitchCamera(CamType.BUILDINGVIEW));
         enabled = false;
-        ((IndivViewCam)cameraManager.GetNowActive()).setAnchor(nowEntity);
-        ((IndivViewCam)cameraManager.GetNowActive()).SetOffset(nowEntity);
+        ((IndivViewCam)cameraManager.cameras[1]).SetAnchor(nowEntity);
+        ((IndivViewCam)cameraManager.cameras[1]).SetOffset(nowEntity);
     }
     public void UnitStatus() {
         Selector.Instance.Deselect();

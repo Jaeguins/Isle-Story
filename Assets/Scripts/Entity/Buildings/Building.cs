@@ -62,7 +62,7 @@ public class Building : Entity {
         return ret;
     }
     public override void BindOptions(EntityMenu menu) {
-        menu.BindButton(4, "Preference", menu.ToBuildingOption);
+        menu.BindButton(4, "Preference", GameUI.Instance.ToPreference);
     }
     public static bool IsBuildable(TriDirection dir,TriCoordinates coord,SizeType sizeType) {
         switch (sizeType) {

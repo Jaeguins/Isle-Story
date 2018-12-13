@@ -6,14 +6,22 @@ public class IndivViewCam : CameraController{
     public bool activated = false;
     public static float speed = 0.3f;
     Vector3 rot = Vector3.zero;
+    public override bool enabled {
+        get {
+            return base.enabled;
+        }
+        set {
+            base.enabled = value;
+            
+            if (value) StartRot();
+            else EndRot();
+        }
+    }
     public void SetOffset(Entity entity) {
-        transform.localPosition = entity.camOffset;
+        CameraView.transform.localPosition = entity.camOffset;
     }
-    public void setAnchor(Entity entity) {
-        Rotator.localPosition = entity.Location.transform.localPosition+entity.camAnchorOffset;
-    }
-    private void Awake() {
-        CameraView = GetComponent<Camera>();
+    public void SetAnchor(Entity entity) {
+        transform.localPosition = entity.Location.transform.position+entity.camAnchorOffset;
     }
     private void Update() {
         if (activated) {

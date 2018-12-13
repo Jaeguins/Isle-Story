@@ -5,12 +5,25 @@ public class GameUI : MonoBehaviour {
     public static GameUI Instance;
     TriCell currentCell;
     Unit selectedUnit;
+    public GameObject buildingPanel;
     public EntityMenu buildingMenu;
     public PersonList personList;
     public TriGrid grid;
     private void Start() {
         Instance = this;
     }
+
+    public void ToPreference() {
+        buildingMenu.ToBuildingOption();
+        buildingPanel.SetActive(true);
+    }
+    public void outPreference() {
+        buildingMenu.outBuildingOption();
+        buildingPanel.SetActive(false);
+    }
+
+
+
     public void SetEditMode(bool toggle) {
         enabled = !toggle;
         grid.ClearPath();

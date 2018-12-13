@@ -339,6 +339,7 @@ RectTransform:
   m_Children:
   - {fileID: 636750334}
   - {fileID: 186327600}
+  - {fileID: 1117610282}
   m_Father: {fileID: 1760231940}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -589,7 +590,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 205686074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1096360871}
@@ -3246,7 +3247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709ac4888c3296b49b0569f3a800fd36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1970053651}
+  CameraView: {fileID: 1970053651}
   grid: {fileID: 143506541}
   border: 28
   rotationSpeed: 180
@@ -3298,13 +3299,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1157692156}
-  m_Father: {fileID: 1760231940}
-  m_RootOrder: 3
+  m_Father: {fileID: 146867033}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.65321386, y: 0.0745707}
   m_AnchorMax: {x: 0.9436707, y: 0.92285866}
-  m_AnchoredPosition: {x: 639.60486, y: 220.97241}
-  m_SizeDelta: {x: 232.65594, y: 382.57788}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117610283
 MonoBehaviour:
@@ -3482,8 +3483,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ExitBuildingOption
+      - m_Target: {fileID: 1760231939}
+        m_MethodName: outPreference
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3570,7 +3571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94664d7c65c41440824e8931aa79fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1875623979}
+  CameraView: {fileID: 1875623979}
   Rotator: {fileID: 1187919971}
   activated: 0
 --- !u!1001 &1253038787
@@ -4279,6 +4280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7ec2780f6c8ed49b5ca430df0fc9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingPanel: {fileID: 1117610281}
   buildingMenu: {fileID: 615216639}
   personList: {fileID: 186327603}
   grid: {fileID: 143506541}
@@ -4295,7 +4297,6 @@ Transform:
   - {fileID: 146867033}
   - {fileID: 1781080225}
   - {fileID: 1069995900}
-  - {fileID: 1117610282}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4563,7 +4564,7 @@ Camera:
   m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.44444442, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
