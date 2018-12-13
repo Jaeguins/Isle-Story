@@ -13,7 +13,7 @@ public class IndivViewCam : CameraController{
         Rotator.localPosition = entity.Location.transform.localPosition+entity.camAnchorOffset;
     }
     private void Awake() {
-        cam = GetComponent<Camera>();
+        CameraView = GetComponent<Camera>();
     }
     private void Update() {
         if (activated) {

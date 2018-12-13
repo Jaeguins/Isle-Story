@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN,HALL
+    INN
 }
 public enum SizeType {
     SINGLE,HEX

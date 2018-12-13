@@ -52,6 +52,11 @@ public class Unit : Entity {
         StartCoroutine(Act());
         
     }
+
+    public override void BindOptions(EntityMenu menu) {
+        menu.BindButton(4, "Status", menu.UnitStatus);
+    }
+
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
         TriGrid inst = TriGrid.Instance;
         if (target && Unit.IsValidDestination(target)) {

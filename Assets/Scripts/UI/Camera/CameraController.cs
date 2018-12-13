@@ -2,6 +2,6 @@
 using System.Collections;
 
 public class CameraController : MonoBehaviour {
-    public Camera cam;
+    public Camera CameraView;
     
 }

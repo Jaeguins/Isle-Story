@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
 
 public class EntityMenu : WorldSpaceCanvas{
@@ -38,13 +39,20 @@ public class EntityMenu : WorldSpaceCanvas{
         buttons[index].onClick.AddListener(action);
     }
     public void ToBuildingOption() {
-        cameraManager.SwitchCamera(CamType.BUILDINGVIEW);
+        StartCoroutine(BuildingOption());
+    }
+    public IEnumerator BuildingOption() {
+        yield return StartCoroutine(cameraManager.SwitchCamera(CamType.BUILDINGVIEW));
+        enabled = false;
         ((IndivViewCam)cameraManager.GetNowActive()).setAnchor(nowEntity);
         ((IndivViewCam)cameraManager.GetNowActive()).SetOffset(nowEntity);
     }
+    public void UnitStatus() {
+        Selector.Instance.Deselect();
+    }
     private void Update() {
         if (enabled)
-            transform.rotation = cameraManager.GetNowActive().cam.transform.rotation;
+            transform.rotation = cameraManager.GetNowActive().CameraView.transform.rotation;
         
     }
 }

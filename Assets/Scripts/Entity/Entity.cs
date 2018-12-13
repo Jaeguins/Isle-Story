@@ -33,7 +33,7 @@ public class Entity : MonoBehaviour {
         }
     }
     public virtual void BindOptions(EntityMenu menu) {
-        menu.BindButton(4, "Preference", menu.ToBuildingOption);
+        
     }
     public void Save(BinaryWriter writer) {
         location.coordinates.Save(writer);

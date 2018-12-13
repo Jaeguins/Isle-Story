@@ -49,7 +49,7 @@ public class UnitCommander : MonoBehaviour {
     }
     TriCell GetRay() {
         if (camManager.GetNowActive())
-            return grid.GetCell(camManager.GetNowActive().cam.ScreenPointToRay(Input.mousePosition));
+            return grid.GetCell(camManager.GetNowActive().CameraView.ScreenPointToRay(Input.mousePosition));
         else return null;
     }
 

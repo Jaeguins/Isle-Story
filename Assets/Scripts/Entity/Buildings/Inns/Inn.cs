@@ -50,6 +50,7 @@ public class Inn : Building {
     public void ShowLivers() {
         if (livers.Count == 0) return;
         liverList.SetActive(true);
+        liverList.ClearList();
         foreach(Person p in livers) {
             liverList.AddPerson(p);
         }

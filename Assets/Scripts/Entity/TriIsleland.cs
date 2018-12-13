@@ -24,11 +24,11 @@ public class TriIsleland : MonoBehaviour {
     }
     public void Save() {//TODO Saving function
         string path = Path.Combine(Application.persistentDataPath, isleName);
-        entities.Save(path);
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "map.dat"), FileMode.Create))) {
             writer.Write(2);
             grid.Save(writer);
         }
+        entities.Save(path);
     }
 
     public void Load() {//TODO Load function

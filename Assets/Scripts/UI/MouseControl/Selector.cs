@@ -7,6 +7,7 @@ public enum SelectedType {
     NONE,UNIT,BUILDING,NATURAL
 }
 public class Selector : MonoBehaviour {
+    public static Selector Instance;
     public CameraManager camManager;
     public Entity selected;
     public TriCell nowCell;
@@ -22,7 +23,9 @@ public class Selector : MonoBehaviour {
     public TriDirection dir = TriDirection.VERT;
     public SizeType sizeType;
     bool terrainCleared = true;
-
+    private void Start() {
+        Instance = this;
+    }
 
     private void LateUpdate() {
         tCell = GetRay();
@@ -33,9 +36,7 @@ public class Selector : MonoBehaviour {
         }
         if (selectCheck) {
             if (selectedType==SelectedType.BUILDING&&tCell && nowCell && tCell.coordinates.DistanceTo(nowCell.coordinates) > 3) {
-                entityMenu.enabled = false;
-                selectCheck = false;
-                selectedType = SelectedType.NONE;
+                Deselect();
             }
         }
 
@@ -81,6 +82,11 @@ public class Selector : MonoBehaviour {
         entityMenu.enabled = true;
         entityMenu.Bind(selected);
 
+    }
+    public void Deselect() {
+        entityMenu.enabled = false;
+        selectCheck = false;
+        selectedType = SelectedType.NONE;
     }
 
     public void StartCalculateTerrain() {
@@ -132,7 +138,7 @@ public class Selector : MonoBehaviour {
 
     TriCell GetRay() {
         if (camManager.GetNowActive())
-            return grid.GetCell(camManager.GetNowActive().cam.ScreenPointToRay(Input.mousePosition));
+            return grid.GetCell(camManager.GetNowActive().CameraView.ScreenPointToRay(Input.mousePosition));
         else return null;
     }
 }

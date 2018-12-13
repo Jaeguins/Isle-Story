@@ -231,10 +231,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43fa7ad897b4584e94d53d781cf01f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  insider: []
   UIName: 
-  type: 1
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
+  sizeType: 0
+  type: 0
+  liverList: {fileID: 0}
   entranceDirection: 0
-  insider: []
-  subType: 0
+  livers: []
+  subType: 1
