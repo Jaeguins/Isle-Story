@@ -46,7 +46,7 @@ public struct Command {
     public Command(CommandType type, TriDirection dir,Entity target,TriCell targetL) {
         this.dir = dir;
         this.type = type;
-        this.target = null;
+        this.target = target;
         this.targetLocation = targetL;
         flag = 3;
     }

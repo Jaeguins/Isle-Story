@@ -53,7 +53,7 @@ public class Selector : MonoBehaviour {
             if (Input.GetMouseButtonDown(0)&&selectedType==SelectedType.UNIT) {
                 switch (commandType) {
                     case CommandType.BUILD:
-                        ((Unit)selected).AddCommand(new Command(commandType, dir, target));
+                        ((Unit)selected).AddCommand(new Command(commandType, dir, target,nowCell));
                         Debug.Log(selected.ID);
                         ordering = false;
                         terrainView = false;
