@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using System;
 public enum UnitType {
@@ -61,7 +62,7 @@ public class Unit : Entity {
 
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
         TriGrid inst = TriGrid.Instance;
-        if (target && Unit.IsValidDestination(target)) {
+        if (target && IsValidDestination(target)) {
             
             inst.FindPath(Location, target);
             if (inst.HasPath) {
@@ -115,7 +116,7 @@ public class Unit : Entity {
     public virtual void Migrate() {
         Debug.Log("unexpected Order");
     }
-    IEnumerator<WaitUntil> Act() {
+    IEnumerator Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
@@ -149,7 +150,7 @@ public class Unit : Entity {
         }
     }
 
-    public IEnumerator<WaitForEndOfFrame> TravelPath() {
+    public IEnumerator TravelPath() {
         acting = true;
         animator.SetBool("walking", true);
         Vector3 a, b, c = transform.localPosition;
