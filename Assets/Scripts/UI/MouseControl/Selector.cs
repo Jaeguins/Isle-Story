@@ -13,19 +13,23 @@ public class Selector : MonoBehaviour {
     public Entity target;
     public TriCell nowCell;
     TriCell tCell;
-    public EntityMenu entityMenu;
+    EntityMenu entityMenu;
     public TriGrid grid;
     public bool ordering = false;
     public bool selectCheck = false;
     public bool terrainView = false;
     public SelectedType selectedType;
     public CommandType commandType;
-    public TriMesh terrainSelectionViewer;
+    TriMesh terrainSelectionViewer;
     public TriDirection dir = TriDirection.VERT;
     public SizeType sizeType;
     bool terrainCleared = true;
-    private void Start() {
+    private void Awake() {
         Instance = this;
+    }
+    private void Start() {
+        entityMenu = EntityMenu.Instance;
+        terrainSelectionViewer = TerrainViewer.Instance;
     }
 
     private void LateUpdate() {
@@ -33,11 +37,6 @@ public class Selector : MonoBehaviour {
         if (tCell) {
             if (selectedType==SelectedType.UNIT||!selectCheck&&tCell != nowCell) {
                 nowCell = tCell;
-            }
-        }
-        if (selectCheck) {
-            if (selectedType==SelectedType.BUILDING&&tCell && nowCell && tCell.coordinates.DistanceTo(nowCell.coordinates) > 3) {
-                Deselect();
             }
         }
         if (Input.GetMouseButtonDown(1)) {
@@ -70,8 +69,6 @@ public class Selector : MonoBehaviour {
                 selected = nowCell.Entity;
                 selectedType = SelectedType.BUILDING;
                 selectCheck = true;
-                entityMenu.enabled = true;
-                entityMenu.Bind(selected);
             }
         }
 

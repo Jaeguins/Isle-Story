@@ -6,10 +6,13 @@ public enum CamType{
 }
 
 public class CameraManager : MonoBehaviour {
+    public static CameraManager Instance;
     public List<CameraController> cameras;
     public CamType camStatus = 0;
     public GameUI manager;
-
+    private void Awake() {
+        Instance = this;
+    }
     public IEnumerator SwitchCamera(CamType target) {
         StopAllCoroutines();
         yield return StartCoroutine(SwitchCameraInternal(target));
@@ -21,6 +24,11 @@ public class CameraManager : MonoBehaviour {
         camStatus = target;
         cameras[(int)target].enabled = true;
         manager.buildingMenu.enabled = true;
+
+        //TODO change worldspace event cam
+        EntityMenu.Instance.canvas.worldCamera = GetNowActive().CameraView;
+
+
         yield return StartCoroutine(Fader.FadeIn());
     }
     public CameraController GetNowActive() {

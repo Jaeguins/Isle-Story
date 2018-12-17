@@ -64,5 +64,7 @@ public class Building : Entity {
     public override void BindOptions(EntityMenu menu) {
         menu.BindButton(4, "Preference", GameUI.Instance.ToPreference);
     }
-    
+    private void OnMouseDown() {
+        EntityMenu.Instance.Bind(this);
+    }
 }

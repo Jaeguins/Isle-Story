@@ -10,7 +10,7 @@ public class TriMesh : MonoBehaviour {
     [NonSerialized] List<Color> colors;
     [NonSerialized] List<int> triangles;
 
-    void Awake() {
+    protected void Awake() {
         GetComponent<MeshFilter>().mesh = triMesh = new Mesh();
         meshCollider = gameObject.AddComponent<MeshCollider>();
         triMesh.name = "Tri Mesh";

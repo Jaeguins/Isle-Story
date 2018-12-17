@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class EntityMenu : WorldSpaceCanvas{
+    public static EntityMenu Instance;
     public Entity nowEntity;
     public Text tooltip;
     public List<Button> buttons;
@@ -17,12 +18,15 @@ public class EntityMenu : WorldSpaceCanvas{
             Clear();
         }
     }
-
+    private void Awake() {
+        Instance = this;
+    }
     private void Start() {
-        canvas = GetComponent<Canvas>();
+        canvas.worldCamera = CameraManager.Instance.GetNowActive().CameraView;
     }
 
     public void Bind(Entity entity) {
+        canvas.enabled = true;
         nowEntity = entity;
         tooltip.text = nowEntity.UIName;
         Vector3 t=nowEntity.Location.transform.localPosition;
@@ -36,6 +40,10 @@ public class EntityMenu : WorldSpaceCanvas{
             buttons[i].onClick.RemoveAllListeners();
             buttons[i].gameObject.SetActive(false);
         }
+    }
+
+    public void Hide() {
+        canvas.enabled = false;
     }
 
     public void BindButton(int index,string tooltip,UnityEngine.Events.UnityAction action) {
@@ -77,5 +85,9 @@ public class EntityMenu : WorldSpaceCanvas{
 
     public void switchBuildMenu() {
         GameUI.Instance.buildMenu.gameObject.SetActive(!GameUI.Instance.buildMenu.gameObject.activeInHierarchy);
+    }
+    public void OnMouseExit() {
+        Debug.Log("out");
+        Hide();
     }
 }
