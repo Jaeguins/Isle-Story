@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 public enum SelectedType {
-    NONE,UNIT,BUILDING,NATURAL
+    NONE, UNIT, BUILDING, NATURAL
 }
 public class Selector : MonoBehaviour {
     public static Selector Instance;
@@ -35,7 +35,7 @@ public class Selector : MonoBehaviour {
     private void LateUpdate() {
         tCell = GetRay();
         if (tCell) {
-            if (selectedType==SelectedType.UNIT||!selectCheck&&tCell != nowCell) {
+            if (selectedType == SelectedType.UNIT || !selectCheck && tCell != nowCell) {
                 nowCell = tCell;
             }
         }
@@ -49,10 +49,10 @@ public class Selector : MonoBehaviour {
                     terrainView = true;
                     break;
             }
-            if (Input.GetMouseButtonDown(0)&&selectedType==SelectedType.UNIT) {
+            if (Input.GetMouseButtonDown(0) && selectedType == SelectedType.UNIT) {
                 switch (commandType) {
                     case CommandType.BUILD:
-                        ((Unit)selected).AddCommand(new Command(commandType, dir, target,nowCell));
+                        ((Unit)selected).AddCommand(new BuildCommand(nowCell, dir, target));
                         Debug.Log(selected.ID);
                         ordering = false;
                         terrainView = false;
@@ -60,12 +60,12 @@ public class Selector : MonoBehaviour {
                         Deselect();
                         break;
                 }
-                
+
             }
 
         }
         else {
-            if (camManager.camStatus==CamType.TOPVIEW&&nowCell&&nowCell.Entity && Input.GetMouseButton(0)&&selectedType==SelectedType.NONE) {
+            if (camManager.camStatus == CamType.TOPVIEW && nowCell && nowCell.Entity && Input.GetMouseButton(0) && selectedType == SelectedType.NONE) {
                 selected = nowCell.Entity;
                 selectedType = SelectedType.BUILDING;
                 selectCheck = true;

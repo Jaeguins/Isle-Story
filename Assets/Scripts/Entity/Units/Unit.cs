@@ -34,7 +34,9 @@ public class Unit : Entity {
         return !cell.IsUnderwater && !cell.Entity;
     }
     public void AddCommand(Command c) {
-        switch (c.type) {
+        commandQueue.Enqueue(c);
+
+        /*switch (c.type) {
             case CommandType.MOVE:
                 commandQueue.Enqueue(new Command(CommandType.GETOUT));
                 commandQueue.Enqueue(c);
@@ -46,7 +48,7 @@ public class Unit : Entity {
             default:
                 commandQueue.Enqueue(c);
                 break;
-        }
+        }*/
         
     }
     private void OnEnable() {
@@ -80,7 +82,7 @@ public class Unit : Entity {
     }
 
     public void GetIn() {
-        Building target = (Building)nowWork.target;
+        Building target = ((GetInCommand)nowWork).target;
         buildingPos = target;
         target.insider.Add(this);
         Location = target.Location;
@@ -102,7 +104,7 @@ public class Unit : Entity {
         acting = false;
     }
     public void Move() {
-        StartCoroutine(FindPathAndMove(nowWork.targetLocation));
+        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location));
     }
     public virtual void Build() {
         Debug.Log("unexpected Order");
@@ -141,7 +143,7 @@ public class Unit : Entity {
                     case CommandType.CHANGEWORK:
                         ChangeWork();
                         break;
-                    case CommandType.MIGRATE:
+                    case CommandType.CHANGEHOME:
                         Migrate();
                         break;
                 }

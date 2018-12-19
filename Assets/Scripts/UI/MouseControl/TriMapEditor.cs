@@ -158,7 +158,7 @@ public class TriMapEditor : MonoBehaviour {
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
             entities.AddUnit(ret);
-            if (cell.Entity) ret.AddCommand(new Command(CommandType.GETIN, TriDirection.VERT,cell.Entity));
+            if (cell.Entity) ret.AddCommand(new GetInCommand((Building)cell.Entity));
             return ret;
         }
         return null;
