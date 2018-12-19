@@ -26,7 +26,7 @@ public class UnitCommander : MonoBehaviour {
                 if (subject.buildingPos)
                     //subject.AddCommand(new Command(CommandType.GETOUT));
                 //subject.AddCommand(new Command(CommandType.MOVE, selectedCell));
-                subject.AddCommand(new Command(CommandType.BUILD,dir, command.target,selectedCell));
+                subject.AddCommand(command);
                 break;
         }
 

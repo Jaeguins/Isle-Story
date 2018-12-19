@@ -36,7 +36,6 @@ public class PersonList : MonoBehaviour {
         tV.y = -30 * index + 75;
         tp.localPosition = tV;
         buttons[index].name.text = people[index].UIName;
-        buttons[index].gender.text = people[index].gender ? "male" : "female";
         buttons[index].selector = selector;
         buttons[index].target = people[index];
         buttons[index].button.onClick.AddListener(buttons[index].SelectUnit);
