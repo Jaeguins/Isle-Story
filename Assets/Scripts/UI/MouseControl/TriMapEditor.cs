@@ -124,6 +124,7 @@ public class TriMapEditor : MonoBehaviour {
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
         isleland.topCam.ValidatePosition();
+        Selector.Instance.RequestLocation(null,SizeType.HEX, new BuildCommand(null));
     }
     public Building CreateBuilding(TriDirection dir,TriCell cell,Building prefab) {
         if(cell&& Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {

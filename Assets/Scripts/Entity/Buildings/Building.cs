@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
@@ -65,6 +65,7 @@ public class Building : Entity {
         menu.BindButton(4, "Preference", GameUI.Instance.ToPreference);
     }
     private void OnMouseDown() {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         EntityMenu.Instance.Bind(this);
     }
 }

@@ -8,11 +8,7 @@ public class BuildingMenu : MonoBehaviour {
         gameObject.SetActive(true);
     }
     public void buildTent() {
-        Selector selector = Selector.Instance;
-        selector.commandType = CommandType.BUILD;
-        selector.sizeType = SizeType.SINGLE;
-        selector.ordering = true;
-        selector.target = TriIsleland.Instance.innPrefabs[0];
+        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.innPrefabs[0]));
         Hide();
     }
     public void Hide() {

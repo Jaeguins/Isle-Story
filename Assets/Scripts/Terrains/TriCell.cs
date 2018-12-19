@@ -33,7 +33,7 @@ public class TriCell : MonoBehaviour {
     }
 
     public bool IsBuildable() {
-        return (!Entity && !IsUnderwater && !Entity && !HasRiver);
+        return (!Entity && !IsUnderwater && !HasRiver);
     }
 
     public int SearchPriority {

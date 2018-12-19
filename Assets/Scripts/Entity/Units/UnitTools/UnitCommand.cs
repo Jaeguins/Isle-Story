@@ -148,6 +148,11 @@ public class BuildCommand : Command {
     public Entity target;
     public BuildCommand(TriCell location, TriDirection dir, Entity target) {
         this.location = location;
+        this.dir = dir;
+        this.target = target;
+        type = CommandType.BUILD;
+    }
+    public BuildCommand(Entity target) {
         this.target = target;
         type = CommandType.BUILD;
     }

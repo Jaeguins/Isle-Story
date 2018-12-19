@@ -3,148 +3,110 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-public enum SelectedType {
-    NONE, UNIT, BUILDING, NATURAL
-}
+
 public class Selector : MonoBehaviour {
+
     public static Selector Instance;
     public CameraManager camManager;
-    public Entity selected;
-    public Entity target;
-    public TriCell nowCell;
-    TriCell tCell;
-    EntityMenu entityMenu;
     public TriGrid grid;
-    public bool ordering = false;
-    public bool selectCheck = false;
-    public bool terrainView = false;
-    public SelectedType selectedType;
-    public CommandType commandType;
-    TriMesh terrainSelectionViewer;
-    public TriDirection dir = TriDirection.VERT;
+
     public SizeType sizeType;
-    bool terrainCleared = true;
-    private void Awake() {
-        Instance = this;
+    TerrainViewer terrainSelectionViewer;
+    public TriCell nowCell;
+    public bool ordering = false;
+    public TriDirection dir = TriDirection.VERT;
+    TriCell tCell;
+    Unit subject;
+    Command command;
+
+    public void RequestLocation(Unit subject,SizeType size, Command c) {
+        this.subject = subject;
+        command = c;
+        ordering = true;
+        sizeType = size;
+        terrainSelectionViewer.enabled = true;
     }
-    private void Start() {
-        entityMenu = EntityMenu.Instance;
-        terrainSelectionViewer = TerrainViewer.Instance;
+    bool IsBuildable() {
+        if (nowCell)
+            switch (sizeType) {
+                case SizeType.HEX:
+                    TriCell k = nowCell;
+                    int elev = nowCell.Elevation;
+                    TriDirection tDir = dir.Previous();
+                    for (int i = 0; i < 6; i++) {
+                        if (!k || !k.IsBuildable()) return false;
+                        k = k.GetNeighbor(tDir);
+                        tDir = tDir.Next();
+                    }
+                    return true;
+                case SizeType.SINGLE:
+                    return nowCell.IsBuildable();
+                default:
+                    return false;
+            }
+        else return false;
+    }
+    public void SendCommand() {
+        if (subject) 
+            subject.AddCommand(command);
+        else
+            GameUI.Instance.mapEditor.CreateHall(dir, nowCell);
+        ordering = false;
+        terrainSelectionViewer.Clear();
+        terrainSelectionViewer.Apply();
+        terrainSelectionViewer.enabled = false;
+    }
+
+    public void CancelCommand() {
+        ordering = false;
+        terrainSelectionViewer.Clear();
+        terrainSelectionViewer.Apply();
+        terrainSelectionViewer.enabled = false;
     }
 
     private void LateUpdate() {
-        tCell = GetRay();
-        if (tCell) {
-            if (selectedType == SelectedType.UNIT || !selectCheck && tCell != nowCell) {
+        if (ordering) {
+            tCell = GetRay();
+            if (tCell) {
                 nowCell = tCell;
             }
-        }
-        if (Input.GetMouseButtonDown(1)) {
-            GameUI.Instance.mapEditor.CreateHall(dir, nowCell);
-        }
-        if (ordering) {
-            entityMenu.enabled = false;
-            switch (commandType) {
-                case CommandType.BUILD:
-                    terrainView = true;
-                    break;
+            if (Input.GetKeyDown(KeyCode.R)) {
+                dir = dir.Next();
             }
-            if (Input.GetMouseButtonDown(0) && selectedType == SelectedType.UNIT) {
-                switch (commandType) {
+            if (subject&&Input.GetKeyDown(KeyCode.Escape)) {
+                CancelCommand();
+            }
+            if (Input.GetMouseButtonDown(0)) {
+                switch (command.type) {
+                    case CommandType.CHANGEHOME:
+                        ((ChangeHomeCommand)command).target = (Inn)nowCell.Entity;
+                        break;
+                    case CommandType.CHANGEJOB:
+                        ((ChangeJobCommand)command).target = (Company)nowCell.Entity;
+                        break;
+                    case CommandType.CHANGEWORK:
+                        ((ChangeWorkCommand)command).target = (Building)nowCell.Entity;
+                        break;
                     case CommandType.BUILD:
-                        ((Unit)selected).AddCommand(new BuildCommand(nowCell, dir, target));
-                        Debug.Log(selected.ID);
-                        ordering = false;
-                        terrainView = false;
-                        terrainCleared = true;
-                        Deselect();
+                        if (!IsBuildable()) {
+                            CancelCommand();
+                            return;
+                        }
+                        ((BuildCommand)command).dir = dir;
+                        ((BuildCommand)command).location = nowCell;
                         break;
                 }
-
-            }
-
-        }
-        else {
-            if (camManager.camStatus == CamType.TOPVIEW && nowCell && nowCell.Entity && Input.GetMouseButton(0) && selectedType == SelectedType.NONE) {
-                selected = nowCell.Entity;
-                selectedType = SelectedType.BUILDING;
-                selectCheck = true;
+                SendCommand();
             }
         }
-
-        if (terrainView) {
-            StartCalculateTerrain();
-        }
-        else if (terrainCleared) {
-            terrainSelectionViewer.Clear();
-            terrainSelectionViewer.Apply();
-            terrainCleared = false;
-        }
-        if (Input.GetKeyDown(KeyCode.R)) {
-            dir = dir.Next();
-        }
-
     }
 
-    public void SelectUnit(Unit unit) {
-        selected = unit;
-        selectedType = SelectedType.UNIT;
-        selectCheck = true;
-        entityMenu.enabled = true;
-        entityMenu.Bind(selected);
-
-    }
-    public void Deselect() {
-        entityMenu.enabled = false;
-        selectCheck = false;
-        selectedType = SelectedType.NONE;
+    private void Awake() {
+        Instance = this;
     }
 
-    public void StartCalculateTerrain() {
-        terrainSelectionViewer.Clear();
-        switch (sizeType) {
-            case SizeType.HEX:
-                TriCell k = nowCell;
-                int elev = nowCell.Elevation;
-                TriDirection tDir = dir.Previous();
-                for (int i = 0; i < 6; i++) {
-                    if (!k) break;
-                    RecalculateTerrain(k);
-                    k = k.GetNeighbor(tDir);
-                    tDir = tDir.Next();
-                }
-                break;
-            case SizeType.SINGLE:
-                RecalculateTerrain(nowCell);
-                break;
-        }
-
-        terrainSelectionViewer.Apply();
-    }
-
-    public void RecalculateTerrain(TriCell cell) {
-        Vector3 nextCorner, prevCorner;
-        EdgeVertices edge;
-        for (TriDirection direction = TriDirection.VERT; direction <= TriDirection.RIGHT; direction++) {
-            Vector3 center = cell.Position, v1, v2;
-            entityMenu.transform.localPosition = center + new Vector3(0, 20, 0);
-            v1 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetFirstSolidCorner(direction);
-            v2 = center + (cell.inverted ? -1 : 1) * TriMetrics.GetSecondSolidCorner(direction);
-            edge = new EdgeVertices(v1, v2);
-            nextCorner = (center + edge.v1) / 2f;
-            prevCorner = (center + edge.v5) / 2f;
-            terrainSelectionViewer.AddTriangle(nextCorner, edge.v1, edge.v2);
-            terrainSelectionViewer.AddTriangle(prevCorner, edge.v4, edge.v5);
-            terrainSelectionViewer.AddTriangle(center, edge.v2, edge.v4);
-            terrainSelectionViewer.AddTriangle(center, edge.v4, prevCorner);
-            terrainSelectionViewer.AddTriangle(center, nextCorner, edge.v2);
-
-            terrainSelectionViewer.AddTriangleColor(Color.blue);
-            terrainSelectionViewer.AddTriangleColor(Color.blue);
-            terrainSelectionViewer.AddTriangleColor(Color.blue);
-            terrainSelectionViewer.AddTriangleColor(Color.blue);
-            terrainSelectionViewer.AddTriangleColor(Color.blue);
-        }
+    private void Start() {
+        terrainSelectionViewer = TerrainViewer.Instance;
     }
 
     TriCell GetRay() {

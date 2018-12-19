@@ -27,12 +27,11 @@ public class EntityMenu : WorldSpaceCanvas{
 
     public void Bind(Entity entity) {
         canvas.enabled = true;
+        enabled = true;
         nowEntity = entity;
         tooltip.text = nowEntity.UIName;
-        Vector3 t=nowEntity.Location.transform.localPosition;
-        t.y += 20;
-        transform.localPosition = t;
         nowEntity.BindOptions(this);
+        Debug.Log("bind" + nowEntity);
     }
 
     public void Clear() {
@@ -43,7 +42,11 @@ public class EntityMenu : WorldSpaceCanvas{
     }
 
     public void Hide() {
-        canvas.enabled = false;
+        canvas.enabled= false;
+        enabled = false;
+        nowEntity = null;
+        Clear();
+        Debug.Log("unbind" + nowEntity);
     }
 
     public void BindButton(int index,string tooltip,UnityEngine.Events.UnityAction action) {
@@ -74,13 +77,17 @@ public class EntityMenu : WorldSpaceCanvas{
     }
 
     public void UnitStatus() {
-        Selector.Instance.Deselect();
+        
     }
 
     private void Update() {
         if (enabled)
             transform.rotation = cameraManager.GetNowActive().CameraView.transform.rotation;
-        
+        if (nowEntity) {
+            Vector3 t = nowEntity.Location.transform.localPosition;
+            t.y += 20;
+            transform.localPosition = t;
+        }
     }
 
     public void switchBuildMenu() {
