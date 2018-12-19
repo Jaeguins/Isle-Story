@@ -49,10 +49,8 @@ public class Person : Unit {
         return ret;
     }
     public override void Build(){
-        Building t=new Building();// = GameUI.Instance.mapEditor.CreateBuilding(nowWork.dir,nowWork.targetLocation,(Building)nowWork.target);
-        t.Location = ((BuildCommand)nowWork).location;
-        t.EntranceDirection= ((BuildCommand)nowWork).dir;
-        TriIsleland.Instance.entities.AddBuilding(t);
+        BuildCommand c = (BuildCommand)nowWork;
+        Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
     }
     public override void ChangeJob() {
@@ -63,6 +61,9 @@ public class Person : Unit {
     }
     public override void BindOptions(EntityMenu menu) {
         base.BindOptions(menu);
-        menu.BindButton(5, "build", menu.switchBuildMenu);
+        menu.BindButton(5, "build", BindingBuildingMenu);
+    }
+    public void BindingBuildingMenu() {
+        BuildingMenu.Instance.Bind(this);
     }
 }

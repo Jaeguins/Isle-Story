@@ -94,18 +94,15 @@ public class ChangeHomeCommand : Command {
 }
 
 public class GetOutCommand : Command {
-    public Building target;
-    public GetOutCommand(Building target) {
-        this.target = target;
+    public GetOutCommand() {
         type = CommandType.GETOUT;
     }
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
-        target.Location.coordinates.Save(writer);
     }
 
     public static new GetOutCommand Load(BinaryReader reader) {
-        return new GetOutCommand((Building)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        return new GetOutCommand();
     }
 }
 

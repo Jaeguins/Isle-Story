@@ -34,21 +34,22 @@ public class Unit : Entity {
         return !cell.IsUnderwater && !cell.Entity;
     }
     public void AddCommand(Command c) {
-        commandQueue.Enqueue(c);
-
-        /*switch (c.type) {
-            case CommandType.MOVE:
-                commandQueue.Enqueue(new Command(CommandType.GETOUT));
+        switch (c.type) {
+            case CommandType.GETIN:
+                Building t = ((GetInCommand)c).target;
+                commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.entranceDirection)));
                 commandQueue.Enqueue(c);
                 break;
             case CommandType.BUILD:
-                AddCommand(new Command(CommandType.MOVE, c.targetLocation));
+                BuildCommand k = (BuildCommand)c;
+                AddCommand(new GetOutCommand());
+                AddCommand(new MoveCommand(k.location));
                 commandQueue.Enqueue(c);
                 break;
             default:
                 commandQueue.Enqueue(c);
                 break;
-        }*/
+        }
         
     }
     private void OnEnable() {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PersonIndicator : MonoBehaviour {
     public Selector selector;
-    public Text name, gender;
+    public Text nameText, gender;
     public Button button;
     public Person target;
     public void SelectUnit() {

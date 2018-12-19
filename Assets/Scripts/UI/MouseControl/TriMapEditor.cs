@@ -10,11 +10,15 @@ public class TriMapEditor : MonoBehaviour {
     public TriDirection buildDirection;
     public int x, z;
     public TriMapGenerator mapGenerator;
+    public static TriMapEditor Instance;
     bool applyElevation = false;
     bool isDrag;
     TriDirection dragDirection;
     TriCell previousCell;
     int activeTerrainTypeIndex = -1;
+    private void Awake() {
+        Instance = this;
+    }
     enum OptionalToggle {
         Ignore, Yes, No
     }

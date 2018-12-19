@@ -579,7 +579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &186327600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -651,7 +651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960b7a7be9380464986acd873bad25de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  people: []
   buttons: []
   contentList: {fileID: 1651212215}
   listPrefab: {fileID: 1172986806649662, guid: 382d2b1920860fe41ae6a815f9fe9707, type: 3}
@@ -1565,7 +1564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &541290686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3834,7 +3833,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 541290687}
-        m_MethodName: buildTent
+        m_MethodName: BuildTent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

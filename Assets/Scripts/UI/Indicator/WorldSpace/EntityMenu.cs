@@ -89,10 +89,6 @@ public class EntityMenu : WorldSpaceCanvas{
             transform.localPosition = t;
         }
     }
-
-    public void switchBuildMenu() {
-        GameUI.Instance.buildMenu.gameObject.SetActive(!GameUI.Instance.buildMenu.gameObject.activeInHierarchy);
-    }
     public void OnMouseExit() {
         Debug.Log("out");
         Hide();
