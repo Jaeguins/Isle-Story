@@ -96,6 +96,7 @@ public class TriMapGenerator : MonoBehaviour {
     }
     
     public void GenerateMap(int x, int z) {
+        Selector.Instance.CancelCommand();
         cellCount = x * z;
         grid.CreateMap(x, z);
         if (searchFrontier == null) {

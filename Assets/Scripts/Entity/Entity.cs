@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour {
     public Vector3 camAnchorOffset, camOffset;
     public static Entity unitPrefab;
     protected TriCell location;
-    
+
     public Entity GetPrefab() {
         return unitPrefab;
     }
@@ -34,12 +34,15 @@ public class Entity : MonoBehaviour {
         }
     }
     public virtual void BindOptions(EntityMenu menu) {
-        
+
     }
-    public void Save(BinaryWriter writer) {
-        location.coordinates.Save(writer);
+    public virtual void Save(BinaryWriter writer) {
+        if (location)
+            location.coordinates.Save(writer);
+        else
+            new TriCoordinates(-1, -1).Save(writer);
     }
-    
+
     public void ValidateLocation() {
         transform.localPosition = location.Position;
     }

@@ -157,12 +157,31 @@ public class BuildCommand : Command {
         base.Save(writer);
         location.coordinates.Save(writer);
         writer.Write((int)dir);
-        target.Location.coordinates.Save(writer);
+        BuildingType type = ((Building)target).type;
+        writer.Write((int)type);
+        switch (type) {//TODO BuildCommand list
+            case BuildingType.INN:
+                writer.Write((int)((Inn)target).subType);
+                break;
+            default:
+                break;
+        }
     }
 
     public static new BuildCommand Load(BinaryReader reader) {
         TriGrid instance = TriGrid.Instance;
-        return new BuildCommand(instance.GetCell(TriCoordinates.Load(reader)),(TriDirection)reader.ReadInt32(), instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        TriCell tCell = instance.GetCell(TriCoordinates.Load(reader));
+        TriDirection tDir = (TriDirection)reader.ReadInt32();
+        Entity prefab;
+        switch (reader.ReadInt32()) {
+            case (int)BuildingType.INN:
+                prefab = TriIsleland.Instance.innPrefabs[reader.ReadInt32()];
+                break;
+            default:
+                prefab = null;
+                break;
+        }
+        return new BuildCommand(tCell,tDir, prefab);
     }
 }
 

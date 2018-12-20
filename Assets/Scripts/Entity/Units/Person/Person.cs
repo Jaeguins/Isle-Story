@@ -19,7 +19,7 @@ public class Person : Unit {
         AddCommand(new MoveCommand(home.Location));
         AddCommand(new GetInCommand(home));
     }
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
         if (home)
             home.Location.coordinates.Save(writer);

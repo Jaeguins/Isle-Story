@@ -16,7 +16,7 @@ public class Inn : Building {
             livers.Add(person);
         }
     }
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
         writer.Write(capacity);

@@ -9,7 +9,7 @@ public class Tent : Inn {
         camOffset = new Vector3(5, 5, -20);
         sizeType = SizeType.SINGLE;
     }
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
     }
     public static new Tent Load(BinaryReader reader) {

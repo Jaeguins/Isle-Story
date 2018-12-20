@@ -203,7 +203,7 @@ public class Unit : Entity {
         acting = false;
     }
     
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write(orientation);

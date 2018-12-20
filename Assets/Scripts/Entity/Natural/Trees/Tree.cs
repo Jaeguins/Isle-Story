@@ -6,7 +6,7 @@ public class Tree : Natural{
         UIName = "tree";
         sizeType = SizeType.SINGLE;
     }
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
     }
 

@@ -36,7 +36,7 @@ public class Natural : Entity {
         Vector3 rot = new Vector3(0, (int)entranceDirection * 120 * (Location.inverted ? -1 : 1), 0);
         transform.localRotation = Quaternion.Euler(rot);
     }
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);

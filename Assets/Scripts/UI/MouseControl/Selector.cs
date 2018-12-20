@@ -89,7 +89,7 @@ public class Selector : MonoBehaviour {
                         break;
                     case CommandType.BUILD:
                         if (!IsBuildable()) {
-                            CancelCommand();
+                            Debug.Log("invalid build site.");
                             return;
                         }
                         ((BuildCommand)command).dir = dir;

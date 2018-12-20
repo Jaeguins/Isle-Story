@@ -39,7 +39,7 @@ public class Building : Entity {
         }
     }
     
-    public new void Save(BinaryWriter writer) {
+    public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
