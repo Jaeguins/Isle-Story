@@ -26,6 +26,8 @@
 
 * [10th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181210)
 
+* [19th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181219)
+
 ***
 ## 2018/11/20
 Project started.
@@ -189,3 +191,13 @@ Now I can fade in/out any time and make menu for individual building settings(bu
 
 ![Building Option and fading](/Diary/Image/20181210_1.gif)
 ***
+## 2018/12/19
+Finally! Final exam is almost finished.
+
+I'm really, really confused about building up UI structure, so I'm trying many ways.
+
+Until now, I can order units and select units by selecting list in building, but many things can be changed and somethings can be reverted.
+
+For better stuff I built this sutff.
+
+![Does this remains at final build?](/Diary/Image/20181219_0.gif)
