@@ -60,7 +60,7 @@ public class Unit : Entity {
     }
 
     public override void BindOptions(CommandPanel menu) {
-        menu.BindButton(4, "Status", menu.UnitStatus);
+        base.BindOptions(menu);
     }
 
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {

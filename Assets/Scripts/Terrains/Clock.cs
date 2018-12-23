@@ -17,6 +17,9 @@ public class Clock : MonoBehaviour {
     private void Awake() {
         Instance = this;
     }
+    public static float GetTime() {
+        return Instance.currentTimeOfDay;
+    }
     void Start() {
         sunInitialIntensity = sun.intensity;
     }

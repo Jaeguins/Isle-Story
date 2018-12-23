@@ -7,25 +7,21 @@ public enum InnType {
     TENT,CAMP
 }
 public class Inn : Building {
-    public List<Person> livers;
+    public List<Person> Livers;
 
     public InnType subType;
-    protected int capacity;
-    void setLiver(Person person) {
-        if (livers.Count < 4) {
-            livers.Add(person);
-        }
-    }
+    public int Capacity;
+    
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
-        writer.Write(capacity);
+        writer.Write(Capacity);
     }
-    public void addPerson(Person p) {
-        livers.Add(p);
+    public void AddPerson(Person p) {
+        Livers.Add(p);
     }
-    public void removePerson(Person p) {
-        livers.Remove(p);
+    public void RemovePerson(Person p) {
+        Livers.Remove(p);
     }
     public new static Inn Load(BinaryReader reader) {
         InnType subType = (InnType)reader.ReadInt32();
@@ -40,15 +36,17 @@ public class Inn : Building {
                 break;
         }
         ret.subType = subType;
-        ret.capacity = capacity;
+        ret.Capacity = capacity;
         return ret;
     }
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
+        if (UnderConstruct) return;
+        if(Livers.Count>0)
         menu.BindButton(1, "Livers", ShowLivers);
+
     }
     public void ShowLivers() {
-        if (livers.Count == 0) return;
-        liverList.Bind(this,livers);
+        personList.Bind(this,Livers);
     }
 }

@@ -27,6 +27,7 @@ public class Selector : MonoBehaviour {
         terrainSelectionViewer.enabled = true;
     }
     bool IsBuildable() {
+        if (!nowCell.GetNeighbor(dir).IsBuildable()) return false;
         if (nowCell)
             switch (sizeType) {
                 case SizeType.HEX:

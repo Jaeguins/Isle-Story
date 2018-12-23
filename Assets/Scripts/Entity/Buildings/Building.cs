@@ -5,16 +5,16 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN
+    INN,COMPANY
 }
 public enum SizeType {
     SINGLE,HEX
 }
 public class Building : Entity {
-    
+    public bool UnderConstruct = true;
     public BuildingType type;
-    public PersonList liverList;
-
+    public PersonList personList;
+    public List<Person> Workers;
     public TriDirection entranceDirection;
 
     public new TriCell Location {
@@ -61,8 +61,14 @@ public class Building : Entity {
         ret.type = type;
         return ret;
     }
+    
     public override void BindOptions(CommandPanel menu) {
-        menu.BindButton(0, "Details...", GameUI.Instance.ToPreference);
+        base.BindOptions(menu);
+        if (UnderConstruct&&Workers.Count > 0) { }
+            menu.BindButton(1, "workers", BindWorkers);
+    }
+    public void BindWorkers() {
+        personList.Bind(this, Workers);
     }
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;

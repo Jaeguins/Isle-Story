@@ -44,8 +44,8 @@ public class CommandPanel : MonoBehaviour{
         Clear();
         Debug.Log("unbind" + nowEntity);
     }
-
     public void BindButton(int index,string tooltip,UnityEngine.Events.UnityAction action) {
+        buttons[index].onClick.RemoveAllListeners();
         buttons[index].gameObject.SetActive(true);
         buttons[index].GetComponentInChildren<Text>().text = tooltip;
         buttons[index].onClick.AddListener(action);

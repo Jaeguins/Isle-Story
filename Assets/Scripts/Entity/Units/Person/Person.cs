@@ -11,14 +11,31 @@ public class Person : Unit {
 
     }
     public override void Migrate (){
-        ((ChangeHomeCommand)nowWork).target.addPerson(this);
+        ((ChangeHomeCommand)nowWork).target.AddPerson(this);
         home = ((ChangeHomeCommand)nowWork).target;
     }
+
+
+
     public void GoHome() {
         CancelAllAct();
         AddCommand(new MoveCommand(home.Location));
         AddCommand(new GetInCommand(home));
     }
+    
+    public void GoComp() {
+        CancelAllAct();
+        AddCommand(new MoveCommand(company.Location));
+        AddCommand(new GetInCommand(company));
+    }
+
+    public void GoWork() {
+        CancelAllAct();
+        AddCommand(new MoveCommand(company.Location));
+        AddCommand(new GetInCommand(company));
+    }
+
+
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         if (home)

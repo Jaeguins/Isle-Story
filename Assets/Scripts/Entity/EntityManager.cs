@@ -187,7 +187,7 @@ public class EntityManager : MonoBehaviour {
         unit.ID = buildings.Count;
         buildings.Add(unit.ID, unit);
         unit.transform.SetParent(BuildingGroup, false);
-        unit.liverList = GameUI.Instance.personList;
+        unit.personList = GameUI.Instance.personList;
     }
 
     public void AddNatural(Natural unit) {

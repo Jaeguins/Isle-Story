@@ -17,24 +17,27 @@ public class TerrainViewer : TriMesh{
     }
     public void CalculateTerrain() {
         Clear();
-        if(selector.nowCell)
-        switch (selector.sizeType) {
-            case SizeType.HEX:
-                k = selector.nowCell;
-                int elev = selector.nowCell.Elevation;
-                TriDirection tDir = selector.dir.Previous();
-                for (int i = 0; i < 6; i++) {
-                    if (!k) break;
-                    RecalculateTerrain(k, k.IsBuildable()&&k.Elevation==elev);
-                    k = k.GetNeighbor(tDir);
-                    tDir = tDir.Next();
-                }
-                break;
-            case SizeType.SINGLE:
-                RecalculateTerrain(selector.nowCell,selector.nowCell.IsBuildable());
-                break;
+        
+        if (selector.nowCell) {
+            TriCell neighbor = selector.nowCell.GetNeighbor(selector.dir);
+            if (neighbor) RecalculateTerrain(neighbor,neighbor.IsBuildable()&&neighbor.Elevation==selector.nowCell.Elevation);
+            switch (selector.sizeType) {
+                case SizeType.HEX:
+                    k = selector.nowCell;
+                    int elev = selector.nowCell.Elevation;
+                    TriDirection tDir = selector.dir.Previous();
+                    for (int i = 0; i < 6; i++) {
+                        if (!k) break;
+                        RecalculateTerrain(k, k.IsBuildable() && k.Elevation == elev);
+                        k = k.GetNeighbor(tDir);
+                        tDir = tDir.Next();
+                    }
+                    break;
+                case SizeType.SINGLE:
+                    RecalculateTerrain(selector.nowCell, selector.nowCell.IsBuildable());
+                    break;
+            }
         }
-
         Apply();
     }
     public void RecalculateTerrain(TriCell cell,bool buildable) {

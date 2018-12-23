@@ -34,7 +34,7 @@ public class Entity : MonoBehaviour {
         }
     }
     public virtual void BindOptions(CommandPanel menu) {
-
+        menu.BindButton(0, "Status", menu.UnitStatus);
     }
     public virtual void Save(BinaryWriter writer) {
         if (location)

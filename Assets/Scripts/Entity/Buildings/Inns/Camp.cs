@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 public class Camp : Inn {
     private void Start() {
-        capacity = 4;
+        Capacity = 4;
         UIName = "camp";
         sizeType = SizeType.HEX;
         camAnchorOffset = new Vector3(TriMetrics.innerRadius, 5, TriMetrics.outerRadius);

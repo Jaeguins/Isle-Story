@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 
-public enum CompType {
+public enum WorkType {
 
 }
-public class Company : Building{
-    public List<Person> Officers;
-    public CompType subType;
+public class Worksite : Building{
     public int Capacity;
+    public WorkType subType;
 
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
@@ -16,15 +15,15 @@ public class Company : Building{
         writer.Write(Capacity);
     }
     public void AddPerson(Person p) {
-        Officers.Add(p);
+        Workers.Add(p);
     }
     public void RemovePerson(Person p) {
-        Officers.Remove(p);
+        Workers.Remove(p);
     }
-    public new static Company Load(BinaryReader reader) {
-        CompType subType = (CompType)reader.ReadInt32();
+    public new static Worksite Load(BinaryReader reader) {
+        WorkType subType = (WorkType)reader.ReadInt32();
         int capacity = reader.ReadInt32();
-        Company ret = null;
+        Worksite ret = null;
         switch (subType) {
 
         }
@@ -35,12 +34,10 @@ public class Company : Building{
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         if (UnderConstruct) return;
-        if (Officers.Count > 0)
-            menu.BindButton(1, "Officers", ShowOfficers);
+        if (Workers.Count > 0)
+            menu.BindButton(1, "Workers", ShowWorkers);
     }
-    public void ShowOfficers() {
-        personList.Bind(this, Officers);
-    }
-    private void LateUpdate() {
+    public void ShowWorkers() {
+        personList.Bind(this, Workers);
     }
 }
