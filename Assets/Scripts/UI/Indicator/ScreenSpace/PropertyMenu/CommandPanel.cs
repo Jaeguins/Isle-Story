@@ -55,11 +55,11 @@ public class CommandPanel : MonoBehaviour{
         StartCoroutine(BuildingOption());
     }
 
-    public void outBuildingOption() {
-        StartCoroutine(OutBuildingOption());
+    public void OutBuildingOption() {
+        StartCoroutine(outBuildingOption());
     }
 
-    public IEnumerator OutBuildingOption() {
+    IEnumerator outBuildingOption() {
         yield return StartCoroutine(cameraManager.SwitchCamera(CamType.TOPVIEW));
         enabled = false;
         ((IndivViewCam)cameraManager.cameras[1]).enabled = false;

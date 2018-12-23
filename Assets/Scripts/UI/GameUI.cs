@@ -20,7 +20,7 @@ public class GameUI : MonoBehaviour {
         buildingPanel.SetActive(true);
     }
     public void outPreference() {
-        buildingMenu.outBuildingOption();
+        buildingMenu.OutBuildingOption();
         buildingPanel.SetActive(false);
     }
 

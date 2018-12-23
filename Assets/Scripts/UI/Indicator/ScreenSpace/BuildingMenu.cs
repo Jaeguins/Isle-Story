@@ -7,7 +7,7 @@ public class BuildingMenu : MonoBehaviour {
     public void Bind(Entity target) {
         selected = target;
         gameObject.SetActive(true);
-        PersonList.Instance.Hide();
+        //PersonList.Instance.Hide();
         Debug.Log("buildingMenu bind");
     }
     private void Awake() {

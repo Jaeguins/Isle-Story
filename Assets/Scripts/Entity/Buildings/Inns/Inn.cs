@@ -45,14 +45,10 @@ public class Inn : Building {
     }
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
-        menu.BindButton(5, "livers", ShowLivers);
+        menu.BindButton(1, "Livers", ShowLivers);
     }
     public void ShowLivers() {
         if (livers.Count == 0) return;
-        liverList.SetActive(true);
-        liverList.ClearList();
-        foreach(Person p in livers) {
-            liverList.AddPerson(p);
-        }
+        liverList.Bind(this,livers);
     }
 }
