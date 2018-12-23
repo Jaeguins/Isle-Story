@@ -27,7 +27,9 @@ public class TopViewCam : CameraController{
 
     void Update() {
         float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
+        float zoomDelta_ = Input.GetAxis("Scroll PageUD");
         if (zoomDelta != 0f) AdjustZoom(zoomDelta);
+        if (zoomDelta_ != 0f) AdjustZoom(zoomDelta_);
 
         float rotationDelta = Input.GetAxis("Rotation");
         if (rotationDelta != 0f) {

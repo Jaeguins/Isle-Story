@@ -28,6 +28,8 @@
 
 * [19th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181219)
 
+* [23th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181223)
+
 ***
 ## 2018/11/20
 Project started.
@@ -201,3 +203,20 @@ Until now, I can order units and select units by selecting list in building, but
 For better stuff I built this sutff.
 
 ![Does this remains at final build?](/Diary/Image/20181219_0.gif)
+***
+## 2018/12/23
+I made Sun for day/night cycle. (simplified one, can be changed)
+
+And I gave up worldspace Entity Menu because it wasn't great way to show what the entity can do.
+
+Instead of it, I added screen space entity menu with simplified entity information.
+
+I have to add more detailed menu which can show information that not be seen in simplified one.
+
+For now, order command is fine, but have issue in detailed view.
+
+![Time scaled to 10x and screen space located entity menu.](/Diary/Image/20181223_0.gif)
+
+... My desktop's mouse wheel is broken.
+
+So zoom input method added with page up/down key.
