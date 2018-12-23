@@ -40,7 +40,7 @@ But in my case, I want to make my own so I'll try with triangular tiles.
 
 And today's work:
 
-![triangular tiles](/Diary/Image/20181120_0.PNG)
+![triangular tiles](https://lh3.googleusercontent.com/O1IcRfL1C2NxPlWF6idiOXQxv5JgJ7r7uHm6yzrDXFJ1q7W0nlDUxIZ6GkHXiX_rvSHfN5rYQAJOGoaqEXGvN_IyiMeuFQAwpO8Mbz8JVnUiDFV9EXb7NHgsY1a7yOgZJEvfSZotcPJFLIraAWdMthCeAd1Fxkb7NYD81rjJXStTRLngUO9Y6lovu7or61BaRz-SPAbUxrf-Js934mzbsszeechk5TUJu8MPMFKzuoYCKiDJqEKvLXq8m2-12QgnVLYTWCtvL3kJNjw3e1wFS0KJobaQV2HNjXVpRPtYKJEAPKws72YL2ovfojRccL0J5Q3VBUgwxweiryuV1X-XD56ewax0CM9n1wFgkOCVClNXzxCFI0Lfad6CqHQ0t9jKP_SdQZqI05Oda6kLm-UKcm3eOFS0uAkij-J1wwZz6xvyXu25aXpVafYuD42g2ZKpx0S-XYdNzpYAODcfC7PfdSBr1fteguzNgunahCj5TnlwCOnqnz-RfAyKpwQwiVmEMv3Oud8gpgj4y3zFbbKS1J14JH3CoBX0aRNTK20ivEtzlLqM0pA735HgP1Ri1TgUETjQ_rktlJH51A8mxu3CBdWy-YEnr_9ujyA22JQ7GRJCHJkJ2VqSOVTQcrVWHEhKDMwDJW4evoxudd30x6tzmFU=w1175-h925-no)
 ***
 ## 2018/11/21
 Blending colors with near tiles finished.
