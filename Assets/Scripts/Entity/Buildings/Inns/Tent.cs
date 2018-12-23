@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 public class Tent : Inn {
     private void Start() {
+        ConstructTime = 20f;
         Capacity = 4;
         UIName = "tent";
         camAnchorOffset = Vector3.zero;

@@ -12,11 +12,16 @@ public enum SizeType {
 }
 public class Building : Entity {
     public bool UnderConstruct = true;
+    public float ConstructTime=9999f;
     public BuildingType type;
     public PersonList personList;
     public List<Person> Workers;
-    public TriDirection entranceDirection;
-
+    TriDirection entranceDirection;
+    public TriCell EntranceLocation {
+        get {
+            return Location.GetNeighbor(EntranceDirection);
+        }
+    }
     public new TriCell Location {
         get {
             return location;
@@ -38,6 +43,8 @@ public class Building : Entity {
             transform.localRotation = Quaternion.Euler(rot);
         }
     }
+
+
     
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
@@ -73,5 +80,37 @@ public class Building : Entity {
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         Property.Instance.Bind(this);
+    }
+    public void AddWorker(Person p) {
+        Workers.Add(p);
+    }
+    public void RemoveWorker(Person p) {
+        Workers.Remove(p);
+    }
+    public virtual void CheckConstruction() {
+        if (ConstructTime < 0) {
+            UnderConstruct = false;
+            for(int i = 0; i < Workers.Count; i++) {
+                Workers[i].AddCommand(new ChangeWorkCommand(null));
+                if (Workers[i].company)
+                    Workers[i].AddCommand(new GoJobCommand());
+                else
+                    Workers[i].AddCommand(new GoHomeCommand());
+            }
+            Workers.Clear();
+        }
+        else
+            ConstructTime -= Time.deltaTime*Workers.Count;
+    }
+    public virtual void DailyCycle() {
+
+    }
+    public void LateUpdate() {
+        if (UnderConstruct) {
+            CheckConstruction();
+        }
+        else {
+            DailyCycle();
+        }
     }
 }

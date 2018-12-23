@@ -37,7 +37,7 @@ public class Unit : Entity {
         switch (c.type) {
             case CommandType.GETIN:
                 Building t = ((GetInCommand)c).target;
-                commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.entranceDirection)));
+                commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.EntranceDirection)));
                 commandQueue.Enqueue(c);
                 break;
             case CommandType.BUILD:
@@ -99,7 +99,7 @@ public class Unit : Entity {
         if (!buildingPos) return;
         acting = true;
         buildingPos.insider.Remove(this);
-        Location = buildingPos.Location.GetNeighbor(buildingPos.entranceDirection);
+        Location = buildingPos.Location.GetNeighbor(buildingPos.EntranceDirection);
         buildingPos = null;
         SetVisible(true);
         acting = false;
@@ -116,7 +116,16 @@ public class Unit : Entity {
     public virtual void ChangeWork() {
         Debug.Log("unexpected Order");
     }
-    public virtual void Migrate() {
+    public virtual void ChangeHome() {
+        Debug.Log("unexpected Order");
+    }
+    public virtual void GoJob() {
+        Debug.Log("unexpected Order");
+    }
+    public virtual void GoWork() {
+        Debug.Log("unexpected Order");
+    }
+    public virtual void GoHome() {
         Debug.Log("unexpected Order");
     }
     IEnumerator Act() {
@@ -145,7 +154,16 @@ public class Unit : Entity {
                         ChangeWork();
                         break;
                     case CommandType.CHANGEHOME:
-                        Migrate();
+                        ChangeHome();
+                        break;
+                    case CommandType.GOJOB:
+                        GoJob();
+                        break;
+                    case CommandType.GOWORK:
+                        GoWork();
+                        break;
+                    case CommandType.GOHOME:
+                        GoHome();
                         break;
                 }
             }

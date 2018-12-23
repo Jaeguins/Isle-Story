@@ -1,6 +1,6 @@
 ﻿using System.IO;
 public enum CommandType {
-    MOVE, GETIN, GETOUT, CHANGEHOME, CHANGEJOB, CHANGEWORK, BUILD
+    MOVE, GETIN, GETOUT, CHANGEHOME,GOHOME, CHANGEJOB,GOJOB, CHANGEWORK,GOWORK, BUILD
 }
 public class Command {
     public CommandType type;
@@ -185,67 +185,41 @@ public class BuildCommand : Command {
     }
 }
 
-public struct Command_ {
-    public CommandType type;
-    public TriDirection dir;
-    public Entity target;
-    public TriCell targetLocation;
-    public int flag;
-
-    public override string ToString() {
-        return type.ToString() + '\n' + dir + '\n';
+public class GoHomeCommand:Command{
+    public GoHomeCommand() {
+        type = CommandType.GOHOME;
+    }
+    public override void Save(BinaryWriter writer) {
+        base.Save(writer);
     }
 
-    public Command_(CommandType type) {
-        dir = TriDirection.VERT;
-        this.type = type;
-        target = null;
-        targetLocation = null;
-        flag = 0;
+    public static new GoHomeCommand Load(BinaryReader reader) {
+        return new GoHomeCommand();
     }
-    public Command_(CommandType type, TriDirection dir, Entity target) {
-        this.dir = dir;
-        this.type = type;
-        this.target = target;
-        this.targetLocation = target.Location;
-        flag = 1;
+}
+
+public class GoWorkCommand : Command {
+    public GoWorkCommand() {
+        type = CommandType.GOWORK;
     }
-    public Command_(CommandType type, TriCell targetL) {
-        dir = TriDirection.VERT;
-        this.type = type;
-        this.target = null;
-        this.targetLocation = targetL;
-        flag = 2;
+    public override void Save(BinaryWriter writer) {
+        base.Save(writer);
     }
-    public Command_(CommandType type, TriDirection dir, Entity target, TriCell targetL) {
-        this.dir = dir;
-        this.type = type;
-        this.target = target;
-        this.targetLocation = targetL;
-        flag = 3;
+
+    public static new GoWorkCommand Load(BinaryReader reader) {
+        return new GoWorkCommand();
     }
-    public void Save(BinaryWriter writer) {
-        writer.Write((int)type);
-        writer.Write(flag);
-        if (flag % 2 == 1) {
-            target.Location.coordinates.Save(writer);
-        }
-        else if (flag >= 2) {
-            targetLocation.coordinates.Save(writer);
-        }
+}
+
+public class GoJobCommand : Command {
+    public GoJobCommand() {
+        type = CommandType.GOJOB;
     }
-    public static Command_ Load(BinaryReader reader) {
-        TriGrid grid = TriGrid.Instance;
-        CommandType type = (CommandType)reader.ReadInt32();
-        int flag = reader.ReadInt32();
-        Command_ t = new Command_(type);
-        if (flag % 2 == 1) {
-            t.target = grid.GetCell(TriCoordinates.Load(reader)).Entity;
-        }
-        else if (flag >= 2) {
-            t.targetLocation = grid.GetCell(TriCoordinates.Load(reader));
-        }
-        t.flag = flag;
-        return t;
+    public override void Save(BinaryWriter writer) {
+        base.Save(writer);
+    }
+
+    public static new GoJobCommand Load(BinaryReader reader) {
+        return new GoJobCommand();
     }
 }

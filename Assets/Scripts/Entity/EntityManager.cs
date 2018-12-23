@@ -11,7 +11,9 @@ public class EntityManager : MonoBehaviour {
     Dictionary<int, Building> buildings;
     Dictionary<int, Unit> units;
     Dictionary<int, Natural> naturals;
-
+    public Building GetCamp() {
+        return buildings[0];
+    }
     private void Start() {
         buildings = new Dictionary<int, Building>();
         units = new Dictionary<int, Unit>();
