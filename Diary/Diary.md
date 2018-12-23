@@ -51,7 +51,7 @@ And it makes me skip filling between blendered tiles(because it doesn't have any
 
 So today's work:
 
-![Blendered tiles](/Diary/Image/20181121_0.PNG)
+![Blendered tiles](https://lh3.googleusercontent.com/bgbQAYNeJteN5tt36ZVO_txpVOFoAOMg0wwrrR6YAO3y0S_AEh4yUEFvRCmoqVBi_6TFRZp90moLooDnQeU7YppyHK3FwYundjLbxNTJum_iplt_VM8bAEiV5YxzjcC0xvSZxgJb-kLj7kw9_KpWBedWlp1RFHM62jQk35YpfjZsO8_yWTwH5yKrjHuwy4jbmzSSbG_r5GHnNiINGfrfiDFu0ibR-S8T8knG3beLkfEJjGCa_X2mEEn8wn-ZgBPVt_vRdWhKSqBHrsUIq5yVVupuoSIFtT7m0cvBQSnD9TIUuHIUmSFa9XC0kCnVqW-c_hsP4N-A6IwmOyQqsBFmVsHA3oluXwksqecrF0SDcyam_-asA3c8skgd4CUIYtOP0h5k8kGO4edprNXdicqvyr_Z2zaowAISgBsOrcaqvOcDemxo4K3SVF-w9rhf7fjC1tL0Bj1H4P7gyIR6PdJi--5mmZ00-ClBsbSsqtzPhCdWvB_rqCss0e9kyuq7Fj1B24GLKv_DqkdKWgt5J2OmjbPmFyX7CkJD2Mp1jbKpH98Jd_JMFD_LMyvoRQdz8dGBzv-ZqPZsMn_iemWOSuOWKpJ1pCn0vMU9jzHn8IcPbImeagZISdGhnFWEvLSD98rTUSYELGF2XoKiVB2oh-3yjGk=w640-h953-no)
 
 Colors were put for visibility.
 
@@ -61,7 +61,7 @@ And reform Tiles' coordinate calculation, value of enums, etc..
 
 Finally I got this:
 
-![Wired tiles](/Diary/Image/20181121_1.PNG)
+![Wired tiles](https://lh3.googleusercontent.com/Zy6a8j1OR8x6TkLvIWK1YPddxnC0G5hn4-nxlQZo_6XH1D5YkUWxIeXcxpGsY7giWwNvI7IXoHqRKzMcA1OrzdkZHme4t_YkUs1LbKwf1h1Zbe3jDOzeuVNTQ690tUMQkJ6G6A-4UQ2-0_1TEEftPrZ80o29_EMR4bw8h3-zt0kFIMFVWuAMGl1ZvjDCda0Cipe5gKZIQHCv_zmmRRPfweEr7hSMlkSdeHIwzw5odAnQwL6MQpxDUk1Vhq5mBsbliPd8aL5zJOED9cDItXOc34AR2FHjFnh4lp_OJRR8C4W3KtXq1GStZ_TWw-f3TqA6jrTXPhzsHubDR1aKyEwr86LrIfN7MPmXC8QYRxa-R923tLIzNWlKTuD6msHy9u9jzLlt8-dlOxZdEzEKalTsGxi1PfWUi-cZSZRjeGeCgaEMbExE4H6UBTW-e8P7M_6aqLLvuIEtZ1e8mXzWwUlLyzmfR17FNWldTebHjK2V6RF-UkZK24UCi5E2rIVuRTmrltZk3rg8mBJp0IkgyPKvs7v3qVQJj7XQ42_STtGNc8arie3ASJ5N3uaByAdyhd-K3pO--ekMzS8rRnH5k0xk4V0DX32Cpp-fABdS8AjaWeHog0LhFNoQVt6gEukh-NwQDY9Vd57u121tC70sIdwN1rLSXAHn_gp3Bw9JOwth5R72YC7KkexFhI4AKeVtkQQ8pNXDXAoxoVhYw-fp=w561-h471-no)
 ***
 ## 2018/11/22
 Throwed away blending but get elevation.
@@ -78,7 +78,7 @@ It makes tiles more naturally.
 
 today's temporal work:
 
-![Triangular tiles](/Diary/Image/20181122_0.png)
+![Triangular tiles](https://lh3.googleusercontent.com/nG46AenSdpOEPO-1OFEMc_-zRNcRSP92gw3QijTT2-0WTzmi0b1pbR7iNUqOrL4xBAMJUviPXIfjLSH6zlWAmM21OJNIOqf402dPoOohqBK3U_t0he8ht5RSrgRadU2bnvJddw_4PNs9pA34AZcAC2bO7n7PJk8tYA-lNmddV5dSSrNDpdd0aArNCJ_Dt9p-40Lu-x7j0mTqzoxE84lMlBM2gk0qj9WF94ZPFjU9xRiPTCd-6CQZSt3PWlUtMVrkbvMAwMfogvp0hTwpuoQMKv4wcEkWBRXPUqNC3z69a_sKwHOZKtt3hnZXVSk4zJN2lpKNHWJqRCS1sp56-nv0nVAVadKmRQfzijidWPFtEW7MdhOeaPYkY8Vh-zSPoRtUgmXGV6ZozX8rbB3P9tlx-Lxv-D7rWmEIY2qKszJ72VQLVM5ZpoDYMFftICmTry4qjiXKCc3GUzrwY4afSvvy2MxHgBWDw_-EzqmZak24bdq4H5_DIB6saZ2iDkI-m-I5H4qF5ePXeXkoPeWbwRqjD9dYBXiWztQ5cJ4x0dA2eutvpkIJE6EoJrCn-SGHVFd-ikNoZzWj8fcis1jLhd9teUdc571noMZTLX1DIfo9Nueb4wM2qo0zgi1WaiQGQDl2hfR9Uh5nWgnDwl3paE78l4ffglmzdSHDXmvuCrpTSZMASxpVHCRYm38TXR-CQ8V_iyusOKhAvHiC1yDz=w656-h497-no)
 
 Additional Work!
 
@@ -86,7 +86,7 @@ I updated UI for testing and generate example randomly hexagonal tiles.
 
 But still editable with Triangular too.
 
-![Hexa-triangular tiles](/Diary/Image/20181122_1.PNG)
+![Hexa-triangular tiles](https://lh3.googleusercontent.com/lgLNR3rcoRBqNvGwiAjAWjNnpceLSr98VWR-IOi0tuoIz9g1O2Kgf_DqszrsRCzWgG9gMa3SdvgMlyDZzr5JoVF1OZvK-dduH9Ksz0r4ZcJt-doyqaEBntdlr69TYLe4kCP0FPXdds_jx-KupXTJ1hMLv79yXZZm4WopIVBlDj1jytbWiXuMS7NczBEClDFvC_5edRXQpkkiRrIGXnTeg5n3xkdhbW4rstaRXoHTGfDLI8vguTLwiDTUpcUgem2qE0gLcIPmYzoYY-JajAdCGN1ZX2QNpiQxoGKxeenQ7Z6e7EG3_drvnYJ-UgF-drljOGV1w129clv0BnUo3mVQ0siJbaVUbL4JaDiOBCYzqhK7gz4Emtq9jJEIqZLhu_YPV7hJkKuleBzDIQ8IrAd3vJNSUfxTNcNwp9eUznBKTbPnLgNspmFsb8s3tibw5L3__2xcwUxHsKLxrNAAf4T1iKr_LgefNhtU2KEL1qC1iGKlirMfarrFDIsgO8othW6fLnXY4Lx5qz5grCY4Ow7UJTtpTt0N5H4eZyonu5VwNBVU9O9cRrapIFXtPrIL-2iW0IdRRGF-Gd-1VPtkm-Bzx_gICraKbny5lSS61b0g_6xmg0yi0VPgjwXBJfEZ7dxeTrNFusIJdBGfJdl7LTrp1Enqc5nLVgu2DzdJiG3vw_DbcGgQJTlyFIykI93Ixx7nk9KU1KpWPKSj9AsT=w1096-h626-no)
 
 ***
 ## 2018/11/23
@@ -98,7 +98,7 @@ That makes me to have train about more mathmetical thinking about 3d coordinates
 
 I worked all night(in this case, from yesterday), and finished river generating polygons.
 
-![river!](/Diary/Image/20181123_0.PNG)
+![river!](https://lh3.googleusercontent.com/UxPmxNhzAd-O8fvD13aiQvk3XOzJfiOmc9qMCucHBuVZJkldzbxPAwwMFE7XqJUtKt0anddgJ7jn9kwWTA8VMphhxcUrfJ2SP2WOpsUhamnuKqqkLh7ROh0DDmOSkiS5i5eL2zOR3L6uMfGcG6WNLGI6duxPakxmiOokxZg2RTF7dvw32mK9ddmYSItq5GCkkJ5G-WdBvbHuecLK_L4suFEcAqlkZJt4j0_9p6WQo63nFC4qOjD1th_QWIaT3WNmLeqthzep5Pm6MsADiAHDFJ_gVdTk6FYFSkOAh4WLysXx_JrD38MNa_rzkv7PPZ2JGyhUl0KOPkVXoPvVxCZwz0b-f5E8offF2rad0_IopQyFjS4ynryBJ9NkrYbSo7wZyZr-R55MaB1qvfrcHvMr5bWqkzGIJALfcwkrYVUJZMDOPvtCWozHGUe7xeIUrXdL41TI4la-IFB_-pLQWk0TFDOnZgksKfchyHQqDvY2UdNXeS335sCzNhp8hM_3Aik47U_NFwEr9U-7C7EAkQrZdohk-h7j6SybwxvyW4zBYSEYLoc09OnmZ6F1XMWqG86NIAP4iHzuXOrgHT8niuVabsFPoTI_2-VfpCTSrEEoDDRkS0MosjmwgKl_gsFAyx-maAgVN073r4qLrdIQvuXc5hQWipm6tT0Tpgkgl0h45ahnTplXdKiWLXbySPFQmmv6Ja5Al3xFX0MJbBl4=w775-h518-no)
 
 ***
 ## 2018/11/26
@@ -108,7 +108,7 @@ I made water(now in color blue, elevation 0).
 
 today's work:
 
-![blue means water](/Diary/Image/20181126_0.PNG)
+![blue means water](https://lh3.googleusercontent.com/oJ5DZdB_IWDTQvq-taf3qqQTcKkO2OHW_UFHqhU_DLZ7edDbGHb-UvBVpNwCCDCLvt01QIL7Kh9OO29pRJ-vm1bpjqkkdzSXvrpnXenBrqwbKiqity_Eix2QWzncEkFD1agFbevJhnByr2pUQaiXYPvAURfECC1DsarmMBks9CgwSTDyztSQTNgFD6QXMrcgvFWLm48BOaLmWZ4qf1R5lCWTOd4kYGB7EIO_pIws_Cb2IVY8pmnRi7wWOVlngDPvSbS2UPIBt6Ne5vgwmtp_3FZAVIklJk-sb07bOAFJMhf1sdA2WuBRCUaEnRcgswdfo2AX2voMyo5ch3hkKEBc_bkcInKCUm6Q4Pa3eDtF8YO9p3Ki34WDK18GaRr1V9Xf08ES-q8gg5B87Ofxbt_V71LFRHIcSsA1DwhR-fdBlZ124c_bcVO-BI5nMZBH0SH0n8fctRlkgJfw573iePMgnlqWgxG-8Q9EJQFgvnARqk5WWGU4-m-sxrtZSfF0J0UL_jlvrGi_C858rBJjBlrRXoAnyc2sp9LI29EMLIjsXmK2Hmzcc7fnV1WaTAfVIC_0fb3H79zuuSlZiZ8ui02_cbg5vI1QU486h69hFD1R9eXucIoLWpadd60NC5wn-PtjfyeAN297VcLXctxQaHnVo6oiJlTUYiI3MU2pT_lj8yuGstQdOq4_mZ4zXTtY0dqLiBhDPTrYS_cx2J38=w693-h380-no)
 ***
 ## 2018/11/27
 Isleland Generating added.
@@ -123,7 +123,7 @@ And I gave up texture. Instead, I added Y-axis perturb for dynamic visibility.
 
 today's work:
 
-![river not included in generating](/Diary/Image/20181127_0.PNG)
+![river not included in generating](https://lh3.googleusercontent.com/K57rfC3aYSNWMcGIYFtp9mVt9gwPcRWbAN6AW4_gqjdD-vDqss2kvGbGfAATw7kt3wNVL0DXdrqmUJFRkO6eb_D8BiOGu9qcK5UXOksEJZNYyscvIlSnsvSzy_WBZ_qi4ngW7zxZ1OPAfBSBk8nIj6zB2q1uZy-aPiFHytDXmdRZGNDoSeBGux82qsz-W9c7R5mUNAHExzBco6GN_nnfKQqTcXT2QpYTGt5YDw5aDZVil2c3HM5_ETGhc9OWFjKdehU5YUsCG1rfkXYz7E-3yV_JCnO6gNfZnAQ8PNN_q6m6fh-WA1ukahI51Muzpy_5iW1DIIKKGkvj12IveXPIJE8vhBLQcplTwwN9HmLQuoF3mfeKoMidQnwSAamySj9Cfz2EMiaCP0rxhd6xFwd5nTfu1lx7YMOYDsc8Z11VkIZO1jb5yQbXaGR8a4jLvtBGyx4Ac1CCgxnuIspV9ZHTHcgbjc10Mbz7PJnkoWbNS2UiHNTmpBHzvuCgYNKmvD6SBQROpvYND2qpSSbeWY5kolAwD64WfEqcOSu4AN1ZDUqKglWQFb3LOU1eSsEDg-q-wb_GNya-W6cKGT1cy3eLtBZEGAPXOi4LVw4OsSvacTPUXEuz7mp7DhZeyQjrGpiIhrC-7Ox2KQFbDw_0z8Hb27A=w801-h514-no)
 ***
 ## 2018/11/28
 Now I can calculate hexagonal tile!
@@ -132,7 +132,7 @@ And rivers too!
 
 Now I can out from terrain-stuffs..
 
-![river included in generating](/Diary/Image/20181128_0.PNG)
+![river included in generating](https://lh3.googleusercontent.com/KM9buDQay3Xg_ScMONr5vgxRjRAGrPHLr-vO_8y8DSH0U0vbkPXWBuDv4X8HvMOWu2FKqQSJNIHZAxHYFoEQlKNRgaz7nKmUfc9QZLus2jTOO78MgN0UyVLuocpEG9TpGPeyTk9UYeIVfUd50w4G7_1Ko-wTCSwt3BiH-HbORwDViB8Wl4ybpbJHvrWKigGBcrybNWfjvfmbFRBdyTHRMzGPgkD62142ta2ocXCyBnpzIAfs7vW9KnB_IHBeJ1gbixIddoC9g-22IKtftsIXnrM6fZEVcerl7Du-McptlLjuBRCcJ3waztHHwZk66BWlYhdmLKvMhCFSfjBP1ZsYVlmyWhOPQr2_MfJuvdx4xRQ7W0pcIB3y36b_KXmOTHzQpKqvbPUjlsU5As6Ttn-NFkPvWl3UuN0PPXS-_RR0O7tR8smVwhM8URYUVB-5lsWo5v5g9H_BiYiBP4X1s5FQzAnH6up4ew75_0dGDefFNR-M6G83pvS785lenJxSdbGrfRgElBgi2m3_sF8Bp3LqG3LOJy4SuaqpPoUWd9OEF4QqF26wZaNDRVIZfNN4dtAjgbRpdtBz7RI969F76D3yljvO6K7Pw4Pm-E9Nrjt4FYgtflDENm9rDYP0yS56p1M6ZVsfGIxwEKwdqCEWDECBwMRx78TZW9MbndWF4zS6ibF9OElhr0amk4Djqew4xr3E0GkFnHzBd_fvyvWV=w584-h386-no)
 ***
 ## 2018/12/03
 First note in december.
@@ -149,7 +149,7 @@ So, perhaps I'll remains notes less often than before.
 
 What I finished in today:
 
-![while moving in routes](/Diary/Image/20181203_0.PNG)
+![while moving in routes](https://lh3.googleusercontent.com/NdjhLum6j5vIAs3DF5xMcoaImuyrFOdyEOf1SX42fm2XXhN-5Qd_v3rnk6C8INfxt-3Csv0iB1PSfEu3yExQHPbwsEMdkzNN5e-aKZowt_tq-yf9dJeFocf4yN3lDndbfF6lETT5w7IopMHPOWtUD-14YRuNI3ssnX6ahx4nZAwJlByGPqI7ekgphafkQI3MPwuMhm5skUDBocyog36ebF14al3P6ngUF_7wVBVYVx8ppq7OuFuSB-Y0hIAlhpXGCTSVX4GmWvpij5pmMeVKVnGolDpmsR7A2st86Z-WsOyTXL9PFaHsmhnWgtYIFswmMqd62ZFBEqXLlISWQG2DWlerCCAqTaqgT3IPBoa2YxEfJUwBmXKtJKiEgdgcrK_BtsuUFuKXNah3qkR7il35l3ljbr9Oj_SzTibpxROXi_jVq3x_eKScaF6KzS3_-LufTjjBJp-ozE-wKC0EGS2QYJbi0ijGkC6KF0nbIrfCUKD_RpYMDG_GCSyQm4ICEdjIBWNUuzjnR5yaCDUQrs0tVf-32C4WWIm-F6PHae2aQB1X3-Tyb3IHyD2sPpgqwOt6vVlMCEFdjEuZxfovP7EoOXj6_-yKREnwrjLCBBlsHHqnzeRGsLgiV0Rg_YjJVEPSUnqtQCTOAgRl6bhhP6X1uR_b_-SQc0ih5bsDMkqjK1vj4XaOPCAxbHhxjHDzjKfQo4jf9vqcPgqcXlZN=w1050-h548-no)
 ***
 ## 2018/12/05
 Finally I established what is 'building','unit', and 'natural object'.
@@ -174,7 +174,7 @@ For now, I can save terrains, units, naturals, and even units' action status!(Ye
 
 And successed in planting trees in whole isleland.
 
-![Do I need more dense mesh?](/Diary/Image/20181205_0.PNG)
+![Do I need more dense mesh?](https://lh3.googleusercontent.com/JHceNBJEhk0yWoHvdSv42DXWUMiLaJiG7rOQrhSd1mFVQBWSCqbGXHcFdhwr0iKN9SfVG2xZ_jsQsnu1ed4Hjyq-aIiLRQLV2612Xeo6_J1_m6QoHBi49ss1CYLSGKdqATGr9Tupr69pcgfKDslhDik8JINC2ANeuOyLyxLXNW2qR0WsQKysslyOO3WCJmLJyTQN7hxxNvbU1s9rVwWiPWIgV5_x7C1tm34HBnmNwhtnng6MVf-igXRcb9sy04dQaFMODk_af7fM-1AR0fIgHMlb02lDFjmhbnbNSL49HKkS2ZlTf-QdyfrDjkeMb24LQzNz5mCBD5DMIBaoHBodV9pAgiGE5QszVU8IQdn18CTNzskzw3-tQntUWFlGTblMBNxH5nvGdYmu5JTEfeSIrHAlO46EgrRGh8dEPEwO_9-wm1XTCCceS1P4Pro1PQHW9I8l4ns_M4UiUkTVqNFXA0qfeb0lG7ZmXs5cOLdraouCPiVZiLyW7idWTLPaOf_TJEJH_AQyDhveD1Eyxy7iGOB0UvR75h2TiSI7o-NtiLdjUZgqyL7uFaQgAUGCYVDBOzFLZFwH6Co9KyQTWZfBHSoi3d24_yWvrjsYlnJ347g7R_eteldLdCIEA4H68647yB4rhy0LPnIbWMbRf9s7H54qhWYZXVdp0Nwp3Ouoaa2B73o1Sqzv7HCj1vYXQQAkWWbqLdxH0q2quAEO=w1050-h572-no)
 ***
 ## 2018/12/10
 Until today, I did minor fixing/tweaking, and hold camera into world.
@@ -183,7 +183,7 @@ And Today, I made UI for individual building. (only UI,not working at now).
 
 Thanks to Screen To Gif tool, now I'll leave more Dynamic pictures.
 
-![Reaction of building UI](/Diary/Image/20181210_0.gif)
+![Reaction of building UI](https://lh3.googleusercontent.com/54p4QdQDZkYwolmQyNb_5CNw8suvh0qDVCqIpwOkUvHJjlucDe3tUfySRzKR5Rl2qeR_qZPxkg50GfOMLXsVIHoxvqkmON4tu6FMUbBp6SJzEXz1BuFVqxDTM1x0uOlOyaFwPnoMOLCLBfAmA2GlUymAI-zIb-t26zsYorQhKj_7SlDkg8D4ENyx_xbQ0nRfKtq6G7r1fEz9lWTNTWMG4SW2fludFSoo736dtxs3oOMuVu_syecfOdKEOCTSU43FArENshksTv1h93AaZreEy4B9zeA8yvZKq9Xyo9IjR_o3746enjnIC7HyvkMHgTzflVIlpeSE5HaE_1vDtq5krSQjldD57fJfEM3YuFhZZx209SyiNDtFe8Yh_xK2PmglvA4FnYXqzuKmf5uJx5_YqUo2WL2ne7QItHdDVp1wSwz2o1Jb5XIJprBoNlSMYXfO2SUTx9_P6go7QgXBhc5xA6MR9vPUonVTs9t5DZcSlXBASv-NRsbLSw8H5IMbYnI9bptFQygEqa1YAZGTtOHSX9YKO4xup9vphdVrm5y2jw99t7Nb3i35oGDXBWzZUy484UKdDgaroYOxsSh84teBbZXFQeXhfDkY7lrK5zFwQsDXb3Z2nqonRvK_TFYVaplAw5jvN-CrV1Vw-3ugHTRR_8zceajYHNuLhNz1fTFm3yekYfSbFDDs1yNVrnxAQUkbsmVCY-t40el4KjH2=w700-h382-no)
 
 Plus one more!
 
@@ -191,7 +191,7 @@ I felt too bored at studing univ lecture for final exam, so I advanced little mo
 
 Now I can fade in/out any time and make menu for individual building settings(but only object, not script).
 
-![Building Option and fading](/Diary/Image/20181210_1.gif)
+![Building Option and fading](https://lh3.googleusercontent.com/WwfKVQNtmeN9vn_pteoSrM80t-huezRFbnOGB-1FHoDHD5FY1OOPRY8Ib94D1zJdyGgqMGppc46ZcEb-lGPvD19HvLzoUosPuaNBdOnJATfDdi2E5-ZhTkwuUMiRsN39TJoiAypWagt_JMYNJSMIGIX7za5sbN5TYmB91SP-bLDdutbiNzSIePAguobKRjge2LpX8kpr_lbXqxKNDc5WWfQmvK5R8PP_EzZJi1kdpp9_Hfh6xNn6xKwg6QRiJXPpdvZjd0YwXY_g1-62liODHmgORy9NSi8zyTqInlGXRJLxcBwk02-DMt6lP4sVWO9CIUf51WygHzpiK-U6vWfDovBZBmkK9a6IogvtKVRgjwKikE2vUmyCIlrJVOnWl3RDVSo56EYyvfxWlwavxeTxtm4_kzNpxKGhvcso4LcZGJ1FCJmDvqE3hhrXDFA7rfCAktgGDWifM27Zc1SbhFP11p6UZhn-6zOVak7f7IV4PD7RJr2TlPH51X4UKzsalQmu1ehTLrl4B8CyjQ14fClJtPUZrfNs5pYA1S2FJexxw4AV8y1CnlvVUEOiIyK34SaE8a2YC_KtmLizSiDOu7IcI30wuCJ2ymq_CIJ8xQy17HSd_cIF5NhmbBCHdbcnkk6Sl9Gvn29OkcBP_hIScH2ggoJXKA_TsZeGc5t2VoQFTEe0SQB6GbqChgkO4ZfI4gp1xRmsD4nwd90zmeU-=w340-h189-no)
 ***
 ## 2018/12/19
 Finally! Final exam is almost finished.
@@ -202,7 +202,7 @@ Until now, I can order units and select units by selecting list in building, but
 
 For better stuff I built this sutff.
 
-![Does this remains at final build?](/Diary/Image/20181219_0.gif)
+![Does this remains at final build?](https://lh3.googleusercontent.com/cyc3gCF7x-Ji3ESFihny-pF_5ocETYw05na6Z9sjbsAyYk9eMm4kt-v3zWBjmSY4GWKKmpDI4LJkAZhO2xCQ3xX1zfPa1nHdVSwQdXJqcP9kniaJFhe4V8kwI6cNlS8HuIPQ-hBwEcrTAvlYsXs2y5mriViCyMxuiy-FySYkPapnpOicpvv3HPJpKO_wlS83rIJLzAhRYkQHArme1GihgpZexGtORhEGY_VeDmrPNK8IeK6deBCFQPEzyA49HPtF-YSxjGmbaxzeZK9pKRnzVbQvGjgst3Ifbc4rqXm_64QoQznrqccH3iJOTmCi7Mq9uCuhz7Y59_P0YUq1eRPTmkbMZ3EEJIjQycF4MnzON6GZtW7NrRdOrXV-ZXI4k6a4gqJIdCi-kRJ1qBofLgfXYJwoOokXByVQQ7pn-MaiO0tLPzyyV1Qhxm879kjghXB2G1Yd9k7YRCnud0NlpylNOit3X9yy0gTeMQjPgwS9yRD7gCWeUc_o4q_nfqCfOiGkPswdr8qqjLt8rQy9mNK3u2oCUOeekmRjEwZgsgz48KFhiIXedQOgMrLidcW4FbxIYGMdkvfTv7qjpgXKt3Kc-TRaqQtAI3W5Taexxg0LTAJCEtQgPp_hdmTSqv36FKwhVHW-9QqkKAc4W_HyY1fAgNY3qy3Y539zKW_Epx5v-EpX-ifgaJTYFSMorUMv0yuCWYWbODNFTGtr5x6M=w895-h455-no)
 ***
 ## 2018/12/23
 I made Sun for day/night cycle. (simplified one, can be changed)
@@ -215,7 +215,7 @@ I have to add more detailed menu which can show information that not be seen in 
 
 For now, order command is fine, but have issue in detailed view.
 
-![Time scaled to 10x and screen space located entity menu.](/Diary/Image/20181223_0.gif)
+![Time scaled to 10x and screen space located entity menu.](https://lh3.googleusercontent.com/71qp_fJLWja_zROjnvq_K9IMM-aIQEMG4Dm6BTKR4SL2lT5Zgdm4m5CiAbxaM0pgFxpCY95WJtHr4px1K905h87tDIW2eFGUjv-SVUPPoc7YMXvo8pypBaK396sBipqibzQb_nwlj0Gq_oE3xw9UTrG42hMJnkvqY3m9JpG_pVmL4yPj8Z_Tvl9vJJWaJ438pHmXZcrV7Sv-wlrWkP3_wJqc1WayL63FGif-cLql9EczXpa2vKbi_IRSSUxN4ey5JpbUZUh8eVqFrsKDwT7Fy9bx7Ffpn1eBeWfERtnj-E3ryrO484r3W8yb4FAcRwxJOL-z8EKixz3-_Jj5iNKDFsRUemK1253kjF1LjUucPDhleJ3F2KIHI8AZzetswlIVvMmJCmViF_vbjVL6ZF_n4u_PwKgkwJctlFbprxNXxI_lhVxP37EV8i3vW3L6XyZYL3QThdjRf8rxVnMwBe9jY8TJIaEae1saRQvnNiu6ohIplLBQ7lbuM4AsgnVC9nW36DeTLnshmBDUSU0p_EHdbhkZNYaNIcclRcduI8KP7t-dhf0UKtdtgVCTxCcX7gLEjTYSMr-AQqNA-DVjaXULRVC2_Ot394h2RVyNrYNk5O_dEw4rgOVdwd02SlpD0kP3zz5NUFBENdCI-mFIteoEW_vb_Ev0s7Np9COcvus45vuaHRvB1OwK595XlptRaXb-p90MlrtItIx8B__k=w600-h300-no)
 
 ... My desktop's mouse wheel is broken.
 
