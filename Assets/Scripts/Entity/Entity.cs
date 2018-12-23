@@ -33,7 +33,7 @@ public class Entity : MonoBehaviour {
             transform.localPosition = value.Position;
         }
     }
-    public virtual void BindOptions(EntityMenu menu) {
+    public virtual void BindOptions(CommandPanel menu) {
 
     }
     public virtual void Save(BinaryWriter writer) {

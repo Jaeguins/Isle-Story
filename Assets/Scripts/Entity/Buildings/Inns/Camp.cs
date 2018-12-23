@@ -18,7 +18,7 @@ public class Camp : Inn {
         return Instantiate((Camp)TriIsleland.Instance.innPrefabs[(int)InnType.CAMP]);
     }
 
-    public override void BindOptions(EntityMenu menu) {
+    public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
 
     }

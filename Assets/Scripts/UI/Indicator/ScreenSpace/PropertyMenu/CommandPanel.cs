@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 
-public class EntityMenu : WorldSpaceCanvas{
-    public static EntityMenu Instance;
+public class CommandPanel : MonoBehaviour{
+    public static CommandPanel Instance;
+    public CameraManager cameraManager;
     public Entity nowEntity;
     public Text tooltip;
     public List<Button> buttons;
@@ -21,12 +22,8 @@ public class EntityMenu : WorldSpaceCanvas{
     private void Awake() {
         Instance = this;
     }
-    private void Start() {
-        canvas.worldCamera = CameraManager.Instance.GetNowActive().CameraView;
-    }
 
     public void Bind(Entity entity) {
-        canvas.enabled = true;
         enabled = true;
         nowEntity = entity;
         tooltip.text = nowEntity.UIName;
@@ -42,7 +39,6 @@ public class EntityMenu : WorldSpaceCanvas{
     }
 
     public void Hide() {
-        canvas.enabled= false;
         enabled = false;
         nowEntity = null;
         Clear();
@@ -80,17 +76,4 @@ public class EntityMenu : WorldSpaceCanvas{
         
     }
 
-    private void Update() {
-        if (enabled)
-            transform.rotation = cameraManager.GetNowActive().CameraView.transform.rotation;
-        if (nowEntity) {
-            Vector3 t = nowEntity.Location.transform.localPosition;
-            t.y += 20;
-            transform.localPosition = t;
-        }
-    }
-    public void OnMouseExit() {
-        Debug.Log("out");
-        Hide();
-    }
 }

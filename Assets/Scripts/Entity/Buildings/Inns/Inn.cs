@@ -43,7 +43,7 @@ public class Inn : Building {
         ret.capacity = capacity;
         return ret;
     }
-    public override void BindOptions(EntityMenu menu) {
+    public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         menu.BindButton(5, "livers", ShowLivers);
     }

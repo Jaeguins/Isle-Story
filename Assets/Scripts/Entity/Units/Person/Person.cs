@@ -59,7 +59,7 @@ public class Person : Unit {
     public override void ChangeWork() {
         work = ((ChangeWorkCommand)nowWork).target;
     }
-    public override void BindOptions(EntityMenu menu) {
+    public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         menu.BindButton(5, "build", BindingBuildingMenu);
     }

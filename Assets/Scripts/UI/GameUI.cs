@@ -7,7 +7,7 @@ public class GameUI : MonoBehaviour {
     Unit selectedUnit;
     public TriMapEditor mapEditor;
     public GameObject buildingPanel;
-    public EntityMenu buildingMenu;
+    public CommandPanel buildingMenu;
     public PersonList personList;
     public TriGrid grid;
     public BuildingMenu buildMenu;

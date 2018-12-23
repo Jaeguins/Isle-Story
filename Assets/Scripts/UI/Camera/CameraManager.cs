@@ -26,7 +26,6 @@ public class CameraManager : MonoBehaviour {
         manager.buildingMenu.enabled = true;
 
         //TODO change worldspace event cam
-        EntityMenu.Instance.canvas.worldCamera = GetNowActive().CameraView;
 
 
         yield return StartCoroutine(Fader.FadeIn());

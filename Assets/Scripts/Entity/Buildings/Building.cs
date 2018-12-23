@@ -61,11 +61,11 @@ public class Building : Entity {
         ret.type = type;
         return ret;
     }
-    public override void BindOptions(EntityMenu menu) {
+    public override void BindOptions(CommandPanel menu) {
         menu.BindButton(4, "Preference", GameUI.Instance.ToPreference);
     }
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        EntityMenu.Instance.Bind(this);
+        Property.Instance.Bind(this);
     }
 }

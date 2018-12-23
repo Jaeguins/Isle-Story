@@ -59,7 +59,7 @@ public class Unit : Entity {
         StopAllCoroutines();
     }
 
-    public override void BindOptions(EntityMenu menu) {
+    public override void BindOptions(CommandPanel menu) {
         menu.BindButton(4, "Status", menu.UnitStatus);
     }
 

@@ -9,6 +9,6 @@ public class PersonIndicator : MonoBehaviour {
     public Button button;
     public Person target;
     public void SelectUnit() {
-        EntityMenu.Instance.Bind(target);
+        CommandPanel.Instance.Bind(target);
     }
 }
