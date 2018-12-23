@@ -11,7 +11,7 @@ public class Inn : Building {
 
     public InnType subType;
     public int Capacity;
-    
+
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);

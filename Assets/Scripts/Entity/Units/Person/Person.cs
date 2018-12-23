@@ -6,11 +6,7 @@ public class Person : Unit {
     public Building company;
     public Building building;
     public Entity work;
-    public void Start() {
-        type = UnitType.PERSON;
-        UIName = "person";
-
-    }
+    
     public override void ChangeHome (){
         ((ChangeHomeCommand)nowWork).target.AddPerson(this);
         home = ((ChangeHomeCommand)nowWork).target;

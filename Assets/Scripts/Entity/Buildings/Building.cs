@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN,COMPANY
+    INN,COMPANY,WORKSITE
 }
 public enum SizeType {
     SINGLE,HEX
@@ -60,6 +60,12 @@ public class Building : Entity {
         switch (type) {
             case BuildingType.INN:
                 ret = Inn.Load(reader);
+                break;
+            case BuildingType.COMPANY:
+                ret = Company.Load(reader);
+                break;
+            case BuildingType.WORKSITE:
+                ret = Worksite.Load(reader);
                 break;
         }
         

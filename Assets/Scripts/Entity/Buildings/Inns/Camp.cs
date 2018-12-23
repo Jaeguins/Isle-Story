@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 public class Camp : Inn {
     private void Awake() {
-        Capacity = 4;
-        UIName = "camp";
-        UnderConstruct = false;
-        sizeType = SizeType.HEX;
         camAnchorOffset = new Vector3(TriMetrics.innerRadius, 5, TriMetrics.outerRadius);
-        camOffset = new Vector3(10, 10, -40);
     }
 
     public new void Save(BinaryWriter writer) {

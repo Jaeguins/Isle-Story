@@ -17,6 +17,7 @@ public class Property : MonoBehaviour {
         Clear();
         Target = target;
         nameText.text = target.UIName;
+        typeText.text = target.UIType;
         gameObject.SetActive(true);
         commandPanel.Bind(target);
         //TODO bind others

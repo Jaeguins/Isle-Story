@@ -6,6 +6,7 @@ using System;
 public class Entity : MonoBehaviour {
     public SizeType sizeType;
     public List<Unit> insider;
+    public string UIType;
     public string UIName;
     public int ID {
         get {

@@ -7,7 +7,6 @@ public class CommandPanel : MonoBehaviour{
     public static CommandPanel Instance;
     public CameraManager cameraManager;
     public Entity nowEntity;
-    public Text tooltip;
     public List<Button> buttons;
 
     public new bool enabled {
@@ -26,7 +25,6 @@ public class CommandPanel : MonoBehaviour{
     public void Bind(Entity entity) {
         enabled = true;
         nowEntity = entity;
-        tooltip.text = nowEntity.UIName;
         nowEntity.BindOptions(this);
         Debug.Log("bind" + nowEntity);
     }

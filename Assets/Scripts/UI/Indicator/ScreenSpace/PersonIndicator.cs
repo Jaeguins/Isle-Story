@@ -11,7 +11,7 @@ public class PersonIndicator : MonoBehaviour {
         CameraManager.Instance.GetNowActive().transform.localPosition = Target.transform.localPosition;
     }
     public void SelectUnit() {
-        CommandPanel.Instance.Bind(Target);
+        Property.Instance.Bind(Target);
         PersonList.Instance.Close();
     }
     public void Clear() {

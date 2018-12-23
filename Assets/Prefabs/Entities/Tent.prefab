@@ -236,14 +236,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeType: 0
   insider: []
-  UIName: 
+  UIType: Inn
+  UIName: Tent
   camAnchorOffset: {x: 0, y: 0, z: 0}
-  camOffset: {x: 0, y: 0, z: 0}
+  camOffset: {x: 5, y: 5, z: -20}
   UnderConstruct: 1
-  ConstructTime: 9999
+  ConstructTime: 20
   type: 0
   personList: {fileID: 0}
   Workers: []
   Livers: []
   subType: 0
-  Capacity: 0
+  Capacity: 2
