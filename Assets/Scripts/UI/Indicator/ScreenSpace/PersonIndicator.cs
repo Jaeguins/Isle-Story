@@ -21,8 +21,9 @@ public class PersonIndicator : MonoBehaviour {
     }
     public void Bind(Person target,int count) {
         Target = target;
-        Vector3 pos = transform.localPosition;
-        pos.y = 30 * count-30;
-        transform.localPosition = pos;
+        RectTransform rect = gameObject.GetComponent<RectTransform>();
+        rect.anchoredPosition = new Vector3(0, -30 * count - 30, 0);
+        
+        
     }
 }

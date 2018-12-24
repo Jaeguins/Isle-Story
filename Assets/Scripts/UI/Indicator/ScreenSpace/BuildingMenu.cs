@@ -16,10 +16,12 @@ public class BuildingMenu : MonoBehaviour {
     }
     public void BuildTent() {
         Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.innPrefabs[0]));
-        Hide();
+        Close();
     }
-    public void Hide() {
-        gameObject.SetActive(false);
-        Debug.Log("buildingMenu unbind");
+    public void Close() {
+        if (gameObject.activeInHierarchy) {
+            gameObject.SetActive(false);
+            Debug.Log("buildingMenu unbind");
+        }
     }
 }

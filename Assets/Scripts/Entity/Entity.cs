@@ -4,6 +4,7 @@ using System.IO;
 using System;
 [Serializable]
 public class Entity : MonoBehaviour {
+    public GameObject SelectionIndicator;
     public SizeType sizeType;
     public List<Unit> insider;
     public string UIType;
@@ -73,5 +74,13 @@ public class Entity : MonoBehaviour {
             default:
                 return false;
         }
+    }
+
+    public virtual void Select() {
+        SelectionIndicator.SetActive(true);
+    }
+
+    public virtual void Deselect() {
+        SelectionIndicator.SetActive(false);
     }
 }

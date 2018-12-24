@@ -51,11 +51,15 @@ public class Building : Entity {
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
         Location.coordinates.Save(writer);
+        writer.Write(UnderConstruct);
+        writer.Write(ConstructTime);
     }
     public static Building Load(BinaryReader reader) {
         BuildingType type = (BuildingType)reader.ReadInt32();
         TriDirection entDir=(TriDirection)reader.ReadInt32();
         TriCoordinates coord = TriCoordinates.Load(reader);
+        bool underconstruct = reader.ReadBoolean();
+        float constructTime = reader.ReadSingle();
         Building ret=null;
         switch (type) {
             case BuildingType.INN:
@@ -72,6 +76,8 @@ public class Building : Entity {
         ret.Location= TriIsleland.Instance.grid.GetCell(coord);
         ret.EntranceDirection = entDir;
         ret.type = type;
+        ret.UnderConstruct = underconstruct;
+        ret.ConstructTime = constructTime;
         return ret;
     }
     
@@ -83,9 +89,11 @@ public class Building : Entity {
     public void BindWorkers() {
         personList.Bind(this, Workers);
     }
+    
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         Property.Instance.Bind(this);
+        
     }
     public void AddWorker(Person p) {
         Workers.Add(p);

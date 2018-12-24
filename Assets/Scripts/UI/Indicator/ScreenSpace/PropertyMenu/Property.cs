@@ -16,6 +16,7 @@ public class Property : MonoBehaviour {
     public void Bind(Entity target) {
         Clear();
         Target = target;
+        target.Select();
         nameText.text = target.UIName;
         typeText.text = target.UIType;
         gameObject.SetActive(true);
@@ -23,7 +24,9 @@ public class Property : MonoBehaviour {
         //TODO bind others
     }
     public void Clear() {
+        Target.Deselect();
         //TODO Target Clearing
+        BuildingMenu.Instance.Close();
         Target = null;
         nameText.text = NaN;
         typeText.text = NaN;
