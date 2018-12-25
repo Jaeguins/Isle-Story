@@ -27,8 +27,8 @@ public class Selector : MonoBehaviour {
         terrainSelectionViewer.enabled = true;
     }
     bool IsBuildable() {
-        if (!nowCell.GetNeighbor(dir).IsBuildable()) return false;
-        if (nowCell)
+        if (nowCell) {
+            if (!nowCell.GetNeighbor(dir).IsBuildable()) return false;
             switch (sizeType) {
                 case SizeType.HEX:
                     TriCell k = nowCell;
@@ -45,7 +45,9 @@ public class Selector : MonoBehaviour {
                 default:
                     return false;
             }
+        }
         else return false;
+        
     }
     public void SendCommand() {
         if (subject) 

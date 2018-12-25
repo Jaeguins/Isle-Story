@@ -249,16 +249,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4159575422584224}
     m_Modifications:
-    - target: {fileID: 3949131206784590709, guid: cf1e5b2d798c02b4693498f31052396a,
-        type: 3}
-      propertyPath: m_Name
-      value: SelectionIndicator
-      objectReference: {fileID: 0}
-    - target: {fileID: 3949131206784590709, guid: cf1e5b2d798c02b4693498f31052396a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
@@ -282,12 +272,12 @@ PrefabInstance:
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
         type: 3}
@@ -323,6 +313,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949131206784590711, guid: cf1e5b2d798c02b4693498f31052396a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949131206784590709, guid: cf1e5b2d798c02b4693498f31052396a,
+        type: 3}
+      propertyPath: m_Name
+      value: SelectionIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949131206784590709, guid: cf1e5b2d798c02b4693498f31052396a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf1e5b2d798c02b4693498f31052396a, type: 3}

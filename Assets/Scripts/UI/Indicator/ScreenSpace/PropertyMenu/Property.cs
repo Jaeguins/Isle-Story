@@ -24,6 +24,7 @@ public class Property : MonoBehaviour {
         //TODO bind others
     }
     public void Clear() {
+        if(Target)
         Target.Deselect();
         //TODO Target Clearing
         BuildingMenu.Instance.Close();

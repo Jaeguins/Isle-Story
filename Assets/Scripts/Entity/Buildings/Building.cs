@@ -16,6 +16,7 @@ public class Building : Entity {
     public BuildingType type;
     public PersonList personList;
     public List<Person> Workers;
+    public GameObject ConstructionIndicator,Model;
     TriDirection entranceDirection;
     public TriCell EntranceLocation {
         get {
@@ -112,6 +113,8 @@ public class Building : Entity {
                     Workers[i].AddCommand(new GoHomeCommand());
             }
             Workers.Clear();
+            ConstructionIndicator.SetActive(false);
+            Model.SetActive(true);
         }
         else
             ConstructTime -= Time.deltaTime*Workers.Count;

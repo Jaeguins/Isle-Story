@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2328,7 +2328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCam: {fileID: 1096360870}
   innPrefabs:
-  - {fileID: 114531524777870306, guid: 7158ee9277c12c14189d836b977c3797, type: 3}
+  - {fileID: 2988364836427121251, guid: 7158ee9277c12c14189d836b977c3797, type: 3}
   - {fileID: 114396802078604918, guid: 98cd873f9dd3a8a49b1fd7dda6d7bf36, type: 3}
   unitPrefabs:
   - {fileID: 114625707104384720, guid: 71665083466effb4c92eed3ee3db1b13, type: 3}
@@ -4748,7 +4748,7 @@ MonoBehaviour:
   secondsInDay: 120
   secondsInNight: 120
   currentTimeOfDay: 0.5
-  timeMultiplier: 10
+  timeMultiplier: 1
   IsDay: 0
   Updator: 1
 --- !u!4 &1630898071
