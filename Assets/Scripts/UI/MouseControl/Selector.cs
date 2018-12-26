@@ -10,7 +10,7 @@ public class Selector : MonoBehaviour {
     public CameraManager camManager;
     public TriGrid grid;
 
-    public SizeType sizeType;
+    public SizeType? sizeType;
     TerrainViewer terrainSelectionViewer;
     public TriCell nowCell;
     public bool ordering = false;
@@ -18,7 +18,12 @@ public class Selector : MonoBehaviour {
     TriCell tCell;
     Unit subject;
     Command command;
-
+    public void RequestTarget(Unit subject,Command c) {
+        this.subject = subject;
+        command = c;
+        ordering = true;
+        sizeType = null;
+    }
     public void RequestLocation(Unit subject,SizeType size, Command c) {
         this.subject = subject;
         command = c;
@@ -29,22 +34,24 @@ public class Selector : MonoBehaviour {
     bool IsBuildable() {
         if (nowCell) {
             if (!nowCell.GetNeighbor(dir).IsBuildable()) return false;
-            switch (sizeType) {
-                case SizeType.HEX:
-                    TriCell k = nowCell;
-                    int elev = nowCell.Elevation;
-                    TriDirection tDir = dir.Previous();
-                    for (int i = 0; i < 6; i++) {
-                        if (!k || !k.IsBuildable()) return false;
-                        k = k.GetNeighbor(tDir);
-                        tDir = tDir.Next();
-                    }
-                    return true;
-                case SizeType.SINGLE:
-                    return nowCell.IsBuildable();
-                default:
-                    return false;
-            }
+            if (sizeType != null) {
+                switch (sizeType) {
+                    case SizeType.HEX:
+                        TriCell k = nowCell;
+                        int elev = nowCell.Elevation;
+                        TriDirection tDir = dir.Previous();
+                        for (int i = 0; i < 6; i++) {
+                            if (!k || !k.IsBuildable()) return false;
+                            k = k.GetNeighbor(tDir);
+                            tDir = tDir.Next();
+                        }
+                        return true;
+                    case SizeType.SINGLE:
+                        return nowCell.IsBuildable();
+                    default:
+                        return false;
+                }
+            }return true;
         }
         else return false;
         

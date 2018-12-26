@@ -14,10 +14,15 @@ public class BuildingMenu : MonoBehaviour {
         Instance = this;
         gameObject.SetActive(false);
     }
-    public void BuildTent() {
-        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.innPrefabs[0]));
+    public void BuildInn(int index) {
+        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.innPrefabs[index]));
         Close();
     }
+    public void BuildWorksite(int index) {
+        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.worksitePrefabs[index]));
+        Close();
+    }
+
     public void Close() {
         if (gameObject.activeInHierarchy) {
             gameObject.SetActive(false);

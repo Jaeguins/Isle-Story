@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public enum BuildingType {
     INN,COMPANY,WORKSITE
 }
+
 public enum SizeType {
     SINGLE,HEX
 }

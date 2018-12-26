@@ -7,7 +7,7 @@ public class Person : Unit {
     public Building building;
     public Entity work;
     
-    public override void ChangeHome (){
+    public override void ChangeHomeInternal (){
         ((ChangeHomeCommand)nowWork).target.AddPerson(this);
         home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home");
@@ -76,19 +76,32 @@ public class Person : Unit {
         AddCommand(new ChangeWorkCommand(t));
         t.AddWorker(this);
     }
-    public override void ChangeJob() {
+    public override void ChangeJobInternal() {
         company = ((ChangeJobCommand)nowWork).target;
         Debug.Log("Change Job");
     }
-    public override void ChangeWork() {
+    public override void ChangeWorkInternal() {
         work = ((ChangeWorkCommand)nowWork).target;
         Debug.Log("Change Work");
     }
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         menu.BindButton(5, "build", BindingBuildingMenu);
+        menu.BindButton(6, "change\nhome", ChangeHome);
+        menu.BindButton(7, "change\ncompany", ChangeJob);
+        menu.BindButton(8, "change\nwork", ChangeWork);
     }
     public void BindingBuildingMenu() {
         BuildingMenu.Instance.Bind(this);
     }
+    public void ChangeHome() {
+        Selector.Instance.RequestTarget(this, new ChangeHomeCommand(null));
+    }
+    public void ChangeJob() {
+        Selector.Instance.RequestTarget(this, new ChangeJobCommand(null));
+    }
+    public void ChangeWork() {
+        Selector.Instance.RequestTarget(this, new ChangeWorkCommand(null));
+    }
+    
 }

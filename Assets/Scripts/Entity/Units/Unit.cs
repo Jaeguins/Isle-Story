@@ -110,13 +110,13 @@ public class Unit : Entity {
     public virtual void Build() {
         Debug.Log("unexpected Order");
     }
-    public virtual void ChangeJob() {
+    public virtual void ChangeJobInternal() {
         Debug.Log("unexpected Order");
     }
-    public virtual void ChangeWork() {
+    public virtual void ChangeWorkInternal() {
         Debug.Log("unexpected Order");
     }
-    public virtual void ChangeHome() {
+    public virtual void ChangeHomeInternal() {
         Debug.Log("unexpected Order");
     }
     public virtual void GoJob() {
@@ -148,13 +148,13 @@ public class Unit : Entity {
                         Build();
                         break;
                     case CommandType.CHANGEJOB:
-                        ChangeJob();
+                        ChangeJobInternal();
                         break;
                     case CommandType.CHANGEWORK:
-                        ChangeWork();
+                        ChangeWorkInternal();
                         break;
                     case CommandType.CHANGEHOME:
-                        ChangeHome();
+                        ChangeHomeInternal();
                         break;
                     case CommandType.GOJOB:
                         GoJob();

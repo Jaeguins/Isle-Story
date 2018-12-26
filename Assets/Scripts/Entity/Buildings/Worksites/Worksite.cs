@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 public enum WorkType {
-
+    FARMLAND
 }
 public class Worksite : Building{
     public int Capacity;
