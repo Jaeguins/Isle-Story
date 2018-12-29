@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Inventory {
+public class Inventory: MonoBehaviour {
     public ItemSlot[] Slots;
+    public bool refreshed;
     public int size;
     public Inventory(int size) {
         this.size = size;

@@ -21,6 +21,7 @@ public class PersonIndicator : MonoBehaviour {
     }
     public void Bind(Person target,int count) {
         Target = target;
+        nameText.text = target.UIName+target.ID;
         RectTransform rect = gameObject.GetComponent<RectTransform>();
         rect.anchoredPosition = new Vector3(0, -30 * count - 30, 0);
         
