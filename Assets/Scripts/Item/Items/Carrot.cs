@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Carrot : Item {
-    public static new Image icon;
-    
+    public Carrot() {
+        Id = 0;
+    }
 }

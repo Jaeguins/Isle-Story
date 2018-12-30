@@ -13,7 +13,7 @@ public class ItemSlotView : MonoBehaviour {
         Target = target;
         if (Target) {
             numIndicator.text = Target.Quantity.ToString();
-            
+            icon.sprite = InventoryViewer.Instance.Sprites[Target.Content.Id];
         }
         else {
             numIndicator.text = "";

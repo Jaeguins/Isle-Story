@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 public class InventoryViewer: MonoBehaviour {
+    public List<Sprite> Sprites;
     public static InventoryViewer Instance;
     public Entity TargetEntity;
     public Inventory Target;
