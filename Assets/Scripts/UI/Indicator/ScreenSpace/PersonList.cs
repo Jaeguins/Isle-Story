@@ -54,7 +54,7 @@ public class PersonList : MonoBehaviour {
         tRet.gameObject.SetActive(true);
         indicators.Add(tRet);
     }
-    private void Update() {
+    private void LateUpdate() {
         if (NowBuilding&& NowList.Count!=indicators.Count) {
             Refresh();
         }
