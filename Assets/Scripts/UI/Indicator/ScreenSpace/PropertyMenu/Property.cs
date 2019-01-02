@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
 
-public class Property : MonoBehaviour {
-    public static Property Instance;
+public class EntityMenu : MonoBehaviour {
+    public static EntityMenu Instance;
     public static string NaN = "NaN";
     public Entity Target;
     private void Awake() {

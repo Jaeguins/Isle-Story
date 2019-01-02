@@ -11,7 +11,7 @@ public class ItemSlotView : MonoBehaviour {
 
     public void Bind(ItemSlot target,int count) {
         Target = target;
-        if (Target) {
+        if (Target!=null) {
             numIndicator.text = Target.Quantity.ToString();
             icon.sprite = InventoryViewer.Instance.Sprites[Target.Content.Id];
         }

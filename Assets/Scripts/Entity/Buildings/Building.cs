@@ -12,6 +12,7 @@ public enum SizeType {
     SINGLE,HEX
 }
 public class Building : Entity {
+    public Inventory InputBuffer, OutputBuffer;
     public bool UnderConstruct = true;
     public float ConstructTime=9999f;
     public BuildingType type;
@@ -45,21 +46,26 @@ public class Building : Entity {
             transform.localRotation = Quaternion.Euler(rot);
         }
     }
+    /*
+     * save sequence
+     * superclassed saves
+     * >type
+     * >entrance direction
+     * >under construct status
+     * >remain construction time
+     */
 
 
-    
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
-        Location.coordinates.Save(writer);
         writer.Write(UnderConstruct);
         writer.Write(ConstructTime);
     }
     public static Building Load(BinaryReader reader) {
         BuildingType type = (BuildingType)reader.ReadInt32();
         TriDirection entDir=(TriDirection)reader.ReadInt32();
-        TriCoordinates coord = TriCoordinates.Load(reader);
         bool underconstruct = reader.ReadBoolean();
         float constructTime = reader.ReadSingle();
         Building ret=null;
@@ -74,8 +80,6 @@ public class Building : Entity {
                 ret = Worksite.Load(reader);
                 break;
         }
-        
-        ret.Location= TriIsleland.Instance.grid.GetCell(coord);
         ret.EntranceDirection = entDir;
         ret.type = type;
         ret.UnderConstruct = underconstruct;
@@ -94,7 +98,7 @@ public class Building : Entity {
     
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        Property.Instance.Bind(this);
+        EntityMenu.Instance.Bind(this);
         
     }
     public void AddWorker(Person p) {

@@ -6,7 +6,9 @@ public class Person : Unit {
     public Building company;
     public Building building;
     public Entity work;
-    
+    private void Start() {
+        Inventory.Size = 5;
+    }
     public override void ChangeHomeInternal (){
         ((ChangeHomeCommand)nowWork).target.AddPerson(this);
         home = ((ChangeHomeCommand)nowWork).target;

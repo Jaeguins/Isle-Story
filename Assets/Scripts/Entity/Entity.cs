@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 [Serializable]
-public class Entity : MonoBehaviour {
+public abstract class Entity : MonoBehaviour {
     public GameObject SelectionIndicator;
     public SizeType sizeType;
     public List<Unit> insider;
@@ -38,12 +38,19 @@ public class Entity : MonoBehaviour {
     public virtual void BindOptions(CommandPanel menu) {
         menu.BindButton(0, "Status", menu.UnitStatus);
     }
+
+    /*
+     * save sequence
+     * location
+     */
+
     public virtual void Save(BinaryWriter writer) {
         if (location)
             location.coordinates.Save(writer);
         else
             new TriCoordinates(-1, -1).Save(writer);
     }
+
 
     public void ValidateLocation() {
         transform.localPosition = location.Position;

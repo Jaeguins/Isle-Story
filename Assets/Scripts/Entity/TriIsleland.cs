@@ -8,6 +8,7 @@ public class TriIsleland : MonoBehaviour {
     public List<Unit> unitPrefabs;
     public List<Natural> naturalPrefabs;
     public List<Worksite> worksitePrefabs;
+    public List<Company> companyPrefabs;
     public EntityManager entities;
     public static TriIsleland Instance;
     string isleName = "test";

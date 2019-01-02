@@ -1,16 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
-public class Inventory: MonoBehaviour {
+public class Inventory{
     public ItemSlot[] Slots;
     public bool refreshed;
-    public int size;
-    public Inventory(int size) {
+    public int Size {
+        get {
+            return size;
+        }
+        set {
+            if (resize(value))
+                size = value;
+            else
+                Debug.LogWarning("item slot can't be resized");
+        }
+    }
+    int size;
+    public bool resize(int value) {
+        ItemSlot[] prevSlot = Slots;
+        Slots = new ItemSlot[value];
+        //TODO complete method
+    }
+    public Inventory(int size = 0) {
         this.size = size;
         Slots = new ItemSlot[size];
         for(int i=0;i<size;i++) {
             Slots[i] = new ItemSlot();
         }
-        
+        refreshed = true;
+    }
+
+    public void Save(BinaryWriter writer) {
+        writer.Write(size);
+        for(int i = 0; i < size; i++) {
+            Slots[i].Save(writer);
+        }
+    }
+
+    public static Inventory Load(BinaryReader reader) {
+        int tSize = reader.ReadInt32();
+        Inventory ret = new Inventory(tSize);
+        for(int i = 0; i < tSize; i++) {
+            ret.Slots[i].Load(reader);
+        }
+        return ret;
     }
 }

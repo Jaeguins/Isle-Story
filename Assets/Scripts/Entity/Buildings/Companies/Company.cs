@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 public enum CompType {
-
+    WAREHOUSE
 }
 public class Company : Building{
     public List<Person> Officers;
@@ -26,7 +26,9 @@ public class Company : Building{
         int capacity = reader.ReadInt32();
         Company ret = null;
         switch (subType) {
-
+            case CompType.WAREHOUSE:
+                ret = WareHouse.Load(reader);
+                break;
         }
         ret.subType = subType;
         ret.Capacity = capacity;

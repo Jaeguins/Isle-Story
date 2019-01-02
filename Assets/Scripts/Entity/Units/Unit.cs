@@ -7,6 +7,7 @@ public enum UnitType {
     PERSON
 }
 public class Unit : Entity {
+    public Inventory Inventory=new Inventory();
     public SkinnedMeshRenderer mesh;
     public Building buildingPos;
     public UnitType type;
@@ -50,7 +51,7 @@ public class Unit : Entity {
                 commandQueue.Enqueue(c);
                 break;
         }
-        
+
     }
     private void OnEnable() {
         StartCoroutine(Act());
@@ -66,12 +67,12 @@ public class Unit : Entity {
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {
-            
+
             inst.FindPath(Location, target);
             if (inst.HasPath) {
                 pathToTravel = inst.GetPath();
                 CancelNowAct();
-                nowRoutine= StartCoroutine(TravelPath());
+                nowRoutine = StartCoroutine(TravelPath());
                 yield return nowRoutine;
                 inst.ClearPath();
             }
@@ -133,7 +134,7 @@ public class Unit : Entity {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
                 Debug.Log(nowWork);
-                
+
                 switch (nowWork.type) {
                     case CommandType.MOVE:
                         Move();
@@ -167,7 +168,7 @@ public class Unit : Entity {
                         break;
                 }
             }
-            yield return new WaitUntil(()=>!acting);
+            yield return new WaitUntil(() => !acting);
         }
     }
 
@@ -220,7 +221,15 @@ public class Unit : Entity {
         }
         acting = false;
     }
-    
+    /*
+     * save sequence
+     * superclassed saves
+     * >type
+     * >orientation
+     * >act status
+     * >act queue
+     * >inventory
+     */
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
@@ -231,6 +240,7 @@ public class Unit : Entity {
             nowWork.Save(writer);
             foreach (Command c in commandQueue) c.Save(writer);
         }
+        Inventory.Save(writer);
     }
     public static Unit Load(BinaryReader reader) {
         UnitType type = (UnitType)reader.ReadInt32();
@@ -239,8 +249,8 @@ public class Unit : Entity {
         List<Command> tCommand = ListPool<Command>.Get();
         if (acting) {
             int count = reader.ReadInt32();
-            for (int i=0;i<count;i++)
-            tCommand.Add(Command.Load(reader));
+            for (int i = 0; i < count; i++)
+                tCommand.Add(Command.Load(reader));
         }
         Unit ret = null;
         switch (type) {
@@ -256,10 +266,11 @@ public class Unit : Entity {
                     ret.AddCommand(i);
                     Debug.Log(ret.commandQueue.Count);
                 }
-                    
+            ret.Inventory = Inventory.Load(reader);
         }
         tCommand.Clear();
         ListPool<Command>.Add(tCommand);
+
         return ret;
     }
 }
