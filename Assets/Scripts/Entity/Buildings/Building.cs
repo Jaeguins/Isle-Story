@@ -12,7 +12,7 @@ public enum SizeType {
     SINGLE,HEX
 }
 public class Building : Entity {
-    public Inventory InputBuffer, OutputBuffer;
+    public Inventory InputBuffer = new Inventory(), OutputBuffer=new Inventory();
     public bool UnderConstruct = true;
     public float ConstructTime=9999f;
     public BuildingType type;
@@ -80,7 +80,7 @@ public class Building : Entity {
                 ret = Worksite.Load(reader);
                 break;
         }
-        ret.EntranceDirection = entDir;
+        ret.entranceDirection = entDir;
         ret.type = type;
         ret.UnderConstruct = underconstruct;
         ret.ConstructTime = constructTime;
@@ -98,7 +98,7 @@ public class Building : Entity {
     
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        EntityMenu.Instance.Bind(this);
+        EntityMenu.Instance.BindBuilding(this);
         
     }
     public void AddWorker(Person p) {

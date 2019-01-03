@@ -45,7 +45,6 @@ public class EntityManager : MonoBehaviour {
             writer.Write(naturals.Count);
             k = 0;
             foreach (KeyValuePair<int, Natural> b in naturals) {
-                writer.Write(k++);
                 switch (b.Value.type) {
                     case NaturalType.TREE:
                         ((Tree)b.Value).Save(writer);
@@ -59,7 +58,6 @@ public class EntityManager : MonoBehaviour {
             writer.Write(buildings.Count);
             k = 0;
             foreach (KeyValuePair<int, Building> b in buildings) {
-                writer.Write(k++);
                 switch (b.Value.type) {
                     case BuildingType.INN:
                         switch (((Inn)b.Value).subType) {
@@ -71,6 +69,20 @@ public class EntityManager : MonoBehaviour {
                                 break;
                         }
                         break;
+                    case BuildingType.COMPANY:
+                        switch (((Company)b.Value).subType) {
+                            case CompType.WAREHOUSE:
+                                ((WareHouse)b.Value).Save(writer);
+                                break;
+                        }
+                        break;
+                    case BuildingType.WORKSITE:
+                        switch (((Worksite)b.Value).subType) {
+                            case WorkType.FARMLAND:
+                                ((Farmland)b.Value).Save(writer);
+                                break;
+                        }
+                        break;
                 }
             }
         }
@@ -79,7 +91,6 @@ public class EntityManager : MonoBehaviour {
             writer.Write(units.Count);
             k = 0;
             foreach (KeyValuePair<int, Unit> b in units) {
-                writer.Write(k++);
                 switch (b.Value.type) {
                     case UnitType.PERSON:
                         ((Person)b.Value).Save(writer);
@@ -106,11 +117,10 @@ public class EntityManager : MonoBehaviour {
             if (header <= 0) {
                 int counter = reader.ReadInt32();
                 for (int i = 0; i < counter; i++) {
-                    int id = reader.ReadInt32();
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Natural loaded = Natural.Load(reader);
                     if (loaded) {
-                        loaded.ID = id;
+                        loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
                         loaded.transform.parent = NaturalGroup;
                         AddNatural(loaded);
@@ -127,12 +137,12 @@ public class EntityManager : MonoBehaviour {
             if (header <= 0) {
                 int counter = reader.ReadInt32();
                 for (int i = 0; i < counter; i++) {
-                    int id = reader.ReadInt32();
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Building loaded = Building.Load(reader);
                     if (loaded) {
-                        loaded.ID = id;
+                        loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
+                        loaded.EntranceDirection = loaded.EntranceDirection;
                         loaded.Location.Entity = loaded;
                         loaded.transform.parent = BuildingGroup;
                         AddBuilding(loaded);
@@ -148,11 +158,10 @@ public class EntityManager : MonoBehaviour {
             if (header <= 0) {
                 int counter = reader.ReadInt32();
                 for (int i = 0; i < counter; i++) {
-                    int id = reader.ReadInt32();
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Unit loaded = Unit.Load(reader);
                     if (loaded) {
-                        loaded.ID = id;
+                        loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
                         if (grid.GetCell(coord).Entity) {
                             loaded.GetIn((Building)grid.GetCell(coord).Entity);

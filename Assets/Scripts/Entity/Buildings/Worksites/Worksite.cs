@@ -25,7 +25,9 @@ public class Worksite : Building{
         int capacity = reader.ReadInt32();
         Worksite ret = null;
         switch (subType) {
-
+            case WorkType.FARMLAND:
+                ret = Farmland.Load(reader);
+                break;
         }
         ret.subType = subType;
         ret.Capacity = capacity;

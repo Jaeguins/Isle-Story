@@ -11,7 +11,7 @@ public class ItemSlotView : MonoBehaviour {
 
     public void Bind(ItemSlot target,int count) {
         Target = target;
-        if (Target!=null) {
+        if (Target.Content) {
             numIndicator.text = Target.Quantity.ToString();
             icon.sprite = InventoryViewer.Instance.Sprites[Target.Content.Id];
         }
@@ -19,6 +19,6 @@ public class ItemSlotView : MonoBehaviour {
             numIndicator.text = "";
         }
         RectTransform rect = gameObject.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector3(count%colSize*40+20,count/colSize*-40-20, 0);
+        rect.anchoredPosition = new Vector3(count%colSize*40+20,count/colSize*-40-40, 0);
     }
 }

@@ -61,4 +61,10 @@ public struct TriCoordinates {
     public static bool operator !=(TriCoordinates A, TriCoordinates B) {
         return !(A == B);
     }
+    public override bool Equals(object t) {
+        return base.Equals(t);
+    }
+    public override int GetHashCode() {
+        return base.GetHashCode();
+    }
 }

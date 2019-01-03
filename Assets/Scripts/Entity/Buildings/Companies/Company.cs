@@ -43,6 +43,4 @@ public class Company : Building{
     public void ShowOfficers() {
         personList.Bind(this, Officers);
     }
-    private void LateUpdate() {
-    }
 }

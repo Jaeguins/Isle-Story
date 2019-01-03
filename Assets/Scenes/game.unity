@@ -2582,6 +2582,7 @@ MonoBehaviour:
   - {fileID: 114573818711795104, guid: f6f6fa96dc8938544a49859a827bb472, type: 3}
   worksitePrefabs:
   - {fileID: 7137245774434150864, guid: 4361f4d769c6f8e4e98cb9d504a67077, type: 3}
+  companyPrefabs: []
   entities: {fileID: 124839682}
   grid: {fileID: 143506541}
 --- !u!1 &680879748
@@ -3703,6 +3704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c220b8c0403f348b80fde4320dcdb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryViewer: {fileID: 1983069000}
   Target: {fileID: 0}
   nameText: {fileID: 1989492584}
   typeText: {fileID: 490406622}
@@ -6233,7 +6235,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0ed5cf9bd5bf262408fa3def65522ff6, type: 3}
   - {fileID: 0}
   TargetEntity: {fileID: 0}
-  Target: {fileID: 0}
   SlotGroup: {fileID: 1628608809}
   SlotPrefab: {fileID: 1834253699365088578, guid: 2383afeb03ee7d84180549bc982d2e69,
     type: 3}

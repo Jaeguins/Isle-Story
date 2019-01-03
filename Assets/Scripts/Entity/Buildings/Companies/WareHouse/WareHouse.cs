@@ -25,6 +25,4 @@ public class WareHouse : Company{
         if (Officers.Count > 0)
             menu.BindButton(1, "Officers", ShowOfficers);
     }
-    private void LateUpdate() {
-    }
 }

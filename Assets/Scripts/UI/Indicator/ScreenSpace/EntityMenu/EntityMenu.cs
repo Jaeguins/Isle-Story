@@ -6,6 +6,7 @@ using System.Collections;
 public class EntityMenu : MonoBehaviour {
     public static EntityMenu Instance;
     public static string NaN = "NaN";
+    public InventoryViewer inventoryViewer;
     public Entity Target;
     private void Awake() {
         Instance = this;
@@ -13,7 +14,15 @@ public class EntityMenu : MonoBehaviour {
     }
     public Text nameText, typeText;
     public CommandPanel commandPanel;
-    public void Bind(Entity target) {
+    public void BindUnit(Unit unit) {
+        BindStart(unit);
+        inventoryViewer.Bind(unit);
+    }
+    public void BindBuilding(Building building) {
+        BindStart(building);
+        inventoryViewer.Bind(building,building.InputBuffer);
+    }
+    void BindStart(Entity target) {
         Clear();
         Target = target;
         target.Select();
@@ -21,7 +30,6 @@ public class EntityMenu : MonoBehaviour {
         typeText.text = target.UIType;
         gameObject.SetActive(true);
         commandPanel.Bind(target);
-        //TODO bind others
     }
     public void Clear() {
         if(Target)

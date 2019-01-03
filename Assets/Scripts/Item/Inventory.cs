@@ -20,7 +20,20 @@ public class Inventory{
     public bool resize(int value) {
         ItemSlot[] prevSlot = Slots;
         Slots = new ItemSlot[value];
-        //TODO complete method
+        int count = 0;
+        for(int i = 0; i < size; i++) {
+            if (prevSlot[i].Content) {
+                Slots[count++] = prevSlot[i];
+                if (count == Slots.Length) {
+                    Slots = prevSlot;
+                    return false;
+                }
+            }
+        }
+        for (; count < value; count++) {
+            Slots[count] = new ItemSlot();
+        }
+        return true;
     }
     public Inventory(int size = 0) {
         this.size = size;
