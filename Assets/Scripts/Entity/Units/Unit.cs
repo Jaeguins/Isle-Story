@@ -252,6 +252,7 @@ public class Unit : Entity {
             for (int i = 0; i < count; i++)
                 tCommand.Add(Command.Load(reader));
         }
+        Inventory tInv = Inventory.Load(reader);
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:
@@ -266,7 +267,7 @@ public class Unit : Entity {
                     ret.AddCommand(i);
                     Debug.Log(ret.commandQueue.Count);
                 }
-            ret.Inventory = Inventory.Load(reader);
+            ret.Inventory=tInv;
         }
         tCommand.Clear();
         ListPool<Command>.Add(tCommand);
