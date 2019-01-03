@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class ItemSlotView : MonoBehaviour {
-    static int colSize = 5;
+    public static int ColSize = 5;
     public ItemSlot Target;
     public Image icon;
     public Text numIndicator;
@@ -19,6 +19,6 @@ public class ItemSlotView : MonoBehaviour {
             numIndicator.text = "";
         }
         RectTransform rect = gameObject.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector3(count%colSize*40+20,count/colSize*-40-40, 0);
+        rect.anchoredPosition = new Vector3(count%ColSize*40+20,count/ColSize*-40-20, 0);
     }
 }

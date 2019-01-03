@@ -30,6 +30,7 @@ public class InventoryViewer : MonoBehaviour {
         foreach (ItemSlot t in Target.Slots) {
             AddIndicator(i++, t);
         }
+        SlotGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, i / ItemSlotView.ColSize * 40);
         gameObject.SetActive(true);
     }
     public void Bind(Building targetBuilding, Inventory target) {
@@ -43,6 +44,7 @@ public class InventoryViewer : MonoBehaviour {
             Instantiate(SlotPrefab, transform);
         tRet.Bind(target, count);
         tRet.gameObject.SetActive(true);
+        tRet.transform.parent = SlotGroup.transform;
         Slots.Add(tRet);
     }
 
