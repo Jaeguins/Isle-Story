@@ -17,7 +17,7 @@ public class Building : Entity {
     public float ConstructTime=9999f;
     public BuildingType type;
     public PersonList personList;
-    public List<Person> Workers;
+    public List<Person> Insider;
     public GameObject ConstructionIndicator,Model;
     TriDirection entranceDirection;
     public TriCell EntranceLocation {
@@ -89,11 +89,11 @@ public class Building : Entity {
     
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
-        if (UnderConstruct&&Workers.Count > 0) { }
+        if (UnderConstruct&&Insider.Count > 0) { }
             menu.BindButton(1, "workers", BindWorkers);
     }
     public void BindWorkers() {
-        personList.Bind(this, Workers);
+        personList.Bind(this, Insider);
     }
     
     private void OnMouseDown() {
@@ -101,28 +101,28 @@ public class Building : Entity {
         EntityMenu.Instance.BindBuilding(this);
         
     }
-    public void AddWorker(Person p) {
-        Workers.Add(p);
+    public void AddInsider(Person p) {
+        Insider.Add(p);
     }
     public void RemoveWorker(Person p) {
-        Workers.Remove(p);
+        Insider.Remove(p);
     }
     public virtual void CheckConstruction() {
         if (ConstructTime < 0) {
             UnderConstruct = false;
-            for(int i = 0; i < Workers.Count; i++) {
-                Workers[i].AddCommand(new ChangeWorkCommand(null));
-                if (Workers[i].company)
-                    Workers[i].AddCommand(new GoJobCommand());
+            for(int i = 0; i < Insider.Count; i++) {
+                Insider[i].AddCommand(new ChangeWorkCommand(null));
+                if (Insider[i].Company)
+                    Insider[i].AddCommand(new GoJobCommand());
                 else
-                    Workers[i].AddCommand(new GoHomeCommand());
+                    Insider[i].AddCommand(new GoHomeCommand());
             }
-            Workers.Clear();
+            Insider.Clear();
             ConstructionIndicator.SetActive(false);
             Model.SetActive(true);
         }
         else
-            ConstructTime -= Time.deltaTime*Workers.Count;
+            ConstructTime -= Time.deltaTime*Insider.Count;
     }
     public virtual void DailyCycle() {
 

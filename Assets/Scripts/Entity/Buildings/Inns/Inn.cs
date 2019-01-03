@@ -17,10 +17,10 @@ public class Inn : Building {
         writer.Write((int)subType);
         writer.Write(Capacity);
     }
-    public void AddPerson(Person p) {
+    public void AddLiver(Person p) {
         Livers.Add(p);
     }
-    public void RemovePerson(Person p) {
+    public void RemoveLiver(Person p) {
         Livers.Remove(p);
     }
     public new static Inn Load(BinaryReader reader) {

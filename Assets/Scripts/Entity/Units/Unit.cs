@@ -84,17 +84,12 @@ public class Unit : Entity {
     }
 
     public void GetIn() {
-        Building target = ((GetInCommand)nowWork).target;
-        buildingPos = target;
-        target.insider.Add(this);
-        Location = target.Location;
-        SetVisible(false);
+        GetIn(((GetInCommand)nowWork).target);
     }
     public void GetIn(Building target) {
         buildingPos = target;
-        target.insider.Add(this);
+        target.AddInsider((Person)this);
         Location = target.Location;
-        SetVisible(false);
     }
     public void GetOut() {
         if (!buildingPos) return;
@@ -201,7 +196,7 @@ public class Unit : Entity {
             p.y = b.y;
             Location = pathToTravel[pathToTravel.Count - 1];
             transform.localPosition = p;
-            Vector3 d = Bezier.GetDerivative(a, b, c, t);
+            Vector3 d = Bezier.GetPoint(a, b, c, t);
             d.y = 0f;
             transform.localRotation = Quaternion.LookRotation(d);
             yield return null;

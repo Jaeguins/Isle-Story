@@ -129,7 +129,7 @@ public class EntityManager : MonoBehaviour {
                 }
             }
             else {
-                Debug.LogWarning("Unknown building format " + header);
+                Debug.LogWarning("Unknown naturals format " + header);
             }
         }
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "building.dat")))) {

@@ -152,8 +152,8 @@ public class TriMapEditor : MonoBehaviour {
         if(ret)
             for (int i = 0; i < 4; i++) {
                 Unit t = CreateUnit(cell, isleland.unitPrefabs[0]);
-                ret.AddPerson((Person)t);
-                ((Person)t).home = ret;
+                ret.AddLiver((Person)t);
+                ((Person)t).Home = ret;
             }
     }
     public Unit CreateUnit(TriCell cell,Unit prefab) {

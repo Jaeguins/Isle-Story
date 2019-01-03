@@ -15,10 +15,10 @@ public class Company : Building{
         writer.Write((int)subType);
         writer.Write(Capacity);
     }
-    public void AddPerson(Person p) {
+    public void AddOfficer(Person p) {
         Officers.Add(p);
     }
-    public void RemovePerson(Person p) {
+    public void RemoveAddOfficer(Person p) {
         Officers.Remove(p);
     }
     public new static Company Load(BinaryReader reader) {

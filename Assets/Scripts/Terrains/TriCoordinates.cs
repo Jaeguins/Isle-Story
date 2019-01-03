@@ -20,7 +20,7 @@ public struct TriCoordinates {
         this.z = z;
     }
     public int DistanceTo(TriCoordinates other) {
-        return ((x<other.x)?(other.x-x):(x-other.x))+
+        return 2*((x<other.x)?(other.x-x):(x-other.x))+
                ((z<other.z)?(other.z-z):(z-other.z));
     }
     public void Save(BinaryWriter writer) {

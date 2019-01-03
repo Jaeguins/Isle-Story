@@ -15,10 +15,10 @@ public class Worksite : Building{
         writer.Write(Capacity);
     }
     public void AddPerson(Person p) {
-        Workers.Add(p);
+        Insider.Add(p);
     }
     public void RemovePerson(Person p) {
-        Workers.Remove(p);
+        Insider.Remove(p);
     }
     public new static Worksite Load(BinaryReader reader) {
         WorkType subType = (WorkType)reader.ReadInt32();
@@ -36,10 +36,10 @@ public class Worksite : Building{
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         if (UnderConstruct) return;
-        if (Workers.Count > 0)
+        if (Insider.Count > 0)
             menu.BindButton(1, "Workers", ShowWorkers);
     }
     public void ShowWorkers() {
-        personList.Bind(this, Workers);
+        personList.Bind(this, Insider);
     }
 }

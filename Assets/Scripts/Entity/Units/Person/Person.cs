@@ -2,24 +2,52 @@
 using System.Collections;
 using System.IO;
 public class Person : Unit {
-    public Inn home;
-    public Building company;
-    public Building building;
+    public Inn Home {
+        get {
+            return home;
+        }
+        set {
+            value.AddLiver(this);
+            home = value;
+        }
+    }
+    Inn home;
+    public Company Company {
+        get {
+            return company;
+        }
+        set {
+            value.AddOfficer(this);
+            company = value;
+        }
+    }
+    Company company;
+    public Building Building {
+        get {
+            return building;
+        }
+        set {
+            building = value;
+            value.AddInsider(this);
+        }
+    }
+    Building building;
     public Entity work;
     private void Start() {
         Inventory.Size = 25;
     }
+
     public override void ChangeHomeInternal (){
-        ((ChangeHomeCommand)nowWork).target.AddPerson(this);
-        home = ((ChangeHomeCommand)nowWork).target;
+        ((ChangeHomeCommand)nowWork).target.AddLiver(this);
+        Home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home");
     }
 
     public override void GoHome() {
         CancelAllAct();
-        if (home) {
-            AddCommand(new MoveCommand(home.EntranceLocation));
-            AddCommand(new GetInCommand(home));
+        if (Home) {
+            AddCommand(new MoveCommand(Home.EntranceLocation));
+            AddCommand(new GetInCommand(Home));
         }
         else {
             AddCommand(new GetInCommand(TriIsleland.Instance.entities.GetCamp()));
@@ -28,9 +56,9 @@ public class Person : Unit {
     
     public override void GoJob() {
         CancelAllAct();
-        if (company) {
-            AddCommand(new MoveCommand(company.EntranceLocation));
-            AddCommand(new GetInCommand(company));
+        if (Company) {
+            AddCommand(new MoveCommand(Company.EntranceLocation));
+            AddCommand(new GetInCommand(Company));
         }
         else GoHome();
         
@@ -38,18 +66,18 @@ public class Person : Unit {
 
     public override void GoWork() {
         CancelAllAct();
-        AddCommand(new MoveCommand(company.EntranceLocation));
-        AddCommand(new GetInCommand(company));
+        AddCommand(new MoveCommand(Company.EntranceLocation));
+        AddCommand(new GetInCommand(Company));
     }
 
 
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
-        if (home)
-            home.Location.coordinates.Save(writer);
+        if (Home)
+            Home.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
-        if (company)
-            company.Location.coordinates.Save(writer);
+        if (Company)
+            Company.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
         if (work)
             work.Location.coordinates.Save(writer);
@@ -60,11 +88,11 @@ public class Person : Unit {
         Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.home = (Inn)tLoc.Entity;
+            ret.Home = (Inn)tLoc.Entity;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.company= (Company)tLoc.Entity;
+            ret.Company= (Company)tLoc.Entity;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
@@ -76,10 +104,10 @@ public class Person : Unit {
         BuildCommand c = (BuildCommand)nowWork;
         Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
-        t.AddWorker(this);
+        t.AddInsider(this);
     }
     public override void ChangeJobInternal() {
-        company = ((ChangeJobCommand)nowWork).target;
+        Company = ((ChangeJobCommand)nowWork).target;
         Debug.Log("Change Job");
     }
     public override void ChangeWorkInternal() {

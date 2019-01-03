@@ -14,17 +14,21 @@ public class TriIsleland : MonoBehaviour {
     string isleName = "test";
     int version = 0;
     public TriGrid grid;
-    void Awake() {  
+    void Awake() {
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/" + isleName);
         if (di.Exists == false) {
             di.Create();
 
         }
         Instance = this;
-       
+
     }
     public void Save() {//TODO Saving function
         string path = Path.Combine(Application.persistentDataPath, isleName);
+        using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "world.dat"), FileMode.Create))) {
+            writer.Write(0);
+            writer.Write(Clock.Instance.currentTimeOfDay);
+        }
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "map.dat"), FileMode.Create))) {
             writer.Write(2);
             grid.Save(writer);
@@ -34,6 +38,12 @@ public class TriIsleland : MonoBehaviour {
 
     public void Load() {//TODO Load function
         string path = Path.Combine(Application.persistentDataPath, isleName);
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "world.dat")))) {
+            int header=reader.ReadInt32();
+            if (header <= 0) {
+                Clock.Instance.currentTimeOfDay = reader.ReadSingle();
+            }
+        }
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "map.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 2) {
@@ -46,5 +56,5 @@ public class TriIsleland : MonoBehaviour {
         }
         entities.Load(path);
     }
-    
+
 }
