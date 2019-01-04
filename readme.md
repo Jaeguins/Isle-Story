@@ -5,13 +5,20 @@
 
 ### Progress:
 
-<div text-align=left>
-	<div width=15% border=1px display=inline-block>
-	<div>terrain</div>
-	</div>
-	<div width=80% border=1px display=inline-block>
-	<div width=100% border=1px text-align=right background-color=#0000ff>100%</div>
-	</div>
+<style type="text/css">
+	div{padding:1px;border:2px solid;}
+	.dividerLeft{width:15%;}
+	.dividerRight{width:80%;}
+	.tooltip{}
+	.graph{background-color:#80ff80;font:12pt;}
+</style>
+<div>
+<div class="dividerLeft">
+<div class="tooltip">terrain</div>
+</div>
+<div class="dividerRight">
+<div class="graph" width=80%>80%</div>
+</div>
 </div>
 
 test
