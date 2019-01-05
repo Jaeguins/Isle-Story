@@ -20,7 +20,7 @@ public class EntityMenu : MonoBehaviour {
     }
     public void BindBuilding(Building building) {
         BindStart(building);
-        inventoryViewer.Bind(building,building.InputBuffer);
+        inventoryViewer.Bind(building);
     }
     void BindStart(Entity target) {
         Clear();

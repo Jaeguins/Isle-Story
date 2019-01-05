@@ -10,7 +10,6 @@ public class InventoryViewer : MonoBehaviour {
     public ItemSlotView SlotPrefab;
     public List<ItemSlotView> Slots;
     public Queue<ItemSlotView> slotPool;
-    bool isUnit = false;
     private void Awake() {
         Instance = this;
         Slots = new List<ItemSlotView>();
@@ -20,9 +19,9 @@ public class InventoryViewer : MonoBehaviour {
     public void Start() {
         gameObject.SetActive(false);
     }
-    public void Bind(Unit targetUnit) {
-        TargetEntity = targetUnit;
-        Target = targetUnit.Inventory;
+    public void Bind(Entity target) {
+        TargetEntity = target;
+        Target = target.Inventory;
         BindInternal();
     }
     void BindInternal() {
@@ -32,11 +31,6 @@ public class InventoryViewer : MonoBehaviour {
         }
         SlotGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, i / ItemSlotView.ColSize * 40);
         gameObject.SetActive(true);
-    }
-    public void Bind(Building targetBuilding, Inventory target) {
-        TargetEntity = targetBuilding;
-        Target = target;
-        BindInternal();
     }
     public void AddIndicator(int count, ItemSlot target) {
         ItemSlotView tRet = slotPool.Count > 0 ?

@@ -59,4 +59,28 @@ public class Inventory{
         }
         return ret;
     }
+    public bool SendItem(int itemCode,int num) {
+        ItemSlot tSlot = new ItemSlot {
+            Content = new Item(itemCode),
+            Quantity = num
+        };
+        bool ret = false;
+        int i = 0;
+        while(i<size&&!ret)
+            ret =Slots[i].Add(tSlot);
+        if (!ret) RequestItem(itemCode, num - tSlot.Quantity);
+        return ret;
+    }
+    public bool RequestItem(int itemCode,int num) {
+        ItemSlot tSlot = new ItemSlot {
+            Content = new Item(itemCode),
+            Quantity = num
+        };
+        bool ret = false;
+        int i = 0;
+        while (i < size && !ret)
+            ret = Slots[i].Request(tSlot);
+        if (!ret) SendItem(itemCode, tSlot.Quantity);
+        return ret;
+    }
 }

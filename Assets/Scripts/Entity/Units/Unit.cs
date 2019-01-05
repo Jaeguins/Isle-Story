@@ -7,7 +7,6 @@ public enum UnitType {
     PERSON
 }
 public class Unit : Entity {
-    public Inventory Inventory=new Inventory();
     public SkinnedMeshRenderer mesh;
     public Building buildingPos;
     public UnitType type;

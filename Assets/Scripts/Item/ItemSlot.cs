@@ -37,6 +37,7 @@ public class ItemSlot {
     public bool Add(ItemSlot target) {
         if (!Content) {
             Content = target.Content;
+            Quantity = target.Quantity;
             return true;
         }
         if (!CheckItem(target.Content.Id))
@@ -50,21 +51,16 @@ public class ItemSlot {
         return true;
     }
 
-    public ItemSlot Divide(ItemSlot target, int quantity) {
-        ItemSlot ret = new ItemSlot();
-        if (Quantity <= quantity) {
-            ret.Content = Content;
-            ret.Quantity = Quantity;
-            Clear();
+    public bool Request(ItemSlot target) {
+        if (!Content) return false;
+        if (!CheckItem(target.Content.Id)) return false;
+        if (Quantity < target.Quantity) {
+            target.Quantity -= Quantity;
+            return false;
         }
-        else {
-
-            ret.Content = Content;
-            ret.Quantity = quantity;
-            Quantity -= quantity;
-            return ret;
-        }
-        return ret;
+        Quantity -= target.Quantity;
+        if (Quantity == 0) Clear();
+        return true;
     }
 
     public void Load(BinaryReader reader) {

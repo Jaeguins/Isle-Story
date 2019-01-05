@@ -12,7 +12,6 @@ public enum SizeType {
     SINGLE,HEX
 }
 public class Building : Entity {
-    public Inventory InputBuffer = new Inventory(), OutputBuffer=new Inventory();
     public bool UnderConstruct = true;
     public float ConstructTime=9999f;
     public BuildingType type;
