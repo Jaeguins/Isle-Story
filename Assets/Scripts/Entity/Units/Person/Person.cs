@@ -23,6 +23,8 @@ public class Person : Unit {
     }
     public Company company;
     public Entity work;
+    public bool needAttend = false;
+    public bool needGoWork = false;
     public override void Start() {
         base.Start();
         Inventory.Size = 25;
@@ -130,6 +132,6 @@ public class Person : Unit {
         Selector.Instance.RequestTarget(this, new ChangeWorkCommand(null));
     }
     public override void Tick() {
-        Debug.Log(ToString() + GetInstanceID() + " : Start");
+        base.Tick();
     }
 }

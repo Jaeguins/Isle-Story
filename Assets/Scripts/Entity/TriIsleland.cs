@@ -27,7 +27,7 @@ public class TriIsleland : MonoBehaviour {
         string path = Path.Combine(Application.persistentDataPath, isleName);
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "world.dat"), FileMode.Create))) {
             writer.Write(0);
-            writer.Write(Clock.Instance.currentTimeOfDay);
+            writer.Write(Clock.GetTime());
         }
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "map.dat"), FileMode.Create))) {
             writer.Write(2);

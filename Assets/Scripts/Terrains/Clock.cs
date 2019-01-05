@@ -10,7 +10,7 @@ public class Clock : MonoBehaviour {
     public float currentTimeOfDay = 0;
     public float timeMultiplier = 1f;
     float intensityMultiplier = 1;
-    public bool IsDay = false;
+    public bool isDay = false;
     public bool Updator = true;
     float sunInitialIntensity;
     float nightLength = 0.1f;
@@ -19,6 +19,9 @@ public class Clock : MonoBehaviour {
     }
     public static float GetTime() {
         return Instance.currentTimeOfDay;
+    }
+    public static bool IsDay() {
+        return Instance.isDay;
     }
     void Start() {
         sunInitialIntensity = sun.intensity;
@@ -42,15 +45,15 @@ public class Clock : MonoBehaviour {
         sun.transform.localRotation = Quaternion.Euler((currentTimeOfDay * 360f) - 90, 170, 0);
         
         if (currentTimeOfDay <= nightLength || currentTimeOfDay >= 1 - nightLength) {
-            IsDay = false;
+            isDay = false;
             intensityMultiplier = 0;
         }
         else if (currentTimeOfDay <= nightLength + 0.02f) {
-            IsDay = true;
+            isDay = true;
             intensityMultiplier = Mathf.Clamp01((currentTimeOfDay - nightLength) * (1 / 0.02f));
         }
         else if (currentTimeOfDay >= 0.98f - nightLength) {
-            IsDay = true;
+            isDay = true;
             intensityMultiplier = Mathf.Clamp01(1 - ((currentTimeOfDay - 0.98f + nightLength) * (1 / 0.02f)));
         }
 
