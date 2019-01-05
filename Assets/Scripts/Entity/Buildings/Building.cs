@@ -121,15 +121,9 @@ public class Building : Entity {
         else
             ConstructTime -= Time.deltaTime*Insider.Count;
     }
-    public virtual void DailyCycle() {
-
-    }
     public void LateUpdate() {
         if (UnderConstruct) {
             CheckConstruction();
-        }
-        else {
-            DailyCycle();
         }
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 public class Tent : Inn {
-    private void Start() {
+    public override void Start() {
+        base.Start();
         camAnchorOffset = Vector3.zero;
     }
     public override void Save(BinaryWriter writer) {

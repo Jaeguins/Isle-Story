@@ -9,7 +9,8 @@ public class WareHouse : Company {
      * supperclassed saves
      * >inventory
      */
-    public void Start() {
+    public override void Start() {
+        base.Start();
         Inventory.Size=25;
     }
     public override void Save(BinaryWriter writer) {

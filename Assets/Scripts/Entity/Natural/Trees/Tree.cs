@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 public class Tree : Natural{
-    public void Start() {
+    public override void Start() {
+        base.Start();
         UIName = "tree";
         sizeType = SizeType.SINGLE;
     }

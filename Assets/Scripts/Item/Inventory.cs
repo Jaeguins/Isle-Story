@@ -84,4 +84,11 @@ public class Inventory{
         if (!ret) SendItem(itemCode, tSlot.Quantity);
         return ret;
     }
+    public bool CheckItem(int flag,int num) {
+        for(int i = 0; i < size; i++) {
+            if (Slots[i].CheckFlag(flag) && num <= Slots[i].Quantity)
+                return true;
+        }
+        return false;
+    }
 }

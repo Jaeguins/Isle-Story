@@ -12,6 +12,9 @@ public class ItemSlot {
     public bool CheckItem(int targetId) {
         return targetId == Content.Id ? true : false;
     }
+    public bool CheckFlag(int flag) {
+        return ((flag & (int)Content.flag) == flag) ? true : false;
+    }
     public void Save(BinaryWriter writer) {
         if (Quantity != 0) {
             writer.Write(Content.Id);

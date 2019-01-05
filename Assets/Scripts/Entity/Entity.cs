@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using System;
 [Serializable]
@@ -9,6 +9,9 @@ public abstract class Entity : MonoBehaviour {
     public Inventory Inventory = new Inventory();
     public string UIType;
     public string UIName;
+    public virtual void Start() {
+        StartCoroutine(InternalCoroutine());
+    }
     public int ID {
         get {
             return id;
@@ -89,5 +92,14 @@ public abstract class Entity : MonoBehaviour {
 
     public virtual void Deselect() {
         SelectionIndicator.SetActive(false);
+    }
+    public IEnumerator InternalCoroutine() {
+        while (true) {
+            Tick();
+            yield return new WaitForSeconds(1);
+        }
+    }
+    public virtual void Tick() {
+        
     }
 }
