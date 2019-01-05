@@ -4,7 +4,7 @@ using System.IO;
 public class ItemSlot {
     public Item Content;
     public int Quantity;
-
+    public bool refreshed = true;
     public ItemSlot() {
         Clear();
     }
@@ -13,31 +13,21 @@ public class ItemSlot {
         return targetId == Content.Id ? true : false;
     }
     public void Save(BinaryWriter writer) {
-        writer.Write(Quantity);
         if (Quantity != 0) {
             writer.Write(Content.Id);
         }
+        writer.Write(Quantity);
     }
     public void Clear() {
         Content = null;
         Quantity = 0;
-    }
-    public int ChangeQuantity(int value) {
-        if (!Content) return -1;
-        if (Quantity + value < Content.stackSize) {
-            Quantity += value;
-            return 0;
-        }
-        else {
-            value -= Content.stackSize - Quantity;
-            Quantity = Content.stackSize;
-            return value;
-        }
+        refreshed = true;
     }
     public bool Add(ItemSlot target) {
         if (!Content) {
             Content = target.Content;
             Quantity = target.Quantity;
+            refreshed = true;
             return true;
         }
         if (!CheckItem(target.Content.Id))
@@ -45,9 +35,11 @@ public class ItemSlot {
         if (Content.stackSize < Quantity + target.Quantity) {
             Quantity = Content.stackSize;
             target.Quantity += (Quantity - Content.stackSize);
+            refreshed = true;
             return false;
         }
         Quantity += target.Quantity;
+        refreshed = true;
         return true;
     }
 
@@ -56,17 +48,20 @@ public class ItemSlot {
         if (!CheckItem(target.Content.Id)) return false;
         if (Quantity < target.Quantity) {
             target.Quantity -= Quantity;
+            refreshed = true;
             return false;
         }
         Quantity -= target.Quantity;
+        refreshed = true;
         if (Quantity == 0) Clear();
         return true;
     }
 
     public void Load(BinaryReader reader) {
-        Quantity = reader.ReadInt32();
         if (Quantity != 0) {
             Content = new Item(reader.ReadInt32());
         }
+        Quantity = reader.ReadInt32();
+        refreshed = true;
     }
 }

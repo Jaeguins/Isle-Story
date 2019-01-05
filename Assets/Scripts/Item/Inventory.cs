@@ -33,6 +33,7 @@ public class Inventory{
         for (; count < value; count++) {
             Slots[count] = new ItemSlot();
         }
+        refreshed = true;
         return true;
     }
     public Inventory(int size = 0) {

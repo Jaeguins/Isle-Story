@@ -160,11 +160,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5944666497772209511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73fceae2221afaa4aa9b6e1bd9e44579, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c144a65da50a1746861297f185c4c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 3801891422753886515}
-  numIndicator: {fileID: 3247845173563383255}
+  Index: 0
+  icon: {fileID: 0}
+  numIndicator: {fileID: 0}
 --- !u!1 &6800126411164358844
 GameObject:
   m_ObjectHideFlags: 0

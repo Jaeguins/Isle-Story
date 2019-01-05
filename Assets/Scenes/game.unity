@@ -4865,7 +4865,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 675644045}
   m_Direction: 2
   m_Value: 0.0000004455121
-  m_Size: 0.54333335
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6735,12 +6735,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1983068998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dedea896e5e502e4e899fd0b770cf6e1, type: 3}
+  m_Script: {fileID: 11500000, guid: dd8f304a5fb483e4189471a25c26270c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Sprites:
   - {fileID: 21300000, guid: 0ed5cf9bd5bf262408fa3def65522ff6, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 38232dce51ef20449b3ef601b40960e0, type: 3}
   TargetEntity: {fileID: 0}
   SlotGroup: {fileID: 57576441}
   SlotPrefab: {fileID: 1834253699365088578, guid: 2383afeb03ee7d84180549bc982d2e69,
