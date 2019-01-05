@@ -30,6 +30,9 @@
 
 * [23th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20181223)
 
+### 2019 January
+
+* [05th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190105)
 ***
 ## 2018/11/20
 Project started.
@@ -220,3 +223,12 @@ For now, order command is fine, but have issue in detailed view.
 ... My desktop's mouse wheel is broken.
 
 So zoom input method added with page up/down key.
+***
+## 2019/01/05
+First of all, Happy new Year!
+
+I didn't write any diary since today because it didn't be changed at visualy, but I decided to write this for proving I'm still working.
+
+I'm working now for Items, and interfaces of it.
+
+But using it more wisely, I have to complete day cycle for unit/buildings.
