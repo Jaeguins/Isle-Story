@@ -122,7 +122,7 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
-                        loaded.transform.parent = NaturalGroup;
+                        loaded.transform.SetParent(NaturalGroup);
                         AddNatural(loaded);
                         loaded.validateRotation();
                     }
@@ -144,7 +144,7 @@ public class EntityManager : MonoBehaviour {
                         loaded.Location = grid.GetCell(coord);
                         loaded.EntranceDirection = loaded.EntranceDirection;
                         loaded.Location.Entity = loaded;
-                        loaded.transform.parent = BuildingGroup;
+                        loaded.transform.SetParent(BuildingGroup);
                         AddBuilding(loaded);
                     }
                 }
@@ -166,7 +166,7 @@ public class EntityManager : MonoBehaviour {
                         if (grid.GetCell(coord).Entity) {
                             loaded.GetIn((Building)grid.GetCell(coord).Entity);
                         }
-                        loaded.transform.parent = UnitGroup;
+                        loaded.transform.SetParent(UnitGroup);
                         AddUnit(loaded);
                     }
                 }

@@ -6,7 +6,7 @@ public enum CompType {
     WAREHOUSE
 }
 public class Company : Building{
-    public List<Person> Officers;
+    public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
 

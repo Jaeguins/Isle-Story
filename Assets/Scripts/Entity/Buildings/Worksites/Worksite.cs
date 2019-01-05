@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public enum WorkType {
@@ -8,7 +9,6 @@ public enum WorkType {
 public class Worksite : Building{
     public int Capacity;
     public WorkType subType;
-
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -40,6 +40,6 @@ public class Worksite : Building{
             menu.BindButton(1, "Workers", ShowWorkers);
     }
     public void ShowWorkers() {
-        personList.Bind(this, Insider);
+        personList.Bind(this, Workers);
     }
 }

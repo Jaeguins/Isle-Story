@@ -139,13 +139,11 @@ public class TriMapGenerator : MonoBehaviour {
         }
         int riverBudget = Mathf.RoundToInt(landCells * riverPercentage * 0.01f);
         int overflowChecker = 0;
-        Debug.Log(riverOrigins.Count);
         while (riverBudget > 0 && riverOrigins.Count > 0) {
             if (overflowChecker++ > 1000) {
                 Debug.Log("checking river stack overflowed");
                 break;
             }
-                
             int index = Random.Range(0, riverOrigins.Count);
             int lastIndex = riverOrigins.Count - 1;
             TriCell origin = riverOrigins[index];

@@ -11,7 +11,7 @@ public class Person : Unit {
             home = value;
         }
     }
-    Inn home;
+    public Inn home;
     public Company Company {
         get {
             return company;
@@ -21,23 +21,13 @@ public class Person : Unit {
             company = value;
         }
     }
-    Company company;
-    public Building Building {
-        get {
-            return building;
-        }
-        set {
-            building = value;
-            value.AddInsider(this);
-        }
-    }
-    Building building;
+    public Company company;
     public Entity work;
     private void Start() {
         Inventory.Size = 25;
     }
 
-    public override void ChangeHomeInternal (){
+    public override void ChangeHomeInternal() {
         ((ChangeHomeCommand)nowWork).target.AddLiver(this);
         Home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home");
@@ -53,7 +43,7 @@ public class Person : Unit {
             AddCommand(new GetInCommand(TriIsleland.Instance.entities.GetCamp()));
         }
     }
-    
+
     public override void GoJob() {
         CancelAllAct();
         if (Company) {
@@ -61,7 +51,7 @@ public class Person : Unit {
             AddCommand(new GetInCommand(Company));
         }
         else GoHome();
-        
+
     }
 
     public override void GoWork() {
@@ -83,24 +73,24 @@ public class Person : Unit {
             work.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
     }
-    
+
     public static new Person Load(BinaryReader reader) {
-        Person ret= Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
+        Person ret = Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
             ret.Home = (Inn)tLoc.Entity;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.Company= (Company)tLoc.Entity;
+            ret.Company = (Company)tLoc.Entity;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.work= tLoc.Entity;
+            ret.work = tLoc.Entity;
         }
         return ret;
     }
-    public override void Build(){
+    public override void Build() {
         BuildCommand c = (BuildCommand)nowWork;
         Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
@@ -111,7 +101,12 @@ public class Person : Unit {
         Debug.Log("Change Job");
     }
     public override void ChangeWorkInternal() {
-        work = ((ChangeWorkCommand)nowWork).target;
+        ChangeWorkCommand k = ((ChangeWorkCommand)nowWork);
+        if (work)
+            ((Building)work).Workers.Remove(this);
+        work = k.target;
+        if (work)
+            ((Building)work).Workers.Add(this);
         Debug.Log("Change Work");
     }
     public override void BindOptions(CommandPanel menu) {
@@ -133,5 +128,5 @@ public class Person : Unit {
     public void ChangeWork() {
         Selector.Instance.RequestTarget(this, new ChangeWorkCommand(null));
     }
-    
+
 }

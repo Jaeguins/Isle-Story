@@ -8,7 +8,19 @@ public enum UnitType {
 }
 public class Unit : Entity {
     public SkinnedMeshRenderer mesh;
-    public Building buildingPos;
+    public Building Building {
+        get {
+            return building;
+        }
+        set {
+            if (building)
+                building.Insider.Remove(this);
+            if(value)
+                value.AddInsider(this);
+            building = value;
+        }
+    }
+    public Building building;
     public UnitType type;
     public Coroutine nowRoutine;
     public Animator animator;
@@ -86,16 +98,17 @@ public class Unit : Entity {
         GetIn(((GetInCommand)nowWork).target);
     }
     public void GetIn(Building target) {
-        buildingPos = target;
-        target.AddInsider((Person)this);
+        Building = target;
         Location = target.Location;
     }
     public void GetOut() {
-        if (!buildingPos) return;
+        if (!Building) {
+            Debug.LogWarning(ToString()+" : not in building");
+            return;
+        }   
         acting = true;
-        buildingPos.insider.Remove(this);
-        Location = buildingPos.Location.GetNeighbor(buildingPos.EntranceDirection);
-        buildingPos = null;
+        Location = Building.Location.GetNeighbor(Building.EntranceDirection);
+        Building = null;
         SetVisible(true);
         acting = false;
     }
@@ -259,7 +272,6 @@ public class Unit : Entity {
             if (acting)
                 foreach (Command i in tCommand) {
                     ret.AddCommand(i);
-                    Debug.Log(ret.commandQueue.Count);
                 }
             ret.Inventory=tInv;
         }

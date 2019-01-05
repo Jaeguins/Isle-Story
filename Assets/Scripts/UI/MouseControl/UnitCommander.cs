@@ -23,7 +23,7 @@ public class UnitCommander : MonoBehaviour {
         requested = false;
         switch (command.type) {
             case CommandType.BUILD:
-                if (subject.buildingPos)
+                if (subject.Building)
                     //subject.AddCommand(new Command(CommandType.GETOUT));
                 //subject.AddCommand(new Command(CommandType.MOVE, selectedCell));
                 subject.AddCommand(command);

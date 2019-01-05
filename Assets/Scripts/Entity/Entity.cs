@@ -6,7 +6,6 @@ using System;
 public abstract class Entity : MonoBehaviour {
     public GameObject SelectionIndicator;
     public SizeType sizeType;
-    public List<Unit> insider;
     public Inventory Inventory = new Inventory();
     public string UIType;
     public string UIName;

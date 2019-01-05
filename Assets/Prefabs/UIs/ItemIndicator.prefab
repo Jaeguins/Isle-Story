@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 0
-  icon: {fileID: 0}
-  numIndicator: {fileID: 0}
+  icon: {fileID: 3801891422753886515}
+  numIndicator: {fileID: 3247845173563383255}
 --- !u!1 &6800126411164358844
 GameObject:
   m_ObjectHideFlags: 0

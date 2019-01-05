@@ -7,7 +7,7 @@ public enum InnType {
     TENT,CAMP
 }
 public class Inn : Building {
-    public List<Person> Livers;
+    public List<Unit> Livers;
 
     public InnType subType;
     public int Capacity;

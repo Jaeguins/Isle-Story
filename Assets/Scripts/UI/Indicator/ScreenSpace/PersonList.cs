@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PersonList : MonoBehaviour {
     public static PersonList Instance;
     public Building NowBuilding;
-    public List<Person> NowList;
+    public List<Unit> NowList;
     public PersonIndicator IndicatorPrefab;
     public List<PersonIndicator> indicators;
     public Queue<PersonIndicator> indicatorPool;
@@ -16,7 +16,7 @@ public class PersonList : MonoBehaviour {
         indicators= new List<PersonIndicator>();
         gameObject.SetActive(false);
     }
-    public void Bind(Building building,List<Person> list) {
+    public void Bind(Building building,List<Unit> list) {
         NowBuilding = building;
         NowList = list;
         int i = 0;
@@ -42,7 +42,7 @@ public class PersonList : MonoBehaviour {
     }
     public void Refresh() {
         Building t = NowBuilding;
-        List<Person> tList = NowList;
+        List<Unit> tList = NowList;
         Clear();
         Bind(t, tList);
     }

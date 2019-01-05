@@ -4,7 +4,7 @@ using System.IO;
 public class ItemSlot {
     public Item Content;
     public int Quantity;
-    public bool refreshed = true;
+    public bool refreshed = false;
     public ItemSlot() {
         Clear();
     }

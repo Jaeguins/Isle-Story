@@ -16,7 +16,8 @@ public class Building : Entity {
     public float ConstructTime=9999f;
     public BuildingType type;
     public PersonList personList;
-    public List<Person> Insider;
+    public List<Unit> Insider;
+    public List<Unit> Workers;
     public GameObject ConstructionIndicator,Model;
     TriDirection entranceDirection;
     public TriCell EntranceLocation {
@@ -100,7 +101,7 @@ public class Building : Entity {
         EntityMenu.Instance.BindBuilding(this);
         
     }
-    public void AddInsider(Person p) {
+    public void AddInsider(Unit p) {
         Insider.Add(p);
     }
     public void RemoveWorker(Person p) {
@@ -111,10 +112,7 @@ public class Building : Entity {
             UnderConstruct = false;
             for(int i = 0; i < Insider.Count; i++) {
                 Insider[i].AddCommand(new ChangeWorkCommand(null));
-                if (Insider[i].Company)
-                    Insider[i].AddCommand(new GoJobCommand());
-                else
-                    Insider[i].AddCommand(new GoHomeCommand());
+                Insider[i].AddCommand(new GoJobCommand());
             }
             Insider.Clear();
             ConstructionIndicator.SetActive(false);
