@@ -45,12 +45,14 @@ public class Building : Statics {
         writer.Write((int)type);
         writer.Write((int)EntranceDirection);
         writer.Write(UnderConstruct);
+        writer.Write(Working);
         writer.Write(ConstructTime);
     }
     public static Building Load(BinaryReader reader) {
         BuildingType type = (BuildingType)reader.ReadInt32();
         TriDirection entDir = (TriDirection)reader.ReadInt32();
         bool underconstruct = reader.ReadBoolean();
+        bool working = reader.ReadBoolean();
         float constructTime = reader.ReadSingle();
         Building ret = null;
         switch (type) {
@@ -67,6 +69,7 @@ public class Building : Statics {
         ret.entranceDirection = entDir;
         ret.type = type;
         ret.UnderConstruct = underconstruct;
+        ret.Working = working;
         ret.ConstructTime = constructTime;
         return ret;
     }

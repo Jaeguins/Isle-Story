@@ -984,6 +984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
         type: 3}
+      propertyPath: resourceMaxValues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
       propertyPath: resourceValues.Array.data[0]
       value: -1
       objectReference: {fileID: 0}

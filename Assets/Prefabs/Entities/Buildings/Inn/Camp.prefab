@@ -55,6 +55,7 @@ MonoBehaviour:
   UIName: Camp
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 10, y: 10, z: 40}
+  Working: 0
   entranceDirection: 0
   Insider: []
   Workers: []
@@ -536,6 +537,76 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemTypes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemMaxValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemTypes.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemMaxValues.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: itemMaxValues.Array.data[1]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceTypes.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceTypes.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[1]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194257814494992472, guid: 9df9825ad114d2c498831e6a6c95fcbf,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[2]
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9df9825ad114d2c498831e6a6c95fcbf, type: 3}
