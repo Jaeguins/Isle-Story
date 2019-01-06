@@ -9,13 +9,14 @@
 
  - [x] Basic terrain generation
  - [x] Terrain saving
+ - [x] Building/unit save
+ - [x] Unit daily work flows
+ - [ ] Individual resources
+ - [ ] Total resources
+ - [ ] Basic UI in game
+ - [ ] UI structure not in game (ex) main menu,save management menu, etc.
  - [ ] Basic building for simplest game(extensive)
  - [ ] Basic unit for simplest game(extensive)
- - [x] Building/unit save
- - [x] Item/Inventory system
- - [ ] Item flows
- - [ ] Unit daily work flows
- - [ ] UI structure not in game (ex) main menu,save management menu, etc.
  
 #### If I can go further
  
