@@ -19,7 +19,7 @@ public class TriCell : MonoBehaviour {
     public TriGridChunk chunk;
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
-    public Entity Entity { get; set; }
+    public Statics Statics { get; set; }
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
     int distance;
@@ -33,7 +33,7 @@ public class TriCell : MonoBehaviour {
     }
 
     public bool IsBuildable() {
-        return (!Entity && !IsUnderwater && !HasRiver);
+        return (!Statics && !IsUnderwater && !HasRiver);
     }
 
     public int SearchPriority {
@@ -160,16 +160,16 @@ public class TriCell : MonoBehaviour {
 
     void RefreshSelfOnly() {
         chunk.Refresh();
-        if (Entity) {
-            Entity.ValidateLocation();
+        if (Statics) {
+            Statics.ValidateLocation();
         }
     }
 
     void Refresh() {
         if (chunk) {
             chunk.Refresh();
-            if (Entity) {
-                Entity.ValidateLocation();
+            if (Statics) {
+                Statics.ValidateLocation();
             }
             for (int i = 0; i < neighbors.Length; i++) {
                 TriCell neighbor = neighbors[i];

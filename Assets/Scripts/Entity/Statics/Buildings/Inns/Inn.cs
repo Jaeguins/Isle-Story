@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine.UI;
 
 public enum InnType {
-    TENT,CAMP
+    TENT, CAMP
 }
 public class Inn : Building {
     public List<Unit> Livers;
@@ -29,7 +29,7 @@ public class Inn : Building {
         Inn ret = null;
         switch (subType) {
             case InnType.TENT:
-                ret=Tent.Load(reader);
+                ret = Tent.Load(reader);
                 break;
             case InnType.CAMP:
                 ret = Camp.Load(reader);
@@ -42,11 +42,22 @@ public class Inn : Building {
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
         if (UnderConstruct) return;
-        if(Livers.Count>0)
-        menu.BindButton(1, "Livers", ShowLivers);
+        if (Livers.Count > 0)
+            menu.BindButton(1, "Livers", ShowLivers);
 
     }
     public void ShowLivers() {
-        personList.Bind(this,Livers);
+        personList.Bind(this, Livers);
+    }
+    public override void Tick() {
+        base.Tick();
+        if (Clock.IsDay())
+            foreach (Unit t in Livers) {
+                if (Insider.Contains(t)) {
+                    if (((Person)t).Company)
+                        t.GoJob();
+                    else t.GoWork();
+                }
+            }
     }
 }

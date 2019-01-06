@@ -11,15 +11,12 @@ public class WareHouse : Company {
      */
     public override void Start() {
         base.Start();
-        Inventory.Size=25;
     }
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
-        Inventory.Save(writer);
     }
     public new static WareHouse Load(BinaryReader reader) {
         WareHouse ret = (WareHouse)Instantiate(TriIsleland.Instance.companyPrefabs[0]);
-        ret.Inventory = Inventory.Load(reader);
         return ret;
     }
     public override void BindOptions(CommandPanel menu) {

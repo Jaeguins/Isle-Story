@@ -6,7 +6,6 @@ using System;
 public abstract class Entity : MonoBehaviour {
     public GameObject SelectionIndicator;
     public SizeType sizeType;
-    public Inventory Inventory = new Inventory();
     public string UIType;
     public string UIName;
     public virtual void Start() {
@@ -60,13 +59,13 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public void Die() {
-        location.Entity = null;
+        location.Statics = null;
         Destroy(gameObject);
     }
     public static bool IsBuildable(TriDirection dir, TriCoordinates coord, SizeType sizeType) {
         switch (sizeType) {
             case SizeType.SINGLE:
-                if (TriGrid.Instance.GetCell(coord).Entity) return false;
+                if (TriGrid.Instance.GetCell(coord).Statics) return false;
                 else return true;
             case SizeType.HEX:
                 TriCell cell = TriGrid.Instance.GetCell(coord);

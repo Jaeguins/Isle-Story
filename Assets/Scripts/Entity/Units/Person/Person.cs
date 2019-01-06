@@ -22,12 +22,11 @@ public class Person : Unit {
         }
     }
     public Company company;
-    public Entity work;
+    public Statics work;
     public bool needAttend = false;
     public bool needGoWork = false;
     public override void Start() {
         base.Start();
-        Inventory.Size = 25;
     }
 
     public override void ChangeHomeInternal() {
@@ -53,14 +52,12 @@ public class Person : Unit {
             AddCommand(new MoveCommand(Company.EntranceLocation));
             AddCommand(new GetInCommand(Company));
         }
-        else GoHome();
-
     }
 
     public override void GoWork() {
         CancelAllAct();
-        AddCommand(new MoveCommand(Company.EntranceLocation));
-        AddCommand(new GetInCommand(Company));
+        AddCommand(new MoveCommand(work.Location));
+        AddCommand(new GetInCommand(work));
     }
 
 
@@ -81,15 +78,15 @@ public class Person : Unit {
         Person ret = Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.Home = (Inn)tLoc.Entity;
+            ret.Home = (Inn)tLoc.Statics;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.Company = (Company)tLoc.Entity;
+            ret.Company = (Company)tLoc.Statics;
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.work = tLoc.Entity;
+            ret.work = tLoc.Statics;
         }
         return ret;
     }
@@ -97,7 +94,7 @@ public class Person : Unit {
         BuildCommand c = (BuildCommand)nowWork;
         Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
-        t.AddInsider(this);
+        t.Insider.Add(this);
     }
     public override void ChangeJobInternal() {
         Company = ((ChangeJobCommand)nowWork).target;
@@ -106,7 +103,7 @@ public class Person : Unit {
     public override void ChangeWorkInternal() {
         ChangeWorkCommand k = ((ChangeWorkCommand)nowWork);
         if (work)
-            ((Building)work).Workers.Remove(this);
+            work.Workers.Remove(this);
         work = k.target;
         if (work)
             ((Building)work).Workers.Add(this);

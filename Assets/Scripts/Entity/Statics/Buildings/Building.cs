@@ -11,41 +11,25 @@ public enum BuildingType {
 public enum SizeType {
     SINGLE,HEX
 }
-public class Building : Entity {
+public class Building : Statics {
     public bool UnderConstruct = true;
     public float ConstructTime=9999f;
     public BuildingType type;
     public PersonList personList;
-    public List<Unit> Insider;
-    public List<Unit> Workers;
+
     public GameObject ConstructionIndicator,Model;
-    TriDirection entranceDirection;
-    public TriCell EntranceLocation {
-        get {
-            return Location.GetNeighbor(EntranceDirection);
-        }
-    }
     public new TriCell Location {
         get {
             return location;
         }
         set {
             location = value;
-            value.Entity = this;
+            value.Statics = this;
             transform.localPosition = value.Position;
         }
     }
 
-    public TriDirection EntranceDirection {
-        get {
-            return entranceDirection;
-        }
-        set {
-            entranceDirection = value;
-            Vector3 rot = new Vector3(0, (int)entranceDirection*120+(Location.inverted?0:180), 0);
-            transform.localRotation = Quaternion.Euler(rot);
-        }
-    }
+    
     /*
      * save sequence
      * superclassed saves
@@ -100,12 +84,6 @@ public class Building : Entity {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         EntityMenu.Instance.BindBuilding(this);
         
-    }
-    public void AddInsider(Unit p) {
-        Insider.Add(p);
-    }
-    public void RemoveWorker(Person p) {
-        Insider.Remove(p);
     }
     public virtual void CheckConstruction() {
         if (ConstructTime < 0) {

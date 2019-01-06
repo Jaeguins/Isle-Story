@@ -42,4 +42,15 @@ public class Worksite : Building{
     public void ShowWorkers() {
         personList.Bind(this, Workers);
     }
+    public override void Tick() {
+        base.Tick();
+        if (!Clock.IsDay())
+            foreach(Unit t in Workers) {
+                if (Insider.Contains(t)) {
+                    if (((Person)t).Company)
+                        t.GoJob();
+                    else t.GoWork();
+                }
+            }
+    }
 }

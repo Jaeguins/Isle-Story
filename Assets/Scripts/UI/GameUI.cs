@@ -39,11 +39,4 @@ public class GameUI : MonoBehaviour {
         }
         return false;
     }
-    void DoSelection() {
-        grid.ClearPath();
-        UpdateCurrentCell();
-        if (currentCell) {
-            selectedUnit = (Unit)currentCell.Entity;
-        }
-    }
 }

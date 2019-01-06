@@ -135,7 +135,7 @@ public class TriMapEditor : MonoBehaviour {
             Building ret = Instantiate(prefab);
             ret.ID = entities.BuildingCount;
             ret.Location = cell;
-            cell.Entity = ret;
+            cell.Statics = ret;
             ret.EntranceDirection = dir;
             ret.personList = personList;
             entities.AddBuilding(ret);
@@ -163,7 +163,7 @@ public class TriMapEditor : MonoBehaviour {
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);
             entities.AddUnit(ret);
-            if (cell.Entity) ret.AddCommand(new GetInCommand((Building)cell.Entity));
+            if (cell.Statics) ret.AddCommand(new GetInCommand((Building)cell.Statics));
             return ret;
         }
         return null;
@@ -171,14 +171,14 @@ public class TriMapEditor : MonoBehaviour {
 
     void DestroyUnit() {
         TriCell cell = GetCellUnderCursor();
-        if (cell && cell.Entity) {
-            entities.RemoveUnit(cell.Entity.ID);
+        if (cell && cell.Statics) {
+            entities.RemoveUnit(cell.Statics.ID);
         }
     }
     void DestroyBuilding() {
         TriCell cell = GetCellUnderCursor();
-        if (cell && cell.Entity) {
-            entities.RemoveBuilding(cell.Entity.ID);
+        if (cell && cell.Statics) {
+            entities.RemoveBuilding(cell.Statics.ID);
         }
     }
 

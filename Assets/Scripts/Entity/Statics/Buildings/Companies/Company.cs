@@ -43,4 +43,19 @@ public class Company : Building{
     public void ShowOfficers() {
         personList.Bind(this, Officers);
     }
+    public override void Tick() {
+        base.Tick();
+        if (Clock.IsDay())
+            foreach(Unit t in Officers) {
+                if (Insider.Contains(t)&&((Person)t).work) {
+                    t.GoWork();
+                }
+            }
+        else
+            foreach(Unit t in Officers) {
+                if (Insider.Contains(t)) {
+                    t.GoHome();
+                }
+            }
+    }
 }

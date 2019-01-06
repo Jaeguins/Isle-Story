@@ -6,9 +6,9 @@ using System.IO;
 public enum NaturalType {
     TREE
 }
-public class Natural : Entity {
+public class Natural : Statics {
     public NaturalType type;
-    TriDirection entranceDirection;
+    
 
     public new TriCell Location {
         get {
@@ -16,22 +16,11 @@ public class Natural : Entity {
         }
         set {
             location = value;
-            value.Entity = this;
+            value.Statics = this;
             transform.localPosition = value.Position;
         }
     }
 
-
-    public TriDirection EntranceDirection {
-        get {
-            return entranceDirection;
-        }
-        set {
-            entranceDirection = value;
-            Vector3 rot = new Vector3(0, (int)entranceDirection * 120*(Location.inverted?-1:1), 0);
-            transform.localRotation = Quaternion.Euler(rot);
-        }
-    }
     public void validateRotation() {
         Vector3 rot = new Vector3(0, (int)entranceDirection * 120 * (Location.inverted ? -1 : 1), 0);
         transform.localRotation = Quaternion.Euler(rot);
