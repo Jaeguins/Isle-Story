@@ -5,19 +5,19 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN,COMPANY,WORKSITE
+    INN, COMPANY, WORKSITE
 }
 
 public enum SizeType {
-    SINGLE,HEX
+    SINGLE, HEX
 }
 public class Building : Statics {
     public bool UnderConstruct = true;
-    public float ConstructTime=9999f;
+    public float ConstructTime = 9999f;
     public BuildingType type;
     public PersonList personList;
 
-    public GameObject ConstructionIndicator,Model;
+    public GameObject ConstructionIndicator, Model;
     public new TriCell Location {
         get {
             return location;
@@ -29,7 +29,7 @@ public class Building : Statics {
         }
     }
 
-    
+
     /*
      * save sequence
      * superclassed saves
@@ -49,10 +49,10 @@ public class Building : Statics {
     }
     public static Building Load(BinaryReader reader) {
         BuildingType type = (BuildingType)reader.ReadInt32();
-        TriDirection entDir=(TriDirection)reader.ReadInt32();
+        TriDirection entDir = (TriDirection)reader.ReadInt32();
         bool underconstruct = reader.ReadBoolean();
         float constructTime = reader.ReadSingle();
-        Building ret=null;
+        Building ret = null;
         switch (type) {
             case BuildingType.INN:
                 ret = Inn.Load(reader);
@@ -70,34 +70,37 @@ public class Building : Statics {
         ret.ConstructTime = constructTime;
         return ret;
     }
-    
+
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
-        if (UnderConstruct&&Insider.Count > 0) { }
-            menu.BindButton(1, "workers", BindWorkers);
+        if (UnderConstruct && Insider.Count > 0) { }
+        menu.BindButton(1, "workers", BindWorkers);
     }
     public void BindWorkers() {
         personList.Bind(this, Insider);
     }
-    
+
     private void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         EntityMenu.Instance.BindBuilding(this);
-        
+
     }
     public virtual void CheckConstruction() {
         if (ConstructTime < 0) {
             UnderConstruct = false;
-            for(int i = 0; i < Insider.Count; i++) {
+            Working = true;
+            for (int i = 0; i < Insider.Count; i++) {
                 Insider[i].AddCommand(new ChangeWorkCommand(null));
-                Insider[i].AddCommand(new GoJobCommand());
+                if (((Person)Insider[i]).Company)
+                    Insider[i].AddCommand(new GoJobCommand());
+                else Insider[i].AddCommand(new GoHomeCommand());
             }
             Insider.Clear();
             ConstructionIndicator.SetActive(false);
             Model.SetActive(true);
         }
         else
-            ConstructTime -= Time.deltaTime*Insider.Count;
+            ConstructTime -= Time.deltaTime * Insider.Count;
     }
     public void LateUpdate() {
         if (UnderConstruct) {

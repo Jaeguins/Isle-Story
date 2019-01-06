@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Statics:Entity{
+    public bool Working=false;
     public TriDirection entranceDirection;
     public TriDirection EntranceDirection {
         get {

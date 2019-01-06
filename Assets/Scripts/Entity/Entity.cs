@@ -5,6 +5,7 @@ using System;
 [Serializable]
 public abstract class Entity : MonoBehaviour {
     public GameObject SelectionIndicator;
+    public ResourceController resourceController;
     public SizeType sizeType;
     public string UIType;
     public string UIName;

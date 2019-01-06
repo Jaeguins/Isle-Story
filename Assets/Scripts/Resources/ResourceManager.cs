@@ -2,21 +2,61 @@
 using System.Collections.Generic;
 
 public class ResourceManager : MonoBehaviour {
-    Dictionary<string, TotalResource> totalResources=new Dictionary<string, TotalResource>();
-    Dictionary<string, ItemResource> itemResources = new Dictionary<string, ItemResource>();
-    private void Awake() {
-        totalResources.Add("food", new Food());
-        totalResources.Add("energy", new Energy());
-        totalResources.Add("material", new Material());
+    public List<TotalResource> totalResources;
+    public List<ItemResource> itemResources;
+    public EntityManager manager;
+    public void Start() {
+        StartCoroutine(Routine());
     }
-    public TotalResource GetTotalResource(string key) {
-        if (totalResources.ContainsKey(key))
-            return totalResources[key];
-        else return null;
+    IEnumerator<WaitForSeconds> Routine() {
+        while (true) {
+            Refresh();
+            yield return new WaitForSeconds(1f);
+        }
     }
-    public ItemResource GetItemResource(string key) {
-        if (itemResources.ContainsKey(key))
-            return itemResources[key];
-        else return null;
+    public void Refresh() {
+        ResourceController target;
+        foreach (Resource t in totalResources)
+            t.Amount = 0;
+        foreach (Resource t in itemResources)
+            t.Amount = 0;
+        foreach (KeyValuePair<int, Natural> pair in manager.naturals) {
+            if (!pair.Value.Working) continue;
+            target = pair.Value.resourceController;
+            for (int i = 0; i < target.itemTypes.Count; i++) {
+                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
+            }
+            for (int i = 0; i < target.resourceTypes.Count; i++) {
+                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
+            }
+        }
+        foreach (KeyValuePair<int, Building> pair in manager.buildings) {
+            if (!pair.Value.Working) continue;
+            target = pair.Value.resourceController;
+            for (int i = 0; i < target.itemTypes.Count; i++) {
+                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
+            }
+            for (int i = 0; i < target.resourceTypes.Count; i++) {
+                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
+            }
+        }
+        foreach (KeyValuePair<int, Unit> pair in manager.units) {
+            target = pair.Value.resourceController;
+            for (int i = 0; i < target.itemTypes.Count; i++) {
+                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
+            }
+            for (int i = 0; i < target.resourceTypes.Count; i++) {
+                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
+            }
+        }
+        foreach (ItemResource t in itemResources) {
+            target = t.totController;
+            for (int i = 0; i < target.itemTypes.Count; i++) {
+                itemResources[(int)target.itemTypes[i]].Amount += t.Amount*target.itemValues[i];
+            }
+            for (int i = 0; i < target.resourceTypes.Count; i++) {
+                totalResources[(int)target.resourceTypes[i]].Amount += t.Amount*target.resourceValues[i];
+            }
+        }
     }
 }

@@ -8,8 +8,11 @@ public enum NaturalType {
 }
 public class Natural : Statics {
     public NaturalType type;
-    
 
+    public override void Start() {
+        base.Start();
+        Working = true;
+    }
     public new TriCell Location {
         get {
             return location;

@@ -4,5 +4,7 @@ using System.Linq;
 using System.Text;
 
 
-public class Material : TotalResource {
+public class TotalResource :Resource{
+    public ResourceType type;
 }
+

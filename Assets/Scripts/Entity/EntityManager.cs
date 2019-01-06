@@ -9,13 +9,13 @@ public class EntityManager : MonoBehaviour {
     public Transform NaturalGroup;
     public TriGrid grid;
     public Camp camp;
-    Dictionary<int, Building> buildings;
-    Dictionary<int, Unit> units;
-    Dictionary<int, Natural> naturals;
+    public Dictionary<int, Building> buildings;
+    public Dictionary<int, Unit> units;
+    public Dictionary<int, Natural> naturals;
     public Building GetCamp() {
         return camp;
     }
-    private void Start() {
+    private void Awake() {
         buildings = new Dictionary<int, Building>();
         units = new Dictionary<int, Unit>();
         naturals = new Dictionary<int, Natural>();
@@ -207,5 +207,4 @@ public class EntityManager : MonoBehaviour {
         naturals.Add(unit.ID, unit);
         unit.transform.SetParent(NaturalGroup, false);
     }
-
 }
