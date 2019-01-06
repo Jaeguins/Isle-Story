@@ -8,11 +8,12 @@ public class EntityManager : MonoBehaviour {
     public Transform UnitGroup;
     public Transform NaturalGroup;
     public TriGrid grid;
+    public Camp camp;
     Dictionary<int, Building> buildings;
     Dictionary<int, Unit> units;
     Dictionary<int, Natural> naturals;
     public Building GetCamp() {
-        return buildings[0];
+        return camp;
     }
     private void Start() {
         buildings = new Dictionary<int, Building>();

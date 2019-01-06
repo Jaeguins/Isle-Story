@@ -15,12 +15,6 @@ public class Company : Building{
         writer.Write((int)subType);
         writer.Write(Capacity);
     }
-    public void AddOfficer(Person p) {
-        Officers.Add(p);
-    }
-    public void RemoveAddOfficer(Person p) {
-        Officers.Remove(p);
-    }
     public new static Company Load(BinaryReader reader) {
         CompType subType = (CompType)reader.ReadInt32();
         int capacity = reader.ReadInt32();
@@ -47,7 +41,7 @@ public class Company : Building{
         base.Tick();
         if (Clock.IsDay())
             foreach(Unit t in Officers) {
-                if (Insider.Contains(t)&&((Person)t).work) {
+                if (Insider.Contains(t)&&((Person)t).Work) {
                     t.GoWork();
                 }
             }

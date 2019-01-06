@@ -17,12 +17,6 @@ public class Inn : Building {
         writer.Write((int)subType);
         writer.Write(Capacity);
     }
-    public void AddLiver(Person p) {
-        Livers.Add(p);
-    }
-    public void RemoveLiver(Person p) {
-        Livers.Remove(p);
-    }
     public new static Inn Load(BinaryReader reader) {
         InnType subType = (InnType)reader.ReadInt32();
         int capacity = reader.ReadInt32();

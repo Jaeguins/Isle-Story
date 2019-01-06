@@ -21,4 +21,16 @@ public class Statics:Entity{
     }
     public List<Unit> Insider;
     public List<Unit> Workers;
+
+    public override void Tick() {
+        base.Tick();
+        if (!Clock.IsDay())
+            foreach (Unit t in Workers) {
+                if (Insider.Contains(t)) {
+                    if (((Person)t).Company)
+                        t.GoJob();
+                    else t.GoHome();
+                }
+            }
+    }
 }

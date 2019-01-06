@@ -50,19 +50,19 @@ public class Unit : Entity {
             case CommandType.GETIN:
                 Statics t = ((GetInCommand)c).target;
                 commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.EntranceDirection)));
-                commandQueue.Enqueue(c);
                 break;
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
                 AddCommand(new GetOutCommand());
                 AddCommand(new MoveCommand(k.location));
-                commandQueue.Enqueue(c);
+                break;
+            case CommandType.MOVE:
+                AddCommand(new GetOutCommand());
                 break;
             default:
-                commandQueue.Enqueue(c);
                 break;
         }
-
+        commandQueue.Enqueue(c);
     }
     private void OnEnable() {
         StartCoroutine(Act());

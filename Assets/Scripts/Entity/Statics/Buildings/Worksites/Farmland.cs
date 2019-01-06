@@ -10,8 +10,5 @@ public class Farmland : Worksite{
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
     }
-    public override void Tick() {
-        
-    }
 }
 

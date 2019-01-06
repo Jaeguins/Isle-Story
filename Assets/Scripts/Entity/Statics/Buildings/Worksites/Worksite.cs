@@ -14,12 +14,6 @@ public class Worksite : Building{
         writer.Write((int)subType);
         writer.Write(Capacity);
     }
-    public void AddPerson(Person p) {
-        Insider.Add(p);
-    }
-    public void RemovePerson(Person p) {
-        Insider.Remove(p);
-    }
     public new static Worksite Load(BinaryReader reader) {
         WorkType subType = (WorkType)reader.ReadInt32();
         int capacity = reader.ReadInt32();
@@ -41,16 +35,5 @@ public class Worksite : Building{
     }
     public void ShowWorkers() {
         personList.Bind(this, Workers);
-    }
-    public override void Tick() {
-        base.Tick();
-        if (!Clock.IsDay())
-            foreach(Unit t in Workers) {
-                if (Insider.Contains(t)) {
-                    if (((Person)t).Company)
-                        t.GoJob();
-                    else t.GoWork();
-                }
-            }
     }
 }

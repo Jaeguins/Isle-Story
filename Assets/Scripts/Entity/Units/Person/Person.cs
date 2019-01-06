@@ -2,27 +2,49 @@
 using System.Collections;
 using System.IO;
 public class Person : Unit {
+
     public Inn Home {
         get {
             return home;
         }
         set {
-            value.AddLiver(this);
+            if (home)
+                home.Livers.Remove(this);
+            if (value)
+                value.Livers.Add(this);
             home = value;
         }
     }
     public Inn home;
+
     public Company Company {
         get {
             return company;
         }
         set {
-            value.AddOfficer(this);
+            if (company)
+                company.Officers.Remove(this);
+            if (value)
+            value.Officers.Add(this);
             company = value;
         }
     }
     public Company company;
+
+    public Statics Work {
+        get {
+            return work;
+        }
+        set {
+            if (work)
+                work.Workers.Remove(this);
+            if (value)
+                value.Workers.Add(this);
+            work = value;
+        }
+    }
     public Statics work;
+
     public bool needAttend = false;
     public bool needGoWork = false;
     public override void Start() {
@@ -30,7 +52,6 @@ public class Person : Unit {
     }
 
     public override void ChangeHomeInternal() {
-        ((ChangeHomeCommand)nowWork).target.AddLiver(this);
         Home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home");
     }
@@ -47,6 +68,7 @@ public class Person : Unit {
     }
 
     public override void GoJob() {
+        if (!Company) return;
         CancelAllAct();
         if (Company) {
             AddCommand(new MoveCommand(Company.EntranceLocation));
@@ -55,9 +77,10 @@ public class Person : Unit {
     }
 
     public override void GoWork() {
+        if (!Work) return;
         CancelAllAct();
-        AddCommand(new MoveCommand(work.Location));
-        AddCommand(new GetInCommand(work));
+        AddCommand(new MoveCommand(Work.EntranceLocation));
+        AddCommand(new GetInCommand(Work));
     }
 
 
@@ -69,8 +92,8 @@ public class Person : Unit {
         if (Company)
             Company.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
-        if (work)
-            work.Location.coordinates.Save(writer);
+        if (Work)
+            Work.Location.coordinates.Save(writer);
         else new TriCoordinates(-1, -1).Save(writer);
     }
 
@@ -86,7 +109,7 @@ public class Person : Unit {
         }
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
-            ret.work = tLoc.Statics;
+            ret.Work = tLoc.Statics;
         }
         return ret;
     }
@@ -94,19 +117,14 @@ public class Person : Unit {
         BuildCommand c = (BuildCommand)nowWork;
         Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
-        t.Insider.Add(this);
+        AddCommand(new GetInCommand(t));
     }
     public override void ChangeJobInternal() {
         Company = ((ChangeJobCommand)nowWork).target;
         Debug.Log("Change Job");
     }
     public override void ChangeWorkInternal() {
-        ChangeWorkCommand k = ((ChangeWorkCommand)nowWork);
-        if (work)
-            work.Workers.Remove(this);
-        work = k.target;
-        if (work)
-            ((Building)work).Workers.Add(this);
+        Work = ((ChangeWorkCommand)nowWork).target;
         Debug.Log("Change Work");
     }
     public override void BindOptions(CommandPanel menu) {
