@@ -89,13 +89,13 @@ public class Selector : MonoBehaviour {
             if (Input.GetMouseButtonDown(0)) {
                 switch (command.type) {
                     case CommandType.CHANGEHOME:
-                        ((ChangeHomeCommand)command).target = (Inn)nowCell.Entity;
+                        ((ChangeHomeCommand)command).target = (Inn)nowCell.Statics;
                         break;
                     case CommandType.CHANGEJOB:
-                        ((ChangeJobCommand)command).target = (Company)nowCell.Entity;
+                        ((ChangeJobCommand)command).target = (Company)nowCell.Statics;
                         break;
                     case CommandType.CHANGEWORK:
-                        ((ChangeWorkCommand)command).target = (Building)nowCell.Entity;
+                        ((ChangeWorkCommand)command).target = (Building)nowCell.Statics;
                         break;
                     case CommandType.BUILD:
                         if (!IsBuildable()) {

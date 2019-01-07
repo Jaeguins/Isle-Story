@@ -8,13 +8,14 @@ public class EntityManager : MonoBehaviour {
     public Transform UnitGroup;
     public Transform NaturalGroup;
     public TriGrid grid;
-    Dictionary<int, Building> buildings;
-    Dictionary<int, Unit> units;
-    Dictionary<int, Natural> naturals;
+    public Camp camp;
+    public Dictionary<int, Building> buildings;
+    public Dictionary<int, Unit> units;
+    public Dictionary<int, Natural> naturals;
     public Building GetCamp() {
-        return buildings[0];
+        return camp;
     }
-    private void Start() {
+    private void Awake() {
         buildings = new Dictionary<int, Building>();
         units = new Dictionary<int, Unit>();
         naturals = new Dictionary<int, Natural>();
@@ -143,7 +144,7 @@ public class EntityManager : MonoBehaviour {
                         loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
                         loaded.EntranceDirection = loaded.EntranceDirection;
-                        loaded.Location.Entity = loaded;
+                        loaded.Location.Statics = loaded;
                         loaded.transform.SetParent(BuildingGroup);
                         AddBuilding(loaded);
                     }
@@ -163,8 +164,8 @@ public class EntityManager : MonoBehaviour {
                     if (loaded) {
                         loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
-                        if (grid.GetCell(coord).Entity) {
-                            loaded.GetIn((Building)grid.GetCell(coord).Entity);
+                        if (grid.GetCell(coord).Statics) {
+                            loaded.GetIn((Building)grid.GetCell(coord).Statics);
                         }
                         loaded.transform.SetParent(UnitGroup);
                         AddUnit(loaded);
@@ -206,5 +207,4 @@ public class EntityManager : MonoBehaviour {
         naturals.Add(unit.ID, unit);
         unit.transform.SetParent(NaturalGroup, false);
     }
-
 }

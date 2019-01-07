@@ -61,8 +61,8 @@ public class MoveCommand : Command {
 }
 
 public class GetInCommand : Command {
-    public Building target;
-    public GetInCommand(Building target) {
+    public Statics target;
+    public GetInCommand(Statics target) {
         this.target = target;
         type = CommandType.GETIN;
     }
@@ -73,7 +73,7 @@ public class GetInCommand : Command {
     }
 
     public static new GetInCommand Load(BinaryReader reader) {
-        return new GetInCommand((Building)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        return new GetInCommand((Building)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
     }
 }
 
@@ -89,7 +89,7 @@ public class ChangeHomeCommand : Command {
     }
 
     public static new ChangeHomeCommand Load(BinaryReader reader) {
-        return new ChangeHomeCommand((Inn)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        return new ChangeHomeCommand((Inn)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
     }
 }
 
@@ -119,13 +119,13 @@ public class ChangeJobCommand : Command {
     }
 
     public static new ChangeJobCommand Load(BinaryReader reader) {
-        return new ChangeJobCommand((Company)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        return new ChangeJobCommand((Company)TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
     }
 }
 
 public class ChangeWorkCommand : Command {
-    public Entity target;
-    public ChangeWorkCommand(Entity target) {
+    public Statics target;
+    public ChangeWorkCommand(Statics target) {
         this.target = target;
         type = CommandType.CHANGEWORK;
     }
@@ -135,7 +135,7 @@ public class ChangeWorkCommand : Command {
     }
 
     public static new ChangeWorkCommand Load(BinaryReader reader) {
-        return new ChangeWorkCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Entity);
+        return new ChangeWorkCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
     }
 }
 

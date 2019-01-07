@@ -6,7 +6,6 @@ using System.Collections;
 public class EntityMenu : MonoBehaviour {
     public static EntityMenu Instance;
     public static string NaN = "NaN";
-    public InventoryViewer inventoryViewer;
     public Entity Target;
     private void Awake() {
         Instance = this;
@@ -16,11 +15,9 @@ public class EntityMenu : MonoBehaviour {
     public CommandPanel commandPanel;
     public void BindUnit(Unit unit) {
         BindStart(unit);
-        inventoryViewer.Bind(unit);
     }
     public void BindBuilding(Building building) {
         BindStart(building);
-        inventoryViewer.Bind(building);
     }
     void BindStart(Entity target) {
         Clear();

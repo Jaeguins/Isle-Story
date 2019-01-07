@@ -33,6 +33,9 @@
 ### 2019 January
 
 * [05th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190105)
+
+* [06th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190106)
+
 ***
 ## 2018/11/20
 Project started.
@@ -232,3 +235,36 @@ I didn't write any diary since today because it didn't be changed at visualy, bu
 I'm working now for Items, and interfaces of it.
 
 But using it more wisely, I have to complete day cycle for unit/buildings.
+***
+## 2019/01/06
+I decided to remove item system.
+
+Precisely, I decided to replace item system to resource system.
+
+All individual item is shown by generation speed(per day).
+
+And Total Resource is sum of those individual item's stat.
+
+For example,
+
+```
+Carrot earns 2 food resource per one.
+
+World makes 4 carrots per day.
+
+People consume 1 food per day and there are 3 people in world.
+
+There are 1 restaurant and it uses 1 carrots for making 1 carrot soup.
+
+Carrot soup earns 5 food resource per one.
+
+These means :
+
+Carrots : (+4 generation, -1 cooking) 3
+
+Carrot Soups : (+1 carrot soup) 1
+
+Foods : (3*2 carrots, 5*1 carrot soup, -3 people consume) 8
+
+Using carrots more means reducing whole foods.
+```

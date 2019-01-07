@@ -8,7 +8,7 @@ public enum UnitType {
 }
 public class Unit : Entity {
     public SkinnedMeshRenderer mesh;
-    public Building Building {
+    public Statics Building {
         get {
             return building;
         }
@@ -16,11 +16,11 @@ public class Unit : Entity {
             if (building)
                 building.Insider.Remove(this);
             if(value)
-                value.AddInsider(this);
+                value.Insider.Add(this);
             building = value;
         }
     }
-    public Building building;
+    public Statics building;
     public UnitType type;
     public Coroutine nowRoutine;
     public Animator animator;
@@ -43,26 +43,26 @@ public class Unit : Entity {
         mesh.enabled = val;
     }
     public static bool IsValidDestination(TriCell cell) {
-        return !cell.IsUnderwater && !cell.Entity;
+        return !cell.IsUnderwater && !cell.Statics;
     }
     public void AddCommand(Command c) {
         switch (c.type) {
             case CommandType.GETIN:
-                Building t = ((GetInCommand)c).target;
+                Statics t = ((GetInCommand)c).target;
                 commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.EntranceDirection)));
-                commandQueue.Enqueue(c);
                 break;
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
                 AddCommand(new GetOutCommand());
                 AddCommand(new MoveCommand(k.location));
-                commandQueue.Enqueue(c);
+                break;
+            case CommandType.MOVE:
+                AddCommand(new GetOutCommand());
                 break;
             default:
-                commandQueue.Enqueue(c);
                 break;
         }
-
+        commandQueue.Enqueue(c);
     }
     private void OnEnable() {
         StartCoroutine(Act());
@@ -97,7 +97,7 @@ public class Unit : Entity {
     public void GetIn() {
         GetIn(((GetInCommand)nowWork).target);
     }
-    public void GetIn(Building target) {
+    public void GetIn(Statics target) {
         Building = target;
         Location = target.Location;
     }
@@ -247,7 +247,6 @@ public class Unit : Entity {
             nowWork.Save(writer);
             foreach (Command c in commandQueue) c.Save(writer);
         }
-        Inventory.Save(writer);
     }
     public static Unit Load(BinaryReader reader) {
         UnitType type = (UnitType)reader.ReadInt32();
@@ -259,7 +258,6 @@ public class Unit : Entity {
             for (int i = 0; i < count; i++)
                 tCommand.Add(Command.Load(reader));
         }
-        Inventory tInv = Inventory.Load(reader);
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:
@@ -273,7 +271,6 @@ public class Unit : Entity {
                 foreach (Command i in tCommand) {
                     ret.AddCommand(i);
                 }
-            ret.Inventory=tInv;
         }
         tCommand.Clear();
         ListPool<Command>.Add(tCommand);

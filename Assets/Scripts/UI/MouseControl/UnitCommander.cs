@@ -9,6 +9,7 @@ public class UnitCommander : MonoBehaviour {
     public Building selectedBuilding;
     public Unit selectedUnit;
     public bool requested=false;
+    public bool cleared = true;
     public Unit subject;
     public TriMesh terrainSelectionViewer;
     public Command command;
@@ -29,12 +30,13 @@ public class UnitCommander : MonoBehaviour {
                 subject.AddCommand(command);
                 break;
         }
-
+        cleared = true;
     }
     public void LateUpdate() {
-        if (!requested) {
+        if (!requested&&cleared) {
             terrainSelectionViewer.Clear();
             terrainSelectionViewer.Apply();
+            cleared = false;
             return;
         }
         TriCell tCell = GetRay();
