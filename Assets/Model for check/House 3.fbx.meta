@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: 2c1fdb4f6a7e7b6498f168c36e311661
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Ash
+    100002: Building_phase
+    100004: Carcass
+    100006: Destruction_phase_1
+    100008: Destruction_phase_2
+    100010: Destruction_phase_3
+    100012: Destrution_phase_1
+    100014: Destrution_phase_2
+    100016: Destrution_phase_3
+    100018: First_Floor
+    100020: Flag_1
+    100022: Flag_1 1
+    100024: Flag_1 2
+    100026: Flag_1 3
+    100028: Flag_2
+    100030: Flag_2 1
+    100032: Flag_2 2
+    100034: Flag_2 3
+    100036: Flag_3
+    100038: Flag_3 1
+    100040: Flag_3 2
+    100042: Flag_3 3
+    100044: Flag_Element
+    100046: Flags
+    100048: Foundation
+    100050: Ground
+    100052: //RootNode
+    100054: Roof
+    100056: Scaffold
+    100058: Second_Floor
+    400000: Ash
+    400002: Building_phase
+    400004: Carcass
+    400006: Destruction_phase_1
+    400008: Destruction_phase_2
+    400010: Destruction_phase_3
+    400012: Destrution_phase_1
+    400014: Destrution_phase_2
+    400016: Destrution_phase_3
+    400018: First_Floor
+    400020: Flag_1
+    400022: Flag_1 1
+    400024: Flag_1 2
+    400026: Flag_1 3
+    400028: Flag_2
+    400030: Flag_2 1
+    400032: Flag_2 2
+    400034: Flag_2 3
+    400036: Flag_3
+    400038: Flag_3 1
+    400040: Flag_3 2
+    400042: Flag_3 3
+    400044: Flag_Element
+    400046: Flags
+    400048: Foundation
+    400050: Ground
+    400052: //RootNode
+    400054: Roof
+    400056: Scaffold
+    400058: Second_Floor
+    2100000: All_Color_mtl
+    2100002: Town_Center_mtl
+    2100004: Flag_mtl
+    2300000: Ash
+    2300002: Carcass
+    2300004: Destrution_phase_1
+    2300006: Destrution_phase_2
+    2300008: Destrution_phase_3
+    2300010: First_Floor
+    2300012: Flag_1
+    2300014: Flag_1 1
+    2300016: Flag_1 2
+    2300018: Flag_1 3
+    2300020: Flag_2
+    2300022: Flag_2 1
+    2300024: Flag_2 2
+    2300026: Flag_2 3
+    2300028: Flag_3
+    2300030: Flag_3 1
+    2300032: Flag_3 2
+    2300034: Flag_3 3
+    2300036: Flag_Element
+    2300038: Foundation
+    2300040: Ground
+    2300042: Roof
+    2300044: Scaffold
+    2300046: Second_Floor
+    3300000: Ash
+    3300002: Carcass
+    3300004: Destrution_phase_1
+    3300006: Destrution_phase_2
+    3300008: Destrution_phase_3
+    3300010: First_Floor
+    3300012: Flag_1
+    3300014: Flag_1 1
+    3300016: Flag_1 2
+    3300018: Flag_1 3
+    3300020: Flag_2
+    3300022: Flag_2 1
+    3300024: Flag_2 2
+    3300026: Flag_2 3
+    3300028: Flag_3
+    3300030: Flag_3 1
+    3300032: Flag_3 2
+    3300034: Flag_3 3
+    3300036: Flag_Element
+    3300038: Foundation
+    3300040: Ground
+    3300042: Roof
+    3300044: Scaffold
+    3300046: Second_Floor
+    4300000: Foundation
+    4300002: Scaffold
+    4300004: First_Floor
+    4300006: Second_Floor
+    4300008: Roof
+    4300010: Carcass
+    4300012: Flag_Element
+    4300014: Flag_1
+    4300016: Flag_2
+    4300018: Flag_3
+    4300020: Destrution_phase_1
+    4300022: Flag_3
+    4300024: Flag_2
+    4300026: Flag_1
+    4300028: Destrution_phase_2
+    4300030: Flag_3
+    4300032: Flag_2
+    4300034: Flag_1
+    4300036: Destrution_phase_3
+    4300038: Flag_3
+    4300040: Flag_2
+    4300042: Flag_1
+    4300044: Ash
+    4300046: Ground
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

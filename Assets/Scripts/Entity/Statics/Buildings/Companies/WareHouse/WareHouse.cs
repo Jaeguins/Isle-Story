@@ -7,7 +7,6 @@ public class WareHouse : Company {
     /*
      * save sequence
      * supperclassed saves
-     * >inventory
      */
     public override void Start() {
         base.Start();
@@ -16,13 +15,11 @@ public class WareHouse : Company {
         base.Save(writer);
     }
     public new static WareHouse Load(BinaryReader reader) {
-        WareHouse ret = (WareHouse)Instantiate(TriIsleland.Instance.companyPrefabs[0]);
+        WareHouse ret = (WareHouse)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.WAREHOUSE, 0));
         return ret;
     }
     public override void BindOptions(CommandPanel menu) {
         base.BindOptions(menu);
-        if (UnderConstruct) return;
-        if (Officers.Count > 0)
-            menu.BindButton(1, "Officers", ShowOfficers);
+
     }
 }

@@ -65,9 +65,6 @@ public class EntityManager : MonoBehaviour {
                             case InnType.TENT:
                                 ((Tent)b.Value).Save(writer);
                                 break;
-                            case InnType.CAMP:
-                                ((Camp)b.Value).Save(writer);
-                                break;
                         }
                         break;
                     case BuildingType.COMPANY:

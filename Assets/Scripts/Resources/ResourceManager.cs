@@ -12,7 +12,6 @@ public class ResourceManager : MonoBehaviour {
     IEnumerator<WaitForSeconds> Routine() {
         while (true) {
             Refresh();
-            Debug.Log("resource refreshed");
             yield return new WaitForSeconds(1f);
         }
     }

@@ -4,11 +4,9 @@ using System.Linq;
 using System.IO;
 public class TriIsleland : MonoBehaviour {
     public TopViewCam topCam;
-    public List<Inn> innPrefabs;
-    public List<Unit> unitPrefabs;
-    public List<Natural> naturalPrefabs;
-    public List<Worksite> worksitePrefabs;
-    public List<Company> companyPrefabs;
+    public List<PrefabManager> buildings;
+    public PrefabManager units;
+    public PrefabManager naturals;
     public EntityManager entities;
     public static TriIsleland Instance;
     string isleName = "test";
@@ -56,5 +54,13 @@ public class TriIsleland : MonoBehaviour {
         }
         entities.Load(path);
     }
-
+    public static Entity GetBuildingPrefabs(int mainType,int subType,int index) {
+        return Instance.buildings[mainType][subType][index];
+    }
+    public static Entity GetUnitPrefabs(int mainType, int subType) {
+        return Instance.units[mainType][subType];
+    }
+    public static Entity GetNaturalPrefabs(int mainType, int subType) {
+        return Instance.naturals[mainType][subType];
+    }
 }

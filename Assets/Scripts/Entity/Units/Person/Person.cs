@@ -25,7 +25,7 @@ public class Person : Unit {
             if (company)
                 company.Officers.Remove(this);
             if (value)
-            value.Officers.Add(this);
+                value.Officers.Add(this);
             company = value;
         }
     }
@@ -98,7 +98,7 @@ public class Person : Unit {
     }
 
     public static new Person Load(BinaryReader reader) {
-        Person ret = Instantiate((Person)TriIsleland.Instance.unitPrefabs[(int)UnitType.PERSON]);
+        Person ret = Instantiate((Person)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON, 0));
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
             ret.Home = (Inn)tLoc.Statics;

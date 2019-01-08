@@ -13,16 +13,13 @@ public class EntityMenu : MonoBehaviour {
     }
     public Text nameText, typeText;
     public CommandPanel commandPanel;
-    public void BindUnit(Unit unit) {
+    public void BindEntity(Entity unit) {
         BindStart(unit);
-    }
-    public void BindBuilding(Building building) {
-        BindStart(building);
     }
     void BindStart(Entity target) {
         Clear();
         Target = target;
-        target.Select();
+        target.SelectionIndicator.Select();
         nameText.text = target.UIName;
         typeText.text = target.UIType;
         gameObject.SetActive(true);
@@ -30,7 +27,7 @@ public class EntityMenu : MonoBehaviour {
     }
     public void Clear() {
         if(Target)
-        Target.Deselect();
+        Target.SelectionIndicator.Deselect();
         //TODO Target Clearing
         BuildingMenu.Instance.Close();
         Target = null;

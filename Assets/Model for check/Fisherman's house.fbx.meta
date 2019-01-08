@@ -1,0 +1,274 @@
+fileFormatVersion: 2
+guid: 1121737485f03574698dd68ccb04dcee
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Building_phase
+    100002: Carcass
+    100004: Destruction_phase_1
+    100006: Destruction_phase_1 1
+    100008: Destruction_phase_2
+    100010: Destruction_phase_2 1
+    100012: Destruction_phase_3
+    100014: Destruction_phase_3 1
+    100016: First_Floor
+    100018: //RootNode
+    100020: Flag_1
+    100022: Flag_1 1
+    100024: Flag_1 2
+    100026: Flag_2
+    100028: Flag_2 1
+    100030: Flag_2 2
+    100032: Flag_2 3
+    100034: Flag_3
+    100036: Flag_3 1
+    100038: Flag_3 2
+    100040: Flag_3 3
+    100042: Flag_Element
+    100044: Flags
+    100046: Foundation
+    100048: Ground
+    100050: Roof
+    100052: Rope
+    100054: Rope 1
+    100056: Rope 2
+    100058: Rope 3
+    100060: Rope_1
+    100062: Rope_1 1
+    100064: Rope_1 2
+    100066: Rope_2
+    100068: Rope_2 1
+    100070: Rope_2 2
+    100072: Rope_3
+    100074: Rope_3 1
+    100076: Rope_3 2
+    100078: Rope_3 3
+    100080: Scaffold
+    100082: Second_Floor
+    400000: Building_phase
+    400002: Carcass
+    400004: Destruction_phase_1
+    400006: Destruction_phase_1 1
+    400008: Destruction_phase_2
+    400010: Destruction_phase_2 1
+    400012: Destruction_phase_3
+    400014: Destruction_phase_3 1
+    400016: First_Floor
+    400018: //RootNode
+    400020: Flag_1
+    400022: Flag_1 1
+    400024: Flag_1 2
+    400026: Flag_2
+    400028: Flag_2 1
+    400030: Flag_2 2
+    400032: Flag_2 3
+    400034: Flag_3
+    400036: Flag_3 1
+    400038: Flag_3 2
+    400040: Flag_3 3
+    400042: Flag_Element
+    400044: Flags
+    400046: Foundation
+    400048: Ground
+    400050: Roof
+    400052: Rope
+    400054: Rope 1
+    400056: Rope 2
+    400058: Rope 3
+    400060: Rope_1
+    400062: Rope_1 1
+    400064: Rope_1 2
+    400066: Rope_2
+    400068: Rope_2 1
+    400070: Rope_2 2
+    400072: Rope_3
+    400074: Rope_3 1
+    400076: Rope_3 2
+    400078: Rope_3 3
+    400080: Scaffold
+    400082: Second_Floor
+    2100000: All_Color_mtl
+    2100002: Flag_mtl
+    2100004: Town_Center_mtl
+    2300000: Carcass
+    2300002: Destruction_phase_1 1
+    2300004: Destruction_phase_2 1
+    2300006: Destruction_phase_3 1
+    2300008: First_Floor
+    2300010: Flag_1
+    2300012: Flag_1 1
+    2300014: Flag_1 2
+    2300016: Flag_2
+    2300018: Flag_2 1
+    2300020: Flag_2 2
+    2300022: Flag_2 3
+    2300024: Flag_3
+    2300026: Flag_3 1
+    2300028: Flag_3 2
+    2300030: Flag_3 3
+    2300032: Flag_Element
+    2300034: Foundation
+    2300036: Ground
+    2300038: Roof
+    2300040: Rope_1
+    2300042: Rope_1 1
+    2300044: Rope_1 2
+    2300046: Rope_2
+    2300048: Rope_2 1
+    2300050: Rope_2 2
+    2300052: Rope_3
+    2300054: Rope_3 1
+    2300056: Rope_3 2
+    2300058: Rope_3 3
+    2300060: Scaffold
+    2300062: Second_Floor
+    3300000: Carcass
+    3300002: Destruction_phase_1 1
+    3300004: Destruction_phase_2 1
+    3300006: Destruction_phase_3 1
+    3300008: First_Floor
+    3300010: Flag_1
+    3300012: Flag_1 1
+    3300014: Flag_1 2
+    3300016: Flag_2
+    3300018: Flag_2 1
+    3300020: Flag_2 2
+    3300022: Flag_2 3
+    3300024: Flag_3
+    3300026: Flag_3 1
+    3300028: Flag_3 2
+    3300030: Flag_3 3
+    3300032: Flag_Element
+    3300034: Foundation
+    3300036: Ground
+    3300038: Roof
+    3300040: Rope_1
+    3300042: Rope_1 1
+    3300044: Rope_1 2
+    3300046: Rope_2
+    3300048: Rope_2 1
+    3300050: Rope_2 2
+    3300052: Rope_3
+    3300054: Rope_3 1
+    3300056: Rope_3 2
+    3300058: Rope_3 3
+    3300060: Scaffold
+    3300062: Second_Floor
+    4300000: Ground
+    4300002: Rope_1
+    4300004: Rope_2
+    4300006: Rope_3
+    4300008: Scaffold
+    4300010: Foundation
+    4300012: Flag_Element
+    4300014: Flag_1
+    4300016: Flag_2
+    4300018: Flag_3
+    4300020: Second_Floor
+    4300022: Roof
+    4300024: Carcass
+    4300026: First_Floor
+    4300028: Destruction_phase_1
+    4300030: Flag_3
+    4300032: Flag_2
+    4300034: Flag_1
+    4300036: Rope_1
+    4300038: Rope_2
+    4300040: Rope_3
+    4300042: Destruction_phase_2
+    4300044: Flag_3
+    4300046: Flag_2
+    4300048: Flag_1
+    4300050: Rope_1
+    4300052: Rope_2
+    4300054: Rope_3
+    4300056: Destruction_phase_3
+    4300058: Flag_3
+    4300060: Flag_2
+    4300062: Rope_3
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

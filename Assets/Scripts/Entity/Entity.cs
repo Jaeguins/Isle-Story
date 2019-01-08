@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.IO;
 using System;
 [Serializable]
 public abstract class Entity : MonoBehaviour {
-    public GameObject SelectionIndicator;
+    public SelectionIndicator SelectionIndicator;
+    public SelectionIndicator HoverIndicator;
     public ResourceController resourceController;
     public SizeType sizeType;
     public string UIType;
@@ -86,13 +88,6 @@ public abstract class Entity : MonoBehaviour {
         }
     }
 
-    public virtual void Select() {
-        SelectionIndicator.SetActive(true);
-    }
-
-    public virtual void Deselect() {
-        SelectionIndicator.SetActive(false);
-    }
     public IEnumerator InternalCoroutine() {
         while (true) {
             Tick();
@@ -101,5 +96,20 @@ public abstract class Entity : MonoBehaviour {
     }
     public virtual void Tick() {
         
+    }
+    public void OnMouseEnter() {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        Debug.Log(ToString() + " enterHover");
+        HoverIndicator.Select();
+    }
+    public void OnMouseExit() {
+        Debug.Log(ToString() + " exitHover");
+        HoverIndicator.Deselect();
+    }
+    private void OnMouseDown() {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        Debug.Log(ToString() + " selected");
+        SelectionIndicator.Select();
+        EntityMenu.Instance.BindEntity(this);
     }
 }

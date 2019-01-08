@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    INN, COMPANY, WORKSITE
+    HALL,INN, COMPANY, WORKSITE
 }
 
 public enum SizeType {
@@ -83,11 +83,7 @@ public class Building : Statics {
         personList.Bind(this, Insider);
     }
 
-    private void OnMouseDown() {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        EntityMenu.Instance.BindBuilding(this);
-
-    }
+    
     public virtual void CheckConstruction() {
         if (ConstructTime < 0) {
             UnderConstruct = false;

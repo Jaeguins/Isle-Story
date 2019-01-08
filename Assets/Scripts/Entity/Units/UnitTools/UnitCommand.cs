@@ -172,15 +172,7 @@ public class BuildCommand : Command {
         TriGrid instance = TriGrid.Instance;
         TriCell tCell = instance.GetCell(TriCoordinates.Load(reader));
         TriDirection tDir = (TriDirection)reader.ReadInt32();
-        Entity prefab;
-        switch (reader.ReadInt32()) {
-            case (int)BuildingType.INN:
-                prefab = TriIsleland.Instance.innPrefabs[reader.ReadInt32()];
-                break;
-            default:
-                prefab = null;
-                break;
-        }
+        Entity prefab= TriIsleland.GetBuildingPrefabs(reader.ReadInt32(), reader.ReadInt32(), 0);
         return new BuildCommand(tCell,tDir, prefab);
     }
 }

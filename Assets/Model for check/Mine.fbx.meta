@@ -1,0 +1,287 @@
+fileFormatVersion: 2
+guid: 9a6b7dffcdf22c3469f2b80cdba6e1ee
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Ash
+    100002: Axis_1
+    100004: Axis_1 1
+    100006: Axis_1 2
+    100008: Axis_2
+    100010: Axis_2 1
+    100012: Axis_2 2
+    100014: Building_phase
+    100016: Carcass
+    100018: Destruction_phase_1
+    100020: Destruction_phase_1 1
+    100022: Destruction_phase_2
+    100024: Destruction_phase_2 1
+    100026: Destruction_phase_3
+    100028: Destruction_phase_3 1
+    100030: First_Floor
+    100032: Flag_1
+    100034: Flag_1 1
+    100036: Flag_1 2
+    100038: Flag_1 3
+    100040: Flag_2
+    100042: Flag_2 1
+    100044: Flag_2 2
+    100046: Flag_3
+    100048: Flag_3 1
+    100050: Flag_3 2
+    100052: Flag_Element
+    100054: Flags
+    100056: Foundation
+    100058: Ground
+    100060: //RootNode
+    100062: Ore
+    100064: Ore 1
+    100066: Ore 2
+    100068: Roof
+    100070: Scaffold
+    100072: Second_Floor
+    100074: Stones
+    100076: Trolley
+    100078: Trolley 1
+    100080: Trolley 2
+    100082: Trolley 3
+    100084: Trolley 4
+    100086: Trolley 5
+    400000: Ash
+    400002: Axis_1
+    400004: Axis_1 1
+    400006: Axis_1 2
+    400008: Axis_2
+    400010: Axis_2 1
+    400012: Axis_2 2
+    400014: Building_phase
+    400016: Carcass
+    400018: Destruction_phase_1
+    400020: Destruction_phase_1 1
+    400022: Destruction_phase_2
+    400024: Destruction_phase_2 1
+    400026: Destruction_phase_3
+    400028: Destruction_phase_3 1
+    400030: First_Floor
+    400032: Flag_1
+    400034: Flag_1 1
+    400036: Flag_1 2
+    400038: Flag_1 3
+    400040: Flag_2
+    400042: Flag_2 1
+    400044: Flag_2 2
+    400046: Flag_3
+    400048: Flag_3 1
+    400050: Flag_3 2
+    400052: Flag_Element
+    400054: Flags
+    400056: Foundation
+    400058: Ground
+    400060: //RootNode
+    400062: Ore
+    400064: Ore 1
+    400066: Ore 2
+    400068: Roof
+    400070: Scaffold
+    400072: Second_Floor
+    400074: Stones
+    400076: Trolley
+    400078: Trolley 1
+    400080: Trolley 2
+    400082: Trolley 3
+    400084: Trolley 4
+    400086: Trolley 5
+    2100000: All_Color_mtl
+    2100002: Town_Center_mtl
+    2100004: Flag_mtl
+    2300000: Ash
+    2300002: Axis_1
+    2300004: Axis_1 1
+    2300006: Axis_1 2
+    2300008: Axis_2
+    2300010: Axis_2 1
+    2300012: Axis_2 2
+    2300014: Carcass
+    2300016: Destruction_phase_1 1
+    2300018: Destruction_phase_2 1
+    2300020: Destruction_phase_3 1
+    2300022: First_Floor
+    2300024: Flag_1
+    2300026: Flag_1 1
+    2300028: Flag_1 2
+    2300030: Flag_1 3
+    2300032: Flag_2
+    2300034: Flag_2 1
+    2300036: Flag_2 2
+    2300038: Flag_3
+    2300040: Flag_3 1
+    2300042: Flag_3 2
+    2300044: Flag_Element
+    2300046: Foundation
+    2300048: Ground
+    2300050: Ore
+    2300052: Ore 1
+    2300054: Ore 2
+    2300056: Roof
+    2300058: Scaffold
+    2300060: Second_Floor
+    2300062: Stones
+    2300064: Trolley 3
+    2300066: Trolley 4
+    2300068: Trolley 5
+    3300000: Ash
+    3300002: Axis_1
+    3300004: Axis_1 1
+    3300006: Axis_1 2
+    3300008: Axis_2
+    3300010: Axis_2 1
+    3300012: Axis_2 2
+    3300014: Carcass
+    3300016: Destruction_phase_1 1
+    3300018: Destruction_phase_2 1
+    3300020: Destruction_phase_3 1
+    3300022: First_Floor
+    3300024: Flag_1
+    3300026: Flag_1 1
+    3300028: Flag_1 2
+    3300030: Flag_1 3
+    3300032: Flag_2
+    3300034: Flag_2 1
+    3300036: Flag_2 2
+    3300038: Flag_3
+    3300040: Flag_3 1
+    3300042: Flag_3 2
+    3300044: Flag_Element
+    3300046: Foundation
+    3300048: Ground
+    3300050: Ore
+    3300052: Ore 1
+    3300054: Ore 2
+    3300056: Roof
+    3300058: Scaffold
+    3300060: Second_Floor
+    3300062: Stones
+    3300064: Trolley 3
+    3300066: Trolley 4
+    3300068: Trolley 5
+    4300000: Ground
+    4300002: Stones
+    4300004: Scaffold
+    4300006: Ore
+    4300008: Trolley
+    4300010: Axis_2
+    4300012: Axis_1
+    4300014: Carcass
+    4300016: Second_Floor
+    4300018: First_Floor
+    4300020: Roof
+    4300022: Foundation
+    4300024: Flag_Element
+    4300026: Flag_1
+    4300028: Flag_2
+    4300030: Flag_3
+    4300032: Destruction_phase_1
+    4300034: Flag_3
+    4300036: Flag_2
+    4300038: Flag_1
+    4300040: Ore
+    4300042: Trolley
+    4300044: Axis_2
+    4300046: Axis_1
+    4300048: Destruction_phase_2
+    4300050: Flag_3
+    4300052: Flag_2
+    4300054: Flag_1
+    4300056: Ore
+    4300058: Trolley
+    4300060: Axis_2
+    4300062: Axis_1
+    4300064: Destruction_phase_3
+    4300066: Ash
+    4300068: Flag_1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

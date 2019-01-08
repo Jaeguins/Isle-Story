@@ -14,12 +14,9 @@ public class BuildingMenu : MonoBehaviour {
         Instance = this;
         gameObject.SetActive(false);
     }
-    public void BuildInn(int index) {
-        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.innPrefabs[index]));
-        Close();
-    }
-    public void BuildWorksite(int index) {
-        Selector.Instance.RequestLocation((Unit)selected, TriIsleland.Instance.innPrefabs[0].sizeType, new BuildCommand(TriIsleland.Instance.worksitePrefabs[index]));
+    public void BuildBuilding(int type,int subtype,int index) {
+        Entity t = TriIsleland.GetBuildingPrefabs(type, subtype, index);
+        Selector.Instance.RequestLocation((Unit)selected, t.sizeType, new BuildCommand(t));
         Close();
     }
 
