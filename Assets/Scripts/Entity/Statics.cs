@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Statics:Entity{
     public bool Working=false;
+    public bool Stepable = false;
     public TriDirection entranceDirection;
     public TriDirection EntranceDirection {
         get {

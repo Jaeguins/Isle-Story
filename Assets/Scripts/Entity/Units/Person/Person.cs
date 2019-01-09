@@ -10,8 +10,12 @@ public class Person : Unit {
         set {
             if (home)
                 home.Livers.Remove(this);
+            else
+                TriIsleland.Instance.entities.camp.Homeless.Remove(this);
             if (value)
                 value.Livers.Add(this);
+            else
+                TriIsleland.Instance.entities.camp.Homeless.Add(this);
             home = value;
         }
     }
@@ -63,6 +67,7 @@ public class Person : Unit {
             AddCommand(new GetInCommand(Home));
         }
         else {
+            AddCommand(new MoveCommand(TriIsleland.Instance.entities.GetCamp().EntranceLocation));
             AddCommand(new GetInCommand(TriIsleland.Instance.entities.GetCamp()));
         }
     }

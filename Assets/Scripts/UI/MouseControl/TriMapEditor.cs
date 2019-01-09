@@ -150,9 +150,11 @@ public class TriMapEditor : MonoBehaviour {
     public void CreateHall(TriDirection dir,TriCell cell) {
         Hall ret = (Hall)CreateBuilding(dir, cell, (Building)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE, 0));
         if (ret) {
+            TriIsleland.Instance.entities.camp = ret;
             for (int i = 0; i < 4; i++) {
-                Unit t = CreateUnit(cell, (Unit)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON,0));
+                Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON,0));
                 ((Person)t).Home = null;
+                t.AddCommand(new GetInCommand(ret));
             }
             ret.Working = true;
         }

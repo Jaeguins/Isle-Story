@@ -43,10 +43,11 @@ public class Command {
 
 public class MoveCommand : Command {
     public TriCell location;
-
-    public MoveCommand(TriCell location) {
+    public bool flag;
+    public MoveCommand(TriCell location,bool flag=true) {
         type = CommandType.MOVE;
         this.location = location;
+        this.flag = flag;
     }
 
     public override void Save(BinaryWriter writer) {
@@ -55,7 +56,7 @@ public class MoveCommand : Command {
     }
 
     public static new MoveCommand Load(BinaryReader reader) {
-        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)));
+        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)),reader.ReadBoolean());
     }
 
 }

@@ -11,8 +11,12 @@ public abstract class Entity : MonoBehaviour {
     public SizeType sizeType;
     public string UIType;
     public string UIName;
+    protected BoxCollider col;
     public virtual void Start() {
         StartCoroutine(InternalCoroutine());
+    }
+    private void Awake() {
+        col = gameObject.GetComponent<BoxCollider>();
     }
     public int ID {
         get {

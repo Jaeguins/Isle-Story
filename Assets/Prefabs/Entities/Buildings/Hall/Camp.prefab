@@ -21,10 +21,11 @@ MonoBehaviour:
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
   Working: 0
+  Stepable: 0
   entranceDirection: 0
   Insider: []
   Workers: []
-  UnderConstruct: 1
+  UnderConstruct: 0
   ConstructTime: 9999
   type: 0
   personList: {fileID: 0}

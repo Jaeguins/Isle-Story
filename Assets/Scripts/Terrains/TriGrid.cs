@@ -71,13 +71,13 @@ public class TriGrid : MonoBehaviour {
         }
     }
 
-    public void FindPath(TriCell fromCell,TriCell toCell) {
+    public void FindPath(TriCell fromCell,TriCell toCell,bool entityCheck=true) {
         ClearLabel();
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
-        currentPathExists = Search(fromCell, toCell);
-        Debug.Log(currentPathExists);
+        currentPathExists = Search(fromCell, toCell,entityCheck);
+        Debug.Log("pathFindResult : "+currentPathExists);
     }
 
     public List<TriCell> GetPath() {
@@ -105,7 +105,7 @@ public class TriGrid : MonoBehaviour {
         currentPathFrom = currentPathTo = null;
     }
 
-    bool Search(TriCell fromCell,TriCell toCell) {
+    bool Search(TriCell fromCell,TriCell toCell,bool entityCheck) {
         searchFrontierPhase += 2;
         if (searchFrontier == null) {
             searchFrontier = new TriCellPriorityQueue();
@@ -135,7 +135,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.Distance != int.MaxValue||
                     neighbor.IsUnderwater||
                     neighbor.HasRiver||
-                    //neighbor.Entity||
+                    (entityCheck&&!neighbor.Stepable)||
                     Mathf.Abs(neighbor.Elevation-current.Elevation)>1)
                     continue;
                 int distance = current.Distance;

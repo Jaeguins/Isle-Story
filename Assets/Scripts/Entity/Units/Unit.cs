@@ -41,28 +41,35 @@ public class Unit : Entity {
     }
     public void SetVisible(bool val) {
         mesh.enabled = val;
+        col.enabled = val;
     }
     public static bool IsValidDestination(TriCell cell) {
-        return !cell.IsUnderwater && !cell.Statics;
+        return !cell.IsUnderwater;
     }
-    public void AddCommand(Command c) {
+    public void AddCommand(Command c) {//Warn : Don't use AddCommand() in AddCommand()!
         switch (c.type) {
             case CommandType.GETIN:
                 Statics t = ((GetInCommand)c).target;
-                commandQueue.Enqueue(new MoveCommand(t.Location.GetNeighbor(t.EntranceDirection)));
+                commandQueue.Enqueue(new MoveCommand(t.EntranceLocation));
+                commandQueue.Enqueue(new MoveCommand(t.Location, false));
                 break;
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
-                AddCommand(new GetOutCommand());
-                AddCommand(new MoveCommand(k.location));
+                commandQueue.Enqueue(new GetOutCommand());
+                commandQueue.Enqueue(new MoveCommand(k.location));
                 break;
             case CommandType.MOVE:
-                AddCommand(new GetOutCommand());
+                commandQueue.Enqueue(new GetOutCommand());
                 break;
             default:
                 break;
         }
         commandQueue.Enqueue(c);
+        switch (c.type) {
+            case CommandType.GETOUT:
+                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation, false));
+                break;
+        }
     }
     private void OnEnable() {
         StartCoroutine(Act());
@@ -75,11 +82,11 @@ public class Unit : Entity {
         base.BindOptions(menu);
     }
 
-    public IEnumerator<Coroutine> FindPathAndMove(TriCell target) {
+    public IEnumerator<Coroutine> FindPathAndMove(TriCell target,bool entityCheck) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {
 
-            inst.FindPath(Location, target);
+            inst.FindPath(Location, target,entityCheck);
             if (inst.HasPath) {
                 pathToTravel = inst.GetPath();
                 CancelNowAct();
@@ -98,8 +105,10 @@ public class Unit : Entity {
         GetIn(((GetInCommand)nowWork).target);
     }
     public void GetIn(Statics target) {
+        acting = true;
         Building = target;
-        Location = target.Location;
+        SetVisible(false);
+        acting = false;
     }
     public void GetOut() {
         if (!Building) {
@@ -107,13 +116,12 @@ public class Unit : Entity {
             return;
         }   
         acting = true;
-        Location = Building.Location.GetNeighbor(Building.EntranceDirection);
         Building = null;
         SetVisible(true);
         acting = false;
     }
-    public void Move() {
-        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location));
+    public void Move(bool entityCheck) {
+        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location,entityCheck));
     }
     public virtual void Build() {
         Debug.Log("unexpected Order");
@@ -144,7 +152,7 @@ public class Unit : Entity {
 
                 switch (nowWork.type) {
                     case CommandType.MOVE:
-                        Move();
+                        Move(((MoveCommand)nowWork).flag);
                         break;
                     case CommandType.GETIN:
                         GetIn();

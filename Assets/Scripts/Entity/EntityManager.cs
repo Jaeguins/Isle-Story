@@ -8,7 +8,7 @@ public class EntityManager : MonoBehaviour {
     public Transform UnitGroup;
     public Transform NaturalGroup;
     public TriGrid grid;
-    public Camp camp;
+    public Hall camp;
     public Dictionary<int, Building> buildings;
     public Dictionary<int, Unit> units;
     public Dictionary<int, Natural> naturals;

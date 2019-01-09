@@ -12,6 +12,11 @@ public class TriCell : MonoBehaviour {
             isRoad = value;
         }
     }
+    public bool Stepable {
+        get {
+            return Statics ? Statics.Stepable : true;
+        }
+    }
     bool isRoad=false;
     public TriCell PathFrom { get; set; }
     public bool inverted = false;
