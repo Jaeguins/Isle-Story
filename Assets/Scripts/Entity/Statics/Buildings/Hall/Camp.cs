@@ -14,7 +14,4 @@ public class Camp : Hall {
         return Instantiate((Camp)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE,0));
     }
 
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-    }
 }

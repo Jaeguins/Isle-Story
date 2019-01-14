@@ -4,6 +4,9 @@ using System.IO;
 
 public class TriCell : MonoBehaviour {
     public TriCoordinates coordinates;
+    public static implicit operator Vector3(TriCell obj){
+        return obj.Position;
+    }
     public bool IsRoad {
         get {
             return isRoad;

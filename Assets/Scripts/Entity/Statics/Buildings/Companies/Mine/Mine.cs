@@ -13,7 +13,4 @@ public class Mine : Company {
         LoggingFacility ret = (LoggingFacility)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.MINE, 0));
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-    }
 }

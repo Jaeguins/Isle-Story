@@ -8,6 +8,10 @@ public enum UnitType {
 }
 public class Unit : Entity {
     public SkinnedMeshRenderer mesh;
+    public override void Awake() {
+        base.Awake();
+        EntityType = EntityType.Unit;
+    }
     public Statics Building {
         get {
             return building;
@@ -78,10 +82,7 @@ public class Unit : Entity {
         StopAllCoroutines();
     }
 
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-    }
-
+    
     public IEnumerator<Coroutine> FindPathAndMove(TriCell target,bool entityCheck) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {

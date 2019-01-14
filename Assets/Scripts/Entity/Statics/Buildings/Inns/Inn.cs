@@ -31,14 +31,6 @@ public class Inn : Building {
         return ret;
     }
 
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-        if (UnderConstruct) return;
-        if (Livers.Count > 0)
-            menu.BindButton(1, "Livers", ShowLivers);
-
-    }
-
     public void ShowLivers() {
         personList.Bind(this, Livers);
     }

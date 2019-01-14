@@ -3,9 +3,28 @@ using System.Collections.Generic;
 
 public class ResourceManager : MonoBehaviour {
     public List<TotalResource> totalResources;
+    public List<Sprite> totalSprites;
+    public List<string> totalNames;
     public List<ItemResource> itemResources;
+    public List<Sprite> itemSprites;
+    public List<string> itemNames;
     public EntityManager manager;
     public ResourceView resourceView;
+    public static ResourceManager Instance;
+
+    public static KeyValuePair<Sprite,string> GetTotalAsset(ResourceType type) {
+        int t = (int)type;
+        return new KeyValuePair<Sprite, string>(Instance.totalSprites[t], Instance.totalNames[t]);
+    }
+    public static KeyValuePair<Sprite, string> GetItemAsset(ItemType type) {
+        int t = (int)type;
+        return new KeyValuePair<Sprite, string>(Instance.itemSprites[t], Instance.itemNames[t]);
+    }
+
+    public void Awake() {
+        Instance = this;
+    }
+
     public void Start() {
         StartCoroutine(Routine());
     }

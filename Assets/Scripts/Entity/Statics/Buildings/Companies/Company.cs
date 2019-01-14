@@ -28,12 +28,6 @@ public class Company : Building{
         ret.Capacity = capacity;
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-        if (UnderConstruct) return;
-        if (Officers.Count > 0)
-            menu.BindButton(1, "Officers", ShowOfficers);
-    }
     public void ShowOfficers() {
         personList.Bind(this, Officers);
     }

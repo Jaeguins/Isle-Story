@@ -7,24 +7,12 @@ public class GameUI : MonoBehaviour {
     Unit selectedUnit;
     public TriMapEditor mapEditor;
     public GameObject buildingPanel;
-    public CommandPanel buildingMenu;
     public PersonList personList;
     public TriGrid grid;
     public BuildingMenu buildMenu;
     private void Start() {
         Instance = this;
     }
-
-    public void ToPreference() {
-        buildingMenu.ToBuildingOption();
-        buildingPanel.SetActive(true);
-    }
-    public void outPreference() {
-        buildingMenu.OutBuildingOption();
-        buildingPanel.SetActive(false);
-    }
-
-
 
     public void SetEditMode(bool toggle) {
         enabled = !toggle;

@@ -27,12 +27,6 @@ public class Worksite : Building{
         ret.Capacity = capacity;
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-        if (UnderConstruct) return;
-        if (Insider.Count > 0)
-            menu.BindButton(1, "Workers", ShowWorkers);
-    }
     public void ShowWorkers() {
         personList.Bind(this, Workers);
     }

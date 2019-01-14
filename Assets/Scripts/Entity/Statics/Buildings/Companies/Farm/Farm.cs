@@ -13,7 +13,4 @@ public class Farm : Company {
         LoggingFacility ret = (LoggingFacility)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.FARM, 0));
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-    }
 }

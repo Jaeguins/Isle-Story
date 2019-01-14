@@ -132,13 +132,6 @@ public class Person : Unit {
         Work = ((ChangeWorkCommand)nowWork).target;
         Debug.Log("Change Work");
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-        menu.BindButton(5, "build", BindingBuildingMenu);
-        menu.BindButton(6, "change\nhome", ChangeHome);
-        menu.BindButton(7, "change\ncompany", ChangeJob);
-        menu.BindButton(8, "change\nwork", ChangeWork);
-    }
     public void BindingBuildingMenu() {
         BuildingMenu.Instance.Bind(this);
     }

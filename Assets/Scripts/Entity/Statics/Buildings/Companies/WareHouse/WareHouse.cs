@@ -18,8 +18,4 @@ public class WareHouse : Company {
         WareHouse ret = (WareHouse)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.WAREHOUSE, 0));
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-
-    }
 }

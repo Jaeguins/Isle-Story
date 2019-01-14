@@ -3,19 +3,24 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.IO;
 using System;
+public enum EntityType {
+    Building,Natural,Unit
+}
 [Serializable]
 public abstract class Entity : MonoBehaviour {
+    public bool Working = false;
+    public bool Stepable = false;
     public SelectionIndicator SelectionIndicator;
     public SelectionIndicator HoverIndicator;
     public ResourceController resourceController;
     public SizeType sizeType;
-    public string UIType;
-    public string UIName;
+    public EntityType EntityType;
+    public string UIType,UIName,UIStatus="NaN";
     protected BoxCollider col;
     public virtual void Start() {
         StartCoroutine(InternalCoroutine());
     }
-    private void Awake() {
+    public virtual void Awake() {
         col = gameObject.GetComponent<BoxCollider>();
     }
     public int ID {
@@ -43,9 +48,6 @@ public abstract class Entity : MonoBehaviour {
             location = value;
             transform.localPosition = value.Position;
         }
-    }
-    public virtual void BindOptions(CommandPanel menu) {
-        menu.BindButton(0, "Status", menu.UnitStatus);
     }
 
     /*
@@ -110,10 +112,10 @@ public abstract class Entity : MonoBehaviour {
         Debug.Log(ToString() + " exitHover");
         HoverIndicator.Deselect();
     }
-    private void OnMouseDown() {
+    public virtual void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         Debug.Log(ToString() + " selected");
         SelectionIndicator.Select();
-        EntityMenu.Instance.BindEntity(this);
+        EntityView.Instance.Bind(this);
     }
 }

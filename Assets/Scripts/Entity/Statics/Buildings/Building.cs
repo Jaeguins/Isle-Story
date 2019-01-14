@@ -12,6 +12,10 @@ public enum SizeType {
     SINGLE, HEX
 }
 public class Building : Statics {
+    public override void Awake() {
+        base.Awake();
+        EntityType = EntityType.Building;
+    }
     public bool UnderConstruct = true;
     public float ConstructTime = 9999f;
     public BuildingType type;
@@ -72,12 +76,6 @@ public class Building : Statics {
         ret.Working = working;
         ret.ConstructTime = constructTime;
         return ret;
-    }
-
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-        if (UnderConstruct && Insider.Count > 0) { }
-        menu.BindButton(1, "workers", BindWorkers);
     }
     public void BindWorkers() {
         personList.Bind(this, Insider);

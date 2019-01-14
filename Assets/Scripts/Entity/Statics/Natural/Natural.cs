@@ -13,6 +13,10 @@ public class Natural : Statics {
         base.Start();
         Working = true;
     }
+    public override void Awake() {
+        base.Awake();
+        EntityType = EntityType.Natural;
+    }
     public new TriCell Location {
         get {
             return location;

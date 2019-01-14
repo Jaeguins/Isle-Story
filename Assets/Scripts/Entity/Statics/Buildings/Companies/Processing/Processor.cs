@@ -13,7 +13,4 @@ public class Processor : Company {
         Processor ret = (Processor)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.PROCESSOR, 0));
         return ret;
     }
-    public override void BindOptions(CommandPanel menu) {
-        base.BindOptions(menu);
-    }
 }

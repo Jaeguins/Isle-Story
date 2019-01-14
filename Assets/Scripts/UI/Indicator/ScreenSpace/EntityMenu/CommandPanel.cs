@@ -1,77 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections;
 
-public class CommandPanel : MonoBehaviour{
-    public static CommandPanel Instance;
-    public CameraManager cameraManager;
-    public Entity nowEntity;
-    public List<Button> buttons;
-
-    public new bool enabled {
-        get {
-            return base.enabled;
-        }
-        set {
-            base.enabled = value;
-            Clear();
-        }
+public class CommandPanel : EntityPanel {
+    public Button StatusButton;
+    public Text StatusText;
+    public void ViewTarget() {
+        CameraManager.Instance.GetNowActive().AdjustPosition(target.Location);
     }
-    private void Awake() {
-        Instance = this;
+    public void SetActivateTarget(bool status) {
+        if (status)
+            StatusText.text = Strings.Deactivate;
+        else
+            StatusText.text = Strings.Activate;
+        target.Working = status;
     }
-
-    public void Bind(Entity entity) {
-        enabled = true;
-        nowEntity = entity;
-        nowEntity.BindOptions(this);
-        Debug.Log("bind" + nowEntity);
+    public override void Bind(Entity entity) {
+        base.Bind(entity);
+        StatusButton.gameObject.SetActive(target is Statics);
     }
-
-    public void Clear() {
-        for(int i = 0; i < buttons.Count; i++) {
-            buttons[i].onClick.RemoveAllListeners();
-            buttons[i].gameObject.SetActive(false);
-        }
-    }
-
-    public void Hide() {
-        enabled = false;
-        nowEntity = null;
-        Clear();
-        Debug.Log("unbind" + nowEntity);
-    }
-    public void BindButton(int index,string tooltip,UnityEngine.Events.UnityAction action) {
-        buttons[index].onClick.RemoveAllListeners();
-        buttons[index].gameObject.SetActive(true);
-        buttons[index].GetComponentInChildren<Text>().text = tooltip;
-        buttons[index].onClick.AddListener(action);
-    }
-
-    public void ToBuildingOption() {
-        StartCoroutine(BuildingOption());
-    }
-
-    public void OutBuildingOption() {
-        StartCoroutine(outBuildingOption());
-    }
-
-    IEnumerator outBuildingOption() {
-        yield return StartCoroutine(cameraManager.SwitchCamera(CamType.TOPVIEW));
-        enabled = false;
-        ((IndivViewCam)cameraManager.cameras[1]).enabled = false;
-    }
-
-    public IEnumerator BuildingOption() {
-        yield return StartCoroutine(cameraManager.SwitchCamera(CamType.BUILDINGVIEW));
-        enabled = false;
-        ((IndivViewCam)cameraManager.cameras[1]).SetAnchor(nowEntity);
-        ((IndivViewCam)cameraManager.cameras[1]).SetOffset(nowEntity);
-    }
-
-    public void UnitStatus() {
-        
-    }
-
 }

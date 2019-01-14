@@ -23,7 +23,6 @@ public class CameraManager : MonoBehaviour {
         cameras[(int)camStatus].enabled = false;
         camStatus = target;
         cameras[(int)target].enabled = true;
-        manager.buildingMenu.enabled = true;
 
         //TODO change worldspace event cam
 
