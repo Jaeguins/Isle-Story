@@ -5,6 +5,8 @@ using System.Text;
 using UnityEngine;
 
 public class Resource:MonoBehaviour{
+    public Sprite sprite;
+    public string Name=Strings.NaN, Desc = Strings.NaN;
     public int Amount;
     public int MaxAmount;
     public void Clear() {

@@ -116,6 +116,7 @@ public abstract class Entity : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         Debug.Log(ToString() + " selected");
         SelectionIndicator.Select();
+        EntityView.Instance.Clear();
         EntityView.Instance.Bind(this);
     }
 }

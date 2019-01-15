@@ -6,7 +6,7 @@ using System.IO;
 public enum WorkType {
     FARMLAND,FELLINGLAND
 }
-public class Worksite : Building{
+public class Worksite : Building,ProductionSelectable{
     public int Capacity;
     public WorkType subType;
     public override void Save(BinaryWriter writer) {
@@ -29,5 +29,22 @@ public class Worksite : Building{
     }
     public void ShowWorkers() {
         personList.Bind(this, Workers);
+    }
+
+
+
+    public List<ItemResource> productions;
+    public int CurrentProd = 0;
+
+    public List<ItemResource> GetItems() {
+        return productions;
+    }
+
+    public void SetProduction(int target) {
+        CurrentProd = target;
+    }
+
+    public int GetCurrent() {
+        return CurrentProd;
     }
 }

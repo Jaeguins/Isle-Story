@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-public class Camp : Hall {
-    private void Awake() {
+public class Camp : Hall{
+    
+    public override void Awake() {
+        base.Awake();
         camAnchorOffset = new Vector3(TriMetrics.innerRadius, 5, TriMetrics.outerRadius);
     }
 
@@ -14,4 +16,5 @@ public class Camp : Hall {
         return Instantiate((Camp)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE,0));
     }
 
+    
 }

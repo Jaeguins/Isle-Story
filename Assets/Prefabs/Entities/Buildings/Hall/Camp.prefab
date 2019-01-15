@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43fa7ad897b4584e94d53d781cf01f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Working: 0
+  Stepable: 0
   SelectionIndicator: {fileID: 1587213626513374951}
   HoverIndicator: {fileID: 7177841425872680800}
   resourceController: {fileID: 634219776013144831}
   sizeType: 1
+  EntityType: 0
   UIType: Camp
   UIName: Camp
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
-  Working: 0
-  Stepable: 0
   entranceDirection: 0
   Insider: []
   Workers: []
@@ -33,6 +35,10 @@ MonoBehaviour:
   Model: {fileID: 8584331078370371063}
   Homeless: []
   subType: 0
+  productions:
+  - {fileID: 4860682843638647698, guid: b42e1e7765667464b9d7fc3381699036, type: 3}
+  - {fileID: 2323977333588769063, guid: b986da85dd6a67546a4667b386c45f05, type: 3}
+  CurrentProd: 0
 --- !u!1001 &815161947807154517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44,6 +50,76 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camp
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemTypes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemMaxValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceTypes.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceTypes.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[0]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[1]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.data[2]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemTypes.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemMaxValues.Array.data[0]
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 260429217525437354, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: itemMaxValues.Array.data[1]
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3330940178274340539, guid: 2197b022722cfd7418c335043a2c6518,
         type: 3}

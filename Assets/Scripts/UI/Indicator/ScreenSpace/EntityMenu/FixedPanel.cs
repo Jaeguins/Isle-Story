@@ -12,8 +12,8 @@ public class FixedPanel : EntityPanel{
     }
     public override void Clear() {
         base.Clear();
-        Name.text = target.UIName;
-        Type.text = target.UIType;
-        Status.text = target.UIStatus;
+        Name.text = Strings.NaN;
+        Type.text = Strings.NaN;
+        Status.text = Strings.NaN;
     }
 }
