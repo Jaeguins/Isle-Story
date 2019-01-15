@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d007afdf52bd64a994db8c6be2b655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Working: 0
+  Stepable: 0
   SelectionIndicator: {fileID: 8925809787783163273}
   HoverIndicator: {fileID: 1028195566154245134}
   resourceController: {fileID: 7283729427961381265}
   sizeType: 0
+  EntityType: 0
   UIType: Farmland
   UIName: Farmland
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
-  Working: 0
   entranceDirection: 0
   Insider: []
   Workers: []
@@ -32,6 +35,9 @@ MonoBehaviour:
   Model: {fileID: 4459699730353750795}
   Capacity: 0
   subType: 0
+  productions:
+  - {fileID: 4860682843638647698, guid: b42e1e7765667464b9d7fc3381699036, type: 3}
+  CurrentProd: 0
 --- !u!1001 &1623178548884424047
 PrefabInstance:
   m_ObjectHideFlags: 0

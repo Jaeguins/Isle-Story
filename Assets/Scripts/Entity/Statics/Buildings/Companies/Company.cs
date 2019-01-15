@@ -5,11 +5,11 @@ using System.IO;
 public enum CompType {
     WAREHOUSE,CONSTRUCTOR,FARM,LOGGING,MINE,PROCESSOR
 }
-public class Company : Building{
+public class Company : Building,Commandable{
     public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
-
+    public Person ReceiveableMan;
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -33,11 +33,13 @@ public class Company : Building{
     }
     public override void Tick() {
         base.Tick();
+        ReceiveableMan = null;
         if (Clock.IsDay())
-            foreach(Unit t in Officers) {
-                if (Insider.Contains(t)&&((Person)t).Work) {
+            foreach (Person t in Officers) {
+                if (Insider.Contains(t) && t.Work)
                     t.GoWork();
-                }
+                else
+                    ReceiveableMan = t;
             }
         else
             foreach(Unit t in Officers) {
@@ -45,5 +47,13 @@ public class Company : Building{
                     t.GoHome();
                 }
             }
+    }
+
+    public bool HasCommandReceiver() {
+        return ReceiveableMan;
+    }
+
+    public Unit GetCommandReceiver() {
+        return ReceiveableMan;
     }
 }

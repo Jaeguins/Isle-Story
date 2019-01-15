@@ -97,7 +97,7 @@ public abstract class Entity : MonoBehaviour {
     public IEnumerator InternalCoroutine() {
         while (true) {
             Tick();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     public virtual void Tick() {
@@ -105,11 +105,9 @@ public abstract class Entity : MonoBehaviour {
     }
     public void OnMouseEnter() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        Debug.Log(ToString() + " enterHover");
         HoverIndicator.Select();
     }
     public void OnMouseExit() {
-        Debug.Log(ToString() + " exitHover");
         HoverIndicator.Deselect();
     }
     public virtual void OnMouseDown() {

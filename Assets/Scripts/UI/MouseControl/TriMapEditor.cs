@@ -128,14 +128,28 @@ public class TriMapEditor : MonoBehaviour {
         triGrid.CreateMap(x, z);
         mapGenerator.GenerateMap(x, z);
         isleland.topCam.ValidatePosition();
-        Selector.Instance.RequestLocation(null,SizeType.HEX, new BuildCommand(null));
+        Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
     }
-    public Building CreateBuilding(TriDirection dir,TriCell cell,Building prefab) {
-        if(cell&& Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {
+    public Building CreateBuilding(TriDirection dir, TriCell cell, Building prefab) {
+        if (cell && Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {
             Building ret = Instantiate(prefab);
             ret.ID = entities.BuildingCount;
             ret.Location = cell;
-            cell.Statics = ret;
+            switch (ret.sizeType) {
+                case SizeType.SINGLE:
+                    cell.Statics = ret;
+                    break;
+                case SizeType.HEX:
+                    TriCell k = cell;
+                    TriDirection tDir = dir.Previous();
+                    for (int i = 0; i < 6; i++) {
+                        if (!k) break;
+                        k.Statics = ret;
+                        k = k.GetNeighbor(tDir);
+                        tDir = tDir.Next();
+                    }
+                    break;
+            }
             ret.EntranceDirection = dir;
             ret.personList = personList;
             entities.AddBuilding(ret);
@@ -147,21 +161,21 @@ public class TriMapEditor : MonoBehaviour {
             return null;
         }
     }
-    public void CreateHall(TriDirection dir,TriCell cell) {
-        Hall ret = (Hall)CreateBuilding(dir, cell, (Building)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE, 0));
+    public void CreateHall(TriDirection dir, TriCell cell) {
+        Hall ret = (Hall)CreateBuilding(dir, cell, (Building)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL, (int)HallType.BASE, 0));
         if (ret) {
             TriIsleland.Instance.entities.camp = ret;
             for (int i = 0; i < 4; i++) {
-                Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON,0));
+                Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON, 0));
                 ((Person)t).Home = null;
                 t.AddCommand(new GetInCommand(ret));
             }
             ret.Working = true;
         }
     }
-    public Unit CreateUnit(TriCell cell,Unit prefab) {
+    public Unit CreateUnit(TriCell cell, Unit prefab) {
         if (cell) {
-            Unit ret=Instantiate(prefab);
+            Unit ret = Instantiate(prefab);
             ret.ID = entities.UnitCount;
             ret.Location = cell;
             ret.Orientation = Random.Range(0f, 360f);

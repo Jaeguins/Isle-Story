@@ -7,4 +7,10 @@ public interface ProductionSelectable {
     List<ItemResource> GetItems();
     void SetProduction(int target);
 }
-
+public interface Commandable {
+    bool HasCommandReceiver();
+    Unit GetCommandReceiver();
+}
+public interface Buildable :Commandable{
+    int GetTech();
+}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 
 public class Constructor : Company{
+    public int TechLevel=1;
     public override void Start() {
         base.Start();
     }
@@ -13,4 +14,9 @@ public class Constructor : Company{
         LoggingFacility ret = (LoggingFacility)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY,(int)CompType.CONSTRUCTOR,0));
         return ret;
     }
+
+    public int GetTech() {
+        return TechLevel;
+    }
+
 }

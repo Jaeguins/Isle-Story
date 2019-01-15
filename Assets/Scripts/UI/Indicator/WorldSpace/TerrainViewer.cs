@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TerrainViewer : TriMesh{
+public class TerrainViewer : TriMesh {
     public static TerrainViewer Instance;
     Selector selector;
     TriCell k;
@@ -17,10 +17,10 @@ public class TerrainViewer : TriMesh{
     }
     public void CalculateTerrain() {
         Clear();
-        
+
         if (selector.nowCell) {
             TriCell neighbor = selector.nowCell.GetNeighbor(selector.dir);
-            if (neighbor) RecalculateTerrain(neighbor,neighbor.IsBuildable()&&neighbor.Elevation==selector.nowCell.Elevation);
+            if (neighbor) RecalculateTerrain(neighbor, neighbor.IsBuildable() && neighbor.Elevation <= selector.nowCell.Elevation + 1 && neighbor.Elevation >= selector.nowCell.Elevation - 1);
             switch (selector.sizeType) {
                 case SizeType.HEX:
                     k = selector.nowCell;
@@ -40,7 +40,7 @@ public class TerrainViewer : TriMesh{
         }
         Apply();
     }
-    public void RecalculateTerrain(TriCell cell,bool buildable) {
+    public void RecalculateTerrain(TriCell cell, bool buildable) {
         Vector3 nextCorner, prevCorner;
         EdgeVertices edge;
         for (TriDirection direction = TriDirection.VERT; direction <= TriDirection.RIGHT; direction++) {
