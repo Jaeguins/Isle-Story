@@ -36,6 +36,7 @@
 
 * [06th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190106)
 
+* [16th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190116)
 ***
 ## 2018/11/20
 Project started.
@@ -268,3 +269,20 @@ Foods : (3*2 carrots, 5*1 carrot soup, -3 people consume) 8
 
 Using carrots more means reducing whole foods.
 ```
+***
+## 2019/01/16
+A lot of day since I wrote diary.
+
+I tweaked entire structure, and add "Resource".
+
+This can be determined by "How many items generated" and consuming is shown as negative value.
+
+And rebuild entity menu(for now, only in these images).
+
+![Resource using status and camera locking on building](https://lh3.googleusercontent.com/lcyqvjoUuziJBHrz5aDvp3xaB4kwzuceiM84RG_fquMrs0NLOXYotypwbLKVRJ2rM5sVSlfmgt92UeO8aj_2XKSF5y-DO5-SN734sI7DMchgCjyF2Ib2hIeniQyrf27wWVUGReWCWQ8kaz_Pn3dZCvnqCWyWy1XW7-XxUg_OjAAXC1O9elEKsGJ5OSbnoqw2AhGLjsxL1SGmqCZmtnj6iDoE1K8CWUdXKJd4uO-KyMsfiKkS02RQyoL4wakYBxEoqaGKVIyhq7D18w80s8tR8WqEJY0k6Z96JHl8zUIGvjqIgZPNQXBuwW3_nzVw6siGURu2Ew2EsCgJdNjMkd-Bjlh_Ao5q7mqtt8WIATGCeIBGt27KlfNYUfHJO9QAoZw9sFddtWxknDrBJIYgBoc02g115oBojDZfhstosXS4cH9fcwW1yXxvsouezruJMK-j5D7YX0S1iKQTGTpmGUUN2Tqfyix0NUndgxdyNIaX3k1X1axGpIUlg8T6eLqgVfYI4_fmjL5cK-dsPtMVZFa9Ceocgl2egOvnOQrrhAAiNZO8A7dMjcSfKoh4Hc9iejjemol-7yv9UI5hmLwHljgxgJkIcEQcEQh9AxT50ePEpBtkZ71dW3DBtuTWJotSJ9XZCMTkQQPTo0-Lcd7zWwVcDjPiKK2QECQAB9hpwlxfWtrlaEVlpdfi8F2ksdpRS-Ei4eM-VpUyvPBBtvvCUg=w421-h312-no)
+
+![Button syncing when out of workers](https://lh3.googleusercontent.com/S95Ou8O9ifIdGBv-7S2hLVEGtjetxwxkaVMHqp-VD9EtaGMlnaDdaN4zZorqp8Il5H3r5Y467m9E2eMJfMeca3DRhka0ZYl8Bpqsu1Wlgv2UH1ZqXqwR9SaCXKkLzrdzl_SG4LntGW2pwRfm47_k_0cwWphmsyPgn8SQgyFzqbrQ6ueveFhSZUGizs_O88c7366eKQJpaUNw48GS1fe_mdYqe1VlCHuty5UODNqgIqBIax3foow_yUgBOK74fb_X5jFIb3b-dhsJu8hiTuVyws4QYVQBJYGa2nsg7LQeKAPSTFBkxFzSqqP17fBfTfZ_yZpeTTYtpqCZ5W7WsA_FzIS7Za22qxBHKtBhIe42StoV2wShRcGwnGgUcBhDKGkHXaRsTS89d9dtgp-D9ajF7waafClwCpJvIwKp4G9gWrFVSDcq9zRVbPoNAKdnICoucajabIS26RsMGZdsRzxVRRw2gcB_8lLgSQzOfBObrMg9Z9hO1I4e9s9WAz50Mp3ybQ-uHPh0K_4dn2JQ5Ywwd8kfvJkU-VGi5w9PJcxY56SVARb9aWjA5AKbQpF4EcHVTCJNxRSG2AluliCt3ayM5tGlMBoBVLOSNd1Og9wV86EF2lQ9niL7XSqqSVTBMbmZe-A9rO00mduvnF9LI3VF90epnqAggN9uKgRSCBk1c1rME9XbfdkEq4H2Hg08ouRpoJ5L3QOOfbUDcqtysQ=s250-k-no)
+
+...So Yes, Perhaps I can't use building property camera for seeing detailed information. (Actually, I'm not good at asset making... too ugly models what I made-tent/camp)
+
+Until next outshowing changes!

@@ -13,13 +13,18 @@
  - [x] Unit daily work flows
  - [x] Individual resources
  - [x] Total resources
- - [ ] Basic UI in game
+ - [ ] Basic UI in game-work in progress
+	- [ ] Entity menu
+	- [ ] Resource management menu
+	- [ ] Whole citizen management menu
+	- [ ] Pause menu(essential)
  - [ ] UI structure not in game (ex) main menu,save management menu, etc.
  - [ ] Basic building for simplest game(extensive)
  - [ ] Basic unit for simplest game(extensive)
  
 #### If I can go further
- 
+ - [ ] Random naming at unit/buildings?
+ - [ ] Detailed terrains
  - [ ] More unit/buildings
  - [ ] Multiple world per saves
  - [ ] Trading between worlds
