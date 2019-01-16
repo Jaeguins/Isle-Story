@@ -4,18 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PersonList : MonoBehaviour {
-    public static PersonList Instance;
+    public GameObject panel;
     public Building NowBuilding;
     public List<Unit> NowList;
     public PersonIndicator IndicatorPrefab;
-    public List<PersonIndicator> indicators;
-    public Queue<PersonIndicator> indicatorPool;
-    private void Awake() {
-        Instance = this;
-        indicatorPool = new Queue<PersonIndicator>();
-        indicators= new List<PersonIndicator>();
-        gameObject.SetActive(false);
-    }
+    public List<PersonIndicator> indicators=new List<PersonIndicator>();
+    public Queue<PersonIndicator> indicatorPool=new Queue<PersonIndicator>();
     public void Bind(Building building,List<Unit> list) {
         NowBuilding = building;
         NowList = list;
@@ -23,7 +17,7 @@ public class PersonList : MonoBehaviour {
         foreach(Person t in list) {
             AddIndicator(i++, t);
         }
-        gameObject.SetActive(true);
+        gameObject.SetActive(list.Count>0);
     }
     public void Close() {
         Clear();
@@ -49,7 +43,7 @@ public class PersonList : MonoBehaviour {
     public void AddIndicator(int count,Person target) {
         PersonIndicator tRet = indicatorPool.Count > 0 ?
             indicatorPool.Dequeue() :
-            Instantiate(IndicatorPrefab, transform);
+            Instantiate(IndicatorPrefab, panel.transform);
         tRet.Bind(target,count);
         tRet.gameObject.SetActive(true);
         indicators.Add(tRet);

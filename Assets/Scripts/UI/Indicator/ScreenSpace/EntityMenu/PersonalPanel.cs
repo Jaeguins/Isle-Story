@@ -6,7 +6,19 @@ using UnityEngine.UI;
 public class PersonalPanel : EntityPanel {
     public PersonList InsiderList, WorkerList, SpecialList;
     public GameObject GenerationPanel;
+    public Button GenerateButton;
+    public Progressbar GenProgress;
     public Text SpecialText;
+    public void LateUpdate() {
+        if (target && target is Inn) {
+            GenerateButton.interactable = (target as Inn).CheckNewPerson();
+            GenProgress.Value = (target as Inn).BirthStatus;
+            InsiderList.Refresh();
+            SpecialList.Refresh();
+            WorkerList.Refresh();
+        }
+        else return;
+    }
     public void GeneratePerson() {
         Inn t = target as Inn;
         if (!t) {

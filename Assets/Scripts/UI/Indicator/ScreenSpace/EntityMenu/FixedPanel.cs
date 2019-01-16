@@ -9,6 +9,7 @@ public class FixedPanel : EntityPanel{
         Name.text = target.UIName;
         Type.text = target.UIType;
         Status.text = target.UIStatus;
+        gameObject.SetActive(true);
     }
     public override void Clear() {
         base.Clear();

@@ -11,6 +11,7 @@ public class ProductionPanel : EntityPanel {
     public Text Name, Description;
     public override void Bind(Entity entity) {
         base.Bind(entity);
+        gameObject.SetActive(entity is ProductionSelectable);
         if (!(entity is ProductionSelectable)) return;
         target = entity as ProductionSelectable;
         ProdList = target.GetItems();
@@ -18,7 +19,7 @@ public class ProductionPanel : EntityPanel {
         currentIndex = target.GetCurrent();
         tempIndex = currentIndex;
         ChangeView();
-        gameObject.SetActive(true);
+        
     }
     public override void Clear() {
         ProdList = null;

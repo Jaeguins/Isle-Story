@@ -13,7 +13,18 @@ public class Inn : Building,Commandable {
     public Unit CommandReceiver;
     public float BirthSpeed=1f;
     public float BirthStatus = 0f;
+    public float BirthCap = 100f;
+    public float BirthProgress {
+        get {
+            return BirthStatus / BirthCap;
+        }
+    }
     public Person personPrefab;
+    public bool ReservLiver {
+        get {
+            return BirthStatus > 0f;
+        }
+    }
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -55,20 +66,25 @@ public class Inn : Building,Commandable {
             if (Working && !UnderConstruct) {
                 if (Workers.Count > 0) {
                     BirthStatus += BirthSpeed;
-                    if (BirthStatus >= 100) {
+                    if (BirthStatus >= BirthCap) {
                         BirthStatus = 0f;
                         Person t=Instantiate(personPrefab);
+                        TriIsleland.Instance.entities.AddUnit(t);
                         t.Location = Location;
                         t.Home = this;
                         t.AddCommand(new GetInCommand(this));
-                        
-                        TriIsleland.Instance.entities.AddUnit(t);
+                        while(Workers.Count>0) {
+                            (Workers[0] as Person).Work = null;
+                        }
+
                     }
                 }
             }
         }
     }
-
+    public bool CheckNewPerson() {
+        return (Livers.Count < Capacity && HasCommandReceiver()&&Workers.Count==0);
+    }
     public bool HasCommandReceiver() {
         return CommandReceiver;
     }

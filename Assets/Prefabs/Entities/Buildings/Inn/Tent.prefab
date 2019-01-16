@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e329d5e81aaaa4c8e7b35f41d2b44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionIndicator: {fileID: 2206200419012536367}
-  HoverIndicator: {fileID: 1102296468421659293}
-  resourceController: {fileID: 2238953641581694734}
+  Working: 0
+  Stepable: 0
+  SelectionIndicator: {fileID: 7802265218375590685}
+  HoverIndicator: {fileID: 1863659280111889050}
+  resourceController: {fileID: 8254235018270740229}
   sizeType: 0
-  UIType: 
-  UIName: 
+  EntityType: 0
+  UIType: Inn
+  UIName: Tent
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
-  Working: 0
   entranceDirection: 0
   Insider: []
   Workers: []
@@ -33,6 +36,11 @@ MonoBehaviour:
   Livers: []
   subType: 0
   Capacity: 4
+  CommandReceiver: {fileID: 0}
+  BirthSpeed: 1
+  BirthStatus: 0
+  BirthCap: 100
+  personPrefab: {fileID: 0}
 --- !u!1001 &80886794956491771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,9 +122,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 80886794956491771}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2206200419012536367 stripped
+--- !u!114 &7802265218375590685 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2270554781039305684, guid: c45c71a3cf30dd04a8a341478cead556,
+  m_CorrespondingSourceObject: {fileID: 7879162980847282406, guid: c45c71a3cf30dd04a8a341478cead556,
     type: 3}
   m_PrefabInstance: {fileID: 80886794956491771}
   m_PrefabAsset: {fileID: 0}
@@ -126,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73947794ebefde547b2284bddb860e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1102296468421659293 stripped
+--- !u!114 &1863659280111889050 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1032303776407880038, guid: c45c71a3cf30dd04a8a341478cead556,
+  m_CorrespondingSourceObject: {fileID: 1784078704969458017, guid: c45c71a3cf30dd04a8a341478cead556,
     type: 3}
   m_PrefabInstance: {fileID: 80886794956491771}
   m_PrefabAsset: {fileID: 0}
@@ -138,9 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73947794ebefde547b2284bddb860e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2238953641581694734 stripped
+--- !u!114 &8254235018270740229 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2165389632734070005, guid: c45c71a3cf30dd04a8a341478cead556,
+  m_CorrespondingSourceObject: {fileID: 8328194855343277310, guid: c45c71a3cf30dd04a8a341478cead556,
     type: 3}
   m_PrefabInstance: {fileID: 80886794956491771}
   m_PrefabAsset: {fileID: 0}
