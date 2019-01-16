@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public enum InnType {
     TENT
 }
-public class Inn : Building {
+public class Inn : Building,Commandable {
     public List<Unit> Livers;
     public InnType subType;
     public int Capacity;
-
+    public Unit CommandReceiver;
+    public float BirthSpeed=1f;
+    public float BirthStatus = 0f;
+    public Person personPrefab;
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -37,13 +40,40 @@ public class Inn : Building {
 
     public override void Tick() {
         base.Tick();
-        if (Clock.IsDay())
-            foreach (Unit t in Livers) {
+        CommandReceiver = null;
+        if (Clock.IsDay()) {
+            foreach (Person t in Livers) {
                 if (Insider.Contains(t)) {
-                    if (((Person)t).Company)
+                    if (t.Company)
                         t.GoJob();
-                    else t.GoWork();
+                    else if (t.Work)
+                        t.GoWork();
+                    else
+                        CommandReceiver = t;
                 }
             }
+            if (Working && !UnderConstruct) {
+                if (Workers.Count > 0) {
+                    BirthStatus += BirthSpeed;
+                    if (BirthStatus >= 100) {
+                        BirthStatus = 0f;
+                        Person t=Instantiate(personPrefab);
+                        t.Location = Location;
+                        t.Home = this;
+                        t.AddCommand(new GetInCommand(this));
+                        
+                        TriIsleland.Instance.entities.AddUnit(t);
+                    }
+                }
+            }
+        }
+    }
+
+    public bool HasCommandReceiver() {
+        return CommandReceiver;
+    }
+
+    public Unit GetCommandReceiver() {
+        return CommandReceiver;
     }
 }
