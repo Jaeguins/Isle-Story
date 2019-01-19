@@ -12,6 +12,7 @@ public class EntityView : MonoBehaviour {
         Instance = this;
     }
     public void Bind(Entity target) {
+        Clear();
         this.target = target;
         foreach (EntityPanel t in panels) {
             t.Bind(target);

@@ -289,12 +289,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527c1dc2fbf284546ad919253a8260fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Working: 0
+  Stepable: 0
   SelectionIndicator: {fileID: 9015764711756540945}
   HoverIndicator: {fileID: 613708777308579222}
   resourceController: {fileID: 7193858118990135305}
   sizeType: 0
+  EntityType: 0
   UIType: Unit
   UIName: Person
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
   mesh: {fileID: 102358784142397478}
@@ -781,6 +785,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Person
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: resourceTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: resourceValues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: resourceMaxValues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: resourceValues.Array.data[0]
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5908935297463042648, guid: 481295a545be8fb4db7db46a8d034806,
         type: 3}

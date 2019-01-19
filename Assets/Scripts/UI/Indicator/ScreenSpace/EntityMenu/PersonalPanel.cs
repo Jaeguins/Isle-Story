@@ -13,11 +13,10 @@ public class PersonalPanel : EntityPanel {
         if (target && target is Inn) {
             GenerateButton.interactable = (target as Inn).CheckNewPerson();
             GenProgress.Value = (target as Inn).BirthStatus;
-            InsiderList.Refresh();
-            SpecialList.Refresh();
-            WorkerList.Refresh();
         }
-        else return;
+        InsiderList.Refresh();
+        SpecialList.Refresh();
+        WorkerList.Refresh();
     }
     public void GeneratePerson() {
         Inn t = target as Inn;
@@ -31,6 +30,7 @@ public class PersonalPanel : EntityPanel {
     }
     public override void Bind(Entity entity) {
         base.Bind(entity);
+        gameObject.SetActive(true);
         if (entity is Building) {
             Building t = entity as Building;
             InsiderList.Bind(t, t.Insider);
@@ -42,17 +42,21 @@ public class PersonalPanel : EntityPanel {
             else if (t is Company) {
                 SpecialList.Bind(t, (t as Company).Officers);
                 SpecialText.text = "Officers";
-            }else if(t is Hall) {
+            }
+            else if (t is Hall) {
                 SpecialList.Bind(t, (t as Hall).Homeless);
                 SpecialText.text = "Homeless";
             }
             else {
-                SpecialList.Clear();
+                SpecialList.Close();
             }
         }
         GenerationPanel.SetActive(entity is Inn);
     }
     public override void Clear() {
         base.Clear();
+        InsiderList.Clear();
+        SpecialList.Clear();
+        WorkerList.Clear();
     }
 }
