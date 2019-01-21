@@ -6,10 +6,10 @@ using System.IO;
 public enum HallType {
     BASE
 }
-public class Hall : Building,Buildable{
+public class Hall : Building, Buildable {
     public List<Unit> Homeless;
     public HallType subType;
-    
+
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -32,14 +32,8 @@ public class Hall : Building,Buildable{
         ReceiveableMan = null;
         if (Clock.IsDay())
             foreach (Person t in Homeless) {
-                if (Insider.Contains(t)) {
-                    if (t.Company)
-                        t.GoJob();
-                    else if (t.Work)
-                        t.GoWork();
-                    else if(!t.acting)
-                        ReceiveableMan = t;
-                }
+                if (Insider.Contains(t) && !t.acting)
+                    ReceiveableMan = t;
             }
     }
     public Person ReceiveableMan;

@@ -36,16 +36,8 @@ public class Company : Building,Commandable{
         ReceiveableMan = null;
         if (Clock.IsDay())
             foreach (Person t in Officers) {
-                if (Insider.Contains(t) && t.Work)
-                    t.GoWork();
-                else
+                if (Insider.Contains(t) && !t.acting)
                     ReceiveableMan = t;
-            }
-        else
-            foreach(Unit t in Officers) {
-                if (Insider.Contains(t)) {
-                    t.GoHome();
-                }
             }
     }
 

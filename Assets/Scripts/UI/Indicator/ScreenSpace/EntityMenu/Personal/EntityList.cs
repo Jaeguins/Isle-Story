@@ -13,7 +13,6 @@ public class EntityList<T> : MonoBehaviour  where T : Entity{
     public void Bind(Entity target,List<T> list) {
         NowEntity = target;
         NowList = list;
-        int i = 0;
         foreach(T t in list) {
             AddIndicator(t);
         }
@@ -35,6 +34,7 @@ public class EntityList<T> : MonoBehaviour  where T : Entity{
         
     }
     public void Refresh() {
+        if (!NowEntity || NowList== null) return;
         Entity t = NowEntity;
         List<T> tList = NowList;
         Clear();
@@ -47,10 +47,5 @@ public class EntityList<T> : MonoBehaviour  where T : Entity{
         tRet.Bind(target);
         tRet.gameObject.SetActive(true);
         indicators.Add(tRet);
-    }
-    private void LateUpdate() {
-        if (NowEntity&& NowList.Count!=indicators.Count) {
-            Refresh();
-        }
     }
 }

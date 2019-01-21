@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PersonalPanel : EntityPanel {
+public class StaticPersonalPanel : EntityPanel {
     public PersonList InsiderList, WorkerList, SpecialList;
     public GameObject GenerationPanel;
     public Button GenerateButton;
@@ -13,10 +13,10 @@ public class PersonalPanel : EntityPanel {
         if (target && target is Inn) {
             GenerateButton.interactable = (target as Inn).CheckNewPerson();
             GenProgress.Value = (target as Inn).BirthStatus;
+            InsiderList.Refresh();
+            WorkerList.Refresh();
+            SpecialList.Refresh();
         }
-        InsiderList.Refresh();
-        SpecialList.Refresh();
-        WorkerList.Refresh();
     }
     public void GeneratePerson() {
         Inn t = target as Inn;
@@ -30,7 +30,7 @@ public class PersonalPanel : EntityPanel {
     }
     public override void Bind(Entity entity) {
         base.Bind(entity);
-        gameObject.SetActive(true);
+        gameObject.SetActive(entity is Statics);
         if (entity is Building) {
             Building t = entity as Building;
             InsiderList.Bind(t, t.Insider);

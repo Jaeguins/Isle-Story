@@ -9,6 +9,9 @@ public class TriIsleland : MonoBehaviour {
     public PrefabManager naturals;
     public EntityManager entities;
     public static TriIsleland Instance;
+    public static Building GetCamp() {
+        return Instance.entities.GetCamp();
+    }
     string isleName = "test";
     int version = 0;
     public TriGrid grid;

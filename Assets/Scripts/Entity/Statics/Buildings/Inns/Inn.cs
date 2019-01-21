@@ -54,12 +54,7 @@ public class Inn : Building,Commandable {
         CommandReceiver = null;
         if (Clock.IsDay()) {
             foreach (Person t in Livers) {
-                if (Insider.Contains(t)) {
-                    if (t.Company)
-                        t.GoJob();
-                    else if (t.Work)
-                        t.GoWork();
-                    else
+                if (Insider.Contains(t)&&!t.acting) {
                         CommandReceiver = t;
                 }
             }

@@ -63,6 +63,7 @@ MonoBehaviour:
   selector: {fileID: 0}
   nameText: {fileID: 114786056532908128}
   gender: {fileID: 114914309018826226}
+  SelectButton: {fileID: 8454863765755293907}
   Target: {fileID: 0}
 --- !u!114 &3629331538938103635
 MonoBehaviour:

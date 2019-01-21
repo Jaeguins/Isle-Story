@@ -6,8 +6,9 @@ using System.Text;
 public class Strings {
     public static string
         NaN = "NaN",
-        Activate="Activate",
-        Deactivate="Deactivate"
+        Activate = "Activate",
+        Deactivate = "Deactivate",
+        None = "None"
         ;
 }
 

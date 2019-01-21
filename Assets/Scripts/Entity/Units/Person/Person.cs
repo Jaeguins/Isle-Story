@@ -57,7 +57,7 @@ public class Person : Unit {
 
     public override void ChangeHomeInternal() {
         Home = ((ChangeHomeCommand)nowWork).target;
-        Debug.Log("Change Home");
+        Debug.Log("Change Home : " + Home);
     }
 
     public override void GoHome() {
@@ -67,8 +67,8 @@ public class Person : Unit {
             AddCommand(new GetInCommand(Home));
         }
         else {
-            AddCommand(new MoveCommand(TriIsleland.Instance.entities.GetCamp().EntranceLocation));
-            AddCommand(new GetInCommand(TriIsleland.Instance.entities.GetCamp()));
+            AddCommand(new MoveCommand(TriIsleland.GetCamp().EntranceLocation));
+            AddCommand(new GetInCommand(TriIsleland.GetCamp()));
         }
     }
 
@@ -120,6 +120,10 @@ public class Person : Unit {
     }
     public override void Build() {
         BuildCommand c = (BuildCommand)nowWork;
+        if (c.location != Location) {
+            Debug.Log("Cannot reach");
+            return;
+        }
         Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
         AddCommand(new ChangeWorkCommand(t));
         AddCommand(new GetInCommand(t));
@@ -146,5 +150,53 @@ public class Person : Unit {
     }
     public override void Tick() {
         base.Tick();
+        if (commandQueue.Count==0) {
+            if (Clock.IsDay()) {
+                if (!building) {
+                    if (Work) GoWork();
+                    else if (Company) GoJob();
+                    else GoHome();
+                }
+                else if (building == Home) {
+                    if (Company) GoJob();
+                    else if (Work) GoWork();
+                }
+                else if (building == Company) {
+                    if (Work) GoWork();
+                }
+                else if (building == Work) {
+
+                }
+                else if (building == TriIsleland.GetCamp()) {
+                    if (home)
+                        GoHome();
+                }
+                else {
+                    Debug.LogWarning("Unknown Location Status");
+                }
+            }
+            else {
+                if (!building) {
+                    GoHome();
+                }
+                else if (building == Work) {
+                    if (Company) GoJob();
+                    else GoHome();
+                }
+                else if (building == Company) {
+                    GoHome();
+                }
+                else if (building == Home) {
+
+                }
+                else if (building == TriIsleland.GetCamp()) {
+                    if (home)
+                        GoHome();
+                }
+                else {
+                    Debug.LogWarning("Unknown Location Status");
+                }
+            }
+        }
     }
 }

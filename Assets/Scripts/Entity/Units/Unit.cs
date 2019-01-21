@@ -19,7 +19,7 @@ public class Unit : Entity {
         set {
             if (building)
                 building.Insider.Remove(this);
-            if(value)
+            if (value)
                 value.Insider.Add(this);
             building = value;
         }
@@ -54,8 +54,11 @@ public class Unit : Entity {
         switch (c.type) {
             case CommandType.GETIN:
                 Statics t = ((GetInCommand)c).target;
-                commandQueue.Enqueue(new MoveCommand(t.EntranceLocation));
-                commandQueue.Enqueue(new MoveCommand(t.Location, false));
+                if (Location != t.Location) {
+                    if (Location != t.EntranceLocation)
+                        commandQueue.Enqueue(new MoveCommand(t.EntranceLocation));
+                    commandQueue.Enqueue(new MoveCommand(t.Location, false));
+                }
                 break;
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
@@ -63,7 +66,8 @@ public class Unit : Entity {
                 commandQueue.Enqueue(new MoveCommand(k.location));
                 break;
             case CommandType.MOVE:
-                commandQueue.Enqueue(new GetOutCommand());
+                if (((MoveCommand)c).flag)
+                    commandQueue.Enqueue(new GetOutCommand());
                 break;
             default:
                 break;
@@ -82,12 +86,12 @@ public class Unit : Entity {
         StopAllCoroutines();
     }
 
-    
-    public IEnumerator<Coroutine> FindPathAndMove(TriCell target,bool entityCheck) {
+
+    public IEnumerator<Coroutine> FindPathAndMove(TriCell target, bool entityCheck) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {
 
-            inst.FindPath(Location, target,entityCheck);
+            inst.FindPath(Location, target, entityCheck);
             if (inst.HasPath) {
                 pathToTravel = inst.GetPath();
                 CancelNowAct();
@@ -113,16 +117,16 @@ public class Unit : Entity {
     }
     public void GetOut() {
         if (!Building) {
-            Debug.LogWarning(ToString()+" : not in building");
+            Debug.LogWarning(ToString() + " : not in building");
             return;
-        }   
+        }
         acting = true;
         Building = null;
         SetVisible(true);
         acting = false;
     }
     public void Move(bool entityCheck) {
-        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location,entityCheck));
+        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
     }
     public virtual void Build() {
         Debug.Log("unexpected Order");
@@ -149,7 +153,7 @@ public class Unit : Entity {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
-                Debug.Log(nowWork);
+                Debug.Log(nowWork+" left order : "+commandQueue.Count);
 
                 switch (nowWork.type) {
                     case CommandType.MOVE:

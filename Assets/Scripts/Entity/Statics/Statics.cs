@@ -26,11 +26,6 @@ public class Statics:Entity{
         base.Tick();
         if (!Clock.IsDay())
             foreach (Unit t in Workers) {
-                if (Insider.Contains(t)) {
-                    if (((Person)t).Company)
-                        t.GoJob();
-                    else t.GoHome();
-                }
             }
     }
 }

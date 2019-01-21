@@ -88,9 +88,7 @@ public class Building : Statics {
             Working = true;
             for (int i = 0; i < Insider.Count; i++) {
                 Insider[i].AddCommand(new ChangeWorkCommand(null));
-                if (((Person)Insider[i]).Company)
-                    Insider[i].AddCommand(new GoJobCommand());
-                else Insider[i].AddCommand(new GoHomeCommand());
+                Insider[i].AddCommand(new GetOutCommand());
             }
             Insider.Clear();
             ConstructionIndicator.SetActive(false);
