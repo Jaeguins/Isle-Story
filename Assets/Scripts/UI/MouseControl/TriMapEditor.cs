@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 
 public class TriMapEditor : MonoBehaviour {
-    public PersonList personList;
+    public EntityList<Unit> personList;
     public TriGrid triGrid;
     public TriIsleland isleland;
     public EntityManager entities;

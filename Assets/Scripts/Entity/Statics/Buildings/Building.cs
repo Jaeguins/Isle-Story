@@ -19,7 +19,7 @@ public class Building : Statics {
     public bool UnderConstruct = true;
     public float ConstructTime = 9999f;
     public BuildingType type;
-    public PersonList personList;
+    public EntityList<Unit> personList;
 
     public GameObject ConstructionIndicator, Model;
     public new TriCell Location {

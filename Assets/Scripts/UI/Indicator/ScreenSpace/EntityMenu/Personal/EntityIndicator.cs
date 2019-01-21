@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class PersonIndicator : MonoBehaviour {
+public class EntityIndicator : MonoBehaviour {
     public Selector selector;
     public Text nameText, gender;
-    public Person Target;
+    public Entity Target;
     public void PeekUnit() {
         CameraManager.Instance.GetNowActive().transform.localPosition = Target.transform.localPosition;
     }
@@ -18,7 +18,7 @@ public class PersonIndicator : MonoBehaviour {
         Target = null;
         gameObject.SetActive(false);
     }
-    public void Bind(Person target,int count) {
+    public void Bind(Entity target) {
         Target = target;
         nameText.text = target.UIName+target.ID;
     }

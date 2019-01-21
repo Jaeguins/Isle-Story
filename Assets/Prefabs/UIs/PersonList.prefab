@@ -86,11 +86,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3144574394703865878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 960b7a7be9380464986acd873bad25de, type: 3}
+  m_Script: {fileID: 11500000, guid: d7208a97e5069b64dba01b979d5f295d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 5393761735124554689}
-  NowBuilding: {fileID: 0}
+  NowEntity: {fileID: 0}
   NowList: []
   IndicatorPrefab: {fileID: 114838839697418690, guid: 382d2b1920860fe41ae6a815f9fe9707,
     type: 3}
@@ -102,11 +102,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6477373176563236063}
     m_Modifications:
-    - target: {fileID: 7723204145364400729, guid: 7181ef472a60c4e4baa91b44cc7849ba,
-        type: 3}
-      propertyPath: m_Name
-      value: Text
-      objectReference: {fileID: 0}
     - target: {fileID: 4021031175169792533, guid: 7181ef472a60c4e4baa91b44cc7849ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,6 +207,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7723204145364400729, guid: 7181ef472a60c4e4baa91b44cc7849ba,
+        type: 3}
+      propertyPath: m_Name
+      value: Text
+      objectReference: {fileID: 0}
     - target: {fileID: 1841134722450352801, guid: 7181ef472a60c4e4baa91b44cc7849ba,
         type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -232,11 +232,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6477373176563236063}
     m_Modifications:
-    - target: {fileID: 6211095977466802043, guid: 17a1a91a348b25043ae9c351d75a2fa6,
-        type: 3}
-      propertyPath: m_Name
-      value: EntityScroll
-      objectReference: {fileID: 0}
     - target: {fileID: 3345643477541296329, guid: 17a1a91a348b25043ae9c351d75a2fa6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -342,6 +337,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6211095977466802043, guid: 17a1a91a348b25043ae9c351d75a2fa6,
+        type: 3}
+      propertyPath: m_Name
+      value: EntityScroll
+      objectReference: {fileID: 0}
     - target: {fileID: 8395742711142650455, guid: 17a1a91a348b25043ae9c351d75a2fa6,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -387,15 +387,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7135783346365879365, guid: 17a1a91a348b25043ae9c351d75a2fa6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3524053164663342932, guid: 17a1a91a348b25043ae9c351d75a2fa6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000116135925
+      value: 0.00000068600355
       objectReference: {fileID: 0}
     - target: {fileID: 6744341157249109284, guid: 17a1a91a348b25043ae9c351d75a2fa6,
         type: 3}
@@ -451,6 +446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ChildControlHeight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135783346365879365, guid: 17a1a91a348b25043ae9c351d75a2fa6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17a1a91a348b25043ae9c351d75a2fa6, type: 3}

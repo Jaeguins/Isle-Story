@@ -7,7 +7,6 @@ public class GameUI : MonoBehaviour {
     Unit selectedUnit;
     public TriMapEditor mapEditor;
     public GameObject buildingPanel;
-    public PersonList personList;
     public TriGrid grid;
     public BuildingMenu buildMenu;
     private void Start() {
