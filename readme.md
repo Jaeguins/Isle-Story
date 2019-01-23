@@ -14,10 +14,10 @@
  - [x] Individual resources
  - [x] Total resources
  - [ ] Basic UI in game-work in progress
-	- [ ] Entity menu
-	- [ ] Resource management menu
+	- [x] Entity menu
+	- [x] Resource management menu
 	- [ ] Whole citizen management menu
-	- [ ] Pause menu(essential)
+	- [x] Pause menu(essential)
  - [ ] UI structure not in game (ex) main menu,save management menu, etc.
  - [ ] Basic building for simplest game(extensive)
  - [ ] Basic unit for simplest game(extensive)

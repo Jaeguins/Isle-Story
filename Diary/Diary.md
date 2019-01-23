@@ -37,6 +37,9 @@
 * [06th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190106)
 
 * [16th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190116)
+
+* [23th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190123)
+
 ***
 ## 2018/11/20
 Project started.
@@ -286,3 +289,17 @@ And rebuild entity menu(for now, only in these images).
 ...So Yes, Perhaps I can't use building property camera for seeing detailed information. (Actually, I'm not good at asset making... too ugly models what I made-tent/camp)
 
 Until next outshowing changes!
+
+***
+## 2019/01/23
+A week passed since last comment.
+
+Main menu parts (lower left corner) added and its interfaces.
+
+![Pause menu](https://lh3.googleusercontent.com/6hEYPCRsUHTyHsHLizVGppTD8aamHUDH3ioXpG7lmwLSB_nLHdwv50C8oAqScsWGWK2XJbL4Uwk7Ty2o0s01Y3Xv6ZXwwEk-P8RB7OhUr50x3XTSkiA00vmU4Xu9Rq34XsSkGm_XHloYwNPTYN-dX_y8dRvi4HP2GtpnrPeUAti_ZnAbRQki0R3RVS9zIHyqFmqt8KucPObWBTcsMFjt9eWc-uzHCrSjVLGABC5RuOysgWPvRLn7FSEGL15-xzVa3UxjbLg0i7cYTc8zAcabOVDBj2D-R5E6azyAqVzUXmAQEOVQHZ8JfIV5DJGF9-ag1hdq_H4tj9oD9rfH0mw6YJlkRGaFsXRjSgY8U2uggu8v0Y4p3_d93fbDLNCSJ939DGm5nbdogCFIDO-aMVHs8UFfb7vZnw6DSw4iYiD2whD_u9dBSNrC4Lx4eL3ExxjT51lRTFmTygFuR1gSVxXPDj-nKAnmbdN8ImLR2W_xisD8f-FL2t-J4sB_a5H2F-83yP3hq9bnFVU-yc73Oc9t50wIgvwLr2USkuwfrWC4KoM_5fpd7uXR8wmCELPlEREw7IH9O4_lONpEi-hHn36SvRSR6V0pkBk2_3ZtWWDp1zDBsfydprF8O_8LhEXkHgE-yY0NiU3UeJWrFk1XdAfnD8wyc3aJCxk9jAY8Y4JvU4DtNdB5duarNEVhtu7unq2Wch0e0hn3l-65KeLHXQ=w570-h318-no)
+
+This really pauses time!
+
+![Resource menu](https://lh3.googleusercontent.com/QsoWO2qe1M38aNEkkjXV22maAtrBq2XVb_WWhncA1JMm21x5EufpftLpK-wyM49coRtKlx2AtbGTpIIb6al0qyMb7-q-sm2zTL1otRZv2GTRUNZjQwp0qb8l5Mv83YII5_Vndp9c75BWXeDf5BAnbh9IVFiqK1NcoynhYQ_2hDpoMBHW3uGWqOq5kX-_WPRKTcY7jziEgqJDaSouQKqFATwomHTg-eLtNWWXkETt0NAhQa-3Z0Du3A64Tj4T9D7xXqz_7TOemvTEhpqgA_uztU-NojLTPSQjgzvBr3Y9EMWMqU-MPslmr6N7msrZJNGHpq8MhxoY0XKkF-UMkp63QRQfMQlNG7nxCc6DZE4R8e4_2bEgS6zTV9HOYxNOqAy4_-XXlDbJCUI263YNBmyMBM-atM_YY3hGVFCcDDLyEipd0JFAQs-Jdh-LO7vkrZXoydEl-IwMv-pOeSpE9rv7f6qrFNnnq_2Yl4puBLo5kW9i7sl06RiCT1M7zln5K1TPNmw0SFL87KdyRyIZXxptN3Z47aiw1bZ046kAR7VrppYE_QwB--EPckSmIfLMb4F-pwWLmVmAa9UgJFaWzfae3Eqflp09UVjsh2Di9EizhMLulaaEmRzAEnjTB5ZzQlFd3LnoXfHkT6d4L9y_txK2Zy7hgu9zJ1KXYEWnyGXdpV0pCMdJTj9xKI5ZxXKQLQ3EQy4MhUZOdEa9UqbH_w=w1692-h955-no)
+
+This shows entire resource production right now.
