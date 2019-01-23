@@ -11,6 +11,9 @@ public class EntityView : MonoBehaviour {
     public void Awake() {
         Instance = this;
     }
+    public void Start() {
+        gameObject.SetActive(false);
+    }
     public void Bind(Entity target) {
         Clear();
         this.target = target;

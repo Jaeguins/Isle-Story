@@ -19,15 +19,17 @@ public class CameraManager : MonoBehaviour {
     }
 
     IEnumerator SwitchCameraInternal(CamType target) {
-        yield return StartCoroutine(Fader.FadeOut());
+        //yield return StartCoroutine(Fader.FadeOut());
+        Fader.ChangeTarget(0);
         cameras[(int)camStatus].enabled = false;
         camStatus = target;
         cameras[(int)target].enabled = true;
 
         //TODO change worldspace event cam
 
-
-        yield return StartCoroutine(Fader.FadeIn());
+        Fader.ChangeTarget(1);
+        //yield return StartCoroutine(Fader.FadeIn());
+        yield return null;
     }
     public CameraController GetNowActive() {
         return cameras[(int)camStatus];

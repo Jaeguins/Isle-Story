@@ -6,12 +6,14 @@ using System.Collections.Generic;
 public class ResourceDiff : MonoBehaviour {
     public Image Icon;
     public Text Name, Value,MaxValue;
-    public int type, cat;
+    public int cat,type;
     public void Bind(ItemType type, int value,int maxValue) {
+        this.type = (int)type;
         cat = 1;
         BindInternal((int)type, value,maxValue);
     }
     public void Bind(ResourceType type,int value, int maxValue) {
+        this.type = (int)type;
         cat = 2;
         BindInternal((int)type, value, maxValue);
     }
