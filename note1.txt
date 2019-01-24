@@ -1,0 +1,19 @@
+기본화면
+	새 게임	 - > 게임 씬
+	계속하기	 - > 게임 씬
+	불러오기
+		불러오기 창
+	옵션
+		옵션창
+	나가기
+	
+Application.persistentDataPath
+	로그/유니티 기본파일
+	Save
+		Save1
+			Island1
+				building
+				unit
+				map
+			Island2
+		Save2
