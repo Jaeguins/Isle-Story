@@ -95,10 +95,9 @@ public class TriMapGenerator : MonoBehaviour {
         //climate[cellIndex] = cellClimate;
     }
     
-    public void GenerateMap(int x, int z) {
+    public IEnumerator<Coroutine> GenerateMap(int x, int z) {
         Selector.Instance.CancelCommand();
         cellCount = x * z;
-        grid.CreateMap(x, z);
         if (searchFrontier == null) {
             searchFrontier = new Queue<TriCell>();
             checker = new HashSet<TriCoordinates>();
@@ -107,13 +106,13 @@ public class TriMapGenerator : MonoBehaviour {
         xMax = x - mapBorderX;
         zMin = mapBorderZ;
         zMax = z - mapBorderZ;
-        CreateLand();
-        CreateClimate();
-        CreateRivers();
-        SetTerrainType();
+        yield return StartCoroutine(CreateLand());
+        yield return StartCoroutine(CreateClimate());
+        yield return StartCoroutine(CreateRivers());
+        yield return StartCoroutine(SetTerrainType());
     }
 
-    void CreateRivers() {
+    IEnumerator<WaitForEndOfFrame> CreateRivers() {
         List<TriCell> riverOrigins = ListPool<TriCell>.Get();
         for (int i = 0; i < cellCount; i++) {
             TriCell cell = grid.GetCell(i);
@@ -152,6 +151,7 @@ public class TriMapGenerator : MonoBehaviour {
             if (!origin.HasRiver) {
                 riverBudget -= CreateRiver(origin);
             }
+            yield return null;
         }
 
         if (riverBudget > 0) {
@@ -200,7 +200,7 @@ public class TriMapGenerator : MonoBehaviour {
         return length;
     }
 
-    void CreateClimate() {
+    IEnumerator<WaitForEndOfFrame> CreateClimate() {
         climate.Clear();
         ClimateData initialData = new ClimateData();
         for (int i = 0; i < cellCount; i++) {
@@ -213,9 +213,10 @@ public class TriMapGenerator : MonoBehaviour {
                     EvolveClimate(i);
             }
         }
+        yield return null;
     }
 
-    void CreateLand() {
+    IEnumerator<WaitForEndOfFrame> CreateLand() {
         int landBudget = Mathf.RoundToInt(cellCount * landPercentage * 0.01f);
         landCells = landBudget;
         bool initiated = false;
@@ -224,8 +225,9 @@ public class TriMapGenerator : MonoBehaviour {
                 Random.Range(chunkSizeMin, chunkSizeMax + 1), landBudget, initiated
             );
             initiated = true;
+            yield return null;
         }
-
+        yield return null;
     }
 
     int RaiseTerrain(int chunkSize, int budget, bool initiated) {
@@ -284,7 +286,7 @@ public class TriMapGenerator : MonoBehaviour {
         return false;
     }
 
-    void SetTerrainType() {
+    IEnumerator<WaitForEndOfFrame> SetTerrainType() {
         for (int i = 0; i < cellCount; i++) {
             TriCell cell = grid.GetCell(i), hexCell = grid.GetCell(TriMetrics.TriToHex(cell.coordinates));
             if (cell.coordinates == hexCell.coordinates) {
@@ -334,6 +336,10 @@ public class TriMapGenerator : MonoBehaviour {
                     else
                         d = d.Previous();
                 }
+                if (i % Strings.refreshLimit == 0) {
+                    yield return null;
+                }
+                    
             }
         }
 

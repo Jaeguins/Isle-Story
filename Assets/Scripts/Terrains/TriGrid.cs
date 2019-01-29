@@ -55,7 +55,7 @@ public class TriGrid : MonoBehaviour {
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
         Entity.unitPrefab = unitPrefab;
-        CreateMap(cellCountX, cellCountZ);
+        StartCoroutine(CreateMap(cellCountX, cellCountZ));
         Instance = this;
     }
 
@@ -162,14 +162,17 @@ public class TriGrid : MonoBehaviour {
         }
         return false;
     }
-
-    public bool CreateMap(int x, int z) {
+    public IEnumerator<WaitForEndOfFrame> DestroyChunk(int i) {
+        chunks[i].Disable();
+        Destroy(chunks[i].gameObject);
+        yield return null;
+    }
+    public IEnumerator<Coroutine> CreateMap(int x, int z) {
         ClearPath();
         ClearUnits();
         if (chunks != null) {
             for (int i = 0; i < chunks.Length; i++) {
-                chunks[i].Disable();
-                Destroy(chunks[i].gameObject);
+                yield return StartCoroutine(DestroyChunk(i));
             }
         }
         if (
@@ -177,20 +180,22 @@ public class TriGrid : MonoBehaviour {
             z <= 0 || z % TriMetrics.chunkSizeZ != 0
         ) {
             Debug.LogError("Unsupported map size.");
-            return false;
         }
-        cellCountX = x;
-        cellCountZ = z;
-        chunkCountX = cellCountX / TriMetrics.chunkSizeX;
-        chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
-        CreateChunks();
-        labels.Clear();
-        CreateCells();
-        return true;
+        else {
+            cellCountX = x;
+            cellCountZ = z;
+            chunkCountX = cellCountX / TriMetrics.chunkSizeX;
+            chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
+            yield return StartCoroutine(CreateChunks());
+            labels.Clear();
+            yield return StartCoroutine(CreateCells());
+        }
+        yield return null;
     }
 
     public TriCell GetCell(int xOffset, int zOffset) {
         if (xOffset < 0 || xOffset >= cellCountX || zOffset < 0 || zOffset >= cellCountZ) return null;
+        if (cells == null) return null;
         return cells[xOffset + zOffset * cellCountX];
     }
 
@@ -202,7 +207,7 @@ public class TriGrid : MonoBehaviour {
         return cells[cellIndex];
     }
 
-    void CreateChunks() {
+    IEnumerator<WaitForEndOfFrame> CreateChunks() {
         chunks = new TriGridChunk[chunkCountX * chunkCountZ];
         for (int z = 0, i = 0; z < chunkCountZ; z++) {
             for (int x = 0; x < chunkCountX; x++) {
@@ -210,16 +215,18 @@ public class TriGrid : MonoBehaviour {
                 chunk.transform.SetParent(transform);
             }
         }
+        yield return null;
     }
 
-    void CreateCells() {
+    IEnumerator<WaitForEndOfFrame> CreateCells() {
         cells = new TriCell[cellCountZ * cellCountX];
         for (int z = 0, i = 0; z < cellCountZ; z++) {
             for (int x = 0; x < cellCountX; x++) {
                 CreateCell(x, z, i++);
+                if (i % (3*Strings.refreshLimit) == 0) yield return null;
             }
-
         }
+        yield return null;
     }
 
     void CreateCell(int x, int z, int i) {
@@ -227,7 +234,7 @@ public class TriGrid : MonoBehaviour {
         position.x = x * TriMetrics.innerRadius;
         position.y = 0f;
         position.z = z * TriMetrics.outerRadius * 1.5f - (0.5f * TriMetrics.outerRadius * ((x + z) % 2));
-        TriCell cell = cells[i] = Instantiate<TriCell>(cellPrefab);
+        TriCell cell = cells[i] = Instantiate(cellPrefab);
         if ((x + z) % 2 == 0) {
             cell.inverted = true;
         }
@@ -257,6 +264,7 @@ public class TriGrid : MonoBehaviour {
         int localX = x - chunkX * TriMetrics.chunkSizeX;
         int localZ = z - chunkZ * TriMetrics.chunkSizeZ;
         chunk.AddCell(localX + localZ * TriMetrics.chunkSizeX, cell);
+        chunk.Refresh();
     }
 
     public TriCell GetCell(Vector3 position) {
@@ -285,9 +293,7 @@ public class TriGrid : MonoBehaviour {
     public void Load(BinaryReader reader,int header) {
         ClearPath();
         ClearUnits();
-        if (!CreateMap(reader.ReadInt32(), reader.ReadInt32())) {
-            return;
-        }
+        StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Load(reader);
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.IO;
-
+using System.Collections;
 public class TriMapEditor : MonoBehaviour {
     public EntityList<Unit> personList;
     public TriGrid triGrid;
@@ -122,11 +122,13 @@ public class TriMapEditor : MonoBehaviour {
     public void Load() {
         isleland.Load();
     }
-
     public void NewMap() {
+        StartCoroutine(NewMapInternal());
+    }
+    public IEnumerator NewMapInternal() {
         entities.ClearEntities();
-        triGrid.CreateMap(x, z);
-        mapGenerator.GenerateMap(x, z);
+        yield return StartCoroutine(triGrid.CreateMap(x, z));
+        yield return StartCoroutine(mapGenerator.GenerateMap(x, z));
         isleland.topCam.ValidatePosition();
         Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
     }

@@ -31,7 +31,7 @@ public class TopViewCam : CameraController{
             AdjustPosition(xDelta, zDelta);
         }
         Vector3 t=transform.localPosition;
-        t.y = grid.GetCell(TriCoordinates.FromPosition(t)).Elevation*TriMetrics.elevationStep;
+        t.y = grid.GetCell(TriCoordinates.FromPosition(t))?grid.GetCell(TriCoordinates.FromPosition(t)).Elevation*TriMetrics.elevationStep:0;
         transform.localPosition = t;
         
 
