@@ -40,6 +40,8 @@
 
 * [23th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190123)
 
+* [29th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190129)
+
 ***
 ## 2018/11/20
 Project started.
@@ -303,3 +305,15 @@ This really pauses time!
 ![Resource menu](https://lh3.googleusercontent.com/QsoWO2qe1M38aNEkkjXV22maAtrBq2XVb_WWhncA1JMm21x5EufpftLpK-wyM49coRtKlx2AtbGTpIIb6al0qyMb7-q-sm2zTL1otRZv2GTRUNZjQwp0qb8l5Mv83YII5_Vndp9c75BWXeDf5BAnbh9IVFiqK1NcoynhYQ_2hDpoMBHW3uGWqOq5kX-_WPRKTcY7jziEgqJDaSouQKqFATwomHTg-eLtNWWXkETt0NAhQa-3Z0Du3A64Tj4T9D7xXqz_7TOemvTEhpqgA_uztU-NojLTPSQjgzvBr3Y9EMWMqU-MPslmr6N7msrZJNGHpq8MhxoY0XKkF-UMkp63QRQfMQlNG7nxCc6DZE4R8e4_2bEgS6zTV9HOYxNOqAy4_-XXlDbJCUI263YNBmyMBM-atM_YY3hGVFCcDDLyEipd0JFAQs-Jdh-LO7vkrZXoydEl-IwMv-pOeSpE9rv7f6qrFNnnq_2Yl4puBLo5kW9i7sl06RiCT1M7zln5K1TPNmw0SFL87KdyRyIZXxptN3Z47aiw1bZ046kAR7VrppYE_QwB--EPckSmIfLMb4F-pwWLmVmAa9UgJFaWzfae3Eqflp09UVjsh2Di9EizhMLulaaEmRzAEnjTB5ZzQlFd3LnoXfHkT6d4L9y_txK2Zy7hgu9zJ1KXYEWnyGXdpV0pCMdJTj9xKI5ZxXKQLQ3EQy4MhUZOdEa9UqbH_w=w1692-h955-no)
 
 This shows entire resource production right now.
+
+***
+## 2019/01/29
+I'm gonna little busy these days.
+
+I'm metoring my club's young members with advancing other project.
+
+I coroutinized loading for responsive loading screen.
+
+And this is what actual 'loading' doing : 
+
+![loading sequence] (https://lh3.googleusercontent.com/PO48ImXXzObU4-45DD_T0m5fhLa8IEFwWoqgShpMNGcmTVIo64sUpJBEXAUmQ_kVxq2u04A-YLHf9wmKgHzvIDqtGImlFhuVZRwCrfbGsBBbmAJtMqdWgYDBrrsVMR7wtHxN2Ex1nLFRe96IPsRudsSGRtsjxzfnuUztE8p37CeAcEjijIB_B_9PkKfmioWPniNIG72sp0PsbOYmiUK15PB4rWx-76pSvC95rjfeKrhmPVDE0Fojdk7qpFnexx0RLvqbAySn3mq_5xdUN36yTxz1JPxHeU2742ftRx9pcOZnitvketaC27FA_qPUgoBHSv8h9RfemQhuyUwxTZ_vKULDVN-TjWBW_O94_cMz-hEixOqarZhc5BHynITVjedpknvLvZyD3rftP442CdTI1zHqaEHc0i1ksYJqREnHx3t1Vf_n6NT3QNEDnoRhSrGDLRIUu8ZhowznJEwAOD9X0zWsmWiCx77BHM-VEZ411gHrPJLpk4S8NL-GsAyVTnsJdGmibTXJdviI2hqG0pEKMJfKT_MjG9_7DNn352bFUsYRThZYnvfH-ccTaRgCV-3Gwjjug0lEtqUnp7UjVaiekRWEBhJkZkCn3c0sgN2pEyT2QSKzwh-nKDYQT8dVtPMb8b2K5JA_6voaHjv7kd8LYtGtEKRTTFIztzqrrAhi_WHBSKd5J-_9s_dfRqTd_U5YHaQGbshGqVTL8O20pA=w300-h183-no)
