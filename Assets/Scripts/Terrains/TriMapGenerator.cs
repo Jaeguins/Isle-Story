@@ -292,7 +292,7 @@ public class TriMapGenerator : MonoBehaviour {
             if (cell.coordinates == hexCell.coordinates) {
                 float moisture = climate[hexCell.Index].moisture;
                 TriDirection d = TriDirection.VERT;
-                TriIsleland isle = TriIsleland.Instance;
+                TriIsland isle = TriIsland.Instance;
                 for (int j = 0; j < 6; j++) {
                     if (!cell) break;
                     if (!cell.IsUnderwater) {
@@ -302,7 +302,7 @@ public class TriMapGenerator : MonoBehaviour {
                         else if (moisture < 0.02f) {
                             cell.TerrainTypeIndex = 3;
                             if (Random.value < 0.5f&&!cell.HasRiver) {
-                                Tree t=(Tree)Instantiate(TriIsleland.GetNaturalPrefabs((int)NaturalType.TREE,0),isle.transform);
+                                Tree t=(Tree)Instantiate(TriIsland.GetNaturalPrefabs((int)NaturalType.TREE,0),isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
                                 entities.AddNatural(t);
@@ -311,7 +311,7 @@ public class TriMapGenerator : MonoBehaviour {
                         else if (moisture < 0.12f) {
                             cell.TerrainTypeIndex = 2;
                             if (Random.value < 0.2f&&!cell.HasRiver) {
-                                Tree t = (Tree)Instantiate(TriIsleland.GetNaturalPrefabs((int)NaturalType.TREE, 0), isle.transform);
+                                Tree t = (Tree)Instantiate(TriIsland.GetNaturalPrefabs((int)NaturalType.TREE, 0), isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
                                 entities.AddNatural(t);

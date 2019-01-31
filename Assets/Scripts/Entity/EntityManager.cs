@@ -108,8 +108,7 @@ public class EntityManager : MonoBehaviour {
         naturals.Clear();
     }
 
-    public void Load(string path){
-        ClearEntities();
+    public IEnumerator<Coroutine> LoadNatural(string path) {
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "natural.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -124,12 +123,16 @@ public class EntityManager : MonoBehaviour {
                         AddNatural(loaded);
                         loaded.validateRotation();
                     }
+                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown naturals format " + header);
             }
         }
+    }
+
+    public IEnumerator<Coroutine> LoadBuilding(string path) {
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "building.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -145,12 +148,16 @@ public class EntityManager : MonoBehaviour {
                         loaded.transform.SetParent(BuildingGroup);
                         AddBuilding(loaded);
                     }
+                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown building format " + header);
             }
         }
+    }
+
+    public IEnumerator<Coroutine> LoadUnit(string path) {
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "unit.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -167,12 +174,21 @@ public class EntityManager : MonoBehaviour {
                         loaded.transform.SetParent(UnitGroup);
                         AddUnit(loaded);
                     }
+                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown unit format " + header);
             }
         }
+    }
+
+    public IEnumerator<Coroutine> Load(string path){
+        ClearEntities();
+        yield return null;
+        yield return StartCoroutine(LoadNatural(path));
+        yield return StartCoroutine(LoadBuilding(path));
+        //yield return StartCoroutine(LoadUnit(path));
     }
 
     public void AddUnit(Unit unit) {

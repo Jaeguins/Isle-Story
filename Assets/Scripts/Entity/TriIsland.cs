@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-public class TriIsleland : MonoBehaviour {
+public class TriIsland : MonoBehaviour {
     public TopViewCam topCam;
     public List<PrefabManager> buildings;
     public PrefabManager units;
     public PrefabManager naturals;
     public EntityManager entities;
-    public static TriIsleland Instance;
+    public static TriIsland Instance;
     public static Building GetCamp() {
         return Instance.entities.GetCamp();
     }
     string saveName = "save1";
     string isleName = "test1";
-    string islePath;
+    public string IslePath;
     int version = 0;
     public TriGrid grid;
     void Awake() {
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + saveName + "/" + isleName);
-        islePath = di.FullName;
+        IslePath = di.FullName;
         if (di.Exists == false) {
             di.Create();
         }
@@ -27,7 +27,7 @@ public class TriIsleland : MonoBehaviour {
 
     }
     public void Save() {//TODO Saving function
-        string path = islePath;//Path.Combine(Application.persistentDataPath, isleName);
+        string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "world.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(Clock.GetTime());
@@ -38,9 +38,11 @@ public class TriIsleland : MonoBehaviour {
         }
         entities.Save(path);
     }
-
-    public void Load() {//TODO Load function
-        string path = islePath;//Path.Combine(Application.persistentDataPath, isleName);
+    public void Load() {
+        StartCoroutine(LoadInternal());
+    }
+    public IEnumerator<Coroutine> LoadInternal() {//TODO Load function
+        string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "world.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -50,14 +52,14 @@ public class TriIsleland : MonoBehaviour {
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "map.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 2) {
-                grid.Load(reader, header);
+                yield return StartCoroutine(grid.Load(reader, header));
                 topCam.ValidatePosition();
             }
             else {
                 Debug.LogWarning("Unknown map format " + header);
             }
         }
-        entities.Load(path);
+        yield return StartCoroutine(entities.Load(path));
     }
     public static Entity GetBuildingPrefabs(int mainType, int subType, int index) {
         return Instance.buildings[mainType][subType][index];

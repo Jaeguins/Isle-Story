@@ -11,11 +11,11 @@ public class Person : Unit {
             if (home)
                 home.Livers.Remove(this);
             else
-                TriIsleland.Instance.entities.camp.Homeless.Remove(this);
+                TriIsland.Instance.entities.camp.Homeless.Remove(this);
             if (value)
                 value.Livers.Add(this);
             else
-                TriIsleland.Instance.entities.camp.Homeless.Add(this);
+                TriIsland.Instance.entities.camp.Homeless.Add(this);
             home = value;
         }
     }
@@ -67,8 +67,8 @@ public class Person : Unit {
             AddCommand(new GetInCommand(Home));
         }
         else {
-            AddCommand(new MoveCommand(TriIsleland.GetCamp().EntranceLocation));
-            AddCommand(new GetInCommand(TriIsleland.GetCamp()));
+            AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation));
+            AddCommand(new GetInCommand(TriIsland.GetCamp()));
         }
     }
 
@@ -103,7 +103,7 @@ public class Person : Unit {
     }
 
     public static new Person Load(BinaryReader reader) {
-        Person ret = Instantiate((Person)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON, 0));
+        Person ret = Instantiate((Person)TriIsland.GetUnitPrefabs((int)UnitType.PERSON, 0));
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
             ret.Home = (Inn)tLoc.Statics;
@@ -167,7 +167,7 @@ public class Person : Unit {
                 else if (building == Work) {
 
                 }
-                else if (building == TriIsleland.GetCamp()) {
+                else if (building == TriIsland.GetCamp()) {
                     if (home)
                         GoHome();
                 }
@@ -189,7 +189,7 @@ public class Person : Unit {
                 else if (building == Home) {
 
                 }
-                else if (building == TriIsleland.GetCamp()) {
+                else if (building == TriIsland.GetCamp()) {
                     if (home)
                         GoHome();
                 }

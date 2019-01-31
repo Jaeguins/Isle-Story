@@ -64,7 +64,7 @@ public class Inn : Building,Commandable {
                     if (BirthStatus >= BirthCap) {
                         BirthStatus = 0f;
                         Person t=Instantiate(personPrefab);
-                        TriIsleland.Instance.entities.AddUnit(t);
+                        TriIsland.Instance.entities.AddUnit(t);
                         t.Location = Location;
                         t.Home = this;
                         t.AddCommand(new GetInCommand(this));

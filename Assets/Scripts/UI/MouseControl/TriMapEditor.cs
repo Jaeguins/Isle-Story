@@ -5,7 +5,7 @@ using System.Collections;
 public class TriMapEditor : MonoBehaviour {
     public EntityList<Unit> personList;
     public TriGrid triGrid;
-    public TriIsleland isleland;
+    public TriIsland island;
     public EntityManager entities;
     public TriDirection buildDirection;
     public int x, z;
@@ -116,11 +116,11 @@ public class TriMapEditor : MonoBehaviour {
     }
 
     public void Save() {
-        isleland.Save();
+        island.Save();
     }
 
     public void Load() {
-        isleland.Load();
+        island.Load();
     }
     public void NewMap() {
         StartCoroutine(NewMapInternal());
@@ -129,7 +129,7 @@ public class TriMapEditor : MonoBehaviour {
         entities.ClearEntities();
         yield return StartCoroutine(triGrid.CreateMap(x, z));
         yield return StartCoroutine(mapGenerator.GenerateMap(x, z));
-        isleland.topCam.ValidatePosition();
+        island.topCam.ValidatePosition();
         Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
     }
     public Building CreateBuilding(TriDirection dir, TriCell cell, Building prefab) {
@@ -164,11 +164,11 @@ public class TriMapEditor : MonoBehaviour {
         }
     }
     public void CreateHall(TriDirection dir, TriCell cell) {
-        Hall ret = (Hall)CreateBuilding(dir, cell, (Building)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL, (int)HallType.BASE, 0));
+        Hall ret = (Hall)CreateBuilding(dir, cell, (Building)TriIsland.GetBuildingPrefabs((int)BuildingType.HALL, (int)HallType.BASE, 0));
         if (ret) {
-            TriIsleland.Instance.entities.camp = ret;
+            TriIsland.Instance.entities.camp = ret;
             for (int i = 0; i < 4; i++) {
-                Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsleland.GetUnitPrefabs((int)UnitType.PERSON, 0));
+                Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsland.GetUnitPrefabs((int)UnitType.PERSON, 0));
                 ((Person)t).Home = null;
                 t.AddCommand(new GetInCommand(ret));
             }

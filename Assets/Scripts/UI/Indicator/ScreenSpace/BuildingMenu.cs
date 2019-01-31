@@ -16,7 +16,7 @@ public class BuildingMenu : MonoBehaviour {
         gameObject.SetActive(false);
     }
     public void BuildBuilding(int type,int subtype,int index) {
-        Entity t = TriIsleland.GetBuildingPrefabs(type, subtype, index);
+        Entity t = TriIsland.GetBuildingPrefabs(type, subtype, index);
         Selector.Instance.RequestLocation((Unit)selected, t.sizeType, new BuildCommand(t));
         Close();
     }

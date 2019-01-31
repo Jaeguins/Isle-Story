@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triGrid: {fileID: 143506541}
-  isleland: {fileID: 654599386}
+  island: {fileID: 654599386}
   entities: {fileID: 124839682}
   buildDirection: 0
   x: 120
@@ -1198,6 +1198,7 @@ MonoBehaviour:
     - lists:
       - {fileID: 3236124000844637615, guid: dfc370b6533fa084aa3463cb9ad5c10d, type: 3}
   entities: {fileID: 124839682}
+  IslePath: 
   grid: {fileID: 143506541}
 --- !u!1 &685775441
 GameObject:
@@ -1449,6 +1450,7 @@ GameObject:
   - component: {fileID: 735217661}
   - component: {fileID: 735217660}
   - component: {fileID: 735217659}
+  - component: {fileID: 735217662}
   m_Layer: 0
   m_Name: IslandsView
   m_TagString: Untagged
@@ -1536,6 +1538,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &735217662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735217657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c19947b165f35a42a9744d09137c1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveName: 
+  IslandPrefab: {fileID: 0}
+  Focus: {fileID: 0}
+  Islands: []
+  panel: {fileID: 1660875990}
 --- !u!1001 &751890616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3085,8 +3104,8 @@ MonoBehaviour:
   clampZMax: 0
   border: 28
   grid: {fileID: 143506541}
-  swivel: {fileID: 0}
-  stick: {fileID: 0}
+  swivel: {fileID: 757346706}
+  stick: {fileID: 28051553}
   rotationSpeed: 180
   stickMinZoom: -150
   stickMaxZoom: -40

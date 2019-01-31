@@ -290,15 +290,17 @@ public class TriGrid : MonoBehaviour {
         return null;
     }
 
-    public void Load(BinaryReader reader,int header) {
+    public IEnumerator<Coroutine> Load(BinaryReader reader,int header) {
         ClearPath();
         ClearUnits();
-        StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));
+        yield return StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Load(reader);
+            if(i%(Strings.refreshLimit*5)==0)yield return null;
         }
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();
+            if (i % Strings.refreshLimit == 0) yield return null;
         }
     }
 }

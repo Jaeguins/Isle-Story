@@ -10,7 +10,7 @@ public class Mine : Company {
         base.Save(writer);
     }
     public new static LoggingFacility Load(BinaryReader reader) {
-        LoggingFacility ret = (LoggingFacility)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.MINE, 0));
+        LoggingFacility ret = (LoggingFacility)Instantiate(TriIsland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.MINE, 0));
         return ret;
     }
 }

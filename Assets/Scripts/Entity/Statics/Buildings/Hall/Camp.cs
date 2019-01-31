@@ -13,7 +13,7 @@ public class Camp : Hall{
     }
 
     public static new Camp Load(BinaryReader reader) {
-        return Instantiate((Camp)TriIsleland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE,0));
+        return Instantiate((Camp)TriIsland.GetBuildingPrefabs((int)BuildingType.HALL,(int)HallType.BASE,0));
     }
 
     

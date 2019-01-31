@@ -10,7 +10,7 @@ public class Processor : Company {
         base.Save(writer);
     }
     public new static Processor Load(BinaryReader reader) {
-        Processor ret = (Processor)Instantiate(TriIsleland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.PROCESSOR, 0));
+        Processor ret = (Processor)Instantiate(TriIsland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.PROCESSOR, 0));
         return ret;
     }
 }

@@ -10,6 +10,6 @@ public class Tent : Inn {
         base.Save(writer);
     }
     public static new Tent Load(BinaryReader reader) {
-        return Instantiate((Tent)TriIsleland.GetBuildingPrefabs((int)BuildingType.INN, (int)InnType.TENT, 0));
+        return Instantiate((Tent)TriIsland.GetBuildingPrefabs((int)BuildingType.INN, (int)InnType.TENT, 0));
     }
 }
