@@ -28,10 +28,7 @@ public struct TriCoordinates {
         writer.Write(z);
     }
     public static TriCoordinates Load(BinaryReader reader) {
-        TriCoordinates c;
-        c.x = reader.ReadInt32();
-        c.z = reader.ReadInt32();
-        return c;
+        return new TriCoordinates(reader.ReadInt32(),reader.ReadInt32());
     }
     public static TriCoordinates FromOffsetCoordinates(int x, int z) {
         return new TriCoordinates(x, z);

@@ -254,23 +254,27 @@ public class Unit : Entity {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write(orientation);
+        /*
         writer.Write(acting);
         if (acting) {
             writer.Write(commandQueue.Count + 1);
             nowWork.Save(writer);
             foreach (Command c in commandQueue) c.Save(writer);
         }
+        */
     }
     public static Unit Load(BinaryReader reader) {
         UnitType type = (UnitType)reader.ReadInt32();
         float orientation = reader.ReadSingle();
-        bool acting = reader.ReadBoolean();
+        //bool acting = reader.ReadBoolean();
         List<Command> tCommand = ListPool<Command>.Get();
+        /*
         if (acting) {
             int count = reader.ReadInt32();
             for (int i = 0; i < count; i++)
                 tCommand.Add(Command.Load(reader));
         }
+        */
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:
@@ -280,10 +284,12 @@ public class Unit : Entity {
         if (ret) {
             ret.orientation = orientation;
             ret.type = type;
+            /*
             if (acting)
                 foreach (Command i in tCommand) {
                     ret.AddCommand(i);
                 }
+            */
         }
         tCommand.Clear();
         ListPool<Command>.Add(tCommand);

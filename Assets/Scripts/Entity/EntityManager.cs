@@ -39,12 +39,11 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
-    public void Save(string path) {
-        int k = 0;
+    public void SaveNatural(string path) {
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "natural.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(naturals.Count);
-            k = 0;
+            int k = 0;
             foreach (KeyValuePair<int, Natural> b in naturals) {
                 switch (b.Value.type) {
                     case NaturalType.TREE:
@@ -54,12 +53,18 @@ public class EntityManager : MonoBehaviour {
 
             }
         }
+    }
+
+    public void SaveBuilding(string path) {
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "building.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(buildings.Count);
-            k = 0;
             foreach (KeyValuePair<int, Building> b in buildings) {
+                if (b.Value == null) continue;
                 switch (b.Value.type) {
+                    case BuildingType.HALL:
+                        (b.Value as Hall).Save(writer);
+                        break;
                     case BuildingType.INN:
                         switch (((Inn)b.Value).subType) {
                             case InnType.TENT:
@@ -84,11 +89,14 @@ public class EntityManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void SaveUnit(string path) {
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "unit.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(units.Count);
-            k = 0;
             foreach (KeyValuePair<int, Unit> b in units) {
+                if (b.Value == null) continue;
                 switch (b.Value.type) {
                     case UnitType.PERSON:
                         ((Person)b.Value).Save(writer);
@@ -97,6 +105,12 @@ public class EntityManager : MonoBehaviour {
 
             }
         }
+    }
+
+    public void Save(string path) {
+        SaveNatural(path);
+        SaveBuilding(path);
+        SaveUnit(path);
     }
 
     public void ClearEntities() {
@@ -140,6 +154,7 @@ public class EntityManager : MonoBehaviour {
                 for (int i = 0; i < counter; i++) {
                     TriCoordinates coord = TriCoordinates.Load(reader);
                     Building loaded = Building.Load(reader);
+                    if (loaded.type == BuildingType.HALL) camp = loaded as Hall;
                     if (loaded) {
                         loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
@@ -188,7 +203,7 @@ public class EntityManager : MonoBehaviour {
         yield return null;
         yield return StartCoroutine(LoadNatural(path));
         yield return StartCoroutine(LoadBuilding(path));
-        //yield return StartCoroutine(LoadUnit(path));
+        yield return StartCoroutine(LoadUnit(path));
     }
 
     public void AddUnit(Unit unit) {

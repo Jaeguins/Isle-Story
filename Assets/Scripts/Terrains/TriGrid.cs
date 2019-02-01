@@ -223,7 +223,6 @@ public class TriGrid : MonoBehaviour {
         for (int z = 0, i = 0; z < cellCountZ; z++) {
             for (int x = 0; x < cellCountX; x++) {
                 CreateCell(x, z, i++);
-                if (i % (3*Strings.refreshLimit) == 0) yield return null;
             }
         }
         yield return null;

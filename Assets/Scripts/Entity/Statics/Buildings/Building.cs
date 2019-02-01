@@ -60,6 +60,9 @@ public class Building : Statics {
         float constructTime = reader.ReadSingle();
         Building ret = null;
         switch (type) {
+            case BuildingType.HALL:
+                ret = Hall.Load(reader);
+                break;
             case BuildingType.INN:
                 ret = Inn.Load(reader);
                 break;

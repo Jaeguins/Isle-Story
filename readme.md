@@ -18,7 +18,12 @@
 	- [x] Resource management menu
 	- [ ] Whole citizen management menu
 	- [x] Pause menu(essential)
- - [ ] UI structure not in game (ex) main menu,save management menu, etc.
+ - [x] UI structure not in game 
+	- [x] main menu
+	- [x] save management menu
+ - [ ] Multiple world per saves
+	- [ ] world select menu
+	- [ ] dynamic loading system
  - [ ] Basic building for simplest game(extensive)
  - [ ] Basic unit for simplest game(extensive)
  
@@ -26,7 +31,6 @@
  - [ ] Random naming at unit/buildings?
  - [ ] Detailed terrains
  - [ ] More unit/buildings
- - [ ] Multiple world per saves
  - [ ] Trading between worlds
  - [ ] Threats
  - [ ] Upgrades (per building)

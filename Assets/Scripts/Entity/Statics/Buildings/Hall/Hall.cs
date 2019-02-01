@@ -17,7 +17,6 @@ public class Hall : Building, Buildable {
 
     public new static Hall Load(BinaryReader reader) {
         HallType subType = (HallType)reader.ReadInt32();
-        int capacity = reader.ReadInt32();
         Hall ret = null;
         switch (subType) {
             case HallType.BASE:
