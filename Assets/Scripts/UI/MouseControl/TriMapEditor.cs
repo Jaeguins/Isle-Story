@@ -126,11 +126,14 @@ public class TriMapEditor : MonoBehaviour {
         StartCoroutine(NewMapInternal());
     }
     public IEnumerator NewMapInternal() {
+        TriIsland.Loaded = false;
         entities.ClearEntities();
         yield return StartCoroutine(triGrid.CreateMap(x, z));
         yield return StartCoroutine(mapGenerator.GenerateMap(x, z));
+        TriIsland.Loaded = true;
         island.topCam.ValidatePosition();
         Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
+
     }
     public Building CreateBuilding(TriDirection dir, TriCell cell, Building prefab) {
         if (cell && Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {

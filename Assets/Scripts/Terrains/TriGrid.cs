@@ -290,6 +290,7 @@ public class TriGrid : MonoBehaviour {
     }
 
     public IEnumerator<Coroutine> Load(BinaryReader reader,int header) {
+        TriIsland.Loaded = false;
         ClearPath();
         ClearUnits();
         yield return StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));

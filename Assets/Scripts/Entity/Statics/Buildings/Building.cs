@@ -90,10 +90,11 @@ public class Building : Statics {
             UnderConstruct = false;
             Working = true;
             for (int i = 0; i < Insider.Count; i++) {
-                Insider[i].AddCommand(new ChangeWorkCommand(null));
-                Insider[i].AddCommand(new GetOutCommand());
+                if (Workers.Contains(Insider[i])) {
+                    Insider[i].AddCommand(new ChangeWorkCommand(null));
+                    Insider[i].AddCommand(new GetOutCommand());
+                }
             }
-            Insider.Clear();
             ConstructionIndicator.SetActive(false);
             Model.SetActive(true);
         }

@@ -4,7 +4,6 @@ public enum CommandType {
 }
 public class Command {
     public CommandType type;
-
     public virtual void Save(BinaryWriter writer) {
         writer.Write((int)type);
     }
@@ -44,6 +43,9 @@ public class Command {
 public class MoveCommand : Command {
     public TriCell location;
     public bool flag;
+    public override string ToString() {
+        return "Moveing to target -> " + location.ToString();
+    }
     public MoveCommand(TriCell location,bool flag=true) {
         type = CommandType.MOVE;
         this.location = location;

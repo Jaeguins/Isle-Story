@@ -96,12 +96,12 @@ public abstract class Entity : MonoBehaviour {
 
     public IEnumerator InternalCoroutine() {
         while (true) {
-            Tick();
+            if (TriIsland.Loaded) Tick();
+            else Debug.Log(this.ToString() + "skipped ticking");
             yield return new WaitForSeconds(0.1f);
         }
     }
     public virtual void Tick() {
-        
     }
     public void OnMouseEnter() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -112,6 +112,7 @@ public abstract class Entity : MonoBehaviour {
     }
     public virtual void OnMouseDown() {
         if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (Selector.Instance.ordering) return;
         Debug.Log(ToString() + " selected");
         SelectionIndicator.Select();
         EntityView.Instance.Clear();

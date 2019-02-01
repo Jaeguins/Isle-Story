@@ -2,16 +2,27 @@
 using System.Collections;
 using System.IO;
 public class Person : Unit {
-
+    public Statics RoutineTarget {
+        get {
+            return routineTarget;
+        }
+        set {
+            string[] data = { this.ToString(), " changed target", value.ToString() };
+            if (routineTarget != value) Debug.Log(string.Concat(data));
+            routineTarget = value;
+        }
+    }
+    public Statics routineTarget;
     public Inn Home {
         get {
             return home;
         }
         set {
+            Debug.Log(ToString() + " trying to change home from " + home + " to " + value);
             if (home)
                 home.Livers.Remove(this);
-            else
-                TriIsland.Instance.entities.camp.Homeless.Remove(this);
+            else if((TriIsland.GetCamp() as Hall).Homeless.Contains(this))
+                (TriIsland.GetCamp() as Hall).Homeless.Remove(this);
             if (value)
                 value.Livers.Add(this);
             else
@@ -55,12 +66,13 @@ public class Person : Unit {
         base.Start();
     }
 
-    public override void ChangeHomeInternal() {
+    public override IEnumerator ChangeHomeInternal() {
         Home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home : " + Home);
+        yield return null;
     }
 
-    public override void GoHome() {
+    public override IEnumerator GoHome() {
         CancelAllAct();
         if (Home) {
             AddCommand(new MoveCommand(Home.EntranceLocation));
@@ -70,22 +82,25 @@ public class Person : Unit {
             AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation));
             AddCommand(new GetInCommand(TriIsland.GetCamp()));
         }
+        yield return null;
     }
 
-    public override void GoJob() {
-        if (!Company) return;
-        CancelAllAct();
+    public override IEnumerator GoJob() {
         if (Company) {
+            CancelAllAct();
             AddCommand(new MoveCommand(Company.EntranceLocation));
             AddCommand(new GetInCommand(Company));
         }
+        yield return null;
     }
 
-    public override void GoWork() {
-        if (!Work) return;
-        CancelAllAct();
-        AddCommand(new MoveCommand(Work.EntranceLocation));
-        AddCommand(new GetInCommand(Work));
+    public override IEnumerator GoWork() {
+        if (Work) {
+            CancelAllAct();
+            AddCommand(new MoveCommand(Work.EntranceLocation));
+            AddCommand(new GetInCommand(Work));
+        }
+        yield return null;
     }
 
 
@@ -105,9 +120,9 @@ public class Person : Unit {
     public static new Person Load(BinaryReader reader) {
         Person ret = Instantiate((Person)TriIsland.GetUnitPrefabs((int)UnitType.PERSON, 0));
         TriCell tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
-        if (tLoc) {
+        if (tLoc)
             ret.Home = (Inn)tLoc.Statics;
-        }
+        else (TriIsland.GetCamp() as Hall).Homeless.Add(ret);
         tLoc = TriGrid.Instance.GetCell(TriCoordinates.Load(reader));
         if (tLoc) {
             ret.Company = (Company)tLoc.Statics;
@@ -118,23 +133,27 @@ public class Person : Unit {
         }
         return ret;
     }
-    public override void Build() {
+    public override IEnumerator Build() {
         BuildCommand c = (BuildCommand)nowWork;
         if (c.location != Location) {
             Debug.Log("Cannot reach");
-            return;
         }
-        Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
-        AddCommand(new ChangeWorkCommand(t));
-        AddCommand(new GetInCommand(t));
+        else {
+            Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
+            AddCommand(new ChangeWorkCommand(t));
+            AddCommand(new GetInCommand(t));
+        }
+        yield return null;
     }
-    public override void ChangeJobInternal() {
+    public override IEnumerator ChangeJobInternal() {
         Company = ((ChangeJobCommand)nowWork).target;
         Debug.Log("Change Job");
+        yield return null;
     }
-    public override void ChangeWorkInternal() {
+    public override IEnumerator ChangeWorkInternal() {
         Work = ((ChangeWorkCommand)nowWork).target;
         Debug.Log("Change Work");
+        yield return null;
     }
     public void BindingBuildingMenu() {
         BuildingMenu.Instance.Bind(this);
@@ -150,52 +169,21 @@ public class Person : Unit {
     }
     public override void Tick() {
         base.Tick();
-        if (commandQueue.Count==0) {
+        if (!acting &&commandQueue.Count==0&& Building != RoutineTarget&&RoutineTarget) {
+            CancelAllAct();
+            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
+            AddCommand(new GetInCommand(RoutineTarget));
+        }
+        else {
             if (Clock.IsDay()) {
-                if (!building) {
-                    if (Work) GoWork();
-                    else if (Company) GoJob();
-                    else GoHome();
-                }
-                else if (building == Home) {
-                    if (Company) GoJob();
-                    else if (Work) GoWork();
-                }
-                else if (building == Company) {
-                    if (Work) GoWork();
-                }
-                else if (building == Work) {
-
-                }
-                else if (building == TriIsland.GetCamp()) {
-                    if (home)
-                        GoHome();
-                }
-                else {
-                    Debug.LogWarning("Unknown Location Status");
-                }
+                if (Work) RoutineTarget = Work;
+                else if (Company) RoutineTarget = Company;
+                else if (Home) RoutineTarget = Home;
+                else RoutineTarget = TriIsland.GetCamp();
             }
             else {
-                if (!building) {
-                    GoHome();
-                }
-                else if (building == Work) {
-                    if (Company) GoJob();
-                    else GoHome();
-                }
-                else if (building == Company) {
-                    GoHome();
-                }
-                else if (building == Home) {
-
-                }
-                else if (building == TriIsland.GetCamp()) {
-                    if (home)
-                        GoHome();
-                }
-                else {
-                    Debug.LogWarning("Unknown Location Status");
-                }
+                if (Home) RoutineTarget = Home;
+                else RoutineTarget = TriIsland.GetCamp();
             }
         }
     }

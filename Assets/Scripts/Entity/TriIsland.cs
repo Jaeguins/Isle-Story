@@ -9,6 +9,15 @@ public class TriIsland : MonoBehaviour {
     public PrefabManager naturals;
     public EntityManager entities;
     public static TriIsland Instance;
+    public static bool Loaded {
+        get {
+            return Instance.loaded;
+        }
+        set {
+            Instance.loaded = value;
+        }
+    }
+    public bool loaded = false;
     public static Building GetCamp() {
         return Instance.entities.GetCamp();
     }

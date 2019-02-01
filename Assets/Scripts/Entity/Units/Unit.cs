@@ -106,76 +106,87 @@ public class Unit : Entity {
         yield return null;
     }
 
-    public void GetIn() {
-        GetIn(((GetInCommand)nowWork).target);
+    public IEnumerator GetIn() {
+        yield return StartCoroutine(GetIn(((GetInCommand)nowWork).target));
+        
     }
-    public void GetIn(Statics target) {
+    public IEnumerator GetIn(Statics target) {
         acting = true;
         Building = target;
         SetVisible(false);
         acting = false;
+        yield return null;
     }
-    public void GetOut() {
+    public IEnumerator GetOut() {
         if (!Building) {
             Debug.LogWarning(ToString() + " : not in building");
-            return;
         }
-        acting = true;
-        Building = null;
-        SetVisible(true);
-        acting = false;
+        else {
+            acting = true;
+            Building = null;
+            SetVisible(true);
+            acting = false;
+        }
+        yield return null;
     }
-    public void Move(bool entityCheck) {
-        StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
+    public IEnumerator Move(bool entityCheck) {
+        yield return StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
     }
-    public virtual void Build() {
+    public virtual IEnumerator Build() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void ChangeJobInternal() {
+    public virtual IEnumerator ChangeJobInternal() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void ChangeWorkInternal() {
+    public virtual IEnumerator ChangeWorkInternal() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void ChangeHomeInternal() {
+    public virtual IEnumerator ChangeHomeInternal() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void GoJob() {
+    public virtual IEnumerator GoJob() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void GoWork() {
+    public virtual IEnumerator GoWork() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
-    public virtual void GoHome() {
+    public virtual IEnumerator GoHome() {
         Debug.Log("unexpected Order");
+        yield return null;
     }
     IEnumerator Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
-                Debug.Log(nowWork+" left order : "+commandQueue.Count);
+                Debug.Log(nowWork.ToString()+" left order : "+commandQueue.Count);
 
                 switch (nowWork.type) {
                     case CommandType.MOVE:
-                        Move(((MoveCommand)nowWork).flag);
+                        yield return StartCoroutine(Move(((MoveCommand)nowWork).flag));
                         break;
                     case CommandType.GETIN:
-                        GetIn();
+                        yield return StartCoroutine(GetIn());
                         break;
                     case CommandType.GETOUT:
-                        GetOut();
+                        yield return StartCoroutine(GetOut());
                         break;
                     case CommandType.BUILD:
-                        Build();
+                        yield return StartCoroutine(Build());
                         break;
                     case CommandType.CHANGEJOB:
-                        ChangeJobInternal();
+                        yield return StartCoroutine(ChangeJobInternal());
                         break;
                     case CommandType.CHANGEWORK:
-                        ChangeWorkInternal();
+                        yield return StartCoroutine(ChangeWorkInternal());
                         break;
                     case CommandType.CHANGEHOME:
-                        ChangeHomeInternal();
+                        yield return StartCoroutine(ChangeHomeInternal());
                         break;
                     case CommandType.GOJOB:
                         GoJob();
@@ -241,40 +252,15 @@ public class Unit : Entity {
         }
         acting = false;
     }
-    /*
-     * save sequence
-     * superclassed saves
-     * >type
-     * >orientation
-     * >act status
-     * >act queue
-     * >inventory
-     */
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)type);
         writer.Write(orientation);
-        /*
-        writer.Write(acting);
-        if (acting) {
-            writer.Write(commandQueue.Count + 1);
-            nowWork.Save(writer);
-            foreach (Command c in commandQueue) c.Save(writer);
-        }
-        */
     }
     public static Unit Load(BinaryReader reader) {
         UnitType type = (UnitType)reader.ReadInt32();
         float orientation = reader.ReadSingle();
-        //bool acting = reader.ReadBoolean();
         List<Command> tCommand = ListPool<Command>.Get();
-        /*
-        if (acting) {
-            int count = reader.ReadInt32();
-            for (int i = 0; i < count; i++)
-                tCommand.Add(Command.Load(reader));
-        }
-        */
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:

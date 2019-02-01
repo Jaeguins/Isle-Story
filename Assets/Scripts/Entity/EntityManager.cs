@@ -204,6 +204,7 @@ public class EntityManager : MonoBehaviour {
         yield return StartCoroutine(LoadNatural(path));
         yield return StartCoroutine(LoadBuilding(path));
         yield return StartCoroutine(LoadUnit(path));
+        TriIsland.Loaded = true;
     }
 
     public void AddUnit(Unit unit) {
