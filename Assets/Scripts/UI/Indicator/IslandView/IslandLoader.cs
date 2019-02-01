@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IslandLoader : MonoBehaviour {
-    public string saveName;
     public IslandSelector IslandPrefab;
     public IslandSelector Focus;
     public List<IslandSelector> Islands=new List<IslandSelector>();
@@ -14,12 +13,18 @@ public class IslandLoader : MonoBehaviour {
     public void Awake() {
         Instance = this;
     }
+    public void OnEnable() {
+        Load();
+    }
+    public void OnDisable() {
+        Clear();
+    }
     public void Load() {
-        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + saveName);
-        foreach (DirectoryInfo tdi in di.GetDirectories()) {
+        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + TriIsland.Instance.SaveName);
+            foreach (DirectoryInfo tdi in di.GetDirectories()) {
             using (BinaryReader rd = new BinaryReader(File.OpenRead(Path.Combine(tdi.FullName, "thumbnail.dat")))) {
                 IslandSelector tisle=IslandPool.Count>0?IslandPool.Dequeue():Instantiate(IslandPrefab, panel);
-                Vector3 pos = new Vector3(rd.ReadInt32(), rd.ReadInt32(), rd.ReadInt32());
+                Vector3 pos = new Vector3(rd.ReadInt32(), rd.ReadInt32(),0);
                 tisle.transform.localPosition = pos;
                 tisle.IsleName = tdi.Name;
                 tisle.IslePath = tdi.FullName;

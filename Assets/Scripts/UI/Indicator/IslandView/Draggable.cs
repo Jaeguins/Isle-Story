@@ -12,7 +12,6 @@ public class Draggable : MonoBehaviour
     }
     public void OnMouseDrag() {
         tp.position = originalLoc + (Input.mousePosition- originalCur);
-        Debug.Log("dragging " + tp.position);
     }
     public void OnMouseDown() {
         originalLoc = tp.position;

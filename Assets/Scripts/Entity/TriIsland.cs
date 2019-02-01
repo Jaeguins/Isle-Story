@@ -11,6 +11,7 @@ public class TriIsland : MonoBehaviour {
     public TriMapEditor editor;
     public TriMapGenerator mapGenerator;
     public static TriIsland Instance;
+    public int isleX=0, isleZ=0;
     public static bool Loaded {
         get {
             return Instance.loaded;
@@ -23,8 +24,8 @@ public class TriIsland : MonoBehaviour {
     public static Building GetCamp() {
         return Instance.entities.GetCamp();
     }
-    string saveName = "save1";
-    string isleName = "test1";
+    public string SaveName = "save1";
+    public string IsleName = "test1";
     public string IslePath;
     int version = 0;
     public TriGrid grid;
@@ -34,7 +35,7 @@ public class TriIsland : MonoBehaviour {
     }
 
     void Awake() {
-        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + saveName + "/" + isleName);
+        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + SaveName + "/" + IsleName);
         IslePath = di.FullName;
         if (di.Exists == false) {
             di.Create();
@@ -44,6 +45,10 @@ public class TriIsland : MonoBehaviour {
     }
     public void Save() {//TODO Saving function
         string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
+        using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "thumbnail.dat"), FileMode.Create))) {
+            writer.Write(isleX);
+            writer.Write(isleZ);
+        }
         using (BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(path, "world.dat"), FileMode.Create))) {
             writer.Write(0);
             writer.Write(Clock.GetTime());
@@ -73,6 +78,10 @@ public class TriIsland : MonoBehaviour {
     public IEnumerator<Coroutine> LoadInternal() {//TODO Load function
         Time.timeScale = 0;
         string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "thumbnail.dat")))) {
+            isleX = reader.ReadInt32();
+            isleZ = reader.ReadInt32();
+        }
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "world.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
