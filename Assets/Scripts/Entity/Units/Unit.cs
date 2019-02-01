@@ -135,7 +135,7 @@ public class Unit : Entity {
     public virtual IEnumerator Build() {
         Debug.Log("unexpected Order");
         yield return null;
-    }
+    }   
     public virtual IEnumerator ChangeJobInternal() {
         Debug.Log("unexpected Order");
         yield return null;

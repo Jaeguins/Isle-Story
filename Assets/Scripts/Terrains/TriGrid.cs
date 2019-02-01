@@ -52,10 +52,11 @@ public class TriGrid : MonoBehaviour {
     }
 
     void Awake() {
+        Time.timeScale = 0;
         TriMetrics.colors = colors;
         TriMetrics.noiseSource = noiseSource;
         Entity.unitPrefab = unitPrefab;
-        StartCoroutine(CreateMap(cellCountX, cellCountZ));
+        //StartCoroutine(CreateMap(cellCountX, cellCountZ));
         Instance = this;
     }
 

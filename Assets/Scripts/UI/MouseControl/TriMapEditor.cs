@@ -16,6 +16,9 @@ public class TriMapEditor : MonoBehaviour {
     TriDirection dragDirection;
     TriCell previousCell;
     int activeTerrainTypeIndex = -1;
+    public void NewMap() {
+        TriIsland.Instance.NewMap();
+    }
     private void Awake() {
         Instance = this;
     }
@@ -122,19 +125,8 @@ public class TriMapEditor : MonoBehaviour {
     public void Load() {
         island.Load();
     }
-    public void NewMap() {
-        StartCoroutine(NewMapInternal());
-    }
-    public IEnumerator NewMapInternal() {
-        TriIsland.Loaded = false;
-        entities.ClearEntities();
-        yield return StartCoroutine(triGrid.CreateMap(x, z));
-        yield return StartCoroutine(mapGenerator.GenerateMap(x, z));
-        TriIsland.Loaded = true;
-        island.topCam.ValidatePosition();
-        Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
-
-    }
+    
+    
     public Building CreateBuilding(TriDirection dir, TriCell cell, Building prefab) {
         if (cell && Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {
             Building ret = Instantiate(prefab);

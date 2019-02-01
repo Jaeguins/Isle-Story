@@ -8,6 +8,8 @@ public class TriIsland : MonoBehaviour {
     public PrefabManager units;
     public PrefabManager naturals;
     public EntityManager entities;
+    public TriMapEditor editor;
+    public TriMapGenerator mapGenerator;
     public static TriIsland Instance;
     public static bool Loaded {
         get {
@@ -26,6 +28,11 @@ public class TriIsland : MonoBehaviour {
     public string IslePath;
     int version = 0;
     public TriGrid grid;
+
+    public void NewMap() {
+        StartCoroutine(NewMapInternal());
+    }
+
     void Awake() {
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + saveName + "/" + isleName);
         IslePath = di.FullName;
@@ -50,7 +57,21 @@ public class TriIsland : MonoBehaviour {
     public void Load() {
         StartCoroutine(LoadInternal());
     }
+
+    public IEnumerator<Coroutine> NewMapInternal() {
+        Time.timeScale = 0;
+        Loaded = false;
+        entities.ClearEntities();
+        yield return StartCoroutine(grid.CreateMap(editor.x, editor.z));
+        yield return StartCoroutine(mapGenerator.GenerateMap(editor.x, editor.z));
+        Loaded = true;
+        topCam.ValidatePosition();
+        Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
+        Time.timeScale = 1;
+    }
+
     public IEnumerator<Coroutine> LoadInternal() {//TODO Load function
+        Time.timeScale = 0;
         string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "world.dat")))) {
             int header = reader.ReadInt32();
@@ -69,6 +90,7 @@ public class TriIsland : MonoBehaviour {
             }
         }
         yield return StartCoroutine(entities.Load(path));
+        Time.timeScale = 1;
     }
     public static Entity GetBuildingPrefabs(int mainType, int subType, int index) {
         return Instance.buildings[mainType][subType][index];
