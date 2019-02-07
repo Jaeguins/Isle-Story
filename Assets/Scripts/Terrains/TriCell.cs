@@ -34,6 +34,13 @@ public class TriCell {
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
     int distance;
+    public void ReInit() {
+        elevation = 0;
+        RefreshPosition();
+        for (int i = 0; i < isRiver.Length; i++) isRiver[i] = false;
+        terrainTypeIndex = 0;
+        isRoad = false;
+    }
     public int Distance {
         get {
             return distance;

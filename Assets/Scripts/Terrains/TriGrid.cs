@@ -9,8 +9,8 @@ public class TriGrid : MonoBehaviour {
     public TriCell cellPrefab;
     public Entity unitPrefab;
     List<Entity> units = new List<Entity>();
-    TriCell[] cells;
-    TriGridChunk[] chunks;
+    public TriCell[] cells;
+    List<TriGridChunk> chunks=new List<TriGridChunk>();
     public Text cellLabelPrefab;
     public TriGridChunk chunkPrefab;
     int chunkCountX, chunkCountZ;
@@ -66,12 +66,12 @@ public class TriGrid : MonoBehaviour {
         }
     }
 
-    public void FindPath(TriCell fromCell,TriCell toCell,bool entityCheck=true) {
+    public void FindPath(TriCell fromCell, TriCell toCell, bool entityCheck = true) {
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
-        currentPathExists = Search(fromCell, toCell,entityCheck);
-        Debug.Log("pathFindResult : "+currentPathExists);
+        currentPathExists = Search(fromCell, toCell, entityCheck);
+        Debug.Log("pathFindResult : " + currentPathExists);
     }
 
     public List<TriCell> GetPath() {
@@ -99,7 +99,7 @@ public class TriGrid : MonoBehaviour {
         currentPathFrom = currentPathTo = null;
     }
 
-    bool Search(TriCell fromCell,TriCell toCell,bool entityCheck) {
+    bool Search(TriCell fromCell, TriCell toCell, bool entityCheck) {
         searchFrontierPhase += 2;
         if (searchFrontier == null) {
             searchFrontier = new TriCellPriorityQueue();
@@ -125,16 +125,16 @@ public class TriGrid : MonoBehaviour {
             for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
                 TriCell neighbor = current.GetNeighbor(d);
                 if (neighbor == null ||
-                    neighbor.SearchPhase > searchFrontierPhase||
-                    neighbor.Distance != int.MaxValue||
-                    neighbor.IsUnderwater||
-                    neighbor.HasRiver||
-                    (entityCheck&&!neighbor.Stepable)||
-                    Mathf.Abs(neighbor.Elevation-current.Elevation)>1)
+                    neighbor.SearchPhase > searchFrontierPhase ||
+                    neighbor.Distance != int.MaxValue ||
+                    neighbor.IsUnderwater ||
+                    neighbor.HasRiver ||
+                    (entityCheck && !neighbor.Stepable) ||
+                    Mathf.Abs(neighbor.Elevation - current.Elevation) > 1)
                     continue;
                 int distance = current.Distance;
-                if (current.IsRoad) distance+= 1;
-                else distance+= 10;
+                if (current.IsRoad) distance += 1;
+                else distance += 10;
                 distance += current.Elevation != neighbor.Elevation ? 1 : 0;
                 if (neighbor.SearchPhase < searchFrontierPhase) {
                     neighbor.SearchPhase = searchFrontierPhase;
@@ -143,7 +143,7 @@ public class TriGrid : MonoBehaviour {
                     neighbor.SearchHeuristic =
                         neighbor.coordinates.DistanceTo(toCell.coordinates);
                     searchFrontier.Enqueue(neighbor);
-                    
+
                 }
                 else if (distance < neighbor.Distance) {
                     int oldPriority = neighbor.SearchPriority;
@@ -155,21 +155,15 @@ public class TriGrid : MonoBehaviour {
         }
         return false;
     }
-    public IEnumerator<WaitForEndOfFrame> DestroyChunk(int i) {
+    public IEnumerator<WaitForEndOfFrame> DestroyChunk(int i, bool flag = false) {
         chunks[i].Disable();
         Destroy(chunks[i].gameObject);
-        yield return null;
+        if (flag)
+            yield return null;
     }
     public IEnumerator<Coroutine> CreateMap(int x, int z) {
         ClearPath();
         ClearUnits();
-        /*
-        if (chunks != null) {
-            for (int i = 0; i < chunks.Length; i++) {
-                yield return StartCoroutine(DestroyChunk(i));
-            }
-        }
-        */
         if (
             x <= 0 || x % TriMetrics.chunkSizeX != 0 ||
             z <= 0 || z % TriMetrics.chunkSizeZ != 0
@@ -181,9 +175,27 @@ public class TriGrid : MonoBehaviour {
             cellCountZ = z;
             chunkCountX = cellCountX / TriMetrics.chunkSizeX;
             chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
-            if (chunks == null || chunks.Length == chunkCountX * chunkCountZ)
+            if (chunks == null || chunks.Count != chunkCountX * chunkCountZ) {
+                for (int i = 0; i < chunks.Count; i++) {
+                    //yield return StartCoroutine(DestroyChunk(i, i % Strings.refreshLimit == 0));
+                    DestroyChunk(i, i % Strings.refreshLimit == 0);
+                }
                 yield return StartCoroutine(CreateChunks());
-            yield return StartCoroutine(CreateCells());
+                yield return StartCoroutine(CreateCells());
+            }
+            else if (chunks != null) {
+                for (int i = 0; i < chunks.Count; i++) {
+                    //yield return StartCoroutine(DestroyChunk(i, i % Strings.refreshLimit == 0));
+                    DestroyChunk(i, i % Strings.refreshLimit == 0);
+                }
+                yield return StartCoroutine(CreateChunks());
+                yield return StartCoroutine(CreateCells());
+            }
+            else {
+                foreach (TriCell cell in Instance.cells) {
+                    cell.ReInit();
+                }
+            }
         }
         yield return null;
     }
@@ -203,10 +215,11 @@ public class TriGrid : MonoBehaviour {
     }
 
     IEnumerator<WaitForEndOfFrame> CreateChunks() {
-        chunks = new TriGridChunk[chunkCountX * chunkCountZ];
+        chunks.Clear();
         for (int z = 0, i = 0; z < chunkCountZ; z++) {
             for (int x = 0; x < chunkCountX; x++) {
-                TriGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
+                TriGridChunk chunk = Instantiate(chunkPrefab);
+                chunks.Add(chunk);
                 chunk.transform.SetParent(transform);
             }
         }
@@ -279,7 +292,7 @@ public class TriGrid : MonoBehaviour {
         return null;
     }
 
-    public IEnumerator<Coroutine> Load(BinaryReader reader,int header) {
+    public IEnumerator<Coroutine> Load(BinaryReader reader, int header) {
         TriIsland.Loaded = false;
         ClearPath();
         ClearUnits();
@@ -287,7 +300,7 @@ public class TriGrid : MonoBehaviour {
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Load(reader);
         }
-        for (int i = 0; i < chunks.Length; i++) {
+        for (int i = 0; i < chunks.Count; i++) {
             chunks[i].Refresh();
             if (i % Strings.refreshLimit == 0) yield return null;
         }

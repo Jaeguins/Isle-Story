@@ -231,11 +231,6 @@ public class TriMapGenerator : MonoBehaviour {
     }
 
     int RaiseTerrain(int chunkSize, int budget, bool initiated) {
-        TriCell cell;
-        for (int i = 0; i < grid.cellCountX * grid.cellCountZ; i++) {
-            cell = grid.GetCell(i);
-            cell.Elevation = 0;
-        }
         searchFrontierPhase += 1;
         TriCoordinates center = grid.GetCell(grid.cellCountX / 2, grid.cellCountZ / 2).coordinates;
         center = TriMetrics.TriToHex(center);
