@@ -234,13 +234,14 @@ public class TriGrid : MonoBehaviour {
         position.x = x * TriMetrics.innerRadius;
         position.y = 0f;
         position.z = z * TriMetrics.outerRadius * 1.5f - (0.5f * TriMetrics.outerRadius * ((x + z) % 2));
-        TriCell cell = cells[i] = Instantiate(cellPrefab);
+        //TriCell cell = cells[i] = Instantiate(cellPrefab);
+        TriCell cell = cells[i] = new TriCell();
         if ((x + z) % 2 == 0) {
             cell.inverted = true;
         }
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
         cell.Index = i;
-        cell.transform.localPosition = position;
+        cell.localPosition = position;
 
         if (x > 0)
             if (cell.inverted) cell.SetNeighbor(TriDirection.RIGHT, cells[i - 1]);
@@ -248,11 +249,11 @@ public class TriGrid : MonoBehaviour {
         if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
 
         cell.Elevation = 0;
-        labels.Add(Instantiate<Text>(cellLabelPrefab, cell.transform));
+        //labels.Add(Instantiate<Text>(cellLabelPrefab, cell.transform));
         
-        cell.uiRect = labels[i].rectTransform;
-        labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        cell.gameObject.name = "TriCell " + x + ":" + z;
+        //cell.uiRect = labels[i].rectTransform;
+        //labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
+        //cell.gameObject.name = "TriCell " + x + ":" + z;
         AddCellToChunk(x, z, cell);
     }
 

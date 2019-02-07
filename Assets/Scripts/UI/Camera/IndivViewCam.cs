@@ -21,7 +21,7 @@ public class IndivViewCam : CameraController{
         CameraView.transform.localPosition = entity.camOffset;
     }
     public void SetAnchor(Entity entity) {
-        transform.localPosition = entity.Location.transform.position+entity.camAnchorOffset;
+        transform.localPosition = entity.Location.position+entity.camAnchorOffset;
     }
     private void Update() {
         if (activated) {

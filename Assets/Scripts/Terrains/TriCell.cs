@@ -2,9 +2,21 @@
 using System.Collections;
 using System.IO;
 
-public class TriCell : MonoBehaviour {
+public class TriCell {
     public TriCoordinates coordinates;
-    public static implicit operator Vector3(TriCell obj){
+    public Vector3 position;
+    public Vector3 localPosition {
+        get {
+            return position;
+        }
+        set {
+            position = value;
+        }
+    }
+    public static implicit operator bool(TriCell cell) {
+        return cell != null;
+    }
+    public static implicit operator Vector3(TriCell obj) {
         return obj.Position;
     }
     public bool IsRoad {
@@ -20,10 +32,10 @@ public class TriCell : MonoBehaviour {
             return Statics ? Statics.Stepable : true;
         }
     }
-    bool isRoad=false;
+    bool isRoad = false;
     public TriCell PathFrom { get; set; }
     public bool inverted = false;
-    public RectTransform uiRect;
+    //public RectTransform uiRect;
     public TriGridChunk chunk;
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
@@ -46,7 +58,7 @@ public class TriCell : MonoBehaviour {
 
     public int SearchPriority {
         get {
-            return distance + SearchHeuristic*10;
+            return distance + SearchHeuristic * 10;
         }
     }
 
@@ -72,7 +84,7 @@ public class TriCell : MonoBehaviour {
 
     public Vector3 Position {
         get {
-            return transform.localPosition;
+            return localPosition;
         }
     }
 
@@ -88,15 +100,15 @@ public class TriCell : MonoBehaviour {
         }
     }
 
-    void RefreshPosition() { 
-    Vector3 position = transform.localPosition;
-    position.y = elevation* TriMetrics.elevationStep;
-    transform.localPosition = position;
+    void RefreshPosition() {
+        Vector3 position = localPosition;
+        position.y = elevation * TriMetrics.elevationStep;
+        localPosition = position;
 
-            Vector3 uiPosition = uiRect.localPosition;
-    uiPosition.z = -position.y;
-            uiRect.localPosition = uiPosition;
-        }
+        //Vector3 uiPosition = uiRect.localPosition;
+        //uiPosition.z = -position.y;
+        //uiRect.localPosition = uiPosition;
+    }
 
     int elevation = int.MinValue;
 
@@ -104,7 +116,7 @@ public class TriCell : MonoBehaviour {
 
     public bool HasRiver {
         get {
-            return isRiver[0]||isRiver[1]||isRiver[2];
+            return isRiver[0] || isRiver[1] || isRiver[2];
         }
     }
 
@@ -116,12 +128,12 @@ public class TriCell : MonoBehaviour {
             if (waterLevel == value) {
                 return;
             }
-            waterLevel = value ;
+            waterLevel = value;
             Refresh();
         }
     }
 
-    int waterLevel=1;
+    int waterLevel = 1;
 
     public bool IsUnderwater {
         get {
@@ -156,7 +168,7 @@ public class TriCell : MonoBehaviour {
     }
 
     [SerializeField]
-    TriCell[] neighbors;
+    TriCell[] neighbors=new TriCell[3];
     public TriCell GetNeighbor(TriDirection direction) {
         return neighbors[(int)direction];
     }
