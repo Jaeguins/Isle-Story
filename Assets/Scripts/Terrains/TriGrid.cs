@@ -10,7 +10,7 @@ public class TriGrid : MonoBehaviour {
     public Entity unitPrefab;
     List<Entity> units = new List<Entity>();
     public TriCell[] cells;
-    List<TriGridChunk> chunks=new List<TriGridChunk>();
+    List<TriGridChunk> chunks = new List<TriGridChunk>();
     public Text cellLabelPrefab;
     public TriGridChunk chunkPrefab;
     int chunkCountX, chunkCountZ;
@@ -183,19 +183,12 @@ public class TriGrid : MonoBehaviour {
                 yield return StartCoroutine(CreateChunks());
                 yield return StartCoroutine(CreateCells());
             }
-            else if (chunks != null) {
-                for (int i = 0; i < chunks.Count; i++) {
-                    //yield return StartCoroutine(DestroyChunk(i, i % Strings.refreshLimit == 0));
-                    DestroyChunk(i, i % Strings.refreshLimit == 0);
-                }
-                yield return StartCoroutine(CreateChunks());
-                yield return StartCoroutine(CreateCells());
-            }
             else {
                 foreach (TriCell cell in Instance.cells) {
                     cell.ReInit();
                 }
             }
+            
         }
         yield return null;
     }
