@@ -11,6 +11,7 @@ public class TriIsland : MonoBehaviour {
     public TriMapEditor editor;
     public TriMapGenerator mapGenerator;
     public static TriIsland Instance;
+    public int sizeX=120,sizeZ=60;
     public int isleX=0, isleZ=0;
     public static bool Loaded {
         get {
@@ -67,8 +68,8 @@ public class TriIsland : MonoBehaviour {
         Time.timeScale = 0;
         Loaded = false;
         entities.ClearEntities();
-        yield return StartCoroutine(grid.CreateMap(editor.x, editor.z));
-        yield return StartCoroutine(mapGenerator.GenerateMap(editor.x, editor.z));
+        yield return StartCoroutine(grid.CreateMap(sizeX, sizeZ));
+        yield return StartCoroutine(mapGenerator.GenerateMap(sizeX, sizeZ));
         Loaded = true;
         topCam.ValidatePosition();
         Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 public class Strings {
-    public static int refreshLimit = 10;
+    public static int refreshLimit = 100;
     public static string
         NaN = "NaN",
         Activate = "Activate",

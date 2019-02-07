@@ -66,14 +66,7 @@ public class TriGrid : MonoBehaviour {
         }
     }
 
-    public void ClearLabel() {
-        for(int i = 0; i < labels.Count; i++) {
-            labels[i].text = "";
-        }
-    }
-
     public void FindPath(TriCell fromCell,TriCell toCell,bool entityCheck=true) {
-        ClearLabel();
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
@@ -158,7 +151,6 @@ public class TriGrid : MonoBehaviour {
                     neighbor.PathFrom = current;
                     searchFrontier.Change(neighbor, oldPriority);
                 }
-                labels[neighbor.Index].text = "" + neighbor.Distance;
             }
         }
         return false;
@@ -171,11 +163,13 @@ public class TriGrid : MonoBehaviour {
     public IEnumerator<Coroutine> CreateMap(int x, int z) {
         ClearPath();
         ClearUnits();
+        /*
         if (chunks != null) {
             for (int i = 0; i < chunks.Length; i++) {
                 yield return StartCoroutine(DestroyChunk(i));
             }
         }
+        */
         if (
             x <= 0 || x % TriMetrics.chunkSizeX != 0 ||
             z <= 0 || z % TriMetrics.chunkSizeZ != 0
@@ -187,8 +181,8 @@ public class TriGrid : MonoBehaviour {
             cellCountZ = z;
             chunkCountX = cellCountX / TriMetrics.chunkSizeX;
             chunkCountZ = cellCountZ / TriMetrics.chunkSizeZ;
-            yield return StartCoroutine(CreateChunks());
-            labels.Clear();
+            if (chunks == null || chunks.Length == chunkCountX * chunkCountZ)
+                yield return StartCoroutine(CreateChunks());
             yield return StartCoroutine(CreateCells());
         }
         yield return null;
@@ -234,14 +228,13 @@ public class TriGrid : MonoBehaviour {
         position.x = x * TriMetrics.innerRadius;
         position.y = 0f;
         position.z = z * TriMetrics.outerRadius * 1.5f - (0.5f * TriMetrics.outerRadius * ((x + z) % 2));
-        //TriCell cell = cells[i] = Instantiate(cellPrefab);
         TriCell cell = cells[i] = new TriCell();
         if ((x + z) % 2 == 0) {
             cell.inverted = true;
         }
         cell.coordinates = TriCoordinates.FromOffsetCoordinates(x, z);
         cell.Index = i;
-        cell.localPosition = position;
+        cell.position = position;
 
         if (x > 0)
             if (cell.inverted) cell.SetNeighbor(TriDirection.RIGHT, cells[i - 1]);
@@ -249,11 +242,6 @@ public class TriGrid : MonoBehaviour {
         if (z > 0 && !cell.inverted) cell.SetNeighbor(TriDirection.VERT, cells[i - cellCountX]);
 
         cell.Elevation = 0;
-        //labels.Add(Instantiate<Text>(cellLabelPrefab, cell.transform));
-        
-        //cell.uiRect = labels[i].rectTransform;
-        //labels[i].rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        //cell.gameObject.name = "TriCell " + x + ":" + z;
         AddCellToChunk(x, z, cell);
     }
 
@@ -298,7 +286,6 @@ public class TriGrid : MonoBehaviour {
         yield return StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Load(reader);
-            if(i%(Strings.refreshLimit*5)==0)yield return null;
         }
         for (int i = 0; i < chunks.Length; i++) {
             chunks[i].Refresh();

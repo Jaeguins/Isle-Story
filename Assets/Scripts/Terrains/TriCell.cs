@@ -5,14 +5,6 @@ using System.IO;
 public class TriCell {
     public TriCoordinates coordinates;
     public Vector3 position;
-    public Vector3 localPosition {
-        get {
-            return position;
-        }
-        set {
-            position = value;
-        }
-    }
     public static implicit operator bool(TriCell cell) {
         return cell != null;
     }
@@ -35,7 +27,6 @@ public class TriCell {
     bool isRoad = false;
     public TriCell PathFrom { get; set; }
     public bool inverted = false;
-    //public RectTransform uiRect;
     public TriGridChunk chunk;
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
@@ -84,7 +75,7 @@ public class TriCell {
 
     public Vector3 Position {
         get {
-            return localPosition;
+            return position;
         }
     }
 
@@ -101,13 +92,7 @@ public class TriCell {
     }
 
     void RefreshPosition() {
-        Vector3 position = localPosition;
         position.y = elevation * TriMetrics.elevationStep;
-        localPosition = position;
-
-        //Vector3 uiPosition = uiRect.localPosition;
-        //uiPosition.z = -position.y;
-        //uiRect.localPosition = uiPosition;
     }
 
     int elevation = int.MinValue;

@@ -34,7 +34,7 @@ public class TriMapGenerator : MonoBehaviour {
     int xMin, xMax, zMin, zMax;
     int searchFrontierPhase;
 
-    void SetClimateData(int cellIndex,float moisture,float clouds) {
+    void SetClimateData(int cellIndex, float moisture, float clouds) {
         TriDirection d = TriDirection.VERT;
         TriCell current, k;
         ClimateData t;
@@ -42,7 +42,7 @@ public class TriMapGenerator : MonoBehaviour {
         for (int i = 0; i < 6; i++) {
             if (!k) break;
 
-            t= new ClimateData();
+            t = new ClimateData();
             t.moisture = moisture;
             t.clouds = clouds;
             climate[k.Index] = t;
@@ -94,7 +94,7 @@ public class TriMapGenerator : MonoBehaviour {
         SetClimateData(cellIndex, tMoisture, tClouds);
         //climate[cellIndex] = cellClimate;
     }
-    
+
     public IEnumerator<Coroutine> GenerateMap(int x, int z) {
         Selector.Instance.CancelCommand();
         cellCount = x * z;
@@ -120,7 +120,7 @@ public class TriMapGenerator : MonoBehaviour {
                 continue;
             }
             ClimateData data = climate[i];
-            
+
             float weight =
                 (float)(cell.Elevation) /
                 (float)(elevationMaximum);
@@ -191,7 +191,7 @@ public class TriMapGenerator : MonoBehaviour {
             if (flowDirections.Count == 0) {
                 return length > 1 ? length : 0;
             }
-            direction= flowDirections[Random.Range(0, flowDirections.Count)];
+            direction = flowDirections[Random.Range(0, flowDirections.Count)];
             cell.SetRiver(direction);
             cell.GetNeighbor(direction).SetRiver(direction);
             length += 1;
@@ -231,6 +231,11 @@ public class TriMapGenerator : MonoBehaviour {
     }
 
     int RaiseTerrain(int chunkSize, int budget, bool initiated) {
+        TriCell cell;
+        for (int i = 0; i < grid.cellCountX * grid.cellCountZ; i++) {
+            cell = grid.GetCell(i);
+            cell.Elevation = 0;
+        }
         searchFrontierPhase += 1;
         TriCoordinates center = grid.GetCell(grid.cellCountX / 2, grid.cellCountZ / 2).coordinates;
         center = TriMetrics.TriToHex(center);
@@ -301,8 +306,8 @@ public class TriMapGenerator : MonoBehaviour {
                         }
                         else if (moisture < 0.02f) {
                             cell.TerrainTypeIndex = 3;
-                            if (Random.value < 0.5f&&!cell.HasRiver) {
-                                Tree t=(Tree)Instantiate(TriIsland.GetNaturalPrefabs((int)NaturalType.TREE,0),isle.transform);
+                            if (Random.value < 0.5f && !cell.HasRiver) {
+                                Tree t = (Tree)Instantiate(TriIsland.GetNaturalPrefabs((int)NaturalType.TREE, 0), isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
                                 entities.AddNatural(t);
@@ -310,7 +315,7 @@ public class TriMapGenerator : MonoBehaviour {
                         }
                         else if (moisture < 0.12f) {
                             cell.TerrainTypeIndex = 2;
-                            if (Random.value < 0.2f&&!cell.HasRiver) {
+                            if (Random.value < 0.2f && !cell.HasRiver) {
                                 Tree t = (Tree)Instantiate(TriIsland.GetNaturalPrefabs((int)NaturalType.TREE, 0), isle.transform);
                                 t.Location = cell;
                                 t.EntranceDirection = (TriDirection)((int)(Random.value * 3f));
@@ -339,7 +344,7 @@ public class TriMapGenerator : MonoBehaviour {
                 if (i % Strings.refreshLimit == 0) {
                     yield return null;
                 }
-                    
+
             }
         }
 

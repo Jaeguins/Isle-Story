@@ -89,7 +89,7 @@ public class TriGridChunk : MonoBehaviour {
     }
 
     void TriangulateConnection(TriDirection direction, TriCell cell, EdgeVertices e1, int inverter) {
-        Vector3 center = cell.localPosition;
+        Vector3 center = cell.position;
         TriCell neighbor = cell.GetNeighbor(direction);
         if (neighbor == null) return;
         Vector3 bridge = TriMetrics.GetBridge(direction);
