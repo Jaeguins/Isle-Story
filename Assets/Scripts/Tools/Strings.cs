@@ -9,7 +9,11 @@ public class Strings {
         NaN = "NaN",
         Activate = "Activate",
         Deactivate = "Deactivate",
-        None = "None"
+        None = "None",
+        SaveInd = "SaveName",
+        GameSceneName = "game",
+        DuplicateCheckOK="Possible to use",
+        DuplicateCheckNotOK="Duplicated"
         ;
 }
 

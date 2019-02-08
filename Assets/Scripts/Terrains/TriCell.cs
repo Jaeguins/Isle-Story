@@ -5,6 +5,15 @@ using System.IO;
 public class TriCell {
     public TriCoordinates coordinates;
     public Vector3 position;
+    public Color GetColor() {
+        if (IsUnderwater) return TriMetrics.FromARGB(255, 0, 0, 255);
+        if (Statics) {
+            if (Statics is Natural) return Color.green;
+            else if (Statics is Building) return TriMetrics.FromARGB(255, 139, 69, 19);
+            else return TriMetrics.FromARGB(255, 255, 248, 220);
+        }
+        else return Color;
+    }
     public static implicit operator bool(TriCell cell) {
         return cell != null;
     }
@@ -62,7 +71,7 @@ public class TriCell {
 
     public Color Color {
         get {
-            return TriMetrics.colors[terrainTypeIndex];
+            return TriGrid.Instance.colors[terrainTypeIndex];
         }
     }
 

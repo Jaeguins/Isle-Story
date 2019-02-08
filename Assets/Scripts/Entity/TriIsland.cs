@@ -11,8 +11,17 @@ public class TriIsland : MonoBehaviour {
     public TriMapEditor editor;
     public TriMapGenerator mapGenerator;
     public static TriIsland Instance;
-    public int sizeX=120,sizeZ=60;
-    public int isleX=0, isleZ=0;
+    public int sizeX = 120, sizeZ = 60;
+    public int isleX = 0, isleZ = 0;
+    public GameObject IslandView;
+    public Texture2D GenerateThumb() {
+        Texture2D ret = new Texture2D(120, 120);
+        foreach (TriCell cell in TriGrid.Instance.cells) {
+            ret.SetPixel(cell.coordinates.X, 2 * cell.coordinates.Z, cell.GetColor());
+            ret.SetPixel(cell.coordinates.X, 2 * cell.coordinates.Z + 1, cell.GetColor());
+        }
+        return ret;
+    }
     public static bool Loaded {
         get {
             return Instance.loaded;
@@ -25,24 +34,31 @@ public class TriIsland : MonoBehaviour {
     public static Building GetCamp() {
         return Instance.entities.GetCamp();
     }
-    public string SaveName = "save1";
-    public string IsleName = "test1";
-    public string IslePath;
-    int version = 0;
-    public TriGrid grid;
 
+    public string SaveName = Strings.NaN;
+    public string IsleName = Strings.NaN;
+    public string IslePath;
+    public TriGrid grid;
     public void NewMap() {
+        NewMap(isleX, isleZ);
+    }
+    public void NewMap(int x,int z) {
+        isleX = x;
+        isleZ = z;
+        Awake();
         StartCoroutine(NewMapInternal());
     }
 
     void Awake() {
+        SaveName = Intent.GetData<string>(Strings.SaveInd);
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + SaveName + "/" + IsleName);
-        IslePath = di.FullName;
-        if (di.Exists == false) {
-            di.Create();
+        if (IsleName != Strings.NaN) {
+            IslePath = di.FullName;
+            if (di.Exists == false) {
+                di.Create();
+            }
         }
         Instance = this;
-
     }
     public void Save() {//TODO Saving function
         string path = IslePath;//Path.Combine(Application.persistentDataPath, isleName);
@@ -59,9 +75,15 @@ public class TriIsland : MonoBehaviour {
             grid.Save(writer);
         }
         entities.Save(path);
+        File.WriteAllBytes(Path.Combine(path, "thumbnailImg.png"), GenerateThumb().EncodeToPNG());
     }
     public void Load() {
+        Awake();
         StartCoroutine(LoadInternal());
+    }
+    public void Load(string iPath) {
+        IslePath = iPath;
+        Load();
     }
 
     public IEnumerator<Coroutine> NewMapInternal() {
@@ -73,7 +95,8 @@ public class TriIsland : MonoBehaviour {
         Loaded = true;
         topCam.ValidatePosition();
         Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
+        IslandView.SetActive(false);
     }
 
     public IEnumerator<Coroutine> LoadInternal() {//TODO Load function
@@ -101,6 +124,7 @@ public class TriIsland : MonoBehaviour {
         }
         yield return StartCoroutine(entities.Load(path));
         Time.timeScale = 1;
+        IslandView.SetActive(false);
     }
     public static Entity GetBuildingPrefabs(int mainType, int subType, int index) {
         return Instance.buildings[mainType][subType][index];

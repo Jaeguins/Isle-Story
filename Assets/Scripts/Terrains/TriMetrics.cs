@@ -7,7 +7,7 @@ public class TriMetrics {
     public const float innerRadius = 10f;
     public const float waterElevationOffset = -0.1f * innerRadius;
     public const float streamBedElevationOffset = -0.3f * innerRadius;
-    public static readonly int[,] hexDir = { { 3, 0 }, { 0, 2 }, { -3,0 }, {  0,-2 } };
+    public static readonly int[,] hexDir = { { 3, 0 }, { 0, 2 }, { -3, 0 }, { 0, -2 } };
     public const float solidFactor = 1f;
     public const float blendFactor = 1f - solidFactor;
     public const float elevationStep = 5f;
@@ -61,5 +61,8 @@ public class TriMetrics {
 
     public static TriCoordinates TriToHex(TriCoordinates coord) {
         return new TriCoordinates(coord.X - coord.X % 3, coord.Z - coord.Z % 2);
+    }
+    public static Color FromARGB(int a, int r, int g, int b) {
+        return new Color(r / 255, g / 255, b / 255, a / 255);
     }
 }

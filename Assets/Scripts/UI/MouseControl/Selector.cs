@@ -59,12 +59,18 @@ public class Selector : MonoBehaviour {
     public void SendCommand() {
         if (subject) 
             subject.AddCommand(command);
-        else
+        else {
             GameUI.Instance.mapEditor.CreateHall(dir, nowCell);
+            StartCoroutine(DelayedSave());
+        }
         ordering = false;
         terrainSelectionViewer.Clear();
         terrainSelectionViewer.Apply();
         terrainSelectionViewer.enabled = false;
+    }
+    public IEnumerator DelayedSave() {
+        yield return new WaitForSeconds(1);
+        TriIsland.Instance.Save();
     }
 
     public void CancelCommand() {
