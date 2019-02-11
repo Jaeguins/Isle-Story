@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Pauser : MonoBehaviour {
@@ -10,5 +11,8 @@ public class Pauser : MonoBehaviour {
     public void Resume() {
         paused = false;
         Time.timeScale = 1;
+    }
+    public void MainMenu() {
+        SceneManager.LoadScene("main");
     }
 }

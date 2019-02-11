@@ -8,7 +8,6 @@ public class TriGrid : MonoBehaviour {
     public int cellCountZ = 15;
     public TriCell cellPrefab;
     public Entity unitPrefab;
-    List<Entity> units = new List<Entity>();
     public TriCell[] cells;
     List<TriGridChunk> chunks = new List<TriGridChunk>();
     public Text cellLabelPrefab;
@@ -18,31 +17,15 @@ public class TriGrid : MonoBehaviour {
     public bool useTerrainTypes;
     public TriMapGenerator mapGenerator;
     public Texture2D noiseSource;
-    public List<Text> labels;
     public static TriGrid Instance;
     int searchFrontierPhase;
     TriCellPriorityQueue searchFrontier;
     TriCell currentPathFrom, currentPathTo;
     bool currentPathExists;
     public int searchPhase;
-
-    public void RemoveUnit(Entity unit) {
-        units.Remove(unit);
-        unit.Die();
-    }
-
-    public void AddUnit(Unit unit, TriCell location, float orientation) {
-        units.Add(unit);
-        unit.transform.SetParent(transform, false);
-        unit.Location = location;
-        unit.Orientation = orientation;
-    }
-
-    void ClearUnits() {
-        for (int i = 0; i < units.Count; i++) {
-            units[i].Die();
-        }
-        units.Clear();
+    
+    void ClearEntities() {
+        TriIsland.Instance.entities.ClearEntities();
     }
 
     private void OnEnable() {
@@ -163,7 +146,7 @@ public class TriGrid : MonoBehaviour {
     }
     public IEnumerator<Coroutine> CreateMap(int x, int z) {
         ClearPath();
-        ClearUnits();
+        ClearEntities();
         if (
             x <= 0 || x % TriMetrics.chunkSizeX != 0 ||
             z <= 0 || z % TriMetrics.chunkSizeZ != 0
@@ -288,7 +271,7 @@ public class TriGrid : MonoBehaviour {
     public IEnumerator<Coroutine> Load(BinaryReader reader, int header) {
         TriIsland.Loaded = false;
         ClearPath();
-        ClearUnits();
+        ClearEntities();
         yield return StartCoroutine(CreateMap(reader.ReadInt32(), reader.ReadInt32()));
         for (int i = 0; i < cells.Length; i++) {
             cells[i].Load(reader);

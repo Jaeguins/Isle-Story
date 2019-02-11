@@ -112,17 +112,27 @@ public class EntityManager : MonoBehaviour {
         SaveBuilding(path);
         SaveUnit(path);
     }
-
-    public void ClearEntities() {
-        foreach (KeyValuePair<int, Building> b in buildings) Destroy(b.Value.gameObject);
-        buildings.Clear();
-        foreach (KeyValuePair<int, Unit> b in units) Destroy(b.Value.gameObject);
+    public void ClearUnits() {
+        foreach (KeyValuePair<int, Unit> b in units) Destroy(b.Value.gameObject,1.0f);
         units.Clear();
-        foreach (KeyValuePair<int, Natural> b in naturals) Destroy(b.Value.gameObject);
+    }
+    public void ClearBuildings() {
+        foreach (KeyValuePair<int, Building> b in buildings) Destroy(b.Value.gameObject, 1.0f);
+        buildings.Clear();
+    }
+    public void ClearNaturals() {
+        foreach (KeyValuePair<int, Natural> b in naturals) Destroy(b.Value.gameObject, 1.0f);
         naturals.Clear();
     }
 
+    public void ClearEntities() {
+        ClearBuildings();
+        ClearUnits();
+        ClearNaturals();
+    }
+
     public IEnumerator<Coroutine> LoadNatural(string path) {
+        ClearNaturals();
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "natural.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -147,6 +157,7 @@ public class EntityManager : MonoBehaviour {
     }
 
     public IEnumerator<Coroutine> LoadBuilding(string path) {
+        ClearBuildings();
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "building.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -173,6 +184,7 @@ public class EntityManager : MonoBehaviour {
     }
 
     public IEnumerator<Coroutine> LoadUnit(string path) {
+        ClearUnits();
         using (BinaryReader reader = new BinaryReader(File.OpenRead(Path.Combine(path, "unit.dat")))) {
             int header = reader.ReadInt32();
             if (header <= 0) {
@@ -198,9 +210,9 @@ public class EntityManager : MonoBehaviour {
         }
     }
 
-    public IEnumerator<Coroutine> Load(string path){
+    public IEnumerator Load(string path){
         ClearEntities();
-        yield return null;
+        yield return new WaitForEndOfFrame();
         yield return StartCoroutine(LoadNatural(path));
         yield return StartCoroutine(LoadBuilding(path));
         yield return StartCoroutine(LoadUnit(path));
