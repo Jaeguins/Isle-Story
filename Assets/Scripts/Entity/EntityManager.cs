@@ -147,13 +147,14 @@ public class EntityManager : MonoBehaviour {
                         AddNatural(loaded);
                         loaded.validateRotation();
                     }
-                    if (i % Strings.refreshLimit == 0) yield return null;
+//                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown naturals format " + header);
             }
         }
+        yield return null;
     }
 
     public IEnumerator<Coroutine> LoadBuilding(string path) {
@@ -174,13 +175,14 @@ public class EntityManager : MonoBehaviour {
                         loaded.transform.SetParent(BuildingGroup);
                         AddBuilding(loaded);
                     }
-                    if (i % Strings.refreshLimit == 0) yield return null;
+//                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown building format " + header);
             }
         }
+        yield return null;
     }
 
     public IEnumerator<Coroutine> LoadUnit(string path) {
@@ -201,13 +203,14 @@ public class EntityManager : MonoBehaviour {
                         loaded.transform.SetParent(UnitGroup);
                         AddUnit(loaded);
                     }
-                    if (i % Strings.refreshLimit == 0) yield return null;
+//                    if (i % Strings.refreshLimit == 0) yield return null;
                 }
             }
             else {
                 Debug.LogWarning("Unknown unit format " + header);
             }
         }
+        yield return null;
     }
 
     public IEnumerator Load(string path){
