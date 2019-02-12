@@ -44,7 +44,7 @@ public class MoveCommand : Command {
     public TriCell location;
     public bool flag;
     public override string ToString() {
-        return "Moveing to target -> " + location.ToString();
+        return "Moving target to " + location.ToString()+"with"+(flag?"":"out")+" collision";
     }
     public MoveCommand(TriCell location,bool flag=true) {
         type = CommandType.MOVE;

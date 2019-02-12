@@ -658,9 +658,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7a0fd93e400c283429005f9042e32f15, type: 3}
   m_Controller: {fileID: 9100000, guid: 31a30c6a74dc9044d87058b914d2b54e, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2500,6 +2500,26 @@ PrefabInstance:
     - target: {fileID: 5908935297463042648, guid: 481295a545be8fb4db7db46a8d034806,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004480543361203663, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734278851076389057, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734278851076389057, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734278851076389057, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

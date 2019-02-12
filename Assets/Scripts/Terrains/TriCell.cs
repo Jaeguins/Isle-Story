@@ -220,4 +220,7 @@ public class TriCell {
         isRiver[2] = reader.ReadBoolean();
         RefreshPosition();
     }
+    public override string ToString() {
+        return "Cell "+coordinates;
+    }
 }

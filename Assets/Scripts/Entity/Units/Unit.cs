@@ -66,6 +66,7 @@ public class Unit : Entity {
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
                 commandQueue.Enqueue(new GetOutCommand());
+                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation));
                 commandQueue.Enqueue(new MoveCommand(k.location));
                 break;
             case CommandType.MOVE:
@@ -109,20 +110,23 @@ public class Unit : Entity {
         yield return null;
     }
 
-    public IEnumerator GetIn() {
+    public virtual IEnumerator GetIn() {
+        Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         yield return StartCoroutine(GetIn(((GetInCommand)nowWork).target));
 
     }
     public IEnumerator GetIn(Statics target) {
-        acting = true;
+        Location = target.Location;
         Building = target;
         SetVisible(false);
         acting = false;
         yield return null;
     }
     public IEnumerator GetOut() {
+        Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         if (!Building) {
             Debug.LogWarning(ToString() + " : not in building");
+            acting = false;
         }
         else {
             acting = true;
@@ -133,42 +137,49 @@ public class Unit : Entity {
         yield return null;
     }
     public IEnumerator Move(bool entityCheck) {
+        Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         yield return StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
     }
     public virtual IEnumerator Build() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator ChangeJobInternal() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator ChangeWorkInternal() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator ChangeHomeInternal() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator GoJob() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator GoWork() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     public virtual IEnumerator GoHome() {
         Debug.Log("unexpected Order");
+        acting = false;
         yield return null;
     }
     IEnumerator Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
+                acting = true;
                 nowWork = commandQueue.Dequeue();
-                Debug.Log(nowWork.ToString() + " left order : " + commandQueue.Count);
-
                 switch (nowWork.type) {
                     case CommandType.MOVE:
                         yield return StartCoroutine(Move(((MoveCommand)nowWork).flag));
@@ -207,7 +218,6 @@ public class Unit : Entity {
     }
 
     public IEnumerator TravelPath() {
-        acting = true;
         animator.SetInteger("Status", (int)ActionStatus.Walk);
         Vector3 a, b, c = transform.localPosition;
         float t = Time.deltaTime * travelSpeed;
@@ -237,10 +247,10 @@ public class Unit : Entity {
             transform.localPosition = p;
             Vector3 d = Bezier.GetPoint(a, b, c, t);
             d.y = 0f;
-            transform.localRotation = Quaternion.LookRotation(d);
+            //transform.localRotation = Quaternion.LookRotation(d);
             yield return null;
         }
-        animator.SetInteger("Status", (int)ActionStatus.Walk);
+        animator.SetInteger("Status", (int)ActionStatus.Idle);
         acting = false;
     }
 

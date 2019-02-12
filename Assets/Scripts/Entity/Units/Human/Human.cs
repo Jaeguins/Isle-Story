@@ -3,15 +3,15 @@ using System.Collections;
 using System.IO;
 public enum Tool {
     //Hex flag for WeaponType,ToolType
-    None=   0x00,
-    Axe=    0x11,
-    Hoe=    0x02,
-    Forks=  0x03,
-    Hummer= 0x24,
-    Pick=   0x05,
-    Saw=    0x36,
-    Sword=  0x40,
-    Spear=  0x50
+    None = 0x00,
+    Axe = 0x11,
+    Hoe = 0x02,
+    Forks = 0x03,
+    Hummer = 0x24,
+    Pick = 0x05,
+    Saw = 0x36,
+    Sword = 0x40,
+    Spear = 0x50
 }
 public class Human : Unit {
     public Statics RoutineTarget {
@@ -33,7 +33,7 @@ public class Human : Unit {
             Debug.Log(ToString() + " trying to change home from " + home + " to " + value);
             if (home)
                 home.Livers.Remove(this);
-            else if((TriIsland.GetCamp() as Hall).Homeless.Contains(this))
+            else if ((TriIsland.GetCamp() as Hall).Homeless.Contains(this))
                 (TriIsland.GetCamp() as Hall).Homeless.Remove(this);
             if (value)
                 value.Livers.Add(this);
@@ -81,6 +81,7 @@ public class Human : Unit {
     public override IEnumerator ChangeHomeInternal() {
         Home = ((ChangeHomeCommand)nowWork).target;
         Debug.Log("Change Home : " + Home);
+        acting = false;
         yield return null;
     }
 
@@ -94,6 +95,7 @@ public class Human : Unit {
             AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation));
             AddCommand(new GetInCommand(TriIsland.GetCamp()));
         }
+        acting = false;
         yield return null;
     }
 
@@ -103,6 +105,7 @@ public class Human : Unit {
             AddCommand(new MoveCommand(Company.EntranceLocation));
             AddCommand(new GetInCommand(Company));
         }
+        acting = false;
         yield return null;
     }
 
@@ -112,6 +115,7 @@ public class Human : Unit {
             AddCommand(new MoveCommand(Work.EntranceLocation));
             AddCommand(new GetInCommand(Work));
         }
+        acting = false;
         yield return null;
     }
 
@@ -146,6 +150,7 @@ public class Human : Unit {
         return ret;
     }
     public override IEnumerator Build() {
+        Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         BuildCommand c = (BuildCommand)nowWork;
         if (c.location != Location) {
             Debug.Log("Cannot reach");
@@ -158,13 +163,16 @@ public class Human : Unit {
         yield return null;
     }
     public override IEnumerator ChangeJobInternal() {
+        Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         Company = ((ChangeJobCommand)nowWork).target;
-        Debug.Log("Change Job");
+        if (Company)
+            Debug.Log("Change Job to "+ Company);
         yield return null;
     }
     public override IEnumerator ChangeWorkInternal() {
         Work = ((ChangeWorkCommand)nowWork).target;
-        Debug.Log("Change Work");
+        if (Work)
+            Debug.Log("Change Work to " + Work);
         yield return null;
     }
     public void BindingBuildingMenu() {
@@ -179,10 +187,16 @@ public class Human : Unit {
     public void ChangeWork() {
         Selector.Instance.RequestTarget(this, new ChangeWorkCommand(null));
     }
+    public override IEnumerator GetIn() {
+        if ((nowWork as GetInCommand).target == work && work != null)
+            animator.SetInteger("Status", (int)ActionStatus.Work);
+        return base.GetIn();
+    }
     public override void Tick() {
         base.Tick();
-        if (!acting &&commandQueue.Count==0&& Building != RoutineTarget&&RoutineTarget) {
+        if (!acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
             CancelAllAct();
+            Debug.Log("moving to target : " + routineTarget);
             AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
             AddCommand(new GetInCommand(RoutineTarget));
         }
