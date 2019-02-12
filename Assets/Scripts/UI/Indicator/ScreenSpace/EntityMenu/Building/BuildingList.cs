@@ -6,13 +6,13 @@ public class BuildingList : EntityList<Statics> {
     public void Change() {
         switch (flag) {
             case BuildingType.COMPANY:
-                (NowEntity as Person).ChangeJob();
+                (NowEntity as Human).ChangeJob();
                 break;
             case BuildingType.WORKSITE:
-                (NowEntity as Person).ChangeWork();
+                (NowEntity as Human).ChangeWork();
                 break;
             case BuildingType.INN:
-                (NowEntity as Person).ChangeHome();
+                (NowEntity as Human).ChangeHome();
                 break;
             default:
                 Debug.LogError("Unknown building type for change order");

@@ -19,7 +19,7 @@ public class Inn : Building,Commandable {
             return BirthStatus / BirthCap;
         }
     }
-    public Person personPrefab;
+    public Human personPrefab;
     public bool ReservLiver {
         get {
             return BirthStatus > 0f;
@@ -53,7 +53,7 @@ public class Inn : Building,Commandable {
         base.Tick();
         CommandReceiver = null;
         if (Clock.IsDay()) {
-            foreach (Person t in Livers) {
+            foreach (Human t in Livers) {
                 if (Insider.Contains(t)&&!t.acting) {
                         CommandReceiver = t;
                 }
@@ -63,13 +63,13 @@ public class Inn : Building,Commandable {
                     BirthStatus += BirthSpeed;
                     if (BirthStatus >= BirthCap) {
                         BirthStatus = 0f;
-                        Person t=Instantiate(personPrefab);
+                        Human t=Instantiate(personPrefab);
                         TriIsland.Instance.entities.AddUnit(t);
                         t.Location = Location;
                         t.Home = this;
                         t.AddCommand(new GetInCommand(this));
                         while(Workers.Count>0) {
-                            (Workers[0] as Person).Work = null;
+                            (Workers[0] as Human).Work = null;
                         }
 
                     }

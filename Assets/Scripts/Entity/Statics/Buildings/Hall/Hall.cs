@@ -30,12 +30,12 @@ public class Hall : Building, Buildable {
         base.Tick();
         ReceiveableMan = null;
         if (Clock.IsDay())
-            foreach (Person t in Homeless) {
+            foreach (Human t in Homeless) {
                 if (Insider.Contains(t) && !t.acting)
                     ReceiveableMan = t;
             }
     }
-    public Person ReceiveableMan;
+    public Human ReceiveableMan;
     public bool HasCommandReceiver() {
         return ReceiveableMan;
     }

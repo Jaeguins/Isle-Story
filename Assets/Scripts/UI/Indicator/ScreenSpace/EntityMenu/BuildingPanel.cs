@@ -14,7 +14,7 @@ public class BuildingPanel : EntityPanel {
         }
     }
     public override void Bind(Entity entity) {
-        if (entity is Person) BindStatics((entity as Person).Building);
+        if (entity is Human) BindStatics((entity as Human).Building);
         else BindStatics(entity);
     }
 }

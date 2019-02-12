@@ -164,7 +164,7 @@ public class TriMapEditor : MonoBehaviour {
             TriIsland.Instance.entities.camp = ret;
             for (int i = 0; i < 4; i++) {
                 Unit t = CreateUnit(ret.EntranceLocation, (Unit)TriIsland.GetUnitPrefabs((int)UnitType.PERSON, 0));
-                ((Person)t).Home = null;
+                ((Human)t).Home = null;
                 t.AddCommand(new GetInCommand(ret));
             }
             ret.Working = true;

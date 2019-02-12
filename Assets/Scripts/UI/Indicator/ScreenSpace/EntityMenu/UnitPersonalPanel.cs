@@ -13,9 +13,9 @@ public class UnitPersonalPanel : EntityPanel {
     }
     public override void Bind(Entity entity) {
         base.Bind(entity);
-        gameObject.SetActive(entity is Person);
-        if (entity is Person) {
-            Person t = entity as Person;
+        gameObject.SetActive(entity is Human);
+        if (entity is Human) {
+            Human t = entity as Human;
             List<Statics> workList = new List<Statics>();
             List<Statics> compList= new List<Statics>();
             List<Statics> homeList = new List<Statics>();

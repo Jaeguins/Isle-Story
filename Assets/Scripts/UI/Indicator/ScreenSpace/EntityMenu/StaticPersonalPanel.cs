@@ -24,7 +24,7 @@ public class StaticPersonalPanel : EntityPanel {
             Debug.LogError("Invalid building command");
             return;
         }
-        Person worker = t.GetCommandReceiver() as Person;
+        Human worker = t.GetCommandReceiver() as Human;
         worker.Work = t;
 
     }

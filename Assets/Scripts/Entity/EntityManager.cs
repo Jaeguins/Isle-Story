@@ -99,7 +99,7 @@ public class EntityManager : MonoBehaviour {
                 if (b.Value == null) continue;
                 switch (b.Value.type) {
                     case UnitType.PERSON:
-                        ((Person)b.Value).Save(writer);
+                        ((Human)b.Value).Save(writer);
                         break;
                 }
 
@@ -217,8 +217,11 @@ public class EntityManager : MonoBehaviour {
         ClearEntities();
         yield return new WaitForEndOfFrame();
         yield return StartCoroutine(LoadNatural(path));
+        Debug.Log(naturals.Count + " natural(s) loaded.");
         yield return StartCoroutine(LoadBuilding(path));
+        Debug.Log(buildings.Count + " building(s) loaded.");
         yield return StartCoroutine(LoadUnit(path));
+        Debug.Log(units.Count + " unit(s) loaded.");
         TriIsland.Loaded = true;
     }
 

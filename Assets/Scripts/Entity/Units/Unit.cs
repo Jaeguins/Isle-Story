@@ -6,6 +6,10 @@ using System;
 public enum UnitType {
     PERSON
 }
+public enum ActionStatus {
+    Idle = 0, Walk = 1, Work = 2
+}
+
 public class Unit : Entity {
     public SkinnedMeshRenderer mesh;
     public override void Awake() {
@@ -27,7 +31,6 @@ public class Unit : Entity {
     public Statics building;
     public UnitType type;
     public Coroutine nowRoutine;
-    public Animator animator;
     List<TriCell> pathToTravel;
     const float travelSpeed = 1f;
     public bool acting = false;
@@ -44,7 +47,7 @@ public class Unit : Entity {
         }
     }
     public void SetVisible(bool val) {
-        mesh.enabled = val;
+        //mesh.enabled = val;
         col.enabled = val;
     }
     public static bool IsValidDestination(TriCell cell) {
@@ -108,7 +111,7 @@ public class Unit : Entity {
 
     public IEnumerator GetIn() {
         yield return StartCoroutine(GetIn(((GetInCommand)nowWork).target));
-        
+
     }
     public IEnumerator GetIn(Statics target) {
         acting = true;
@@ -135,7 +138,7 @@ public class Unit : Entity {
     public virtual IEnumerator Build() {
         Debug.Log("unexpected Order");
         yield return null;
-    }   
+    }
     public virtual IEnumerator ChangeJobInternal() {
         Debug.Log("unexpected Order");
         yield return null;
@@ -164,7 +167,7 @@ public class Unit : Entity {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 nowWork = commandQueue.Dequeue();
-                Debug.Log(nowWork.ToString()+" left order : "+commandQueue.Count);
+                Debug.Log(nowWork.ToString() + " left order : " + commandQueue.Count);
 
                 switch (nowWork.type) {
                     case CommandType.MOVE:
@@ -205,7 +208,7 @@ public class Unit : Entity {
 
     public IEnumerator TravelPath() {
         acting = true;
-        animator.SetBool("walking", true);
+        animator.SetInteger("Status", (int)ActionStatus.Walk);
         Vector3 a, b, c = transform.localPosition;
         float t = Time.deltaTime * travelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++) {
@@ -237,7 +240,7 @@ public class Unit : Entity {
             transform.localRotation = Quaternion.LookRotation(d);
             yield return null;
         }
-        animator.SetBool("walking", false);
+        animator.SetInteger("Status", (int)ActionStatus.Walk);
         acting = false;
     }
 
@@ -264,7 +267,7 @@ public class Unit : Entity {
         Unit ret = null;
         switch (type) {
             case UnitType.PERSON:
-                ret = Person.Load(reader);
+                ret = Human.Load(reader);
                 break;
         }
         if (ret) {

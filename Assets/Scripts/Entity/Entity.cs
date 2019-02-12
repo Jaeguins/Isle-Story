@@ -8,6 +8,7 @@ public enum EntityType {
 }
 [Serializable]
 public abstract class Entity : MonoBehaviour {
+    public Animator animator;
     public bool Working = false;
     public bool Stepable = false;
     public SelectionIndicator SelectionIndicator;

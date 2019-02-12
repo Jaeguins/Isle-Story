@@ -9,7 +9,7 @@ public class Company : Building,Commandable{
     public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
-    public Person ReceiveableMan;
+    public Human ReceiveableMan;
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
@@ -35,7 +35,7 @@ public class Company : Building,Commandable{
         base.Tick();
         ReceiveableMan = null;
         if (Clock.IsDay())
-            foreach (Person t in Officers) {
+            foreach (Human t in Officers) {
                 if (Insider.Contains(t) && !t.acting)
                     ReceiveableMan = t;
             }

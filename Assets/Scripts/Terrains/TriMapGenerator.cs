@@ -336,7 +336,7 @@ public class TriMapGenerator : MonoBehaviour {
                     else
                         d = d.Previous();
                 }
-                if (i % Strings.refreshLimit == 0) {
+                if (i % Metrics.refreshLimit == 0) {
                     yield return null;
                 }
 

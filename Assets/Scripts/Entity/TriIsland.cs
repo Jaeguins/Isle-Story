@@ -48,7 +48,6 @@ public class TriIsland : MonoBehaviour {
         Awake();
         StartCoroutine(NewMapInternal());
     }
-
     void Awake() {
         SaveName = Intent.GetData<string>(Strings.SaveInd);
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + SaveName + "/" + IsleName);

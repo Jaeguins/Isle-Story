@@ -161,7 +161,7 @@ public class TriGrid : MonoBehaviour {
             if (chunks == null || chunks.Count != chunkCountX * chunkCountZ) {
                 for (int i = 0; i < chunks.Count; i++) {
                     //yield return StartCoroutine(DestroyChunk(i, i % Strings.refreshLimit == 0));
-                    DestroyChunk(i, i % Strings.refreshLimit == 0);
+                    DestroyChunk(i, i % Metrics.refreshLimit == 0);
                 }
                 yield return StartCoroutine(CreateChunks());
                 yield return StartCoroutine(CreateCells());
@@ -278,7 +278,7 @@ public class TriGrid : MonoBehaviour {
         }
         for (int i = 0; i < chunks.Count; i++) {
             chunks[i].Refresh();
-            if (i % Strings.refreshLimit == 0) yield return null;
+            if (i % Metrics.refreshLimit == 0) yield return null;
         }
     }
 }
