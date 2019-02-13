@@ -34,8 +34,12 @@ public class Unit : Entity {
     List<TriCell> pathToTravel;
     const float travelSpeed = 1f;
     public bool acting = false;
-    public Command nowWork;
     public Queue<Command> commandQueue = new Queue<Command>();
+    public Command nowWork {
+        get {
+            return commandQueue.Count==0?null:commandQueue.Peek();
+        }
+    }
     float orientation;
     public float Orientation {
         get {
@@ -179,7 +183,6 @@ public class Unit : Entity {
         while (gameObject) {
             if (commandQueue.Count != 0) {
                 acting = true;
-                nowWork = commandQueue.Dequeue();
                 switch (nowWork.type) {
                     case CommandType.MOVE:
                         yield return StartCoroutine(Move(((MoveCommand)nowWork).flag));
@@ -203,15 +206,16 @@ public class Unit : Entity {
                         yield return StartCoroutine(ChangeHomeInternal());
                         break;
                     case CommandType.GOJOB:
-                        GoJob();
+                        yield return StartCoroutine(GoJob());
                         break;
                     case CommandType.GOWORK:
-                        GoWork();
+                        yield return StartCoroutine(GoWork());
                         break;
                     case CommandType.GOHOME:
-                        GoHome();
+                        yield return StartCoroutine(GoHome());
                         break;
                 }
+                commandQueue.Dequeue();
             }
             yield return new WaitUntil(() => !acting);
         }

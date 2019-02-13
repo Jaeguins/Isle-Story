@@ -160,19 +160,22 @@ public class Human : Unit {
             AddCommand(new ChangeWorkCommand(t));
             AddCommand(new GetInCommand(t));
         }
+        acting = false;
         yield return null;
     }
     public override IEnumerator ChangeJobInternal() {
         Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         Company = ((ChangeJobCommand)nowWork).target;
         if (Company)
-            Debug.Log("Change Job to "+ Company);
+            Debug.Log("Change Job to " + Company);
+        acting = false;
         yield return null;
     }
     public override IEnumerator ChangeWorkInternal() {
         Work = ((ChangeWorkCommand)nowWork).target;
         if (Work)
             Debug.Log("Change Work to " + Work);
+        acting = false;
         yield return null;
     }
     public void BindingBuildingMenu() {
@@ -194,23 +197,21 @@ public class Human : Unit {
     }
     public override void Tick() {
         base.Tick();
-        if (!acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
-            CancelAllAct();
-            Debug.Log("moving to target : " + routineTarget);
-            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
-            AddCommand(new GetInCommand(RoutineTarget));
+        if (Clock.IsDay()) {
+            if (Work) RoutineTarget = Work;
+            else if (Company) RoutineTarget = Company;
+            else if (Home) RoutineTarget = Home;
+            else RoutineTarget = TriIsland.GetCamp();
         }
         else {
-            if (Clock.IsDay()) {
-                if (Work) RoutineTarget = Work;
-                else if (Company) RoutineTarget = Company;
-                else if (Home) RoutineTarget = Home;
-                else RoutineTarget = TriIsland.GetCamp();
-            }
-            else {
-                if (Home) RoutineTarget = Home;
-                else RoutineTarget = TriIsland.GetCamp();
-            }
+            if (Home) RoutineTarget = Home;
+            else RoutineTarget = TriIsland.GetCamp();
+        }
+        if (nowWork == null && !acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
+            CancelAllAct();
+            Debug.Log("<color=#ff0000>act canceled</color> and moved to : " + routineTarget);
+            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
+            AddCommand(new GetInCommand(RoutineTarget));
         }
     }
 }
