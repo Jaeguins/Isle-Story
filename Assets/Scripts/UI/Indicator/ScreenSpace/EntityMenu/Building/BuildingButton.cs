@@ -6,9 +6,12 @@ public class BuildingButton : MonoBehaviour {
     public Buildable Target;
     public Button b;
     public Entity Prefab;
-    public BuildCondition condition=new BuildCondition();
+    public BuildCondition condition = new BuildCondition();
     public void ClickCallback() {
-        Selector.Instance.RequestLocation(Target.GetCommandReceiver(),Prefab.sizeType, new BuildCommand(Prefab));
+        if (Prefab)
+            Selector.Instance.RequestLocation(Target.GetCommandReceiver(), Prefab.sizeType, new BuildCommand(Prefab));
+        else
+            Selector.Instance.RequestTarget(Target.GetCommandReceiver(), new DestroyCommand(null));
     }
     public void Bind(Buildable target) {
         Target = target;

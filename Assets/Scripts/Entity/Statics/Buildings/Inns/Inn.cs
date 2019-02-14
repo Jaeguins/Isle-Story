@@ -58,7 +58,7 @@ public class Inn : Building,Commandable {
                         CommandReceiver = t;
                 }
             }
-            if (Working && !UnderConstruct) {
+            if (Working && !UnderConstruct&&!UnderDeconstruct) {
                 if (Workers.Count > 0) {
                     BirthStatus += BirthSpeed;
                     if (BirthStatus >= BirthCap) {

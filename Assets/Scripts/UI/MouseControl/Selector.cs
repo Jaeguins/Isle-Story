@@ -9,7 +9,7 @@ public class Selector : MonoBehaviour {
     public static Selector Instance;
     public CameraManager camManager;
     public TriGrid grid;
-
+    public static Entity SelectedEntity;
     public SizeType? sizeType;
     TerrainViewer terrainSelectionViewer;
     public TriCell nowCell;
@@ -18,13 +18,13 @@ public class Selector : MonoBehaviour {
     TriCell tCell;
     Unit subject;
     Command command;
-    public void RequestTarget(Unit subject,Command c) {
+    public void RequestTarget(Unit subject, Command c) {
         this.subject = subject;
         command = c;
         ordering = true;
         sizeType = null;
     }
-    public void RequestLocation(Unit subject,SizeType size, Command c) {
+    public void RequestLocation(Unit subject, SizeType size, Command c) {
         this.subject = subject;
         command = c;
         ordering = true;
@@ -51,13 +51,14 @@ public class Selector : MonoBehaviour {
                     default:
                         return false;
                 }
-            }return true;
+            }
+            return true;
         }
         else return false;
-        
+
     }
     public void SendCommand() {
-        if (subject) 
+        if (subject)
             subject.AddCommand(command);
         else {
             GameUI.Instance.mapEditor.CreateHall(dir, nowCell);
@@ -89,19 +90,34 @@ public class Selector : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R)) {
                 dir = dir.Next();
             }
-            if (subject&&Input.GetKeyDown(KeyCode.Escape)) {
+            if (subject && Input.GetKeyDown(KeyCode.Escape)) {
                 CancelCommand();
             }
             if (Input.GetMouseButtonDown(0)) {
                 switch (command.type) {
                     case CommandType.CHANGEHOME:
-                        ((ChangeHomeCommand)command).target = (Inn)nowCell.Statics;
+                        if (SelectedEntity is Inn) {
+                            ((ChangeHomeCommand)command).target = SelectedEntity as Inn;
+                            SendCommand();
+                        }
+                        else
+                            Debug.LogWarning("Invalid Target");
                         break;
                     case CommandType.CHANGEJOB:
-                        ((ChangeJobCommand)command).target = (Company)nowCell.Statics;
+                        if (SelectedEntity is Company) {
+                            ((ChangeJobCommand)command).target = SelectedEntity as Company;
+                            SendCommand();
+                        }
+                        else
+                            Debug.LogWarning("Invalid Target");
                         break;
                     case CommandType.CHANGEWORK:
-                        ((ChangeWorkCommand)command).target = (Building)nowCell.Statics;
+                        if (SelectedEntity is Building) {
+                            ((ChangeWorkCommand)command).target = SelectedEntity as Building;
+                            SendCommand();
+                        }
+                        else
+                            Debug.LogWarning("Invalid Target");
                         break;
                     case CommandType.BUILD:
                         if (!IsBuildable()) {
@@ -110,9 +126,19 @@ public class Selector : MonoBehaviour {
                         }
                         ((BuildCommand)command).dir = dir;
                         ((BuildCommand)command).location = nowCell;
+                        SendCommand();
                         break;
+                    case CommandType.DESTROY:
+                        if (SelectedEntity is Statics) {
+                            ((DestroyCommand)command).target = SelectedEntity as Statics;
+                            SendCommand();
+                        }
+                        else
+                            Debug.LogWarning("Invalid Target");
+                        break;
+
                 }
-                SendCommand();
+
             }
         }
     }

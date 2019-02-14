@@ -107,7 +107,9 @@ MonoBehaviour:
   Insider: []
   Workers: []
   UnderConstruct: 1
+  UnderDeconstruct: 0
   ConstructTime: 5
+  NowConstructTime: 9999
   type: 1
   ConstructionIndicator: {fileID: 4470977586961578053}
   Model: {fileID: 6940348056592401367}

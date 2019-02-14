@@ -1,6 +1,6 @@
 ﻿using System.IO;
 public enum CommandType {
-    MOVE, GETIN, GETOUT, CHANGEHOME,GOHOME, CHANGEJOB,GOJOB, CHANGEWORK,GOWORK, BUILD
+    MOVE, GETIN, GETOUT, CHANGEHOME, GOHOME, CHANGEJOB, GOJOB, CHANGEWORK, GOWORK, BUILD,DESTROY
 }
 public class Command {
     public CommandType type;
@@ -39,14 +39,32 @@ public class Command {
         return t;
     }
 }
+public class DestroyCommand : Command {
+    public Statics target;
+    public override string ToString() {
+        return "Destroing target to " + target.ToString();
+    }
 
+    public override void Save(BinaryWriter writer) {
+        base.Save(writer);
+        target.Location.coordinates.Save(writer);
+    }
+    public DestroyCommand(Statics target) {
+        type = CommandType.DESTROY;
+        this.target = target;
+    }
+    public static new DestroyCommand Load(BinaryReader reader) {
+        return new DestroyCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
+    }
+
+}
 public class MoveCommand : Command {
     public TriCell location;
     public bool flag;
     public override string ToString() {
-        return "Moving target to " + location.ToString()+"with"+(flag?"":"out")+" collision";
+        return "Moving target to " + location.ToString() + "with" + (flag ? "" : "out") + " collision";
     }
-    public MoveCommand(TriCell location,bool flag=true) {
+    public MoveCommand(TriCell location, bool flag = true) {
         type = CommandType.MOVE;
         this.location = location;
         this.flag = flag;
@@ -58,7 +76,7 @@ public class MoveCommand : Command {
     }
 
     public static new MoveCommand Load(BinaryReader reader) {
-        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)),reader.ReadBoolean());
+        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)), reader.ReadBoolean());
     }
 
 }
@@ -175,12 +193,12 @@ public class BuildCommand : Command {
         TriGrid instance = TriGrid.Instance;
         TriCell tCell = instance.GetCell(TriCoordinates.Load(reader));
         TriDirection tDir = (TriDirection)reader.ReadInt32();
-        Entity prefab= TriIsland.GetBuildingPrefabs(reader.ReadInt32(), reader.ReadInt32(), 0);
-        return new BuildCommand(tCell,tDir, prefab);
+        Entity prefab = TriIsland.GetBuildingPrefabs(reader.ReadInt32(), reader.ReadInt32(), 0);
+        return new BuildCommand(tCell, tDir, prefab);
     }
 }
 
-public class GoHomeCommand:Command{
+public class GoHomeCommand : Command {
     public GoHomeCommand() {
         type = CommandType.GOHOME;
     }

@@ -73,6 +73,9 @@ public class Unit : Entity {
                 commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation));
                 commandQueue.Enqueue(new MoveCommand(k.location));
                 break;
+            case CommandType.DESTROY:
+                commandQueue.Enqueue(new ChangeWorkCommand(((DestroyCommand)c).target));
+                break;
             case CommandType.MOVE:
                 if (((MoveCommand)c).flag)
                     commandQueue.Enqueue(new GetOutCommand());
@@ -179,6 +182,11 @@ public class Unit : Entity {
         acting = false;
         yield return null;
     }
+    public virtual IEnumerator DestroyTarget() {
+        Debug.Log("unexpected Order");
+        acting = false;
+        yield return null;
+    }
     IEnumerator Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
@@ -213,6 +221,9 @@ public class Unit : Entity {
                         break;
                     case CommandType.GOHOME:
                         yield return StartCoroutine(GoHome());
+                        break;
+                    case CommandType.DESTROY:
+                        yield return StartCoroutine(DestroyTarget());
                         break;
                 }
                 commandQueue.Dequeue();

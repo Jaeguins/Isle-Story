@@ -85,6 +85,15 @@ public class Human : Unit {
         yield return null;
     }
 
+    public override IEnumerator DestroyTarget() {
+        DestroyCommand work = nowWork as DestroyCommand;
+        (work.target as Statics).DeconstructionStart(this);
+        AddCommand(new ChangeWorkCommand(work.target));
+        Debug.Log(work.target.ToString() + " destroing start");
+        acting = false;
+        yield return null;
+    }
+
     public override IEnumerator GoHome() {
         CancelAllAct();
         if (Home) {

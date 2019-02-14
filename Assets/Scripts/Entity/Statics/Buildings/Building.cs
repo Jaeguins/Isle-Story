@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    HALL,INN, COMPANY, WORKSITE
+    HALL, INN, COMPANY, WORKSITE
 }
 
 public enum SizeType {
@@ -15,9 +15,8 @@ public class Building : Statics {
     public override void Awake() {
         base.Awake();
         EntityType = EntityType.Building;
+        NowConstructTime = ConstructTime;
     }
-    public bool UnderConstruct = true;
-    public float ConstructTime = 9999f;
     public BuildingType type;
     public EntityList<Unit> personList;
 
@@ -50,7 +49,7 @@ public class Building : Statics {
         writer.Write((int)EntranceDirection);
         writer.Write(UnderConstruct);
         writer.Write(Working);
-        writer.Write(ConstructTime);
+        writer.Write(NowConstructTime);
     }
     public static Building Load(BinaryReader reader) {
         BuildingType type = (BuildingType)reader.ReadInt32();
@@ -77,33 +76,19 @@ public class Building : Statics {
         ret.type = type;
         ret.UnderConstruct = underconstruct;
         ret.Working = working;
-        ret.ConstructTime = constructTime;
+        ret.NowConstructTime = constructTime;
         return ret;
     }
     public void BindWorkers() {
         personList.Bind(this, Insider);
     }
-
     
-    public virtual void CheckConstruction() {
-        if (ConstructTime < 0) {
-            UnderConstruct = false;
-            Working = true;
-            for (int i = 0; i < Insider.Count; i++) {
-                if (Workers.Contains(Insider[i])) {
-                    Insider[i].AddCommand(new ChangeWorkCommand(null));
-                    Insider[i].AddCommand(new GetOutCommand());
-                }
-            }
+
+    public override void CheckConstruction() {
+        base.CheckConstruction();
+        if (NowConstructTime < 0) {
             ConstructionIndicator.SetActive(false);
             Model.SetActive(true);
-        }
-        else
-            ConstructTime -= Time.deltaTime * Insider.Count;
-    }
-    public void LateUpdate() {
-        if (UnderConstruct) {
-            CheckConstruction();
         }
     }
 }

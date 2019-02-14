@@ -112,6 +112,7 @@ public abstract class Entity : MonoBehaviour {
         HoverIndicator.Deselect();
     }
     public virtual void OnMouseDown() {
+        Selector.SelectedEntity = this;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (Selector.Instance.ordering) return;
         Debug.Log(ToString() + " selected");
