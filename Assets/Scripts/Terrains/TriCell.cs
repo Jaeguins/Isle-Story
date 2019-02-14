@@ -30,6 +30,12 @@ public class TriCell {
     }
     public bool Stepable {
         get {
+            return !IsUnderwater && !HasRiver && StepableEntity;
+            
+        }
+    }
+    public bool StepableEntity {
+        get {
             return Statics ? Statics.Stepable : true;
         }
     }

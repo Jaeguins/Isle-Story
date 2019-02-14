@@ -171,7 +171,22 @@ public class EntityManager : MonoBehaviour {
                         loaded.ID = i;
                         loaded.Location = grid.GetCell(coord);
                         loaded.EntranceDirection = loaded.EntranceDirection;
-                        loaded.Location.Statics = loaded;
+                        switch (loaded.sizeType) {
+                            case SizeType.SINGLE:
+                                loaded.Location.Statics = loaded;
+                                break;
+                            case SizeType.HEX:
+                                TriCell k = loaded.Location;
+                                TriDirection tDir = loaded.EntranceDirection.Previous();
+                                for (int j = 0; j < 6; j++) {
+                                    if (!k) break;
+                                    k.Statics = loaded;
+                                    k = k.GetNeighbor(tDir);
+                                    tDir = tDir.Next();
+                                }
+                                break;
+                        }
+                        
                         loaded.transform.SetParent(BuildingGroup);
                         AddBuilding(loaded);
                     }
@@ -234,6 +249,17 @@ public class EntityManager : MonoBehaviour {
         Unit unit = units[id];
         Destroy(unit.gameObject);
         units.Remove(id);
+    }
+    public void RemoveStatics(Statics Target) {
+        if (Target is Building)
+            RemoveBuilding(Target.ID);
+        if (Target is Natural)
+            RemoveNatural(Target.ID);
+    }
+    public void RemoveNatural(int id) {
+        Natural unit = naturals[id];
+        Destroy(unit.gameObject);
+        naturals.Remove(id);
     }
 
     public void RemoveBuilding(int id) {

@@ -35,6 +35,7 @@ public class Statics : Entity {
 
     public virtual void DeconstructionStart(Unit Starter) {
         UnderDeconstruct = true;
+        NowConstructTime = 0;
         for (int i = 0; i < Workers.Count; i++) {
             if (Workers[i] != Starter) {
                 Workers[i].AddCommand(new ChangeWorkCommand(null));
@@ -72,7 +73,7 @@ public class Statics : Entity {
     public virtual void CheckDeConstruction() {
         NowConstructTime += Time.deltaTime * (Insider.Count);
         if (NowConstructTime > .5f * ConstructTime) {
-            TriIsland.Instance.entities.RemoveBuilding(ID);
+            TriIsland.Instance.entities.RemoveStatics(this);
         }
     }
     public virtual void LateUpdate() {

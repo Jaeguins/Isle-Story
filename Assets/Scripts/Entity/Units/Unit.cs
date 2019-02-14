@@ -37,7 +37,7 @@ public class Unit : Entity {
     public Queue<Command> commandQueue = new Queue<Command>();
     public Command nowWork {
         get {
-            return commandQueue.Count==0?null:commandQueue.Peek();
+            return commandQueue.Count == 0 ? null : commandQueue.Peek();
         }
     }
     float orientation;
@@ -62,8 +62,6 @@ public class Unit : Entity {
             case CommandType.GETIN:
                 Statics t = ((GetInCommand)c).target;
                 if (Location != t.Location) {
-                    if (Location != t.EntranceLocation)
-                        commandQueue.Enqueue(new MoveCommand(t.EntranceLocation));
                     commandQueue.Enqueue(new MoveCommand(t.Location, false));
                 }
                 break;
@@ -98,7 +96,7 @@ public class Unit : Entity {
     }
 
 
-    public IEnumerator<Coroutine> FindPathAndMove(TriCell target, bool entityCheck) {
+    public IEnumerator<Coroutine> FindPathAndMove(TriCell target, bool entityCheck = true) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {
 
@@ -143,7 +141,7 @@ public class Unit : Entity {
         }
         yield return null;
     }
-    public IEnumerator Move(bool entityCheck) {
+    public IEnumerator Move(bool entityCheck = true) {
         Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
         yield return StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
     }
@@ -237,6 +235,9 @@ public class Unit : Entity {
         Vector3 a, b, c = transform.localPosition;
         float t = Time.deltaTime * travelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++) {
+            if (!pathToTravel[i].Stepable) {
+                yield break;
+            }
             a = c;
             b = pathToTravel[i - 1].Position;
             c = (b + pathToTravel[i].Position) * 0.5f;

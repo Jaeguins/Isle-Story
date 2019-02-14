@@ -23,7 +23,7 @@ public class TriGrid : MonoBehaviour {
     TriCell currentPathFrom, currentPathTo;
     bool currentPathExists;
     public int searchPhase;
-    
+
     void ClearEntities() {
         TriIsland.Instance.entities.ClearEntities();
     }
@@ -110,11 +110,11 @@ public class TriGrid : MonoBehaviour {
                 if (neighbor == null ||
                     neighbor.SearchPhase > searchFrontierPhase ||
                     neighbor.Distance != int.MaxValue ||
-                    neighbor.IsUnderwater ||
-                    neighbor.HasRiver ||
-                    (entityCheck && !neighbor.Stepable) ||
+                    !neighbor.Stepable ||
+                    (entityCheck && !neighbor.StepableEntity) ||
                     Mathf.Abs(neighbor.Elevation - current.Elevation) > 1)
-                    continue;
+                    if (neighbor != toCell)
+                        continue;
                 int distance = current.Distance;
                 if (current.IsRoad) distance += 1;
                 else distance += 10;
@@ -171,7 +171,7 @@ public class TriGrid : MonoBehaviour {
                     cell.ReInit();
                 }
             }
-            
+
         }
         yield return null;
     }

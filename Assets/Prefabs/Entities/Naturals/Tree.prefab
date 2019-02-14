@@ -89,16 +89,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6ffd9b2f10fe148adf255eaaa6f6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  Working: 0
+  Stepable: 0
   SelectionIndicator: {fileID: 5306794100265617583}
   HoverIndicator: {fileID: 4341399411788398888}
   resourceController: {fileID: 6300075161681863863}
   sizeType: 0
+  EntityType: 0
   UIType: Tree
   UIName: Tree
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
-  Working: 0
   entranceDirection: 0
+  UnderConstruct: 0
+  UnderDeconstruct: 0
+  NowConstructTime: 9999
+  ConstructTime: 5
   Insider: []
   Workers: []
   type: 0

@@ -97,11 +97,11 @@ public class Human : Unit {
     public override IEnumerator GoHome() {
         CancelAllAct();
         if (Home) {
-            AddCommand(new MoveCommand(Home.EntranceLocation));
+            AddCommand(new MoveCommand(Home.EntranceLocation,Home));
             AddCommand(new GetInCommand(Home));
         }
         else {
-            AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation));
+            AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation, TriIsland.GetCamp()));
             AddCommand(new GetInCommand(TriIsland.GetCamp()));
         }
         acting = false;
@@ -111,7 +111,7 @@ public class Human : Unit {
     public override IEnumerator GoJob() {
         if (Company) {
             CancelAllAct();
-            AddCommand(new MoveCommand(Company.EntranceLocation));
+            AddCommand(new MoveCommand(Company.EntranceLocation,Company));
             AddCommand(new GetInCommand(Company));
         }
         acting = false;
@@ -121,7 +121,7 @@ public class Human : Unit {
     public override IEnumerator GoWork() {
         if (Work) {
             CancelAllAct();
-            AddCommand(new MoveCommand(Work.EntranceLocation));
+            AddCommand(new MoveCommand(Work.EntranceLocation,Work));
             AddCommand(new GetInCommand(Work));
         }
         acting = false;

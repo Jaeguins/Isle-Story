@@ -1,6 +1,6 @@
 ﻿using System.IO;
 public enum CommandType {
-    MOVE, GETIN, GETOUT, CHANGEHOME, GOHOME, CHANGEJOB, GOJOB, CHANGEWORK, GOWORK, BUILD,DESTROY
+    MOVE, GETIN, GETOUT, CHANGEHOME, GOHOME, CHANGEJOB, GOJOB, CHANGEWORK, GOWORK, BUILD, DESTROY
 }
 public class Command {
     public CommandType type;
