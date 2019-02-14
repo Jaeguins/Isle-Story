@@ -226,7 +226,7 @@ public class Unit : Entity {
                 }
                 commandQueue.Dequeue();
             }
-            yield return new WaitUntil(() => !acting);
+            yield return null;
         }
     }
 

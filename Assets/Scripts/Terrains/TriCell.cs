@@ -31,7 +31,6 @@ public class TriCell {
     public bool Stepable {
         get {
             return !IsUnderwater && !HasRiver && StepableEntity;
-            
         }
     }
     public bool StepableEntity {
@@ -175,7 +174,7 @@ public class TriCell {
     }
 
     [SerializeField]
-    TriCell[] neighbors=new TriCell[3];
+    TriCell[] neighbors = new TriCell[3];
     public TriCell GetNeighbor(TriDirection direction) {
         return neighbors[(int)direction];
     }
@@ -227,6 +226,6 @@ public class TriCell {
         RefreshPosition();
     }
     public override string ToString() {
-        return "Cell "+coordinates;
+        return "Cell " + coordinates;
     }
 }
