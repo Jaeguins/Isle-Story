@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 
 public enum CompType {
-    WAREHOUSE,CONSTRUCTOR,FARM,LOGGING,MINE,PROCESSOR
+    WAREHOUSE, CONSTRUCTOR, FARM, LOGGING, MINE, PROCESSOR
 }
-public class Company : Building,Commandable{
+public class Company : Building, Commandable {
     public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
@@ -14,6 +14,13 @@ public class Company : Building,Commandable{
         base.Save(writer);
         writer.Write((int)subType);
         writer.Write(Capacity);
+    }
+
+    public override void OnDeconstruct() {
+        base.OnDeconstruct();
+        for (int i = 0; i < (this as Company).Officers.Count; i++) {
+            (this as Company).Officers[i].AddCommand(new ChangeJobCommand(null));
+        }
     }
     public new static Company Load(BinaryReader reader) {
         CompType subType = (CompType)reader.ReadInt32();

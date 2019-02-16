@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public enum InnType {
     TENT
 }
-public class Inn : Building,Commandable {
+public class Inn : Building, Commandable {
     public List<Unit> Livers;
     public InnType subType;
     public int Capacity;
     public Unit CommandReceiver;
-    public float BirthSpeed=1f;
+    public float BirthSpeed = 1f;
     public float BirthStatus = 0f;
     public float BirthCap = 100f;
     public float BirthProgress {
@@ -23,6 +23,12 @@ public class Inn : Building,Commandable {
     public bool ReservLiver {
         get {
             return BirthStatus > 0f;
+        }
+    }
+    public override void OnDeconstruct() {
+        base.OnDeconstruct();
+        for (int i = 0; i < (this as Inn).Livers.Count; i++) {
+            (this as Inn).Livers[i].AddCommand(new ChangeHomeCommand(null));
         }
     }
     public override void Save(BinaryWriter writer) {
@@ -54,21 +60,21 @@ public class Inn : Building,Commandable {
         CommandReceiver = null;
         if (Clock.IsDay()) {
             foreach (Human t in Livers) {
-                if (Insider.Contains(t)&&!t.acting) {
-                        CommandReceiver = t;
+                if (Insider.Contains(t) && !t.acting) {
+                    CommandReceiver = t;
                 }
             }
-            if (Working && !UnderConstruct&&!UnderDeconstruct) {
+            if (Working && !UnderConstruct && !UnderDeconstruct) {
                 if (Workers.Count > 0) {
                     BirthStatus += BirthSpeed;
                     if (BirthStatus >= BirthCap) {
                         BirthStatus = 0f;
-                        Human t=Instantiate(personPrefab);
+                        Human t = Instantiate(personPrefab);
                         TriIsland.Instance.entities.AddUnit(t);
                         t.Location = Location;
                         t.Home = this;
                         t.AddCommand(new GetInCommand(this));
-                        while(Workers.Count>0) {
+                        while (Workers.Count > 0) {
                             (Workers[0] as Human).Work = null;
                         }
 
@@ -78,7 +84,7 @@ public class Inn : Building,Commandable {
         }
     }
     public bool CheckNewPerson() {
-        return (Livers.Count < Capacity && HasCommandReceiver()&&Workers.Count==0);
+        return (Livers.Count < Capacity && HasCommandReceiver() && Workers.Count == 0);
     }
     public bool HasCommandReceiver() {
         return CommandReceiver;

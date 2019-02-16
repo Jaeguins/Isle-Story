@@ -21,6 +21,7 @@ public class Statics : Entity {
     }
     public bool UnderConstruct = true;
     public bool UnderDeconstruct = false;
+    public bool SelfWorking = false;
     public float NowConstructTime = 9999f;
     public float ConstructTime = 9999f;
     public List<Unit> Insider;
@@ -33,6 +34,14 @@ public class Statics : Entity {
             }
     }
 
+    public virtual void OnBuilt(){
+
+    }
+
+    public virtual void OnDeconstruct() {
+        
+    }
+
     public virtual void DeconstructionStart(Unit Starter) {
         UnderDeconstruct = true;
         NowConstructTime = 0;
@@ -43,16 +52,7 @@ public class Statics : Entity {
                     Workers[i].AddCommand(new GetOutCommand());
             }
         }
-        if (this is Inn) {
-            for (int i = 0; i < (this as Inn).Livers.Count; i++) {
-                (this as Inn).Livers[i].AddCommand(new ChangeHomeCommand(null));
-            }
-        }
-        if (this is Company) {
-            for (int i = 0; i < (this as Company).Officers.Count; i++) {
-                (this as Company).Officers[i].AddCommand(new ChangeJobCommand(null));
-            }
-        }
+        OnDeconstruct();
     }
 
     public virtual void CheckConstruction() {
@@ -65,13 +65,14 @@ public class Statics : Entity {
                     Insider[i].AddCommand(new GetOutCommand());
                 }
             }
+            OnBuilt();
         }
         else
             NowConstructTime -= Time.deltaTime * Insider.Count;
     }
 
     public virtual void CheckDeConstruction() {
-        NowConstructTime += Time.deltaTime * (Insider.Count);
+        NowConstructTime += SelfWorking?ConstructTime:Time.deltaTime * (Insider.Count);
         if (NowConstructTime > .5f * ConstructTime) {
             TriIsland.Instance.entities.RemoveStatics(this);
         }

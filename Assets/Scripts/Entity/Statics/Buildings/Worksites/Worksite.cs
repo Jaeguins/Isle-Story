@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 
 public enum WorkType {
-    FARMLAND,FELLINGLAND
+    FARMLAND,FELLINGLAND,TERRAINMODDER
 }
 public class Worksite : Building,ProductionSelectable{
     public int Capacity;

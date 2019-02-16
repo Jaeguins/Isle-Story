@@ -104,14 +104,15 @@ MonoBehaviour:
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
   entranceDirection: 0
-  Insider: []
-  Workers: []
   UnderConstruct: 1
   UnderDeconstruct: 0
-  ConstructTime: 5
+  SelfWorking: 0
   NowConstructTime: 9999
+  ConstructTime: 5
+  Insider: []
+  Workers: []
   type: 1
-  ConstructionIndicator: {fileID: 4470977586961578053}
+  ConstructionIndicator: {fileID: 8096483279333579771}
   Model: {fileID: 6940348056592401367}
   Livers: []
   subType: 0
@@ -26013,9 +26014,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f24d7e175a315e47a2974da7426c613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4470977586961578053 stripped
+--- !u!1 &8096483279333579771 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4545051704792789950, guid: c45c71a3cf30dd04a8a341478cead556,
+  m_CorrespondingSourceObject: {fileID: 8161405131094986752, guid: c45c71a3cf30dd04a8a341478cead556,
     type: 3}
   m_PrefabInstance: {fileID: 80886794956491771}
   m_PrefabAsset: {fileID: 0}

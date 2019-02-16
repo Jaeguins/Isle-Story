@@ -12,26 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f44ab108da1e44cb6917df63fc3d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  Working: 0
+  Stepable: 0
   SelectionIndicator: {fileID: 8925809787783163273}
   HoverIndicator: {fileID: 1028195566154245134}
   resourceController: {fileID: 7283729427961381265}
   sizeType: 0
+  EntityType: 0
   UIType: Logland
   UIName: Logland
+  UIStatus: NaN
   camAnchorOffset: {x: 0, y: 0, z: 0}
   camOffset: {x: 0, y: 0, z: 0}
-  Working: 0
   entranceDirection: 0
+  UnderConstruct: 1
+  UnderDeconstruct: 0
+  SelfWorking: 0
+  NowConstructTime: 9999
+  ConstructTime: 5
   Insider: []
   Workers: []
-  UnderConstruct: 1
-  ConstructTime: 5
   type: 3
-  personList: {fileID: 0}
-  ConstructionIndicator: {fileID: 2996569663753647825}
+  ConstructionIndicator: {fileID: 7477544330970649967}
   Model: {fileID: 7787564862195060159}
   Capacity: 0
   subType: 1
+  productions: []
+  CurrentProd: 0
 --- !u!1001 &1623178548884424047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f24d7e175a315e47a2974da7426c613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2996569663753647825 stripped
+--- !u!1 &7477544330970649967 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4545051704792789950, guid: c45c71a3cf30dd04a8a341478cead556,
+  m_CorrespondingSourceObject: {fileID: 8161405131094986752, guid: c45c71a3cf30dd04a8a341478cead556,
     type: 3}
   m_PrefabInstance: {fileID: 1623178548884424047}
   m_PrefabAsset: {fileID: 0}
