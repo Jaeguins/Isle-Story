@@ -236,6 +236,7 @@ public class Unit : Entity {
         float t = Time.deltaTime * travelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++) {
             if (!pathToTravel[i].Stepable) {
+                Debug.LogWarning("here is unstepable : " + pathToTravel[i]);
                 yield break;
             }
             a = c;

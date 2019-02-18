@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using UnityEngine.SceneManagement;
 public class TriIsland : MonoBehaviour {
     public TopViewCam topCam;
     public List<PrefabManager> buildings;
@@ -49,7 +50,12 @@ public class TriIsland : MonoBehaviour {
         StartCoroutine(NewMapInternal());
     }
     void Awake() {
-        SaveName = Intent.GetData<string>(Strings.SaveInd);
+        try {
+            SaveName = Intent.GetData<string>(Strings.SaveInd);
+        }
+        catch(KeyNotFoundException e) {
+            SceneManager.LoadScene(0);
+        }
         DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath + "/save/" + SaveName + "/" + IsleName);
         if (IsleName != Strings.NaN) {
             IslePath = di.FullName;

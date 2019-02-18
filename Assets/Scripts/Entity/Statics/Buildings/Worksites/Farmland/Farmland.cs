@@ -1,7 +1,9 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using UnityEngine;
 
 public class Farmland : Worksite{
     public static new Farmland Load(BinaryReader reader) {
@@ -9,6 +11,10 @@ public class Farmland : Worksite{
     }
     public new void Save(BinaryWriter writer) {
         base.Save(writer);
+    }
+    public override void OnBuilt() {
+        base.OnBuilt();
+        Location.TerrainTypeIndex = 1;
     }
 }
 

@@ -218,7 +218,7 @@ public class Human : Unit {
         }
         if (nowWork == null && !acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
             CancelAllAct();
-            Debug.Log("<color=#ff0000>act canceled</color> and moved to : " + routineTarget);
+            Debug.LogWarning("<color=#ff0000>act canceled</color> and moved to : " + routineTarget);
             AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
             AddCommand(new GetInCommand(RoutineTarget));
         }

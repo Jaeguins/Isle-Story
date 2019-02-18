@@ -35,7 +35,6 @@ public class Statics : Entity {
     }
 
     public virtual void OnBuilt(){
-
     }
 
     public virtual void OnDeconstruct() {

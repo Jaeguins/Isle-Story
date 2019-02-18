@@ -4,6 +4,7 @@ using System.Collections;
 
 public class TriGridChunk : MonoBehaviour {
     TriCell[] cells;
+    bool refresh = true;
     public TriMesh terrain, rivers;
     public void Disable() {
         terrain.enabled = false;
@@ -20,13 +21,13 @@ public class TriGridChunk : MonoBehaviour {
     }
 
     public void Refresh() {
-        enabled = true;
+        refresh = true;
     }
 
     private void LateUpdate() {
-        if (enabled) {
+        if (refresh) {
             Triangulate();
-            enabled = false;
+            refresh = false;
         }
     }
 

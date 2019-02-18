@@ -54,7 +54,10 @@ public class TriGrid : MonoBehaviour {
         currentPathFrom = fromCell;
         currentPathTo = toCell;
         currentPathExists = Search(fromCell, toCell, entityCheck);
-        Debug.Log("pathFindResult : " + currentPathExists);
+        if (currentPathExists)
+            Debug.Log("pathFindResult : " + currentPathExists);
+        else
+            Debug.LogWarning("pathFindResult : " + currentPathExists);
     }
 
     public List<TriCell> GetPath() {
@@ -107,14 +110,14 @@ public class TriGrid : MonoBehaviour {
 
             for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
                 TriCell neighbor = current.GetNeighbor(d);
-                if (neighbor == null ||
+                if (Mathf.Abs(neighbor.Elevation - current.Elevation) > 1) continue;
+                if ((neighbor == null ||
                     neighbor.SearchPhase > searchFrontierPhase ||
                     neighbor.Distance != int.MaxValue ||
                     !neighbor.Stepable ||
-                    (entityCheck && !neighbor.StepableEntity) ||
-                    Mathf.Abs(neighbor.Elevation - current.Elevation) > 1)
-                    if (neighbor != toCell)
-                        continue;
+                    (entityCheck && !neighbor.StepableEntity)) &&
+                    neighbor != toCell)
+                    continue;
                 int distance = current.Distance;
                 if (current.IsRoad) distance += 1;
                 else distance += 10;
