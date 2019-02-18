@@ -24,11 +24,19 @@ public class CameraController : MonoBehaviour {
             CameraView.enabled = value;
         }
     }
-    public void AdjustRotation(float delta) {
-        rotationAngle += delta * rotationSpeed * Time.deltaTime;
+    public IEnumerator AdjustRotation(bool clockwise) {
+        rotationAngle += (clockwise?1:-1) * rotationSpeed;
+        rotationAngle -= rotationAngle % 60;
         if (rotationAngle < 0f) rotationAngle += 360f;
         else if (rotationAngle >= 360f) rotationAngle -= 360f;
-        transform.localRotation = Quaternion.Euler(0f, rotationAngle, 0f);
+        Quaternion newQuat= Quaternion.Euler(0f, rotationAngle, 0f);
+        Quaternion pastQuat = transform.localRotation;
+        for(float i = 0; i <= 10; i++) {
+            transform.localRotation = Quaternion.Lerp(pastQuat, newQuat, i / 10);
+            yield return new WaitForEndOfFrame();
+        }
+        
+        
     }
     public void AdjustPosition(Vector3 position) {
         AdjustPosition(position.x, position.y,position.z);
@@ -72,12 +80,14 @@ public class CameraController : MonoBehaviour {
     }
     
     public void AdjustZoom(float delta) {
+        /*
         zoom = Mathf.Clamp01(zoom + delta);
         float distance = Mathf.Lerp(stickMinZoom, stickMaxZoom, zoom);
         stick.localPosition = new Vector3(0f, 0f, distance);
 
         float angle = Mathf.Lerp(swivelMinZoom, swivelMaxZoom, zoom);
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
+        */
     }
 
     public void ValidatePosition() {
