@@ -84,4 +84,22 @@ public class Statics : Entity {
             CheckDeConstruction();
         }
     }
+    public override void BindCells(bool flag) {
+        Location.Statics = flag ? this : null;
+    }
+    public override List<BuildState> GetBuildStatus(TriCoordinates coord, TriDirection dir) {
+        List<BuildState> ret = new List<BuildState>();
+        TriCell cell = TriGrid.Instance.GetCell(coord);
+        int elev = cell.Elevation;
+        ret.Add(new BuildState() {
+            coord = coord,
+            value = cell.IsBuildable()
+        });
+        cell = cell.GetNeighbor(dir);
+        ret.Add(new BuildState() {
+            coord = cell.coordinates,
+            value = cell.IsBuildable() && Mathf.Abs(elev - cell.Elevation) < 2
+        });
+        return ret;
+    }
 }

@@ -51,4 +51,36 @@ public class Hall : Building, Buildable {
     public Unit GetCommandReceiver() {
         return ReceiveableMan;
     }
+    public override List<BuildState> GetBuildStatus(TriCoordinates coord,TriDirection dir) {
+        List<BuildState> ret = new List<BuildState>();
+        TriCell k = TriGrid.Instance.GetCell(coord);
+        int elev = k.Elevation;
+        TriDirection tDir = dir.Previous();
+        for (int i = 0; i < 6; i++) {
+            if (!k) break;
+            ret.Add(new BuildState() {
+                coord = k.coordinates,
+                value = k.IsBuildable()&&elev==k.Elevation
+            });
+            k = k.GetNeighbor(tDir);
+            tDir = tDir.Next();
+        }
+        TriCell entrance = TriGrid.Instance.GetCell(coord).GetNeighbor(dir);
+        ret.Add(new BuildState() {
+            coord = entrance.coordinates,
+            value = entrance.IsBuildable() && Mathf.Abs(entrance.GetNeighbor(dir).Elevation - elev) < 2
+        });
+        return ret;
+    }
+    public override void BindCells(bool flag) {
+        TriCell k = Location;
+        int elev = k.Elevation;
+        TriDirection tDir = EntranceDirection.Previous();
+        for (int i = 0; i < 6; i++) {
+            if (!k) break;
+            k.Statics = flag?this:null;
+            k = k.GetNeighbor(tDir);
+            tDir = tDir.Next();
+        }
+    }
 }

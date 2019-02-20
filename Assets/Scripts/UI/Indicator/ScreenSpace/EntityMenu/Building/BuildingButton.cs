@@ -9,7 +9,7 @@ public class BuildingButton : MonoBehaviour {
     public BuildCondition condition = new BuildCondition();
     public void ClickCallback() {
         if (Prefab)
-            Selector.Instance.RequestLocation(Target.GetCommandReceiver(), Prefab.sizeType, new BuildCommand(Prefab));
+            Selector.Instance.RequestLocation(Target.GetCommandReceiver(), new BuildCommand(Prefab),Prefab);
         else
             Selector.Instance.RequestTarget(Target.GetCommandReceiver(), new DestroyCommand(null));
     }

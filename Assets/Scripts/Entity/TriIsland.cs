@@ -99,7 +99,7 @@ public class TriIsland : MonoBehaviour {
         yield return StartCoroutine(mapGenerator.GenerateMap(sizeX, sizeZ));
         Loaded = true;
         topCam.ValidatePosition();
-        Selector.Instance.RequestLocation(null, SizeType.HEX, new BuildCommand(null));
+        Selector.Instance.RequestLocation(null, new BuildCommand(null));
         Time.timeScale = 1f;
         IslandView.SetActive(false);
     }

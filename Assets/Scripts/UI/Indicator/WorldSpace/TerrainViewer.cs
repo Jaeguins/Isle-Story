@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TerrainViewer : TriMesh {
     public static TerrainViewer Instance;
     Selector selector;
     TriCell k;
+    public List<BuildState> result;
+    public bool Buildable;
     new void Awake() {
         base.Awake();
         Instance = this;
@@ -15,29 +18,20 @@ public class TerrainViewer : TriMesh {
     void LateUpdate() {
         CalculateTerrain();
     }
+    public new void Clear() {
+        base.Clear();
+        Buildable = true;
+    }
     public void CalculateTerrain() {
         Clear();
-
-        if (selector.nowCell) {
-            TriCell neighbor = selector.nowCell.GetNeighbor(selector.dir);
-            if (neighbor) RecalculateTerrain(neighbor, neighbor.IsBuildable() && neighbor.Elevation <= selector.nowCell.Elevation + 1 && neighbor.Elevation >= selector.nowCell.Elevation - 1);
-            switch (selector.sizeType) {
-                case SizeType.HEX:
-                    k = selector.nowCell;
-                    int elev = selector.nowCell.Elevation;
-                    TriDirection tDir = selector.dir.Previous();
-                    for (int i = 0; i < 6; i++) {
-                        if (!k) break;
-                        RecalculateTerrain(k, k.IsBuildable() && k.Elevation == elev);
-                        k = k.GetNeighbor(tDir);
-                        tDir = tDir.Next();
-                    }
-                    break;
-                case SizeType.SINGLE:
-                    RecalculateTerrain(selector.nowCell, selector.nowCell.IsBuildable());
-                    break;
+        TriGrid grid = TriGrid.Instance;
+        result = selector.Prefab.GetBuildStatus(selector.nowCell.coordinates,selector.dir);
+        if (selector.nowCell)
+            foreach (BuildState i in result) {
+                RecalculateTerrain(grid.GetCell(i.coord), i.value);
+                if (!i.value) Buildable = false;
             }
-        }
+                
         Apply();
     }
     public void RecalculateTerrain(TriCell cell, bool buildable) {

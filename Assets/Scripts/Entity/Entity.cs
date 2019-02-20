@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System;
 public enum EntityType {
@@ -72,29 +73,6 @@ public abstract class Entity : MonoBehaviour {
         location.Statics = null;
         Destroy(gameObject);
     }
-    public static bool IsBuildable(TriDirection dir, TriCoordinates coord, SizeType sizeType) {
-        switch (sizeType) {
-            case SizeType.SINGLE:
-                if (TriGrid.Instance.GetCell(coord).Statics) return false;
-                else return true;
-            case SizeType.HEX:
-                TriCell cell = TriGrid.Instance.GetCell(coord);
-                int elevation = cell.Elevation;
-                TriCell k = cell;
-                int elev = cell.Elevation;
-                TriDirection tDir = dir.Previous();
-                for (int i = 0; i < 6; i++) {
-                    if (!k || !k.IsBuildable()) return false;
-                    if (elev != k.Elevation) return false;
-                    k = k.GetNeighbor(tDir);
-                    tDir = tDir.Next();
-                }
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public IEnumerator InternalCoroutine() {
         while (true) {
             if (TriIsland.Loaded) Tick();
@@ -120,4 +98,27 @@ public abstract class Entity : MonoBehaviour {
         EntityView.Instance.Clear();
         EntityView.Instance.Bind(this);
     }
+    public virtual List<BuildState> GetBuildStatus(TriCoordinates coord,TriDirection dir) {
+        List<BuildState> ret = new List<BuildState>();
+        TriGrid grid = TriGrid.Instance;
+        TriCell cell = grid.GetCell(coord);
+        int elev = cell.Elevation;
+        ret.Add(new BuildState() {
+            coord=cell.coordinates,
+            value=cell.IsBuildable()
+        });
+        cell = grid.GetCell(coord).GetNeighbor(dir);
+        ret.Add(new BuildState() {
+            coord = cell.coordinates,
+            value = cell.IsBuildable()&&Mathf.Abs(cell.Elevation-elev)<2
+        });
+        return ret;
+    }
+    public virtual void BindCells(bool flag) {
+        
+    }
+}
+public struct BuildState {
+    public TriCoordinates coord;
+    public bool value;
 }

@@ -23,7 +23,6 @@ public class TriGrid : MonoBehaviour {
     TriCell currentPathFrom, currentPathTo;
     bool currentPathExists;
     public int searchPhase;
-
     void ClearEntities() {
         TriIsland.Instance.entities.ClearEntities();
     }

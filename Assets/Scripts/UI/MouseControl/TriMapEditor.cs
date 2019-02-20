@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 public class TriMapEditor : MonoBehaviour {
     public EntityList<Unit> personList;
     public TriGrid triGrid;
@@ -128,7 +129,10 @@ public class TriMapEditor : MonoBehaviour {
     
     
     public Building CreateBuilding(TriDirection dir, TriCell cell, Building prefab) {
-        if (cell && Entity.IsBuildable(dir, cell.coordinates, prefab.sizeType)) {
+        List<BuildState> result = prefab.GetBuildStatus(cell.coordinates,dir);
+        bool buildable=true;
+        foreach(BuildState i in result) if (!i.value) buildable = false;
+        if (cell && buildable) {
             Building ret = Instantiate(prefab);
             ret.ID = entities.BuildingCount;
             ret.Location = cell;

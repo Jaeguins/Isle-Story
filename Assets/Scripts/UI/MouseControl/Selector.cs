@@ -10,7 +10,7 @@ public class Selector : MonoBehaviour {
     public CameraManager camManager;
     public TriGrid grid;
     public static Entity SelectedEntity;
-    public SizeType? sizeType;
+    public Entity Prefab;
     TerrainViewer terrainSelectionViewer;
     public TriCell nowCell;
     public bool ordering = false;
@@ -22,40 +22,13 @@ public class Selector : MonoBehaviour {
         this.subject = subject;
         command = c;
         ordering = true;
-        sizeType = null;
     }
-    public void RequestLocation(Unit subject, SizeType size, Command c) {
+    public void RequestLocation(Unit subject, Command c,Entity prefab=null) {
         this.subject = subject;
         command = c;
         ordering = true;
-        sizeType = size;
         terrainSelectionViewer.enabled = true;
-    }
-    bool IsBuildable() {
-        if (nowCell) {
-            if (!nowCell.GetNeighbor(dir).IsBuildable()) return false;
-            if (sizeType != null) {
-                switch (sizeType) {
-                    case SizeType.HEX:
-                        TriCell k = nowCell;
-                        int elev = nowCell.Elevation;
-                        TriDirection tDir = dir.Previous();
-                        for (int i = 0; i < 6; i++) {
-                            if (!k || !k.IsBuildable()) return false;
-                            k = k.GetNeighbor(tDir);
-                            tDir = tDir.Next();
-                        }
-                        return true;
-                    case SizeType.SINGLE:
-                        return nowCell.IsBuildable();
-                    default:
-                        return false;
-                }
-            }
-            return true;
-        }
-        else return false;
-
+        Prefab = subject?prefab:TriIsland.GetBuildingPrefabs((int)BuildingType.HALL,0,0);
     }
     public void SendCommand() {
         if (subject)
@@ -120,7 +93,7 @@ public class Selector : MonoBehaviour {
                             Debug.LogWarning("Invalid Target");
                         break;
                     case CommandType.BUILD:
-                        if (!IsBuildable()) {
+                        if (!terrainSelectionViewer.Buildable) {
                             Debug.Log("invalid build site.");
                             return;
                         }
