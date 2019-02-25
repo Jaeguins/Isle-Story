@@ -19,14 +19,14 @@ public class ResourcePanel : EntityPanel {
         base.Bind(entity);
         ResourceDiff ret;
         ResourceController controller = target.resourceController;
-        for(int i = 0; i < controller.resourceTypes.Count;i++) {
+        for(int i = 0; i < controller.totals.Count;i++) {
              ret= pool.Count > 0 ? pool.Dequeue() : Instantiate(prefab, content);
-            ret.Bind(controller.resourceTypes[i], controller.resourceValues[i], controller.resourceMaxValues[i]);
+            ret.Bind(controller.totals[i].type, controller.totals[i].prod, controller.totals[i].max);
             list.Add(ret);
         }
-        for (int i = 0; i < controller.itemTypes.Count; i++) {
+        for (int i = 0; i < controller.productions.Count; i++) {
             ret = pool.Count > 0 ? pool.Dequeue() : Instantiate(prefab, content);
-            ret.Bind(controller.itemTypes[i], controller.itemValues[i], controller.itemMaxValues[i]);
+            ret.Bind(controller.productions[i].type, controller.productions[i].prod, controller.productions[i].max);
             list.Add(ret);
         }
     }

@@ -15,6 +15,7 @@ public class Farmland : Worksite{
     public override void OnBuilt() {
         base.OnBuilt();
         Location.TerrainTypeIndex = 1;
+
     }
 }
 

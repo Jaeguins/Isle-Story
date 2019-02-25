@@ -21,12 +21,14 @@ public class IslandLoader : MonoBehaviour {
     }
     public void OnEnable() {
         di = new DirectoryInfo(Application.persistentDataPath + "/save/" + TriIsland.Instance.SaveName);
-        if (di.Exists) {
-            RefreshList();
-        }
-        else {
-            di.Create();
-            NewGameStart();
+        if (TriIsland.Instance.SaveName != "NaN") {
+            if (di.Exists) {
+                RefreshList();
+            }
+            else {
+                di.Create();
+                NewGameStart();
+            }
         }
     }
     public void OnDisable() {

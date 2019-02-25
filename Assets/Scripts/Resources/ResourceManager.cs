@@ -37,46 +37,46 @@ public class ResourceManager : MonoBehaviour {
         foreach (KeyValuePair<int, Natural> pair in manager.naturals) {
             if (!pair.Value.Working) continue;
             target = pair.Value.resourceController;
-            for (int i = 0; i < target.itemTypes.Count; i++) {
-                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
-                itemResources[(int)target.itemTypes[i]].MaxAmount += target.itemMaxValues[i];
+            for (int i = 0; i < target.productions.Count; i++) {
+                itemResources[(int)target.productions[i].type].Amount += target.productions[i].prod;
+                itemResources[(int)target.productions[i].type].MaxAmount += target.productions[i].max;
             }
-            for (int i = 0; i < target.resourceTypes.Count; i++) {
-                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
-                totalResources[(int)target.resourceTypes[i]].MaxAmount += target.resourceMaxValues[i];
+            for (int i = 0; i < target.totals.Count; i++) {
+                totalResources[(int)target.totals[i].type].Amount += target.totals[i].prod;
+                totalResources[(int)target.totals[i].type].MaxAmount += target.totals[i].max;
             }
         }
         foreach (KeyValuePair<int, Building> pair in manager.buildings) {
             if (!pair.Value.Working) continue;
             target = pair.Value.resourceController;
-            for (int i = 0; i < target.itemTypes.Count; i++) {
-                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
-                itemResources[(int)target.itemTypes[i]].MaxAmount += target.itemMaxValues[i];
+            for (int i = 0; i < target.productions.Count; i++) {
+                itemResources[(int)target.productions[i].type].Amount += target.productions[i].prod;
+                itemResources[(int)target.productions[i].type].MaxAmount += target.productions[i].max;
             }
-            for (int i = 0; i < target.resourceTypes.Count; i++) {
-                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
-                totalResources[(int)target.resourceTypes[i]].MaxAmount += target.resourceMaxValues[i];
+            for (int i = 0; i < target.totals.Count; i++) {
+                totalResources[(int)target.totals[i].type].Amount += target.totals[i].prod;
+                totalResources[(int)target.totals[i].type].MaxAmount += target.totals[i].max;
             }
         }
         foreach (KeyValuePair<int, Unit> pair in manager.units) {
             target = pair.Value.resourceController;
-            for (int i = 0; i < target.itemTypes.Count; i++) {
-                itemResources[(int)target.itemTypes[i]].Amount += target.itemValues[i];
+            for (int i = 0; i < target.productions.Count; i++) {
+                itemResources[(int)target.productions[i].type].Amount += target.productions[i].prod;
             }
-            for (int i = 0; i < target.resourceTypes.Count; i++) {
-                totalResources[(int)target.resourceTypes[i]].Amount += target.resourceValues[i];
+            for (int i = 0; i < target.totals.Count; i++) {
+                totalResources[(int)target.totals[i].type].Amount += target.totals[i].prod;
             }
         }
         foreach (ItemResource t in itemResources) {
             target = t.totController;
             if (t.Amount > t.MaxAmount) t.Amount = t.MaxAmount;
-            for (int i = 0; i < target.itemTypes.Count; i++) {
-                itemResources[(int)target.itemTypes[i]].Amount += t.Amount*target.itemValues[i];
-                //itemResources[(int)target.itemTypes[i]].MaxAmount += t.Amount*target.itemMaxValues[i];
+            for (int i = 0; i < target.productions.Count; i++) {
+                itemResources[(int)target.productions[i].type].Amount += t.Amount*target.productions[i].prod;
+                //itemResources[(int)target.productions[i]].MaxAmount += t.Amount*target.productions[i];
             }
-            for (int i = 0; i < target.resourceTypes.Count; i++) {
-                totalResources[(int)target.resourceTypes[i]].Amount += t.Amount*target.resourceValues[i];
-                //totalResources[(int)target.resourceTypes[i]].MaxAmount += t.Amount*target.resourceMaxValues[i];
+            for (int i = 0; i < target.totals.Count; i++) {
+                totalResources[(int)target.totals[i].type].Amount += t.Amount*target.totals[i].prod;
+                //totalResources[(int)target.totals[i]].MaxAmount += t.Amount*target.totals[i];
             }
         }
         foreach(TotalResource t in totalResources) {

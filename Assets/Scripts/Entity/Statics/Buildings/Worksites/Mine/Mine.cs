@@ -2,15 +2,15 @@
 using System.Collections;
 using System.IO;
 
-public class Mine : Company {
+public class Mine : Worksite {
     public override void Start() {
         base.Start();
     }
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
     }
-    public new static LoggingFacility Load(BinaryReader reader) {
-        LoggingFacility ret = (LoggingFacility)Instantiate(TriIsland.GetBuildingPrefabs((int)BuildingType.COMPANY, (int)CompType.MINE, 0));
+    public new static Mine Load(BinaryReader reader) {
+        Mine ret = (Mine)Instantiate(TriIsland.GetBuildingPrefabs((int)BuildingType.WORKSITE, (int)WorkType.MINE, 0));
         return ret;
     }
 }

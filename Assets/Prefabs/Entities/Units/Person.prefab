@@ -2444,8 +2444,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
         type: 3}
+      propertyPath: totals.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
       propertyPath: resourceValues.Array.data[0]
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197506950968876873, guid: 481295a545be8fb4db7db46a8d034806,
+        type: 3}
+      propertyPath: totals.Array.data[0].prod
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1004480543361203663, guid: 481295a545be8fb4db7db46a8d034806,
         type: 3}

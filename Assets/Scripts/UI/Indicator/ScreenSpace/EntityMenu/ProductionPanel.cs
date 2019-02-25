@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ProductionPanel : EntityPanel {
     public new ProductionSelectable target;
     public int currentIndex = 0, tempIndex = 0;
-    public List<ItemResource> ProdList;
+    public List<Production> ProdList;
     public Image Icon;
     public Text Name, Description;
     public override void Bind(Entity entity) {
@@ -31,9 +31,9 @@ public class ProductionPanel : EntityPanel {
     }
     public void ChangeView() {
         tempIndex=Mathf.Clamp(tempIndex, 0, ProdList.Count-1);
-        Icon.sprite = ProdList[tempIndex].sprite;
-        Name.text = ProdList[tempIndex].Name + (currentIndex == tempIndex ? " - equiped" : "");
-        Description.text = ProdList[tempIndex].Desc;
+        Icon.sprite = ResourceManager.Instance.itemResources[(int)ProdList[tempIndex].type].sprite;
+        Name.text = ResourceManager.Instance.itemResources[(int)ProdList[tempIndex].type].Name + (currentIndex == tempIndex ? " - equiped" : "");
+        Description.text = ResourceManager.Instance.itemResources[(int)ProdList[tempIndex].type].Desc;
         Debug.Log("list index changed");
     }
     public void ApplySelection() {
@@ -43,7 +43,7 @@ public class ProductionPanel : EntityPanel {
         Debug.Log("Selection applied");
     }
     public void CancelSelection() {
-        tempIndex = currentIndex;
+        target.SetProduction(-1);
         ChangeView();
         Debug.Log("Selection Canceled");
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 public enum CompType {
-    WAREHOUSE, CONSTRUCTOR, FARM, LOGGING, MINE, PROCESSOR
+    WAREHOUSE, CONSTRUCTOR, FARM, LOGGING, PROCESSOR
 }
 public class Company : Building, Commandable {
     public List<Unit> Officers;

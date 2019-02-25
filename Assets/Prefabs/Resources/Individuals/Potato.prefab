@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5578731433564005107
+--- !u!1001 &3341480669553856582
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4764469718943238462, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
       propertyPath: m_Name
-      value: Carrot
+      value: Potato
       objectReference: {fileID: 0}
     - target: {fileID: 2081874907534858796, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
@@ -71,17 +71,22 @@ PrefabInstance:
         type: 3}
       propertyPath: sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0ed5cf9bd5bf262408fa3def65522ff6,
+      objectReference: {fileID: 21300000, guid: 6b214a1f8d840944090aaec1f27a4514,
         type: 3}
     - target: {fileID: 1017602295300991329, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
       propertyPath: Name
-      value: Carrot
+      value: Potato
       objectReference: {fileID: 0}
     - target: {fileID: 1017602295300991329, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
       propertyPath: Desc
-      value: One of basic food.
+      value: Sweets!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017602295300991329, guid: adc849534d03fc548bb59056523c3b88,
+        type: 3}
+      propertyPath: type
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
@@ -105,13 +110,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
-      propertyPath: resourceValues.Array.data[0]
+      propertyPath: resourceTypes.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
+        type: 3}
+      propertyPath: resourceTypes.Array.data[1]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
         type: 3}
+      propertyPath: resourceValues.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
+        type: 3}
+      propertyPath: resourceValues.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695649789690796880, guid: adc849534d03fc548bb59056523c3b88,
+        type: 3}
       propertyPath: totals.Array.data[0].prod
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc849534d03fc548bb59056523c3b88, type: 3}

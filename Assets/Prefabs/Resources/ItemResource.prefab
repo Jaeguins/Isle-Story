@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51805605982677044b58bb67ad7cf6eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  Name: NaN
+  Desc: NaN
   Amount: 0
+  MaxAmount: 0
   type: 0
   totController: {fileID: 5695649789690796880}
 --- !u!1001 &4520727131130233608

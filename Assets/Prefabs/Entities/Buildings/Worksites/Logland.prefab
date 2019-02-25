@@ -38,7 +38,10 @@ MonoBehaviour:
   Model: {fileID: 8294453752819666288}
   Capacity: 0
   subType: 1
-  productions: []
+  productions:
+  - type: 1
+    prod: 10
+    max: 0
   CurrentProd: 0
 --- !u!1 &8293403697655324582
 GameObject:
