@@ -42,6 +42,10 @@
 
 * [29th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190129)
 
+### 2019 Feburary
+
+* [25th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190225)
+
 ***
 ## 2018/11/20
 Project started.
@@ -317,3 +321,21 @@ I coroutinized loading for responsive loading screen.
 And this is what actual 'loading' doing : 
 
 ![loading sequence](https://lh3.googleusercontent.com/c3uudNngFt6SvRlaTd9RAtq3CyxxN0dlWezYf4FUvjQqMrlYbKK05T5qruKNNSu9DhTZkmBQm-J2iqWTL7fzhgxDp7ezuQ6wszGXvNZCleSCIwaNixpMoc0T3ylktNPvVsciirtL_5VeyZ-_lyZi5BAdt_HoL5g964KQk7ep8orYVv0AUsPDejW_ZQskmNnhq6IjcvSTPyE0bClwf1zN4xCe3pUGlqZgVpYrBW9inopUE0HnkCOPFAqrxIhhu2vlpX5_EZdHjghAATJFC1ejlyNM6Fc8jsySdAJVp0PrYZ8SGX4P7a1dSwFqqVoW7944DJxrMyhrvJHCOYMNDGIPN_Ni5x2dKYXwo5bssArufqybOuY0oyh-utG4oZuK2_murNmRWgRDQErGk8Y6hrHVfvQsblkhuWEG6nQ9ghecSaXOv020LgeE7zTIQvvx8T5In1FWA8KmsTzjK5XOiqz0VHkCoxULg2l7oAmIdML5j8rXzZHI5V1iOR-IdkDzpXvCeHxFX4ygtpjbjFStyQwlB3kMNR3jq1rUnfBbF6uqspWFSQeMorU8OHtAuomG3ZB9RqYyst5CF0UZTfhdrkP-NCcyTx5Iz_Ib_skFzy_Y-VweM-TecPMqnFe1i8mZL_vVfMiHC7PK-Q8Q-7pUSMLGrV28vWNd9GkgWX_Y8jRIrCC33FAXE1fA9zKVogtpK85FcTZcT9kxrAmsXMMT2w=w250-h152-no)
+
+
+***
+## 2019/02/25
+
+![new models](https://lh3.googleusercontent.com/TUyLR8otAHJrSmH2Np6jKGgRE9bG4awYl6DxAlglVyhV2lCn950Kmf39Zhh1C7HUFoRsjFulX_inUbFsje7Cne3iErJbzrzoCKepEsJj-sE0r0olTuNUh-MQ49rV-MvyAgLJujkYEw__Gjey_-BNYVZRdKN45ma7hoM-ZHMYQR1QlL7w4URwAdPB1KjCuvgRNm94lQ5CMQJvovCViMmCurcxWbke-C08p1aEfs3AKHKWSWCU2mKgPOz5trK4Jkh79Uq05dobc6FioooDL54P453I5AeO14pE6lCFZv2JITA6SpFSfL_EtShbRoqy5pfA0qaAiDu_UVkYszgeZICHHF8e93aV2TYuFmptgdzfWYnpGRMob5_PKAvhPs8bRWguQAs-WYdMZP_-SuEq_czfekZT0dHXoNHFQVFdFBmHQuPTMojD0fI4ZzJWzDvMDSwZ1G1EuGb2zmf8Y3n0beYTMJTBbf61An9vPNewy8WtrJmljQxD3O5uKonTNbuoC_pPJ38sbFwr8n-oQj0BwKNnCLEQUlhctVhJqMTchaVYuZP5B_213-xb0UUTDnQzb15arr4RRfwFVNcXbCCF2rey4YBamnFHNA9fuK7_UL8JPNmxfqIR7MyasWe2NUjNYDsAhbiVky-mMhOQGwAE9lssENQjt6Wp84_XTPfG3pO5rOW0OKgucUfnCuWkl6iPfHEMHs_Vmi_LCn9OL2Pf-cFY47pU=w1194-h678-no)
+
+A month passed since last comment.
+
+I keep working on this, but I felt it bothering me too much.
+
+I'm worried that my diary becomes too less.
+
+What I did is:
+- change camera to orthographic.
+- added model from assets.
+- added land modifier.
+- minor object optimization.
