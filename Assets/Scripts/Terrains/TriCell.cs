@@ -28,9 +28,9 @@ public class TriCell {
             isRoad = value;
         }
     }
-    public bool Stepable {
+    public bool StepableTerrain {
         get {
-            return !IsUnderwater && !HasRiver && StepableEntity;
+            return !IsUnderwater && (!HasRiver||IsBridged );
         }
     }
     public bool StepableEntity {
@@ -41,6 +41,7 @@ public class TriCell {
     bool isRoad = false;
     public TriCell PathFrom { get; set; }
     public bool inverted = false;
+    public bool IsBridged = false;
     public TriGridChunk chunk;
     public int Index { get; set; }
     public TriCell NextWithSamePriority { get; set; }
@@ -76,7 +77,7 @@ public class TriCell {
 
     public Color Color {
         get {
-            return TriGrid.Instance.colors[terrainTypeIndex];
+            return TriIsland.Instance.Debugging?(inverted?Color.magenta:Color.cyan):TriGrid.Instance.colors[terrainTypeIndex];
         }
     }
 

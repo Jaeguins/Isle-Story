@@ -4,6 +4,7 @@ public enum CommandType {
 }
 public class Command {
     public CommandType type;
+    public bool Chaining=true;
     public virtual void Save(BinaryWriter writer) {
         writer.Write((int)type);
     }
@@ -52,6 +53,7 @@ public class DestroyCommand : Command {
     public DestroyCommand(Statics target) {
         type = CommandType.DESTROY;
         this.target = target;
+        Chaining = false;
     }
     public static new DestroyCommand Load(BinaryReader reader) {
         return new DestroyCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)).Statics);
@@ -60,23 +62,28 @@ public class DestroyCommand : Command {
 }
 public class MoveCommand : Command {
     public TriCell location;
-    public bool flag;
+    public bool entityCheck;
+    public bool terrainCheck;
     public override string ToString() {
-        return "Moving target to " + location.ToString() + "with" + (flag ? "" : "out") + " collision";
+        return "Moving target to " + location.ToString() + "with" + (entityCheck ? "" : "out") + " entity collision";
     }
-    public MoveCommand(TriCell location, bool flag = true) {
+    public MoveCommand(TriCell location, bool entityCheck,bool terrainCheck,bool chaining=false) {
         type = CommandType.MOVE;
         this.location = location;
-        this.flag = flag;
+        this.entityCheck = entityCheck;
+        this.terrainCheck = terrainCheck;
+        Chaining = chaining;
     }
 
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
+        writer.Write(entityCheck);
+        writer.Write(terrainCheck);
         location.coordinates.Save(writer);
     }
 
     public static new MoveCommand Load(BinaryReader reader) {
-        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)), reader.ReadBoolean());
+        return new MoveCommand(TriGrid.Instance.GetCell(TriCoordinates.Load(reader)), reader.ReadBoolean(),reader.ReadBoolean());
     }
 
 }

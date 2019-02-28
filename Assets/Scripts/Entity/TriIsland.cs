@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using UnityEngine.SceneManagement;
 public class TriIsland : MonoBehaviour {
+    public bool Debugging;
     public TopViewCam topCam;
     public List<PrefabManager> buildings;
     public PrefabManager units;

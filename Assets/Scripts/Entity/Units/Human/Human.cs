@@ -91,40 +91,44 @@ public class Human : Unit {
         AddCommand(new ChangeWorkCommand(work.target));
         Debug.Log(work.target.ToString() + " destroing start");
         acting = false;
+        ActResult = true;
         yield return null;
     }
 
     public override IEnumerator GoHome() {
         CancelAllAct();
         if (Home) {
-            AddCommand(new MoveCommand(Home.EntranceLocation,Home));
+            AddCommand(new MoveCommand(Home.EntranceLocation, true, true));
             AddCommand(new GetInCommand(Home));
         }
         else {
-            AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation, TriIsland.GetCamp()));
+            AddCommand(new MoveCommand(TriIsland.GetCamp().EntranceLocation, true, true));
             AddCommand(new GetInCommand(TriIsland.GetCamp()));
         }
         acting = false;
+        ActResult = true;
         yield return null;
     }
 
     public override IEnumerator GoJob() {
         if (Company) {
             CancelAllAct();
-            AddCommand(new MoveCommand(Company.EntranceLocation,Company));
+            AddCommand(new MoveCommand(Company.EntranceLocation, true, true));
             AddCommand(new GetInCommand(Company));
         }
         acting = false;
+        ActResult = true;
         yield return null;
     }
 
     public override IEnumerator GoWork() {
         if (Work) {
             CancelAllAct();
-            AddCommand(new MoveCommand(Work.EntranceLocation,Work));
+            AddCommand(new MoveCommand(Work.EntranceLocation, true, true));
             AddCommand(new GetInCommand(Work));
         }
         acting = false;
+        ActResult = true;
         yield return null;
     }
 
@@ -163,11 +167,13 @@ public class Human : Unit {
         BuildCommand c = (BuildCommand)nowWork;
         if (c.location != Location) {
             Debug.Log("Cannot reach");
+            ActResult = false;
         }
         else {
             Building t = TriMapEditor.Instance.CreateBuilding(c.dir, c.location, (Building)c.target);
             AddCommand(new ChangeWorkCommand(t));
             AddCommand(new GetInCommand(t));
+            ActResult = true;
         }
         acting = false;
         yield return null;
@@ -178,6 +184,7 @@ public class Human : Unit {
         if (Company)
             Debug.Log("Change Job to " + Company);
         acting = false;
+        ActResult = true;
         yield return null;
     }
     public override IEnumerator ChangeWorkInternal() {
@@ -185,6 +192,7 @@ public class Human : Unit {
         if (Work)
             Debug.Log("Change Work to " + Work);
         acting = false;
+        ActResult = true;
         yield return null;
     }
     public void BindingBuildingMenu() {
@@ -219,7 +227,7 @@ public class Human : Unit {
         if (nowWork == null && !acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
             CancelAllAct();
             Debug.LogWarning("<color=#ff0000>act canceled</color> and moved to : " + routineTarget);
-            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation));
+            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation, true, true));
             AddCommand(new GetInCommand(RoutineTarget));
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.IO;
 using UnityEngine.UI;
 public enum BuildingType {
-    HALL, INN, COMPANY, WORKSITE
+    HALL, INN, COMPANY, WORKSITE,MISC
 }
 
 public enum SizeType {

@@ -34,11 +34,11 @@ public class Statics : Entity {
             }
     }
 
-    public virtual void OnBuilt(){
+    public virtual void OnBuilt() {
     }
 
     public virtual void OnDeconstruct() {
-        
+
     }
 
     public virtual void DeconstructionStart(Unit Starter) {
@@ -71,7 +71,7 @@ public class Statics : Entity {
     }
 
     public virtual void CheckDeConstruction() {
-        NowConstructTime += SelfWorking?ConstructTime:Time.deltaTime * (Insider.Count);
+        NowConstructTime += SelfWorking ? ConstructTime : Time.deltaTime * (Insider.Count);
         if (NowConstructTime > .5f * ConstructTime) {
             TriIsland.Instance.entities.RemoveStatics(this);
         }
@@ -91,15 +91,9 @@ public class Statics : Entity {
         List<BuildState> ret = new List<BuildState>();
         TriCell cell = TriGrid.Instance.GetCell(coord);
         int elev = cell.Elevation;
-        ret.Add(new BuildState() {
-            coord = coord,
-            value = cell.IsBuildable()
-        });
+        ret.Add(new BuildState(coord, cell.IsBuildable()));
         cell = cell.GetNeighbor(dir);
-        ret.Add(new BuildState() {
-            coord = cell.coordinates,
-            value = cell.IsBuildable() && Mathf.Abs(elev - cell.Elevation) < 2
-        });
+        ret.Add(new BuildState(cell.coordinates, cell.IsBuildable() && Mathf.Abs(elev - cell.Elevation) < 2));
         return ret;
     }
 }

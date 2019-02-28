@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4153a731f1da28149a9c0a8a09e88ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   topCam: {fileID: 1096360870}
   buildings:
   - lists:
@@ -2167,6 +2168,9 @@ MonoBehaviour:
       - {fileID: 8889198663963256191, guid: e24efeaf419f49542848b4f234fd1572, type: 3}
     - lists:
       - {fileID: 2137659567127040470, guid: 9144f09b25eb08b4e8a2b3ef28e01a39, type: 3}
+  - lists:
+    - lists:
+      - {fileID: 6250246050572178017, guid: eb636532b58c7f142a4762f316ecda58, type: 3}
   units:
     lists:
     - lists:
@@ -4237,6 +4241,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3058797813816540813, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105859327534416662, guid: 32d5c394c23710b4da8ed72851298490,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -6655,7 +6689,7 @@ MonoBehaviour:
   secondsInDay: 120
   secondsInNight: 120
   currentTimeOfDay: 0.25
-  timeMultiplier: 1
+  timeMultiplier: 0
   isDay: 1
   Updator: 1
 --- !u!4 &1630898071

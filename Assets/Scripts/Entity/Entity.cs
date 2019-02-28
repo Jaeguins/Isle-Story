@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 public enum EntityType {
-    Building,Natural,Unit
+    Building, Natural, Unit
 }
 [Serializable]
 public abstract class Entity : MonoBehaviour {
@@ -17,7 +17,7 @@ public abstract class Entity : MonoBehaviour {
     public ResourceController resourceController;
     public SizeType sizeType;
     public EntityType EntityType;
-    public string UIType,UIName,UIStatus="NaN";
+    public string UIType, UIName, UIStatus = "NaN";
     protected BoxCollider col;
     public virtual void Start() {
         StartCoroutine(InternalCoroutine());
@@ -98,27 +98,25 @@ public abstract class Entity : MonoBehaviour {
         EntityView.Instance.Clear();
         EntityView.Instance.Bind(this);
     }
-    public virtual List<BuildState> GetBuildStatus(TriCoordinates coord,TriDirection dir) {
+    public virtual List<BuildState> GetBuildStatus(TriCoordinates coord, TriDirection dir) {
         List<BuildState> ret = new List<BuildState>();
         TriGrid grid = TriGrid.Instance;
         TriCell cell = grid.GetCell(coord);
         int elev = cell.Elevation;
-        ret.Add(new BuildState() {
-            coord=cell.coordinates,
-            value=cell.IsBuildable()
-        });
+        ret.Add(new BuildState(cell.coordinates, cell.IsBuildable()));
         cell = grid.GetCell(coord).GetNeighbor(dir);
-        ret.Add(new BuildState() {
-            coord = cell.coordinates,
-            value = cell.IsBuildable()&&Mathf.Abs(cell.Elevation-elev)<2
-        });
+        ret.Add(new BuildState(cell.coordinates, cell.IsBuildable() && Mathf.Abs(cell.Elevation - elev) < 2));
         return ret;
     }
     public virtual void BindCells(bool flag) {
-        
+
     }
 }
 public struct BuildState {
     public TriCoordinates coord;
     public bool value;
+    public BuildState(TriCoordinates coord, bool value) {
+        this.coord = coord;
+        this.value = value;
+    }
 }

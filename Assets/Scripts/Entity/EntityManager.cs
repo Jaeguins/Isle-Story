@@ -272,11 +272,13 @@ public class EntityManager : MonoBehaviour {
         unit.ID = buildings.Count;
         buildings.Add(unit.ID, unit);
         unit.transform.SetParent(BuildingGroup, false);
+        unit.BindCells(true);
     }
 
     public void AddNatural(Natural unit) {
         unit.ID = naturals.Count;
         naturals.Add(unit.ID, unit);
         unit.transform.SetParent(NaturalGroup, false);
+        unit.BindCells(true);
     }
 }

@@ -48,11 +48,11 @@ public class TriGrid : MonoBehaviour {
         }
     }
 
-    public void FindPath(TriCell fromCell, TriCell toCell, bool entityCheck = true) {
+    public void FindPath(TriCell fromCell, TriCell toCell, bool entityCheck,bool terrainCheck) {
         ClearPath();
         currentPathFrom = fromCell;
         currentPathTo = toCell;
-        currentPathExists = Search(fromCell, toCell, entityCheck);
+        currentPathExists = Search(fromCell, toCell, entityCheck,terrainCheck);
         if (currentPathExists)
             Debug.Log("pathFindResult : " + currentPathExists);
         else
@@ -84,7 +84,7 @@ public class TriGrid : MonoBehaviour {
         currentPathFrom = currentPathTo = null;
     }
 
-    bool Search(TriCell fromCell, TriCell toCell, bool entityCheck) {
+    bool Search(TriCell fromCell, TriCell toCell, bool entityCheck,bool terrainCheck) {
         searchFrontierPhase += 2;
         if (searchFrontier == null) {
             searchFrontier = new TriCellPriorityQueue();
@@ -109,14 +109,19 @@ public class TriGrid : MonoBehaviour {
 
             for (TriDirection d = TriDirection.VERT; d <= TriDirection.RIGHT; d++) {
                 TriCell neighbor = current.GetNeighbor(d);
-                if (Mathf.Abs(neighbor.Elevation - current.Elevation) > 1) continue;
-                if ((neighbor == null ||
-                    neighbor.SearchPhase > searchFrontierPhase ||
-                    neighbor.Distance != int.MaxValue ||
-                    !neighbor.Stepable ||
-                    (entityCheck && !neighbor.StepableEntity)) &&
-                    neighbor != toCell)
+                if (Mathf.Abs(neighbor.Elevation - current.Elevation) > 1)
                     continue;
+                if (neighbor == null)
+                    continue;
+                if (neighbor.Distance > int.MaxValue)
+                    continue;
+                if (neighbor.SearchPhase > searchFrontierPhase)
+                    continue;
+                if (terrainCheck && !neighbor.StepableTerrain)
+                    continue;
+                if (entityCheck && !neighbor.StepableEntity)
+                    continue;
+                //if(neighbor != toCell) continue;
                 int distance = current.Distance;
                 if (current.IsRoad) distance += 1;
                 else distance += 10;

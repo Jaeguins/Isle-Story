@@ -12,6 +12,7 @@ public enum ActionStatus {
 
 public class Unit : Entity {
     public SkinnedMeshRenderer mesh;
+    public bool ActResult = false;
     public override void Awake() {
         base.Awake();
         EntityType = EntityType.Unit;
@@ -62,29 +63,34 @@ public class Unit : Entity {
             case CommandType.GETIN:
                 Statics t = ((GetInCommand)c).target;
                 if (Location != t.Location) {
-                    commandQueue.Enqueue(new MoveCommand(t.Location, false));
+                    if (Location != t.EntranceLocation) {
+                        commandQueue.Enqueue(new MoveCommand(t.EntranceLocation, true, true));
+                    }
+                    commandQueue.Enqueue(new MoveCommand(t.Location, false, true, true));
                 }
                 break;
             case CommandType.BUILD:
                 BuildCommand k = (BuildCommand)c;
                 commandQueue.Enqueue(new GetOutCommand());
-                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation));
-                commandQueue.Enqueue(new MoveCommand(k.location));
+                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation, true, true,true));
+                commandQueue.Enqueue(new MoveCommand(k.location.GetNeighbor(k.dir), true, true,true));
+                commandQueue.Enqueue(new MoveCommand(k.location, false, false,true));
                 break;
             case CommandType.DESTROY:
                 commandQueue.Enqueue(new ChangeWorkCommand(((DestroyCommand)c).target));
                 break;
             case CommandType.MOVE:
-                if (((MoveCommand)c).flag)
+                if (((MoveCommand)c).entityCheck)
                     commandQueue.Enqueue(new GetOutCommand());
                 break;
             default:
+                c.Chaining = false;
                 break;
         }
         commandQueue.Enqueue(c);
         switch (c.type) {
             case CommandType.GETOUT:
-                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation, false));
+                commandQueue.Enqueue(new MoveCommand(Building.EntranceLocation, false, false,true));
                 break;
         }
     }
@@ -96,21 +102,24 @@ public class Unit : Entity {
     }
 
 
-    public IEnumerator<Coroutine> FindPathAndMove(TriCell target, bool entityCheck = true) {
+    public IEnumerator<Coroutine> FindPathAndMove(TriCell target, bool entityCheck, bool terrainCheck) {
         TriGrid inst = TriGrid.Instance;
         if (target && IsValidDestination(target)) {
-
-            inst.FindPath(Location, target, entityCheck);
+            inst.FindPath(Location, target, entityCheck, terrainCheck);
             if (inst.HasPath) {
                 pathToTravel = inst.GetPath();
                 CancelNowAct();
-                nowRoutine = StartCoroutine(TravelPath());
-                yield return nowRoutine;
+                yield return nowRoutine = StartCoroutine(TravelPath());
                 inst.ClearPath();
+                ActResult = true;
+            }
+            else {
+                ActResult = false;
             }
         }
         else {
             inst.ClearPath();
+            ActResult = false;
         }
         yield return null;
     }
@@ -125,6 +134,7 @@ public class Unit : Entity {
         Building = target;
         SetVisible(false);
         acting = false;
+        ActResult = true;
         yield return null;
     }
     public IEnumerator GetOut() {
@@ -139,11 +149,13 @@ public class Unit : Entity {
             SetVisible(true);
             acting = false;
         }
+        ActResult = true;
         yield return null;
     }
-    public IEnumerator Move(bool entityCheck = true) {
+    public IEnumerator Move() {
         Debug.Log(nowWork.ToString() + " from " + Location + " left order : " + commandQueue.Count);
-        yield return StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, entityCheck));
+        yield return StartCoroutine(FindPathAndMove(((MoveCommand)nowWork).location, ((MoveCommand)nowWork).entityCheck, ((MoveCommand)nowWork).terrainCheck));
+        acting = false;
     }
     public virtual IEnumerator Build() {
         Debug.Log("unexpected Order");
@@ -188,41 +200,45 @@ public class Unit : Entity {
     IEnumerator Act() {
         while (gameObject) {
             if (commandQueue.Count != 0) {
-                acting = true;
-                switch (nowWork.type) {
-                    case CommandType.MOVE:
-                        yield return StartCoroutine(Move(((MoveCommand)nowWork).flag));
-                        break;
-                    case CommandType.GETIN:
-                        yield return StartCoroutine(GetIn());
-                        break;
-                    case CommandType.GETOUT:
-                        yield return StartCoroutine(GetOut());
-                        break;
-                    case CommandType.BUILD:
-                        yield return StartCoroutine(Build());
-                        break;
-                    case CommandType.CHANGEJOB:
-                        yield return StartCoroutine(ChangeJobInternal());
-                        break;
-                    case CommandType.CHANGEWORK:
-                        yield return StartCoroutine(ChangeWorkInternal());
-                        break;
-                    case CommandType.CHANGEHOME:
-                        yield return StartCoroutine(ChangeHomeInternal());
-                        break;
-                    case CommandType.GOJOB:
-                        yield return StartCoroutine(GoJob());
-                        break;
-                    case CommandType.GOWORK:
-                        yield return StartCoroutine(GoWork());
-                        break;
-                    case CommandType.GOHOME:
-                        yield return StartCoroutine(GoHome());
-                        break;
-                    case CommandType.DESTROY:
-                        yield return StartCoroutine(DestroyTarget());
-                        break;
+                if (nowWork.Chaining && !ActResult)
+                    Debug.Log(nowWork.ToString() + "stopped because chaining failed");
+                else {
+                    acting = true;
+                    switch (nowWork.type) {
+                        case CommandType.MOVE:
+                            yield return StartCoroutine(Move());
+                            break;
+                        case CommandType.GETIN:
+                            yield return StartCoroutine(GetIn());
+                            break;
+                        case CommandType.GETOUT:
+                            yield return StartCoroutine(GetOut());
+                            break;
+                        case CommandType.BUILD:
+                            yield return StartCoroutine(Build());
+                            break;
+                        case CommandType.CHANGEJOB:
+                            yield return StartCoroutine(ChangeJobInternal());
+                            break;
+                        case CommandType.CHANGEWORK:
+                            yield return StartCoroutine(ChangeWorkInternal());
+                            break;
+                        case CommandType.CHANGEHOME:
+                            yield return StartCoroutine(ChangeHomeInternal());
+                            break;
+                        case CommandType.GOJOB:
+                            yield return StartCoroutine(GoJob());
+                            break;
+                        case CommandType.GOWORK:
+                            yield return StartCoroutine(GoWork());
+                            break;
+                        case CommandType.GOHOME:
+                            yield return StartCoroutine(GoHome());
+                            break;
+                        case CommandType.DESTROY:
+                            yield return StartCoroutine(DestroyTarget());
+                            break;
+                    }
                 }
                 commandQueue.Dequeue();
             }
@@ -235,10 +251,10 @@ public class Unit : Entity {
         Vector3 a, b, c = transform.localPosition;
         float t = Time.deltaTime * travelSpeed;
         for (int i = 1; i < pathToTravel.Count; i++) {
-            if (!pathToTravel[i].Stepable) {
+            /*if (!pathToTravel[i].StepableTerrain) {
                 Debug.LogWarning("here is unstepable : " + pathToTravel[i]);
                 yield break;
-            }
+            }*/
             a = c;
             b = pathToTravel[i - 1].Position;
             c = (b + pathToTravel[i].Position) * 0.5f;
@@ -268,6 +284,7 @@ public class Unit : Entity {
             yield return null;
         }
         animator.SetInteger("Status", (int)ActionStatus.Idle);
+        ActResult = true;
         acting = false;
     }
 
