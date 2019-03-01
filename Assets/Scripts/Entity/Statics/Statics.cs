@@ -75,6 +75,9 @@ public class Statics : Entity {
         if (NowConstructTime > .5f * ConstructTime) {
             TriIsland.Instance.entities.RemoveStatics(this);
         }
+        if (Workers.Count == 0) {
+            UnderDeconstruct = false;
+        }
     }
     public virtual void LateUpdate() {
         if (UnderConstruct) {

@@ -4,6 +4,16 @@ using System.Linq;
 using System.IO;
 using UnityEngine.SceneManagement;
 public class TriIsland : MonoBehaviour {
+    public bool ShowSummary {
+        get {
+            return summaryToggle;
+        }
+        set {
+            summaryToggle = value;
+            entities.ToggleSummary(value);
+        }
+    }
+    bool summaryToggle = false;
     public bool Debugging;
     public TopViewCam topCam;
     public List<PrefabManager> buildings;

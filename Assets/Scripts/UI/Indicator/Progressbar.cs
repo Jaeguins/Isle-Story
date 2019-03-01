@@ -18,9 +18,9 @@ public class Progressbar : MonoBehaviour {
     [Range(0, 1)]
     public float value;
     public void RefreshUI() {
-        fore.localScale = new Vector3(
-            back.localScale.x * (direction == ProgressDirection.Horizontal ? value : 1),
-            back.localScale.y * (direction == ProgressDirection.Vertical ? value : 1),
-            back.localScale.z);
+        fore.anchorMax = new Vector2(
+            direction == ProgressDirection.Horizontal ? value : 1,
+            direction == ProgressDirection.Vertical ? value : 1
+            );
     }
 }

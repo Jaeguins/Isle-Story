@@ -9,6 +9,8 @@ public enum EntityType {
 }
 [Serializable]
 public abstract class Entity : MonoBehaviour {
+    public bool Clickable = true;
+    public bool Targetable = true;
     public Animator animator;
     public bool Working = false;
     public bool Stepable = false;
@@ -83,15 +85,19 @@ public abstract class Entity : MonoBehaviour {
     public virtual void Tick() {
     }
     public void OnMouseEnter() {
+        if (!Targetable) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         HoverIndicator.Select();
     }
     public void OnMouseExit() {
+        if (!Targetable) return;
         HoverIndicator.Deselect();
     }
     public virtual void OnMouseDown() {
-        Selector.SelectedEntity = this;
+        if (!Clickable) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (Targetable)
+            Selector.SelectedEntity = this;
         if (Selector.Instance.ordering) return;
         Debug.Log(ToString() + " selected");
         SelectionIndicator.Select();

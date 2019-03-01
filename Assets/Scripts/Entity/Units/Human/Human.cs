@@ -227,8 +227,23 @@ public class Human : Unit {
         if (nowWork == null && !acting && commandQueue.Count == 0 && RoutineTarget && RoutineTarget != Building) {
             CancelAllAct();
             Debug.LogWarning("<color=#ff0000>act canceled</color> and moved to : " + routineTarget);
-            AddCommand(new MoveCommand(RoutineTarget.EntranceLocation, true, true));
-            AddCommand(new GetInCommand(RoutineTarget));
+            TriGrid inst = TriGrid.Instance;
+            inst.FindPath(Location, routineTarget.EntranceLocation, true, true);
+            if (inst.HasPath) {
+                inst.ClearPath();
+                AddCommand(new MoveCommand(RoutineTarget.EntranceLocation, true, true));
+                AddCommand(new GetInCommand(RoutineTarget));
+            }
+            else {
+                inst.ClearPath();
+                if (RoutineTarget == Work)
+                    AddCommand(new ChangeWorkCommand(null));
+                else if (RoutineTarget == Company)
+                    AddCommand(new ChangeJobCommand(null));
+                else if (RoutineTarget == Home)
+                    AddCommand(new ChangeHomeCommand(null));
+            }
+            
         }
     }
 }

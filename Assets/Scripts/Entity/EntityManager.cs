@@ -12,6 +12,11 @@ public class EntityManager : MonoBehaviour {
     public Dictionary<int, Building> buildings;
     public Dictionary<int, Unit> units;
     public Dictionary<int, Natural> naturals;
+    public void ToggleSummary(bool value) {
+        foreach(KeyValuePair<int,Building> t in buildings) {
+            t.Value.summaryViewer.gameObject.SetActive(value);
+        }
+    }
     public Building GetCamp() {
         return camp;
     }
