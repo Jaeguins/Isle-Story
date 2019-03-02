@@ -16,6 +16,10 @@ public class EntitySummary : MonoBehaviour {
     public Progressbar progressbar;
     public IEnumerator Routine() {
         while (gameObject.activeInHierarchy) {
+            if (Target == null) {
+                yield return new WaitForSeconds(0.33f);
+                continue;
+            }
             PeopleIndicator.text = string.Concat(new object[] { Target.GetSparePeople(), " / ", Target.GetNowPeople(), " / ", Target.GetTotalPeople() });
             bool res = Target.IsProducing();
             ProdSprite.gameObject.SetActive(res);

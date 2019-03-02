@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class WorldSpaceCanvas : MonoBehaviour {
     public CameraManager cameraManager;
     public Canvas canvas;
-
+    public void Start() {
+        cameraManager = CameraManager.Instance;
+    }
     public new bool enabled {
         get {
             return canvas.enabled;

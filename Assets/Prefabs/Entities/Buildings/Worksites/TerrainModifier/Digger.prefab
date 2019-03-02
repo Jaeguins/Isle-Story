@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3af9164a0c6e249869cd2b8c85e9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Clickable: 1
+  Targetable: 1
   animator: {fileID: 7113316333132750974}
   Working: 0
   Stepable: 0
@@ -129,13 +131,15 @@ MonoBehaviour:
   ConstructTime: 5
   Insider: []
   Workers: []
+  summaryViewer: {fileID: 2334012255978083834}
   type: 3
   ConstructionIndicator: {fileID: 3884118596567958019}
   Model: {fileID: 3467625682387552575}
   Capacity: 0
   subType: 2
   productions: []
-  CurrentProd: 0
+  productModels: []
+  currentProd: -1
   workType: -1
 --- !u!1001 &4946091420862353923
 PrefabInstance:
@@ -204,6 +208,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1846920905105501297, guid: c45c71a3cf30dd04a8a341478cead556,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c45c71a3cf30dd04a8a341478cead556, type: 3}
 --- !u!1 &311163683821979935 stripped
@@ -260,3 +269,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4946091420862353923}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2334012255978083834 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7259829222982600697, guid: c45c71a3cf30dd04a8a341478cead556,
+    type: 3}
+  m_PrefabInstance: {fileID: 4946091420862353923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0153257f162a054d90d23d6ba918690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

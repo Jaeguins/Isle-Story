@@ -5154,6 +5154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43fa7ad897b4584e94d53d781cf01f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Clickable: 1
+  Targetable: 1
   animator: {fileID: 5678652962021231774}
   Working: 0
   Stepable: 0
@@ -5175,6 +5177,7 @@ MonoBehaviour:
   ConstructTime: 9999
   Insider: []
   Workers: []
+  summaryViewer: {fileID: 2278428511126589944}
   type: 0
   ConstructionIndicator: {fileID: 766886472946565820}
   Model: {fileID: 2358439288281272336}
@@ -32044,6 +32047,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7615339725499022117, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2197b022722cfd7418c335043a2c6518, type: 3}
 --- !u!1 &4299795078955650333 stripped
@@ -32088,12 +32096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73947794ebefde547b2284bddb860e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2695942078221275118 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3330940178274340539, guid: 2197b022722cfd7418c335043a2c6518,
-    type: 3}
-  m_PrefabInstance: {fileID: 815161947807154517}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1587213626513374951 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2114126779052146610, guid: 2197b022722cfd7418c335043a2c6518,
@@ -32104,5 +32106,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73947794ebefde547b2284bddb860e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2695942078221275118 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3330940178274340539, guid: 2197b022722cfd7418c335043a2c6518,
+    type: 3}
+  m_PrefabInstance: {fileID: 815161947807154517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2278428511126589944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1499298248574406829, guid: 2197b022722cfd7418c335043a2c6518,
+    type: 3}
+  m_PrefabInstance: {fileID: 815161947807154517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0153257f162a054d90d23d6ba918690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

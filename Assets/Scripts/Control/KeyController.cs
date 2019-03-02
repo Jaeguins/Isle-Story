@@ -15,6 +15,6 @@ public class KeyController : MonoBehaviour {
     }
 }
 public class KeyMap {
-    public static KeyCode ShowSummary = KeyCode.Tilde
+    public static KeyCode ShowSummary = KeyCode.Backslash
         ;
 }
