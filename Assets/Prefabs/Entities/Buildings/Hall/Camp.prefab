@@ -5182,6 +5182,7 @@ MonoBehaviour:
   ConstructionIndicator: {fileID: 766886472946565820}
   Model: {fileID: 2358439288281272336}
   Homeless: []
+  capacity: 0
   subType: 0
   ReceiveableMan: {fileID: 0}
 --- !u!1 &862738493616600482
@@ -31992,6 +31993,11 @@ PrefabInstance:
       propertyPath: productions.Array.data[4].max
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1499298248574406829, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 4618809925006699569}
     - target: {fileID: 3330940178274340539, guid: 2197b022722cfd7418c335043a2c6518,
         type: 3}
       propertyPath: m_LocalPosition.x

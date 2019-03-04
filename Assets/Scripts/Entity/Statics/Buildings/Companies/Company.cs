@@ -5,7 +5,7 @@ using System.IO;
 public enum CompType {
     WAREHOUSE, CONSTRUCTOR, FARM, LOGGING, PROCESSOR
 }
-public class Company : Building, Commandable {
+public class Company : Building, Commandable,ISummary {
     public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
@@ -54,5 +54,33 @@ public class Company : Building, Commandable {
 
     public Unit GetCommandReceiver() {
         return ReceiveableMan;
+    }
+
+    public Sprite GetProductSprite() {
+        throw new System.NotImplementedException();
+    }
+
+    public int GetTotalPeople() {
+        return Capacity;
+    }
+
+    public int GetNowPeople() {
+        return Officers.Count;
+    }
+
+    public int GetSparePeople() {
+        int ret = Officers.Count;
+        foreach(Human t in Officers) {
+            if (t.Work) ret--;
+        }
+        return ret;
+    }
+
+    public float GetProdPercentage() {
+        return 1f - NowConstructTime/ConstructTime;
+    }
+
+    public bool IsProducing() {
+        return false;
     }
 }

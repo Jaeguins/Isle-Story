@@ -11,7 +11,7 @@ public enum BuildingType {
 public enum SizeType {
     SINGLE, HEX
 }
-public class Building : Statics,ISummary {
+public class Building : Statics{
     public EntitySummary summaryViewer;
     public override void Awake() {
         base.Awake();
@@ -91,29 +91,5 @@ public class Building : Statics,ISummary {
             ConstructionIndicator.SetActive(false);
             Model.SetActive(true);
         }
-    }
-
-    public Sprite GetProductSprite() {
-        throw new System.NotImplementedException();
-    }
-
-    public int GetTotalPeople() {
-        throw new System.NotImplementedException();
-    }
-
-    public int GetNowPeople() {
-        throw new System.NotImplementedException();
-    }
-
-    public int GetSparePeople() {
-        throw new System.NotImplementedException();
-    }
-
-    public float GetProdPercentage() {
-        throw new System.NotImplementedException();
-    }
-
-    public bool IsProducing() {
-        throw new System.NotImplementedException();
     }
 }

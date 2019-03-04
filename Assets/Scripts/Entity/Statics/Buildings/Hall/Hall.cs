@@ -6,8 +6,9 @@ using System.IO;
 public enum HallType {
     BASE
 }
-public class Hall : Building, Buildable {
+public class Hall : Building, Buildable, ISummary{
     public List<Unit> Homeless;
+    public int capacity=5;
     public HallType subType;
 
     public override void Save(BinaryWriter writer) {
@@ -76,5 +77,29 @@ public class Hall : Building, Buildable {
             k = k.GetNeighbor(tDir);
             tDir = tDir.Next();
         }
+    }
+
+    public Sprite GetProductSprite() {
+        throw new System.NotImplementedException();
+    }
+
+    public int GetTotalPeople() {
+        return capacity;
+    }
+
+    public int GetNowPeople() {
+        return Homeless.Count;
+    }
+
+    public int GetSparePeople() {
+        return -1;
+    }
+
+    public float GetProdPercentage() {
+        return 1f - NowConstructTime / ConstructTime;
+    }
+
+    public bool IsProducing() {
+        return false;
     }
 }

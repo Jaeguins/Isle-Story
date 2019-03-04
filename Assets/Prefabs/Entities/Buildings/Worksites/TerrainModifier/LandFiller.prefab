@@ -153,6 +153,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LandFiller
       objectReference: {fileID: 0}
+    - target: {fileID: 1499298248574406829, guid: 2197b022722cfd7418c335043a2c6518,
+        type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 8889198663963256191}
     - target: {fileID: 140893996535373769, guid: 2197b022722cfd7418c335043a2c6518,
         type: 3}
       propertyPath: m_LocalPosition.z

@@ -6,13 +6,12 @@ using System.IO;
 public enum WorkType {
     FARMLAND, FELLINGLAND, TERRAINMODDER,MINE
 }
-public class Worksite : Building, ProductionSelectable {
-    public int Capacity;
+public class Worksite : Building, ProductionSelectable,ISummary {
     public WorkType subType;
+    public int Capacity;
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);
-        writer.Write(Capacity);
         writer.Write(CurrentProd);
     }
     public new static Worksite Load(BinaryReader reader) {
@@ -25,7 +24,6 @@ public class Worksite : Building, ProductionSelectable {
                 break;
         }
         ret.subType = subType;
-        ret.Capacity = capacity;
         ret.CurrentProd=currentProd;
         return ret;
     }
@@ -64,5 +62,29 @@ public class Worksite : Building, ProductionSelectable {
 
     public int GetCurrent() {
         return CurrentProd;
+    }
+
+    public Sprite GetProductSprite() {
+        return CurrentProd==-1?null:ResourceManager.Instance.itemResources[(int)(productions[CurrentProd].type)].sprite;
+    }
+
+    public int GetTotalPeople() {
+        return Capacity;
+    }
+
+    public int GetNowPeople() {
+        return Workers.Count;
+    }
+
+    public int GetSparePeople() {
+        return -1;
+    }
+
+    public float GetProdPercentage() {
+        return 1f-NowConstructTime / ConstructTime;
+    }
+
+    public bool IsProducing() {
+        return Working;
     }
 }

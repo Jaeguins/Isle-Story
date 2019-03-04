@@ -5,6 +5,7 @@ public class Tent : Inn {
     public override void Start() {
         base.Start();
         camAnchorOffset = Vector3.zero;
+        Capacity = 4;
     }
     public override void Save(BinaryWriter writer) {
         base.Save(writer);

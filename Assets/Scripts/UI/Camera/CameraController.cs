@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour {
     public float stickMinZoom, stickMaxZoom;
     public float swivelMinZoom, swivelMaxZoom;
     public float moveSpeedMinZoom, moveSpeedMaxZoom;
-
+    public float rotationY;
     public float zoom = 1f;
     public float rotationAngle;
     public Camera CameraView;
@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour {
         Quaternion pastQuat = transform.localRotation;
         for(float i = 0; i <= 10; i++) {
             transform.localRotation = Quaternion.Lerp(pastQuat, newQuat, i / 10);
+            rotationY = transform.localRotation.eulerAngles.y;
             yield return new WaitForEndOfFrame();
         }
         

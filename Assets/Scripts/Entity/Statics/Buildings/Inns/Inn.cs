@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum InnType {
     TENT
 }
-public class Inn : Building, Commandable {
+public class Inn : Building, Commandable,ISummary {
     public List<Unit> Livers;
     public InnType subType;
     public int Capacity;
@@ -39,7 +39,6 @@ public class Inn : Building, Commandable {
 
     public new static Inn Load(BinaryReader reader) {
         InnType subType = (InnType)reader.ReadInt32();
-        int capacity = reader.ReadInt32();
         Inn ret = null;
         switch (subType) {
             case InnType.TENT:
@@ -47,7 +46,6 @@ public class Inn : Building, Commandable {
                 break;
         }
         ret.subType = subType;
-        ret.Capacity = capacity;
         return ret;
     }
 
@@ -92,5 +90,33 @@ public class Inn : Building, Commandable {
 
     public Unit GetCommandReceiver() {
         return CommandReceiver;
+    }
+
+    public Sprite GetProductSprite() {
+        return null;
+    }
+
+    public int GetTotalPeople() {
+        return Capacity;
+    }
+
+    public int GetNowPeople() {
+        return Livers.Count;
+    }
+
+    public int GetSparePeople() {
+        int ret = Livers.Count;
+        foreach (Human t in Livers) {
+            if (t.Company || t.Work) ret--;
+        }
+        return ret;
+    }
+
+    public float GetProdPercentage() {
+        return UnderConstruct ? 1f - NowConstructTime / ConstructTime : BirthStatus;
+    }
+
+    public bool IsProducing() {
+        return Working;
     }
 }

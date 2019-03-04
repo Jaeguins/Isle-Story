@@ -11,8 +11,8 @@ public class Progressbar : MonoBehaviour {
             return value;
         }
         set {
-            RefreshUI();
             this.value = value;
+            RefreshUI();
         }
     }
     [Range(0, 1)]

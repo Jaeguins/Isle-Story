@@ -154,7 +154,8 @@ public class TriMapEditor : MonoBehaviour {
             ret.EntranceDirection = dir;
             ret.personList = personList;
             entities.AddBuilding(ret);
-            Debug.Log("camp built");
+            island.ShowSummary = island.ShowSummary;
+            Debug.Log(ret+" built");
             return ret;
         }
         else {

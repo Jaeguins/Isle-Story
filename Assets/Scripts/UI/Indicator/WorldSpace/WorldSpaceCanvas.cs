@@ -21,7 +21,7 @@ public class WorldSpaceCanvas : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (active) {
-            transform.rotation = cameraManager.GetNowActive().transform.rotation;
+            transform.rotation = Quaternion.Euler(45f, cameraManager.GetNowActive().rotationY, 0f);
         }
     }
     

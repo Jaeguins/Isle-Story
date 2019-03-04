@@ -17,5 +17,9 @@ public class Farmland : Worksite{
         Location.TerrainTypeIndex = 1;
 
     }
+    public new void Start() {
+        base.Start();
+        Capacity = 4;
+    }
 }
 

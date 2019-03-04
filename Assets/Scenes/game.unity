@@ -4994,6 +4994,7 @@ MonoBehaviour:
   swivelMaxZoom: 45
   moveSpeedMinZoom: 400
   moveSpeedMaxZoom: 100
+  rotationY: 0
   zoom: 0
   rotationAngle: 0
   CameraView: {fileID: 1970053651}
@@ -5832,6 +5833,7 @@ MonoBehaviour:
   swivelMaxZoom: 0
   moveSpeedMinZoom: 0
   moveSpeedMaxZoom: 0
+  rotationY: 0
   zoom: 1
   rotationAngle: 0
   CameraView: {fileID: 1875623979}

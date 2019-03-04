@@ -153,6 +153,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Digger
       objectReference: {fileID: 0}
+    - target: {fileID: 7259829222982600697, guid: c45c71a3cf30dd04a8a341478cead556,
+        type: 3}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 6749868886606274385}
     - target: {fileID: 6789013261134731759, guid: c45c71a3cf30dd04a8a341478cead556,
         type: 3}
       propertyPath: m_LocalPosition.x
