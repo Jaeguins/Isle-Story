@@ -11,9 +11,31 @@ public class Selector : MonoBehaviour {
     public TriGrid grid;
     public static Entity SelectedEntity;
     public Entity Prefab;
+    public Entity DragStart {
+        get {
+            return dragStart;
+        }
+        set {
+            dragStart = value;
+            dragging = true;
+        }
+    }
+    public Entity DragEnd {
+        get {
+            return dragEnd;
+        }
+        set {
+            dragEnd = value;
+            dragging = false;
+            if (dragStart != dragEnd) ProcessDrag();
+        }
+    }
+    public Entity dragStart, dragEnd;
+    public SpriteRenderer DragArrow;
     TerrainViewer terrainSelectionViewer;
     public TriCell nowCell;
     public bool ordering = false;
+    public bool dragging = false;
     public TriDirection dir = TriDirection.VERT;
     TriCell tCell;
     Unit subject;
@@ -29,6 +51,9 @@ public class Selector : MonoBehaviour {
         ordering = true;
         terrainSelectionViewer.enabled = true;
         Prefab = subject?prefab:TriIsland.GetBuildingPrefabs((int)BuildingType.HALL,0,0);
+    }
+    public void ProcessDrag() {
+
     }
     public void SendCommand() {
         if (subject)
@@ -65,6 +90,11 @@ public class Selector : MonoBehaviour {
             }
             if (subject && Input.GetKeyDown(KeyCode.Escape)) {
                 CancelCommand();
+            }
+            if (Input.GetMouseButton(0)&&dragging) {
+                DragArrow.transform.rotation = Quaternion.FromToRotation(dragStart.transform.position, dragEnd.transform.position);
+                DragArrow.transform.localPosition = (dragStart.transform.position + dragEnd.transform.position) / 2;
+                DragArrow.size = new Vector2(DragArrow.size.x, Vector2.Distance(dragStart.transform.position, dragEnd.transform.position));
             }
             if (Input.GetMouseButtonDown(0)) {
                 switch (command.type) {

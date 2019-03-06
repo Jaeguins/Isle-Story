@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour {
     public Animator animator;
     public bool Working = false;
     public bool Stepable = false;
+    public bool Dragable = false;
     public SelectionIndicator SelectionIndicator;
     public SelectionIndicator HoverIndicator;
     public ResourceController resourceController;
@@ -98,11 +99,20 @@ public abstract class Entity : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (Targetable)
             Selector.SelectedEntity = this;
+        if (Dragable)
+            Selector.Instance.DragStart = this;
         if (Selector.Instance.ordering) return;
         Debug.Log(ToString() + " selected");
         SelectionIndicator.Select();
         EntityView.Instance.Clear();
         EntityView.Instance.Bind(this);
+        Debug.Log("mouse down " + this);
+    }
+    public virtual void OnMouseUp() {
+        if (Dragable) {
+            Selector.Instance.DragEnd = this;
+            Debug.Log("mouse up " + this);
+        }
     }
     public virtual List<BuildState> GetBuildStatus(TriCoordinates coord, TriDirection dir) {
         List<BuildState> ret = new List<BuildState>();

@@ -5159,6 +5159,7 @@ MonoBehaviour:
   animator: {fileID: 5678652962021231774}
   Working: 0
   Stepable: 0
+  Dragable: 1
   SelectionIndicator: {fileID: 1587213626513374951}
   HoverIndicator: {fileID: 7177841425872680800}
   resourceController: {fileID: 634219776013144831}

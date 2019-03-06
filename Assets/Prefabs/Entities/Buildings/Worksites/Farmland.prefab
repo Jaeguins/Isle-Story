@@ -17,6 +17,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   Working: 0
   Stepable: 0
+  Dragable: 1
   SelectionIndicator: {fileID: 8925809787783163273}
   HoverIndicator: {fileID: 1028195566154245134}
   resourceController: {fileID: 7283729427961381265}
@@ -39,8 +40,8 @@ MonoBehaviour:
   type: 3
   ConstructionIndicator: {fileID: 7477544330970649967}
   Model: {fileID: 7787564862195060159}
-  Capacity: 0
   subType: 0
+  Capacity: 0
   productions:
   - type: 0
     prod: 10
