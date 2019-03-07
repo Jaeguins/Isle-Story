@@ -29,14 +29,12 @@ public class Hall : Building, Buildable, ISummary{
     }
     public override void Tick() {
         base.Tick();
-        ReceiveableMan = null;
         if (Clock.IsDay())
             foreach (Human t in Homeless) {
                 if (Insider.Contains(t) && !t.acting)
                     ReceiveableMan = t;
             }
     }
-    public Human ReceiveableMan;
     public bool HasCommandReceiver() {
         return ReceiveableMan;
     }

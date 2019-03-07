@@ -18,6 +18,7 @@ public class Building : Statics{
         EntityType = EntityType.Building;
         NowConstructTime = ConstructTime;
     }
+    public Human ReceiveableMan;
     public BuildingType type;
     public EntityList<Unit> personList;
 
@@ -83,8 +84,13 @@ public class Building : Statics{
     public void BindWorkers() {
         personList.Bind(this, Insider);
     }
-    
-
+    public override void Tick() {
+        base.Tick();
+        ReceiveableMan = null;
+    }
+    public void OnMouseUp() {
+        if (Dragable) Selector.Instance.FinishDrag();
+    }
     public override void CheckConstruction() {
         base.CheckConstruction();
         if (NowConstructTime < 0) {

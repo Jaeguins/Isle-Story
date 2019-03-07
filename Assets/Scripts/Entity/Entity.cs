@@ -89,6 +89,11 @@ public abstract class Entity : MonoBehaviour {
         if (!Targetable) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         HoverIndicator.Select();
+        if(Dragable)
+        Selector.Instance.DragEnd = this;
+    }
+    public void OnMouseDrag() {
+        Selector.Instance.ShowDrag();
     }
     public void OnMouseExit() {
         if (!Targetable) return;
@@ -107,12 +112,6 @@ public abstract class Entity : MonoBehaviour {
         EntityView.Instance.Clear();
         EntityView.Instance.Bind(this);
         Debug.Log("mouse down " + this);
-    }
-    public virtual void OnMouseUp() {
-        if (Dragable) {
-            Selector.Instance.DragEnd = this;
-            Debug.Log("mouse up " + this);
-        }
     }
     public virtual List<BuildState> GetBuildStatus(TriCoordinates coord, TriDirection dir) {
         List<BuildState> ret = new List<BuildState>();

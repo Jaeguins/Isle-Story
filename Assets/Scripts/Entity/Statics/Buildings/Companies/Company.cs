@@ -9,7 +9,6 @@ public class Company : Building, Commandable,ISummary {
     public List<Unit> Officers;
     public CompType subType;
     public int Capacity;
-    public Human ReceiveableMan;
     public override void Save(BinaryWriter writer) {
         base.Save(writer);
         writer.Write((int)subType);

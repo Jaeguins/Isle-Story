@@ -11,6 +11,7 @@ public class Selector : MonoBehaviour {
     public TriGrid grid;
     public static Entity SelectedEntity;
     public Entity Prefab;
+
     public Entity DragStart {
         get {
             return dragStart;
@@ -45,12 +46,12 @@ public class Selector : MonoBehaviour {
         command = c;
         ordering = true;
     }
-    public void RequestLocation(Unit subject, Command c,Entity prefab=null) {
+    public void RequestLocation(Unit subject, Command c, Entity prefab = null) {
         this.subject = subject;
         command = c;
         ordering = true;
         terrainSelectionViewer.enabled = true;
-        Prefab = subject?prefab:TriIsland.GetBuildingPrefabs((int)BuildingType.HALL,0,0);
+        Prefab = subject ? prefab : TriIsland.GetBuildingPrefabs((int)BuildingType.HALL, 0, 0);
     }
     public void ProcessDrag() {
 
@@ -90,11 +91,6 @@ public class Selector : MonoBehaviour {
             }
             if (subject && Input.GetKeyDown(KeyCode.Escape)) {
                 CancelCommand();
-            }
-            if (Input.GetMouseButton(0)&&dragging) {
-                DragArrow.transform.rotation = Quaternion.FromToRotation(dragStart.transform.position, dragEnd.transform.position);
-                DragArrow.transform.localPosition = (dragStart.transform.position + dragEnd.transform.position) / 2;
-                DragArrow.size = new Vector2(DragArrow.size.x, Vector2.Distance(dragStart.transform.position, dragEnd.transform.position));
             }
             if (Input.GetMouseButtonDown(0)) {
                 switch (command.type) {
@@ -142,6 +138,46 @@ public class Selector : MonoBehaviour {
 
                 }
 
+            }
+        }
+    }
+    public void ShowDrag() {
+        DragArrow.gameObject.SetActive(true);
+        tCell = GetRay();
+        if (tCell == null) return;
+        transform.localRotation = Quaternion.LookRotation(tCell.Position - dragStart.Location.Position);
+        Vector3 pos = ((dragStart.transform.position + tCell.Position) / 2);
+        pos.y = 20f;
+        transform.position = pos;
+        DragArrow.size = new Vector2(DragArrow.size.x, Vector3.Magnitude(dragStart.Location.Position - tCell.Position));
+    }
+
+    public void FinishDrag() {
+        DragArrow.gameObject.SetActive(false);
+        if (tCell==null||tCell.Statics==null) return;
+        Statics t = tCell.Statics;
+        if (t is Worksite) {
+            if (dragStart is Company) {
+                (dragStart as Company).ReceiveableMan.AddCommand(new ChangeWorkCommand(t as Worksite));
+            }
+            else if (dragStart is Inn) {
+                (dragStart as Inn).ReceiveableMan.AddCommand(new ChangeWorkCommand(t as Worksite));
+            }
+            else if (dragStart is Hall) {
+                (dragStart as Hall).ReceiveableMan.AddCommand(new ChangeWorkCommand(t as Worksite));
+            }
+        }
+        else if (t is Company) {
+            if (dragStart is Hall) {
+                (dragStart as Hall).ReceiveableMan.AddCommand(new ChangeJobCommand(t as Company));
+            }
+            else if (dragStart is Inn) {
+                (dragStart as Inn).ReceiveableMan.AddCommand(new ChangeJobCommand(t as Company));
+            }
+        }
+        else if (t is Inn) {
+            if (dragStart is Hall) {
+                (dragStart as Hall).ReceiveableMan.AddCommand(new ChangeHomeCommand(t as Inn));
             }
         }
     }

@@ -10,7 +10,6 @@ public class Inn : Building, Commandable,ISummary {
     public List<Unit> Livers;
     public InnType subType;
     public int Capacity;
-    public Unit CommandReceiver;
     public float BirthSpeed = 1f;
     public float BirthStatus = 0f;
     public float BirthCap = 100f;
@@ -55,11 +54,11 @@ public class Inn : Building, Commandable,ISummary {
 
     public override void Tick() {
         base.Tick();
-        CommandReceiver = null;
+        ReceiveableMan= null;
         if (Clock.IsDay()) {
             foreach (Human t in Livers) {
                 if (Insider.Contains(t) && !t.acting) {
-                    CommandReceiver = t;
+                    ReceiveableMan = t;
                 }
             }
             if (Working && !UnderConstruct && !UnderDeconstruct) {
@@ -85,11 +84,11 @@ public class Inn : Building, Commandable,ISummary {
         return (Livers.Count < Capacity && HasCommandReceiver() && Workers.Count == 0);
     }
     public bool HasCommandReceiver() {
-        return CommandReceiver;
+        return ReceiveableMan;
     }
 
     public Unit GetCommandReceiver() {
-        return CommandReceiver;
+        return ReceiveableMan;
     }
 
     public Sprite GetProductSprite() {
