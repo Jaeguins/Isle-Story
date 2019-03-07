@@ -46,6 +46,9 @@
 
 * [25th](https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190225)
 
+### 2019 March
+
+* [07th] (https://github.com/Jaeguins/Isle-Story/blob/master/Diary/Diary.md#20190307)
 ***
 ## 2018/11/20
 Project started.
@@ -330,7 +333,7 @@ And this is what actual 'loading' doing :
 
 A month passed since last comment.
 
-I keep working on this, but I felt it bothering me too much.
+I keep working on this, but I feel it bothering me too much.
 
 I'm worried that my diary becomes too less.
 
@@ -339,3 +342,18 @@ What I did is:
 - added model from assets.
 - added land modifier.
 - minor object optimization.
+
+***
+## 2019/03/07
+
+New semester!
+
+I'm not thinking about entire balance yet, but modulizing them for being easy to rebalance.
+
+And I'm considering about not be able to select individual people.
+
+Instead of it, I make buildings can order people by dragging it to target.
+
+![command sending](https://lh3.googleusercontent.com/ci9_PnamBW583GlZUX_WQZnc_QrTiCTdQWDHCEYNgxukb7RrJpspK-fClyddjE_fPC5w6FKr0ZcfnvoKJ6ZnjsJQ71byjVVZ8XjFi-1ZhIyTUusyg9CbikHuaeGGORswTEIDnmTWFUYpQ0iydaz8IVwcd1lG1W6YshwtvTyU2CzOU8fUUCzUM2_57g3Ml1cjXhLxOn7Cmwl5MhKyg0KkscUCQtEMTSnRwb71V7CfgyndGewjKpDzg8bGwbkcK6K3TYTd-rIyWfkk28N2I2GrBD1_TgYSksVW7Vi8ZooXYK5VQ2FgTslnTqdxd4kD4w4zT6q2ZM709qNt4TL-uysnYpYnEcFug8fIcfRzINQrbJa0P2_IyV2RBonc-EtzE1FwccXig7zaz-MCwKG8jU_RqDrERxyOrjQH7E_KY3LyoeTmPHPGJBtdf36Eiv4M4IR1_ADS9Epc1mT0kga1P84TXnzOra8RmWEctkEkpaSEsogw-PZmkAk9-Lpz8WlIDQsvc9lmcY4RVREfeNaxpODOakSlLsttrb0DrDJK1dktveYMZ8FhxlhMFIILGNgB97uETQOyhJHhf3hbdu44_TYyeKpQXixU2oosWuXAnFwmdOs_KIZX8V11awT1quB_Z8DcjvcMnfqKa2G47vw17zohnPLqtrj6EBQKdaFe3fPusiOFJAIP6-RIwZqJbEZdXQnrJ0M-AEqEWq7GhGdm3KQPH4W-=w925-h539-no)
+
+Like this arrow.
