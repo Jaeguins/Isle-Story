@@ -36,3 +36,4 @@
  - [ ] Upgrades (per building)
  - [ ] Researches (static)
  
+## This Project is semi-permanently stopped.
